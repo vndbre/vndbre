@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const App = () => {
-  return (
-    <div>
-      App
-    </div>
-  );
-}
-
-export default App;
+/**
+ * TODO: add comments.
+ */
+export const App: FC = () => (
+  <div>
+    App
+  </div>
+);
