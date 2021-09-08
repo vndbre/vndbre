@@ -1,6 +1,7 @@
 import React from 'react';
 import { PartialRouteObject } from 'react-router';
 import { Navigate } from 'react-router-dom';
+import { novelRoutes } from '../features/Novel/routes';
 import { testRoutes } from '../features/Test/routes';
 
 /**
@@ -9,8 +10,9 @@ import { testRoutes } from '../features/Test/routes';
  */
 export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
   ...testRoutes(isUserLoggedIn),
+  ...novelRoutes(isUserLoggedIn),
   {
     path: '*',
-    element: <Navigate to="/test" />,
+    element: <Navigate to="/vn" />,
   },
 ];
