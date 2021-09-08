@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './NovelTabs.module.css';
 
 const tabNames = [
+  'Overview',
   'Releases',
   'Characters',
   'Relations',
@@ -32,12 +33,13 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
   const getNavLinkClassName = (isActive: boolean): string =>
     (isActive ? `${styles.item} ${styles.active}` : styles.item);
 
-  const subroutes = tabNames.map(tabName => (
+  const tabs = tabNames.map(tabName => (
     <li>
       <NavLink
-        to={`/vn/${id}/${tabName.toLowerCase()}`}
+        to={`/vn/${id}/${tabName === 'Overview' ? '' : tabName.toLowerCase()}`}
         title={tabName}
         className={({ isActive }) => getNavLinkClassName(isActive)}
+        end={tabName === 'Overview'}
       >
         {tabName}
       </NavLink>
@@ -47,17 +49,7 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
   return (
     <nav>
       <ul className={styles.list}>
-        <li>
-          <NavLink
-            to={`/vn/${id}`}
-            title="Overview"
-            className={({ isActive }) => getNavLinkClassName(isActive)}
-            end
-          >
-            Overview
-          </NavLink>
-        </li>
-        {subroutes}
+        {tabs}
       </ul>
     </nav>
   );
