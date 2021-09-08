@@ -1,13 +1,40 @@
 .list {
   display: flex;
   flex-direction: row;
+  justify-content: center;
   list-style: none;
+  border-bottom: 1px solid var(--chakra-colors-gray-300);
+}
+
+.list li {
+  display: flex;
 }
 
 .list li:not(:last-child) {
   margin-right: 24px;
 }
 
+.item {
+  position: relative;
+  top: 1px;
+  padding: 4px 8px;
+  border-bottom: 2px solid transparent;
+  font-size: var(--chakra-fontSizes-md);
+}
+
+/* Fixes layout shift when changing the font weight of the element */
+.item::after {
+  display: block;
+  content: attr(title);
+  font-weight: var(--chakra-fontWeights-semibold);
+  height: 0px;
+  color: transparent;
+  overflow: hidden;
+  visibility: hidden;
+}
+
 .active {
-  border-bottom: 1px solid olive;
+  border-bottom: 2px solid var(--chakra-colors-orange-400);
+  font-weight: var(--chakra-fontWeights-semibold);
+  transition: border linear 0.3s;
 }

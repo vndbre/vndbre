@@ -36,6 +36,7 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
     <li>
       <NavLink
         to={`/vn/${id}/${tabName.toLowerCase()}`}
+        title={tabName}
         className={({ isActive }) => getNavLinkClassName(isActive)}
       >
         {tabName}
@@ -49,6 +50,7 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
         <li>
           <NavLink
             to={`/vn/${id}`}
+            title="Overview"
             className={({ isActive }) => getNavLinkClassName(isActive)}
             end
           >
