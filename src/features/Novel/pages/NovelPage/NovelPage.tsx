@@ -10,7 +10,7 @@ export const NovelPage: FC = () => {
 
   return (
     <div>
-      Novel page
+      <h1>Novel page</h1>
       <NovelTabs id={id} />
       <Outlet />
     </div>
