@@ -8,7 +8,7 @@ import { VisualNovelDto } from '../dtos/ visualNovelDto';
  * @param dto Array of arrays.
  * @returns Array of tags objects.
  */
-const tagsFromDto = (dto: number[][]): VisualNovelTag[] => dto.map(tag => ({
+const tagsFromArray = (dto: number[][]): VisualNovelTag[] => dto.map(tag => ({
   id: tag[0],
   score: tag[1],
   spoilerLevel: tag[2],
@@ -19,7 +19,7 @@ const tagsFromDto = (dto: number[][]): VisualNovelTag[] => dto.map(tag => ({
  * @param data Visual novel tag objects.
  * @returns Array of arrays with data info.
  */
-const tagsToDto = (data: VisualNovelTag[]): number[][] => data.map(tag => [tag.id, tag.score, tag.spoilerLevel]);
+const tagsToArray = (data: VisualNovelTag[]): number[][] => data.map(tag => [tag.id, tag.score, tag.spoilerLevel]);
 
 /**
  * Maps dto to visual novel model.
@@ -42,7 +42,7 @@ export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
   imageFlagging: dto.image_flagging ? imageFlaggingFromDto(dto.image_flagging) : null,
   anime: dto.anime.map(animeDto => relatedAnimeFromDto(animeDto)),
   relations: dto.relations,
-  tags: tagsFromDto(dto.tags),
+  tags: tagsFromArray(dto.tags),
   popularity: dto.popularity,
   rating: dto.rating,
   screens: dto.screens,
@@ -73,7 +73,7 @@ export const visualNovelToDto = (data: VisualNovel): VisualNovelDto => ({
   image_nsfw: data.imageNsfw,
   anime: data.anime.map(anime => relatedAnimeToDto(anime)),
   relations: data.relations,
-  tags: tagsToDto(data.tags),
+  tags: tagsToArray(data.tags),
   popularity: data.popularity,
   rating: data.rating,
   screens: data.screens,
