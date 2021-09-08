@@ -196,7 +196,15 @@ export interface VisualNovelDto {
    * Image flagging summary of the main VN image.
    */
   image_flagging: ImageFlaggingDto | null;
+
+  /**
+   * Anime related to the VN.
+   */
   anime: RelatedAnimeDto[];
+
+  /**
+   * Related visual novels to the VN.
+   */
   relations: RelatedVisualNovel[]
 
   /**
