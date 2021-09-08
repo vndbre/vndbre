@@ -1,37 +1,38 @@
 import { ImageFlaggingDto } from './imageFlaggingDto';
-import { VisualNovelLinks } from "../../utils/types/visualNovelLinks";
+import { VisualNovelLinks } from '../../utils/types/visualNovelLinks';
 
 /**
  * Represents anime related to the VN.
  */
 export interface RelatedAnimeDto {
+
   /**
-   * AniDB ID
+   * AniDB ID.
    */
   id: number;
 
   /**
-   * AnimeNewsNetwork ID
+   * AnimeNewsNetwork ID.
    */
   ann_id: number | null;
 
   /**
-   * AnimeNfo ID
+   * AnimeNfo ID.
    */
   nfo_id: string | null;
 
   /**
-   * Title in romaji
+   * Title in romaji.
    */
   title_romaji: string | null;
 
   /**
-   * Title in kanji
+   * Title in kanji.
    */
   title_kanji: string | null;
 
   /**
-   * Year in which the anime was aired
+   * Year in which the anime was aired.
    */
   year: number | null;
 
@@ -41,21 +42,21 @@ export interface RelatedAnimeDto {
   type: string | null;
 }
 
-
 /**
  * Represents visual novel screenshot.
  */
 export interface VisualNovelScreenshot {
+
   /**
    * URL of the full-size screenshot.
    */
   image: string;
 
   /**
-   * Release ID
+   * Release ID.
    */
   rid: number;
-  
+
   /**
    * NSFW flag.
    */
@@ -81,6 +82,7 @@ export interface VisualNovelScreenshot {
  * Represents visual novel staff.
  */
 export interface VisualNovelStaff {
+
   /**
    * Staff id.
    */
@@ -90,7 +92,7 @@ export interface VisualNovelStaff {
    * Alias id.
    */
   aid: number;
-  
+
   /**
    * Staff member name.
    */
@@ -116,10 +118,30 @@ export interface VisualNovelStaff {
  * Represents related visual novel.
  */
 export interface RelatedVisualNovel {
+
+  /**
+   * VN id.
+   */
   id: number;
+
+  /**
+   * Relation to the VN.
+   */
   relation: string;
+
+  /**
+   * VN title (romaji).
+   */
   title: string;
+
+  /**
+   * Original/official title.
+   */
   original: string | null;
+
+  /**
+   * Shows if a novel is original.
+   */
   official: boolean;
 }
 
@@ -127,6 +149,7 @@ export interface RelatedVisualNovel {
  * Represents visual novel dto.
  */
 export interface VisualNovelDto {
+
   /**
    * Visual novel ID.
    */
@@ -135,7 +158,7 @@ export interface VisualNovelDto {
   /**
    * Main title.
    */
-  title: string
+  title: string;
 
   /**
    * Original/official title.
@@ -143,7 +166,7 @@ export interface VisualNovelDto {
   original: string | null;
 
   /**
-   * Date of the first release
+   * Date of the first release.
    */
   released: string | null;
 
@@ -153,7 +176,7 @@ export interface VisualNovelDto {
   languages: string[];
 
   /**
-   * 	Original language of the VN. Always contains a single language.
+   * Original language of the VN. Always contains a single language.
    */
   orig_lang: string[];
 
@@ -205,16 +228,18 @@ export interface VisualNovelDto {
   /**
    * Related visual novels to the VN.
    */
-  relations: RelatedVisualNovel[]
+  relations: RelatedVisualNovel[];
 
   /**
    * (Possibly empty) list of tags linked to this VN. Each tag is represented as an array with three elements:
    * tag id (integer),
    * score (number between 0 and 3),
    * spoiler level (integer, 0=none, 1=minor, 2=major).
-   * Only tags with a positive score are included. Note that this list may be relatively large - more than 50 tags for a VN is quite possible.
-   * General information for each tag is available in the tags dump. 
-   * Keep in mind that it is possible that a tag has only recently been added and is not available in the dump yet, though this doesn't happen often.
+   * Only tags with a positive score are included.
+   * Note that this list may be relatively large - more than 50 tags for a VN is quite possible.
+   * General information for each tag is available in the tags dump.
+   * Keep in mind that it is possible that a tag has only recently been added and is not available in the dump yet,
+   * though this doesn't happen often.
    */
   tags: number[][];
 
@@ -222,7 +247,7 @@ export interface VisualNovelDto {
    * Between 0 (unpopular) and 100 (most popular).
    */
   popularity: number;
-  
+
   /**
    * Bayesian rating, between 1 and 10.
    */
@@ -241,6 +266,5 @@ export interface VisualNovelDto {
   /**
    * Staff related to the VN.
    */
-  staff: VisualNovelStaff[]
+  staff: VisualNovelStaff[];
 }
-

@@ -2,7 +2,8 @@
  * Represents image flagging summary.
  */
 export interface ImageFlaggingDto {
-  /** 
+
+  /**
    * Number of flagging votes.
    */
   votecount: number;
