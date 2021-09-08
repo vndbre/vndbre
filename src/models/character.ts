@@ -1,0 +1,160 @@
+import { CharacterInstance, CharacterVoiced } from '../api/dtos/characterDto';
+import { ImageFlagging } from './imageFlagging';
+
+/**
+ * Represents character trait.
+ */
+export interface CharacterTrait {
+
+  /**
+   * Trait id.
+   */
+  id: number;
+
+  /**
+   * Between 0-2.
+   */
+  spoilerLevel: number;
+}
+
+/**
+ * Represents Novel linked to the character.
+ */
+export interface CharacterNovel {
+
+  /**
+   * VN id.
+   */
+  vid: number;
+
+  /**
+   * Release id.
+   */
+  rid: number;
+
+  /**
+   * Spoiler level (0-2).
+   */
+  spoilerLevel: number;
+
+  /**
+   * Role.
+   */
+  role: string;
+}
+
+/**
+ * Represents character dto.
+ */
+export interface Character {
+
+  /**
+   * Character id.
+   */
+  id: number;
+
+  /**
+   * Character name (romaji).
+   */
+  name: string;
+
+  /**
+   * Original (kana/kanji) name.
+   */
+  original: string | null;
+
+  /**
+   * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
+   */
+  gender: string | null;
+
+  /**
+   * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.
+   */
+  spoilGender: string | null;
+
+  /**
+   * Blood type, "a", "b", "ab" or "o".
+   */
+  bloodType: string | null;
+
+  /**
+   * Birthday in format dd-mm.
+   */
+  birthday: string;
+
+  /**
+   * Alternative names, separated with a newline.
+   */
+  aliases: string | null;
+
+  /**
+   * Description/notes.
+   */
+  description: string | null;
+
+  /**
+   * Age in years.
+   */
+  age: number | null;
+
+  /**
+   * Image url.
+   */
+  image: string;
+
+  /**
+   * Image flagging summary.
+   */
+  imageFlagging: ImageFlagging | null;
+
+  /**
+   * Bust in cm.
+   */
+  bust: number | null;
+
+  /**
+   * Waist in cm.
+   */
+  waist: number | null;
+
+  /**
+   * Hip in cm.
+   */
+  hip: number | null;
+
+  /**
+   * Height in cm.
+   */
+  height: number | null;
+
+  /**
+   * Weight in kg.
+   */
+  weight: number | null;
+
+  /**
+   * Cup size.
+   */
+  cupSize: string | null;
+
+  /**
+   * Traits linked to this character.
+   */
+  traits: CharacterTrait[];
+
+  /**
+   * VNs linked to this character.
+   */
+  visualNovels: CharacterNovel[];
+
+  /**
+   * Voice actresses that voiced this character, per VN.
+   */
+  voiced: CharacterVoiced[];
+
+  /**
+   * Instances of this character.
+   */
+  instances: CharacterInstance[];
+}
