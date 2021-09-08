@@ -12,7 +12,7 @@ export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
   ...testRoutes(isUserLoggedIn),
   ...novelRoutes(isUserLoggedIn),
   {
-    path: '*',
-    element: <Navigate to="/vn" />,
+    path: '/',
+    element: <Navigate to="/vn/4" />,
   },
 ];

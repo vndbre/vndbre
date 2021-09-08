@@ -14,28 +14,34 @@ export const novelRoutes = (isUserLoggedIn: boolean): PartialRouteObject[] => [
     element: isUserLoggedIn ? <NovelPage /> : <GuardPage />,
     children: [
       {
-        path: '',
+        path: ':id',
         element: <TestPage />,
-      },
-      {
-        path: 'releases',
-        element: <TestPage />,
-      },
-      {
-        path: 'characters',
-        element: <TestPage />,
-      },
-      {
-        path: 'relations',
-        element: <TestPage />,
-      },
-      {
-        path: 'discussions',
-        element: <TestPage />,
-      },
-      {
-        path: 'media',
-        element: <TestPage />,
+        children: [
+          {
+            path: '/',
+            element: <TestPage />,
+          },
+          {
+            path: 'releases',
+            element: <TestPage />,
+          },
+          {
+            path: 'characters',
+            element: <TestPage />,
+          },
+          {
+            path: 'relations',
+            element: <TestPage />,
+          },
+          {
+            path: 'discussions',
+            element: <TestPage />,
+          },
+          {
+            path: '/media',
+            element: <TestPage />,
+          },
+        ],
       },
     ],
   },

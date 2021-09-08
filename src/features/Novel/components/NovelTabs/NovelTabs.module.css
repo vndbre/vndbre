@@ -1,0 +1,13 @@
+.list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+}
+
+.list li:not(:last-child) {
+  margin-right: 24px;
+}
+
+.active {
+  border-bottom: 1px solid olive;
+}
