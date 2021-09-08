@@ -13,6 +13,10 @@ export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
   ...novelRoutes(isUserLoggedIn),
   {
     path: '/',
+
+    /**
+     * TODO: change redirection path.
+     */
     element: <Navigate to="/vn/4" />,
   },
 ];
