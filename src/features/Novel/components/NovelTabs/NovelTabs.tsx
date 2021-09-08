@@ -11,23 +11,23 @@ const tabNames = [
 ];
 
 /**
- * TODO: add comments.
+ * Props of NovelTabs component.
  */
 interface NovelTabsProps {
 
   /**
-   * TODO: add comments.
+   * Id of visual novel.
    */
   id: string;
 }
 
 /**
- * TODO: add comments.
+ * Component for navigation between tabs on visual novel page.
  */
 export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
   /**
-   * TODO: Add comments.
-   * @param isActive Da.
+   * Computes classes for NavLink component.
+   * @param isActive Whether NavLink is selected or not.
    */
   const getNavLinkClassName = (isActive: boolean): string =>
     (isActive ? `${styles.item} ${styles.active}` : styles.item);
