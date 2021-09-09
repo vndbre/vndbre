@@ -6,15 +6,15 @@
   border-bottom: 1px solid var(--chakra-colors-gray-300);
 }
 
-.list li {
+.item {
   display: flex;
 }
 
-.list li:not(:last-child) {
+.item:not(:last-child) {
   margin-right: 24px;
 }
 
-.item {
+.link {
   position: relative;
   top: 1px;
   padding: 4px 8px;
@@ -23,7 +23,7 @@
 }
 
 /* Fixes layout shift when changing the font weight of the element */
-.item::after {
+.link::after {
   display: block;
   content: attr(title);
   font-weight: var(--chakra-fontWeights-semibold);

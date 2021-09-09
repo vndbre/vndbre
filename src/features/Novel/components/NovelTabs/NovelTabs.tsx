@@ -31,10 +31,10 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
    * @param isActive Whether NavLink is selected or not.
    */
   const getNavLinkClassName = (isActive: boolean): string =>
-    (isActive ? `${styles.item} ${styles.active}` : styles.item);
+    (isActive ? `${styles.link} ${styles.active}` : styles.link);
 
   const tabs = tabNames.map(tabName => (
-    <li>
+    <li className={styles.item}>
       <NavLink
         to={`/vn/${id}/${tabName === 'Overview' ? '' : tabName.toLowerCase()}`}
         title={tabName}
