@@ -14,7 +14,7 @@ export interface Quote {
   title: string;
 
   /**
-   * Quote.
+   * Quote text.
    */
   quote: string;
 }

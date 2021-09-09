@@ -5,7 +5,6 @@ import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
   medium: dto.medium,
@@ -24,21 +23,19 @@ const releaseAnimationFromArray = (data: [number | null, number | null]): Releas
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
   id: dto.id,
-  developer: dto.developer,
+  isDeveloper: dto.developer,
   name: dto.name,
   originalName: dto.original,
-  publisher: dto.publisher,
+  isPublisher: dto.publisher,
   type: dto.type,
 });
 
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
@@ -46,9 +43,9 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   originalName: dto.original,
   released: dto.released ? new Date(dto.released) : null,
   type: dto.type,
-  patch: dto.patch,
-  freeware: dto.freeware,
-  doujin: dto.doujin,
+  isPatch: dto.patch,
+  isFreeware: dto.freeware,
+  isDoujin: dto.doujin,
   languages: dto.languages,
   website: dto.website,
   notes: dto.notes,

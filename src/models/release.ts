@@ -14,12 +14,12 @@ export interface ReleaseProducer {
   /**
    * Is developer.
    */
-  developer: boolean;
+  isDeveloper: boolean;
 
   /**
    * Is publisher.
    */
-  publisher: boolean;
+  isPublisher: boolean;
 
   /**
    * Producer name(romaji).
@@ -32,7 +32,7 @@ export interface ReleaseProducer {
   originalName: string | null;
 
   /**
-   * Type.
+   * Producer type.
    */
   type: string;
 }
@@ -112,17 +112,17 @@ export interface Release {
   /**
    * Patch flag.
    */
-  patch: boolean;
+  isPatch: boolean;
 
   /**
    * Freeware flag.
    */
-  freeware: boolean;
+  isFreeware: boolean;
 
   /**
    * Doujin flag.
    */
-  doujin: boolean;
+  isDoujin: boolean;
 
   /**
    * Official website url.

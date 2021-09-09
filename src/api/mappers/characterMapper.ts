@@ -5,7 +5,6 @@ import { imageFlaggingFromDto } from './imageFlaggingMapper';
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const characterInstanceFromDto = (dto: CharacterInstanceDto): CharacterInstance => ({
   id: dto.id,
@@ -17,7 +16,6 @@ const characterInstanceFromDto = (dto: CharacterInstanceDto): CharacterInstance 
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const characterVoicedFromDto = (dto: CharacterVoicedDto): CharacterVoiced => ({
   id: dto.id,
@@ -29,7 +27,6 @@ const characterVoicedFromDto = (dto: CharacterVoicedDto): CharacterVoiced => ({
 /**
  * Transforms array of numbers into array of objects with traits.
  * @param data Array of arrays with number.
- * @returns Array of traits.
  */
 const traitsFromArray = (data: number[][]): CharacterTrait[] => data.map(trait => ({
   id: trait[0],
@@ -39,7 +36,6 @@ const traitsFromArray = (data: number[][]): CharacterTrait[] => data.map(trait =
 /**
  * Gets linked novels from array.
  * @param data Array of novels.
- * @returns Array of linked novel objects to the character.
  */
 const visualNovelsFromArray = (data: [number, number, number, string][]): CharacterNovel[] => data.map(novel => ({
   visualNovelId: novel[0],
@@ -51,7 +47,6 @@ const visualNovelsFromArray = (data: [number, number, number, string][]): Charac
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 export const characterFromDto = (dto: CharacterDto): Character => ({
   id: dto.id,
@@ -73,7 +68,7 @@ export const characterFromDto = (dto: CharacterDto): Character => ({
   weight: dto.weight,
   cupSize: dto.cup_size,
   traits: traitsFromArray(dto.traits),
-  voiced: dto.voiced.map(voicedDto => characterVoicedFromDto(voicedDto)),
+  voicedActors: dto.voiced.map(voicedDto => characterVoicedFromDto(voicedDto)),
   instances: dto.instances.map(instanceDto => characterInstanceFromDto(instanceDto)),
   visualNovels: visualNovelsFromArray(dto.vns),
 });

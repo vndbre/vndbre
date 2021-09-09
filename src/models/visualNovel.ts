@@ -33,7 +33,7 @@ export interface VisualNovelRelatedAnime {
   titleKanji: string | null;
 
   /**
-   * Date in which the anime was aired.
+   * Date when the anime was aired.
    */
   year: Date | null;
 
@@ -61,7 +61,7 @@ export interface VisualNovelScreenshot {
   /**
    * NSFW flag.
    */
-  nsfw: boolean;
+  isNsfw: boolean;
 
   /**
    * Image flagging summary of the main VN image.
@@ -107,7 +107,7 @@ export interface VisualNovelRelated {
   /**
    * Shows if a novel is original.
    */
-  official: boolean;
+  isOfficial: boolean;
 }
 
 /**
@@ -235,7 +235,7 @@ export interface VisualNovel {
   /**
    * Whether the VN image is flagged as NSFW or not.
    */
-  imageNsfw: boolean;
+  isImageNsfw: boolean;
 
   /**
    * Image flagging summary of the main VN image.
@@ -271,7 +271,7 @@ export interface VisualNovel {
   /**
    * Number of votes.
    */
-  votecount: number;
+  voteCount: number;
 
   /**
    * VN screenshots.

@@ -18,7 +18,6 @@ import { imageFlaggingFromDto } from './imageFlaggingMapper';
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const visualNovelRelatedAnimeFromDto = (dto: VisualNovelRelatedAnimeDto): VisualNovelRelatedAnime => ({
   id: dto.id,
@@ -33,11 +32,10 @@ const visualNovelRelatedAnimeFromDto = (dto: VisualNovelRelatedAnimeDto): Visual
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const visualNovelRelatedFromDto = (dto: VisualNovelRelatedDto): VisualNovelRelated => ({
   id: dto.id,
-  official: dto.official,
+  isOfficial: dto.official,
   originalName: dto.original,
   relation: dto.relation,
   title: dto.title,
@@ -46,7 +44,6 @@ const visualNovelRelatedFromDto = (dto: VisualNovelRelatedDto): VisualNovelRelat
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const visualNovelStaffFromDto = (dto: VisualNovelStaffDto): VisualNovelStaff => ({
   aliasId: dto.aid,
@@ -60,21 +57,19 @@ const visualNovelStaffFromDto = (dto: VisualNovelStaffDto): VisualNovelStaff => 
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const visualNovelScreenShotFromDto = (dto: VisualNovelScreenshotDto): VisualNovelScreenshot => ({
   releaseId: dto.rid,
   height: dto.height,
   width: dto.width,
   image: dto.image,
-  nsfw: dto.nsfw,
+  isNsfw: dto.nsfw,
   flagging: dto.flagging ? imageFlaggingFromDto(dto.flagging) : null,
 });
 
 /**
  * Maps tags arrays to tag array of objects.
  * @param dto Array of arrays.
- * @returns Array of tags objects.
  */
 const tagsFromArray = (dto: number[][]): VisualNovelTag[] =>
   dto.map(tag => ({
@@ -86,7 +81,6 @@ const tagsFromArray = (dto: number[][]): VisualNovelTag[] =>
 /**
  * Maps dto to visual novel model.
  * @param dto Dto object.
- * @returns VisualNovel object.
  */
 export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
   id: dto.id,
@@ -109,6 +103,6 @@ export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
   rating: dto.rating,
   screens: dto.screens.map(screenshotDto => visualNovelScreenShotFromDto(screenshotDto)),
   staff: dto.staff.map(staffDto => visualNovelStaffFromDto(staffDto)),
-  imageNsfw: dto.image_nsfw,
-  votecount: dto.votecount,
+  isImageNsfw: dto.image_nsfw,
+  voteCount: dto.votecount,
 });

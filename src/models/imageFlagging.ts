@@ -6,7 +6,7 @@ export interface ImageFlagging {
   /**
    * Number of flagging votes.
    */
-  votecount: number;
+  voteCount: number;
 
   /**
    * Sexual score between 0 (safe) and 2 (explicit).

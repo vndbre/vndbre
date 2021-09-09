@@ -207,7 +207,7 @@ export interface Character {
   /**
    * Voice actresses that voiced this character, per VN.
    */
-  voiced: CharacterVoiced[];
+  voicedActors: CharacterVoiced[];
 
   /**
    * Instances of this character.

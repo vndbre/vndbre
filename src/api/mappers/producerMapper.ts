@@ -4,7 +4,6 @@ import { ProducerDto, ProducerRelatedDto } from '../dtos/producerDto';
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
   id: dto.id,
@@ -16,7 +15,6 @@ const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 export const producerFromDto = (dto: ProducerDto): Producer => ({
   id: dto.id,

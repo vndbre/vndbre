@@ -4,10 +4,9 @@ import { ImageFlaggingDto } from '../dtos/imageFlaggingDto';
 /**
  * Maps dto to image flagging model.
  * @param dto Dto object.
- * @returns ImageFlagging object.
  */
 export const imageFlaggingFromDto = (dto: ImageFlaggingDto): ImageFlagging => ({
-  votecount: dto.votecount,
+  voteCount: dto.votecount,
   sexualAvg: dto.sexual_avg,
   violenceAvg: dto.violence_avg,
 });
@@ -15,10 +14,9 @@ export const imageFlaggingFromDto = (dto: ImageFlaggingDto): ImageFlagging => ({
 /**
  * Maps model to dto.
  * @param data Image flagging object.
- * @returns Dto object.
  */
 export const imageFlaggingToDto = (data: ImageFlagging): ImageFlaggingDto => ({
-  votecount: data.votecount,
+  votecount: data.voteCount,
   sexual_avg: data.sexualAvg,
   violence_avg: data.violenceAvg,
 });

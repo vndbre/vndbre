@@ -4,7 +4,6 @@ import { StaffCharacterVoiced, StaffVisualNovel, StaffAlias, Staff } from '../..
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => ({
    id: dto.id,
@@ -16,7 +15,6 @@ const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => 
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharacterVoiced => ({
   id: dto.id,
@@ -28,7 +26,6 @@ const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharact
 /**
  * Maps array of arrays of numbers and string to array of objects.
  * @param data Array of arrays.
- * @returns Array of objects.
  */
 const staffAliasesFromArray = (data: [number, string, string][]): StaffAlias[] => data.map(alias => ({
   aliasId: alias[0],
@@ -39,7 +36,6 @@ const staffAliasesFromArray = (data: [number, string, string][]): StaffAlias[] =
 /**
  * Maps dto into model.
  * @param dto Dto.
- * @returns Model.
  */
 export const staffFromDto = (dto: StaffDto): Staff => ({
   id: dto.id,
