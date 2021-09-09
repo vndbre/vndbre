@@ -1,6 +1,6 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
 import { visualNovelFromDto } from './visualNovelMapper';
-import { Release, ReleaseMedia, ReleaseProducer } from '../../models/release';
+import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
 
 /**
  * Maps dto into model.
@@ -10,6 +10,15 @@ import { Release, ReleaseMedia, ReleaseProducer } from '../../models/release';
 const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
   medium: dto.medium,
   quantity: dto.qty,
+});
+
+/**
+ * Maps release animation array into object.
+ * @param data Array of data.
+ */
+const releaseAnimationFromArray = (data: [number | null, number | null]): ReleaseAnimation => ({
+  storyAnimation: data[0],
+  eroAnimation: data[1],
 });
 
 /**
@@ -50,7 +59,7 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   media: dto.media.map(mediaDto => releaseMediaFromDto(mediaDto)),
   resolution: dto.resolution,
   voiced: dto.voiced,
-  animation: dto.animation,
+  animation: releaseAnimationFromArray(dto.animation),
   visualNovels: dto.vn.map(novelDto => visualNovelFromDto(novelDto)),
   producers: dto.producers.map(producerDto => releaseProducerFromDto(producerDto)),
 });

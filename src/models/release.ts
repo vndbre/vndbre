@@ -1,4 +1,4 @@
-import { ReleaseType, ReleaseVoiced } from '../utils/types/releaseHelperTypes';
+import { ReleaseAnimationType, ReleaseType, ReleaseVoiced } from '../utils/types/releaseHelperTypes';
 import { VisualNovel } from './visualNovel';
 
 /**
@@ -51,6 +51,22 @@ export interface ReleaseMedia {
    * Quantity.
    */
   quantity: number;
+}
+
+/**
+ * Represents animation quality.
+ */
+export interface ReleaseAnimation {
+
+  /**
+   * Story scenes animation.
+   */
+  storyAnimation: ReleaseAnimationType | null;
+
+  /**
+   * Ero scenes animation.
+   */
+  eroAnimation: ReleaseAnimationType | null;
 }
 
 /**
@@ -153,17 +169,9 @@ export interface Release {
   voiced: ReleaseVoiced | null;
 
   /**
-   * The array has two integer members,
-   * the first one indicating the story animations,
-   * the second the ero scene animations.
-   * Both members can be null if unknown or not applicable.
-   * When not null, the number indicates the following:
-   * 1 = No animations,
-   * 2 = Simple animations,
-   * 3 = Some fully animated scenes,
-   * 4 = All scenes fully animated.
+   * Animation status.
    */
-  animation: number[];
+  animation: ReleaseAnimation;
 
   /**
    * Visual novels linked to this release.

@@ -163,7 +163,7 @@ export interface ReleaseDto {
    * 3 = Some fully animated scenes,
    * 4 = All scenes fully animated.
    */
-  animation: number[];
+  animation: [number | null, number | null];
 
   /**
    * Visual novels linked to this release.

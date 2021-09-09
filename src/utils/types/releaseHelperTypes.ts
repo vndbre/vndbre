@@ -16,3 +16,13 @@ export enum ReleaseVoiced {
   PartiallyVoiced,
   FullyVoiced,
 }
+
+/**
+ * Animation type.
+ */
+export enum ReleaseAnimationType {
+  NoAnimation = 1,
+  SimpleAnimation,
+  SomeFullyAnimated,
+  FullyAnimated,
+}
