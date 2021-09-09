@@ -1,5 +1,56 @@
-import { StaffCharacterVoiced, StaffVisualNovel } from '../api/dtos/staffDto';
 import { StaffLinks } from '../utils/types/staffLinks';
+
+/**
+ * Represents character entry that this staff has voiced.
+ */
+export interface StaffCharacterVoiced {
+
+  /**
+   * VN id.
+   */
+  id: number;
+
+  /**
+   * Alias id of this staff entry.
+   */
+  aid: number;
+
+  /**
+   * Character id.
+   */
+  cid: number;
+
+  /**
+   * Note.
+   */
+  note: string | null;
+}
+
+/**
+ * Represents visual novel that this staff entry has been credited in (excluding character voicing).
+ */
+export interface StaffVisualNovel {
+
+  /**
+   * VN id.
+   */
+  id: number;
+
+  /**
+   * Alias id of this staff entry.
+   */
+  aid: number;
+
+  /**
+   * Role.
+   */
+  role: string;
+
+  /**
+   * Note.
+   */
+  note: string | null;
+}
 
 /**
  * Represents staff alias.

@@ -3,7 +3,7 @@ import { ImageFlaggingDto } from './imageFlaggingDto';
 /**
  * Represents character instance of the character.
  */
-export interface CharacterInstance {
+export interface CharacterInstanceDto {
 
   /**
    * Character id.
@@ -32,7 +32,7 @@ export interface CharacterInstance {
 /**
  * Represents voiced character.
  */
-export interface CharacterVoiced {
+export interface CharacterVoicedDto {
 
   /**
    * Character id.
@@ -176,10 +176,10 @@ export interface CharacterDto {
   /**
    * Voice actresses that voiced this character, per VN.
    */
-  voiced: CharacterVoiced[];
+  voiced: CharacterVoicedDto[];
 
   /**
    * Instances of this character.
    */
-  instances: CharacterInstance[];
+  instances: CharacterInstanceDto[];
 }

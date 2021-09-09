@@ -1,7 +1,149 @@
-import { RelatedVisualNovel, VisualNovelScreenshot, VisualNovelStaff } from '../api/dtos/ visualNovelDto';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
-import { RelatedAnime } from './relatedAnime';
+
+/**
+ * Represents anime related to the VN.
+ */
+export interface VisualNovelRelatedAnime {
+
+  /**
+   * AniDB ID.
+   */
+  id: number;
+
+  /**
+   * AnimeNewsNetwork ID.
+   */
+  annId: number | null;
+
+  /**
+   * AnimeNfo ID.
+   */
+  nfoId: string | null;
+
+  /**
+   * Title in romaji.
+   */
+  titleRomaji: string | null;
+
+  /**
+   * Title in kanji.
+   */
+  titleKanji: string | null;
+
+  /**
+   * Date in which the anime was aired.
+   */
+  year: Date | null;
+
+  /**
+   * Anime type.
+   */
+  type: string | null;
+}
+
+/**
+ * Represents visual novel screenshot.
+ */
+export interface VisualNovelScreenshot {
+
+  /**
+   * URL of the full-size screenshot.
+   */
+  image: string;
+
+  /**
+   * Release ID.
+   */
+  rid: number;
+
+  /**
+   * NSFW flag.
+   */
+  nsfw: boolean;
+
+  /**
+   * Image flagging summary of the main VN image.
+   */
+  flagging: ImageFlagging | null;
+
+  /**
+   * Height of the full-size screenshot.
+   */
+  height: number;
+
+  /**
+   * Width of the full-size screenshot.
+   */
+  width: number;
+}
+
+/**
+ * Represents related visual novel.
+ */
+export interface VisualNovelRelated {
+
+  /**
+   * VN id.
+   */
+  id: number;
+
+  /**
+   * Relation to the VN.
+   */
+  relation: string;
+
+  /**
+   * VN title (romaji).
+   */
+  title: string;
+
+  /**
+   * Original/official title.
+   */
+  original: string | null;
+
+  /**
+   * Shows if a novel is original.
+   */
+  official: boolean;
+}
+
+/**
+ * Represents visual novel staff.
+ */
+export interface VisualNovelStaff {
+
+  /**
+   * Staff id.
+   */
+  sid: number;
+
+  /**
+   * Alias id.
+   */
+  aid: number;
+
+  /**
+   * Staff member name.
+   */
+  name: string;
+
+  /**
+   * Original staff member name.
+   */
+  original: string | null;
+
+  /**
+   * Staff member role.
+   */
+  role: string;
+
+  /**
+   * Additional notes.
+   */
+  note: string | null;
+}
 
 /**
  * Represents VN tag.
@@ -102,12 +244,12 @@ export interface VisualNovel {
   /**
    * Anime related to the VN.
    */
-  anime: RelatedAnime[];
+  anime: VisualNovelRelatedAnime[];
 
   /**
    * Related visual novels to the VN.
    */
-  relations: RelatedVisualNovel[];
+  relations: VisualNovelRelated[];
 
   /**
    * Tags linked to this VN. Each tag is represented as an array with three elements:

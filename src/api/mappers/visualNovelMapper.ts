@@ -1,7 +1,64 @@
-import { relatedAnimeFromDto, relatedAnimeToDto } from './relatedAnimeMapper';
+import { VisualNovelScreenshotDto, VisualNovelDto, VisualNovelRelatedAnimeDto } from '../dtos/ visualNovelDto';
 import { imageFlaggingFromDto, imageFlaggingToDto } from './imageFlaggingMapper';
-import { VisualNovel, VisualNovelTag } from '../../models/visualNovel';
-import { VisualNovelDto } from '../dtos/ visualNovelDto';
+import { VisualNovel, VisualNovelRelatedAnime, VisualNovelScreenshot, VisualNovelTag } from '../../models/visualNovel';
+
+/**
+ * Maps dto to related anime model.
+ * @param dto Dto object.
+ * @returns RelatedAnime object.
+ */
+const visualNovelRelatedAnimeFromDto = (dto: VisualNovelRelatedAnimeDto): VisualNovelRelatedAnime => ({
+  id: dto.id,
+  annId: dto.ann_id,
+  nfoId: dto.nfo_id,
+  titleKanji: dto.title_kanji,
+  titleRomaji: dto.title_romaji,
+  type: dto.type,
+  year: dto.year ? new Date(dto.year) : null,
+});
+
+/**
+ * Maps model to dto.
+ * @param data Related anime object.
+ * @returns Dto object.
+ */
+const visualNovelRelatedAnimeToDto = (data: VisualNovelRelatedAnime): VisualNovelRelatedAnimeDto => ({
+  id: data.id,
+  ann_id: data.annId,
+  nfo_id: data.nfoId,
+  title_kanji: data.titleKanji,
+  title_romaji: data.titleRomaji,
+  type: data.type,
+  year: data.year ? data.year.getFullYear() : null,
+});
+
+/**
+ * Maps dto into model.
+ * @param dto Dto object.
+ * @returns Screenshot object.
+ */
+const visualNovelScreenShotFromDto = (dto: VisualNovelScreenshotDto): VisualNovelScreenshot => ({
+  rid: dto.rid,
+  height: dto.height,
+  width: dto.width,
+  image: dto.image,
+  nsfw: dto.nsfw,
+  flagging: dto.flagging ? imageFlaggingFromDto(dto.flagging) : null,
+});
+
+/**
+ * Maps model into dto.
+ * @param data Screenshot model object.
+ * @returns Screenshot dto object.
+ */
+const visualNovelScreenShotToDto = (data: VisualNovelScreenshot): VisualNovelScreenshotDto => ({
+  rid: data.rid,
+  height: data.height,
+  width: data.width,
+  image: data.image,
+  nsfw: data.nsfw,
+  flagging: data.flagging ? imageFlaggingToDto(data.flagging) : null,
+});
 
 /**
  * Maps tags arrays to tag array of objects.
@@ -40,12 +97,12 @@ export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
   links: dto.links,
   image: dto.image,
   imageFlagging: dto.image_flagging ? imageFlaggingFromDto(dto.image_flagging) : null,
-  anime: dto.anime.map(animeDto => relatedAnimeFromDto(animeDto)),
+  anime: dto.anime.map(animeDto => visualNovelRelatedAnimeFromDto(animeDto)),
   relations: dto.relations,
   tags: tagsFromArray(dto.tags),
   popularity: dto.popularity,
   rating: dto.rating,
-  screens: dto.screens,
+  screens: dto.screens.map(screenshotDto => visualNovelScreenShotFromDto(screenshotDto)),
   staff: dto.staff,
   imageNsfw: dto.image_nsfw,
   votecount: dto.votecount,
@@ -71,12 +128,12 @@ export const visualNovelToDto = (data: VisualNovel): VisualNovelDto => ({
   image: data.image,
   image_flagging: data.imageFlagging ? imageFlaggingToDto(data.imageFlagging) : null,
   image_nsfw: data.imageNsfw,
-  anime: data.anime.map(anime => relatedAnimeToDto(anime)),
+  anime: data.anime.map(anime => visualNovelRelatedAnimeToDto(anime)),
   relations: data.relations,
   tags: tagsToArray(data.tags),
   popularity: data.popularity,
   rating: data.rating,
-  screens: data.screens,
+  screens: data.screens.map(screenshot => visualNovelScreenShotToDto(screenshot)),
   staff: data.staff,
   votecount: data.votecount,
 });

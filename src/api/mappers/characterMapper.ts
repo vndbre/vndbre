@@ -1,6 +1,30 @@
-import { CharacterNovel, Character, CharacterTrait } from '../../models/character';
+import { CharacterVoicedDto, CharacterInstanceDto, CharacterDto } from '../dtos/characterDto';
+import { CharacterNovel, Character, CharacterTrait, CharacterInstance } from '../../models/character';
 import { imageFlaggingFromDto } from './imageFlaggingMapper';
-import { CharacterDto } from '../dtos/characterDto';
+
+/**
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
+ */
+const characterInstanceFromDto = (dto: CharacterInstanceDto): CharacterInstance => ({
+  id: dto.id,
+  name: dto.name,
+  original: dto.original,
+  spoiler: dto.spoiler,
+});
+
+/**
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
+ */
+const characterVoicedFromDto = (dto: CharacterVoicedDto): CharacterVoicedDto => ({
+  id: dto.id,
+  aid: dto.aid,
+  vid: dto.vid,
+  note: dto.note,
+});
 
 /**
  * Transforms array of numbers into array of objects with traits.
@@ -49,7 +73,7 @@ export const characterFromDto = (dto: CharacterDto): Character => ({
   weight: dto.weight,
   cupSize: dto.cup_size,
   traits: traitsFromArray(dto.traits),
-  voiced: dto.voiced,
-  instances: dto.instances,
+  voiced: dto.voiced.map(voicedDto => characterVoicedFromDto(voicedDto)),
+  instances: dto.instances.map(instanceDto => characterInstanceFromDto(instanceDto)),
   visualNovels: visualNovelsFromArray(dto.vns),
 });

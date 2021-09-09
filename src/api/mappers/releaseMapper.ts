@@ -1,6 +1,30 @@
+import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
 import { visualNovelFromDto } from './visualNovelMapper';
-import { Release } from '../../models/release';
-import { ReleaseDto } from '../dtos/releaseDto';
+import { Release, ReleaseMedia, ReleaseProducer } from '../../models/release';
+
+/**
+ * Maps dto into model.
+ * @param dto ReleaseMedia dto.
+ * @returns ReleaseMedia object.
+ */
+const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
+  medium: dto.medium,
+  qty: dto.qty,
+});
+
+/**
+ * Maps dto into model.
+ * @param dto ReleaseMedia dto.
+ * @returns ReleaseMedia object.
+ */
+const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
+  id: dto.id,
+  developer: dto.developer,
+  name: dto.name,
+  original: dto.original,
+  publisher: dto.publisher,
+  type: dto.type,
+});
 
 /**
  * Maps dto into model.
@@ -23,10 +47,10 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   gtin: dto.gtin,
   catalog: dto.catalog,
   platforms: dto.platforms,
-  media: dto.media,
+  media: dto.media.map(mediaDto => releaseMediaFromDto(mediaDto)),
   resolution: dto.resolution,
   voiced: dto.voiced,
   animation: dto.animation,
   visualNovels: dto.vn.map(novelDto => visualNovelFromDto(novelDto)),
-  producers: dto.producers,
+  producers: dto.producers.map(producerDto => releaseProducerFromDto(producerDto)),
 });

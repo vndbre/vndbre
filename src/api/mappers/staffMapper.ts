@@ -1,5 +1,29 @@
-import { StaffAlias, Staff } from '../../models/staff';
-import { StaffDto } from '../dtos/staffDto';
+import { StaffCharacterVoicedDto, StaffVisualNovelDto, StaffDto } from '../dtos/staffDto';
+import { StaffCharacterVoiced, StaffVisualNovel, StaffAlias, Staff } from '../../models/staff';
+
+/**
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
+ */
+const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => ({
+   id: dto.id,
+   aid: dto.aid,
+   note: dto.note,
+   role: dto.role,
+});
+
+/**
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
+ */
+const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharacterVoiced => ({
+  id: dto.id,
+  aid: dto.aid,
+  note: dto.note,
+  cid: dto.cid,
+});
 
 /**
  * Maps array of arrays of numbers and string to array of objects.
@@ -26,7 +50,7 @@ export const staffFromDto = (dto: StaffDto): Staff => ({
   description: dto.description,
   aliases: staffAliasesFromArray(dto.aliases),
   mainAlias: dto.main_alias,
-  visualNovels: dto.vns,
-  voiced: dto.voiced,
+  visualNovels: dto.vns.map(staffVnDto => staffVisualNovelFromDto(staffVnDto)),
+  voiced: dto.voiced.map(voicedDto => staffCharacterVoicedFromDto(voicedDto)),
   original: dto.original,
 });

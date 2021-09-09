@@ -3,7 +3,7 @@ import { ProducerLinks } from '../../utils/types/producerLinks';
 /**
  * Represents related producer to the producer.
  */
-export interface RelatedProducer {
+export interface ProducerRelatedDto {
 
   /**
    * Producer id.
@@ -74,5 +74,5 @@ export interface ProducerDto {
   /**
    * Related producers to the current producer.
    */
-  relations: RelatedProducer[];
+  relations: ProducerRelatedDto[];
 }

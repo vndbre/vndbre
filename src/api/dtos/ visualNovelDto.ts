@@ -1,11 +1,10 @@
 import { ImageFlaggingDto } from './imageFlaggingDto';
 import { VisualNovelLinks } from '../../utils/types/visualNovelLinks';
-import { RelatedAnimeDto } from './relatedAnimeDto';
 
 /**
  * Represents visual novel screenshot.
  */
-export interface VisualNovelScreenshot {
+export interface VisualNovelScreenshotDto {
 
   /**
    * URL of the full-size screenshot.
@@ -41,7 +40,7 @@ export interface VisualNovelScreenshot {
 /**
  * Represents visual novel staff.
  */
-export interface VisualNovelStaff {
+export interface VisualNovelStaffDto {
 
   /**
    * Staff id.
@@ -77,7 +76,52 @@ export interface VisualNovelStaff {
 /**
  * Represents related visual novel.
  */
-export interface RelatedVisualNovel {
+
+/**
+ * Represents anime related to the VN.
+ */
+export interface VisualNovelRelatedAnimeDto {
+
+  /**
+   * AniDB ID.
+   */
+  id: number;
+
+  /**
+   * AnimeNewsNetwork ID.
+   */
+  ann_id: number | null;
+
+  /**
+   * AnimeNfo ID.
+   */
+  nfo_id: string | null;
+
+  /**
+   * Title in romaji.
+   */
+  title_romaji: string | null;
+
+  /**
+   * Title in kanji.
+   */
+  title_kanji: string | null;
+
+  /**
+   * Year in which the anime was aired.
+   */
+  year: number | null;
+
+  /**
+   * Anime type.
+   */
+  type: string | null;
+}
+
+/**
+ * Represents related visual novel to the current VN.
+ */
+export interface VisualNovelRelatedDto {
 
   /**
    * VN id.
@@ -183,12 +227,12 @@ export interface VisualNovelDto {
   /**
    * Anime related to the VN.
    */
-  anime: RelatedAnimeDto[];
+  anime: VisualNovelRelatedAnimeDto[];
 
   /**
    * Related visual novels to the VN.
    */
-  relations: RelatedVisualNovel[];
+  relations: VisualNovelRelatedDto[];
 
   /**
    * (Possibly empty) list of tags linked to this VN. Each tag is represented as an array with three elements:
@@ -221,10 +265,10 @@ export interface VisualNovelDto {
   /**
    * VN screenshots.
    */
-  screens: VisualNovelScreenshot[];
+  screens: VisualNovelScreenshotDto[];
 
   /**
    * Staff related to the VN.
    */
-  staff: VisualNovelStaff[];
+  staff: VisualNovelStaffDto[];
 }

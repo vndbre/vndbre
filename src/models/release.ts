@@ -1,5 +1,56 @@
-import { ReleaseMedia, ReleaseProducer } from '../api/dtos/releaseDto';
 import { VisualNovel } from './visualNovel';
+
+/**
+ * Represents producer involved into release.
+ */
+export interface ReleaseProducer {
+
+  /**
+   * Producer id.
+   */
+  id: number;
+
+  /**
+   * Is developer.
+   */
+  developer: boolean;
+
+  /**
+   * Is publisher.
+   */
+  publisher: boolean;
+
+  /**
+   * Producer name(romaji).
+   */
+  name: string;
+
+  /**
+   * Name in original.
+   */
+  original: string | null;
+
+  /**
+   * Type.
+   */
+  type: string;
+}
+
+/**
+ * Represents release media.
+ */
+export interface ReleaseMedia {
+
+  /**
+   * Medium.
+   */
+  medium: string;
+
+  /**
+   * Quantity.
+   */
+  qty: number;
+}
 
 /**
  * Represents release.

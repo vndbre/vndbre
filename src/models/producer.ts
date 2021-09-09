@@ -1,5 +1,30 @@
-import { RelatedProducer } from '../api/dtos/producerDto';
 import { ProducerLinks } from '../utils/types/producerLinks';
+
+/**
+ * Represents related producer to the producer.
+ */
+export interface ProducerRelated {
+
+  /**
+   * Producer id.
+   */
+  id: number;
+
+  /**
+   * Relation to current producer.
+   */
+  relation: string;
+
+  /**
+   * Producer name.
+   */
+  name: string;
+
+  /**
+   * Name in original.
+   */
+  original: string | null;
+}
 
 /**
  * Represents producer.
@@ -49,5 +74,5 @@ export interface Producer {
   /**
    * Related producers to the current producer.
    */
-  relations: RelatedProducer[];
+  relations: ProducerRelated[];
 }

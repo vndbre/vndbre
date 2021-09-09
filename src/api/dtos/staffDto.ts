@@ -3,7 +3,7 @@ import { StaffLinks } from '../../utils/types/staffLinks';
 /**
  * Represents character entry that this staff has voiced.
  */
-export interface StaffCharacterVoiced {
+export interface StaffCharacterVoicedDto {
 
   /**
    * VN id.
@@ -29,7 +29,7 @@ export interface StaffCharacterVoiced {
 /**
  * Represents visual novel that this staff entry has been credited in (excluding character voicing).
  */
-export interface StaffVisualNovel {
+export interface StaffVisualNovelDto {
 
   /**
    * VN id.
@@ -110,10 +110,10 @@ export interface StaffDto {
   /**
    * Visual novels that this staff entry has been credited in (excluding character voicing).
    */
-  vns: StaffVisualNovel[];
+  vns: StaffVisualNovelDto[];
 
   /**
    * Characters that this staff entry has voiced.
    */
-  voiced: StaffCharacterVoiced[];
+  voiced: StaffCharacterVoicedDto[];
 }

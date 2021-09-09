@@ -1,5 +1,59 @@
-import { CharacterInstance, CharacterVoiced } from '../api/dtos/characterDto';
 import { ImageFlagging } from './imageFlagging';
+
+/**
+ * Represents character instance of the character.
+ */
+export interface CharacterInstance {
+
+  /**
+   * Character id.
+   */
+  id: number;
+
+  /**
+   * Spoiler level.
+   * 0=none,
+   * 1=minor,
+   * 2=major.
+   */
+  spoiler: number;
+
+  /**
+   * Character name.
+   */
+  name: string;
+
+  /**
+   * Character name in original.
+   */
+  original: string;
+}
+
+/**
+ * Represents voiced character.
+ */
+export interface CharacterVoiced {
+
+  /**
+   * Character id.
+   */
+  id: number;
+
+  /**
+   * The staff alias id.
+   */
+  aid: number;
+
+  /**
+   * VN id.
+   */
+  vid: number;
+
+  /**
+   * Notes.
+   */
+  note: string;
+}
 
 /**
  * Represents character trait.

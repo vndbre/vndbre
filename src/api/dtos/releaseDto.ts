@@ -3,7 +3,7 @@ import { VisualNovelDto } from './ visualNovelDto';
 /**
  * Represents producer involved into release.
  */
-export interface ReleaseProducer {
+export interface ReleaseProducerDto {
 
   /**
    * Producer id.
@@ -39,7 +39,7 @@ export interface ReleaseProducer {
 /**
  * Represents release media.
  */
-export interface ReleaseMedia {
+export interface ReleaseMediaDto {
 
   /**
    * Medium.
@@ -135,7 +135,7 @@ export interface ReleaseDto {
   /**
    * Media.
    */
-  media: ReleaseMedia[];
+  media: ReleaseMediaDto[];
 
   /**
    * Resolution.
@@ -172,5 +172,5 @@ export interface ReleaseDto {
   /**
    * Producers involved into release.
    */
-  producers: ReleaseProducer[];
+  producers: ReleaseProducerDto[];
 }

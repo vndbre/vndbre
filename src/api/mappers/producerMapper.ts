@@ -1,5 +1,17 @@
-import { Producer } from '../../models/producer';
-import { ProducerDto } from '../dtos/producerDto';
+import { Producer, ProducerRelated } from '../../models/producer';
+import { ProducerDto, ProducerRelatedDto } from '../dtos/producerDto';
+
+/**
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
+ */
+const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
+  id: dto.id,
+  name: dto.name,
+  original: dto.original,
+  relation: dto.relation,
+});
 
 /**
  * Maps dto into model.
@@ -15,5 +27,5 @@ export const producerFromDto = (dto: ProducerDto): Producer => ({
   links: dto.links,
   aliases: dto.aliases,
   description: dto.description,
-  relations: dto.relations,
+  relations: dto.relations.map(relatedDto => producerRelatedFromDto(relatedDto)),
 });
