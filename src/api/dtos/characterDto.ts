@@ -1,3 +1,4 @@
+import { CharacterGender } from '../../utils/types/characterHelperTypes';
 import { SpoilerLevel } from '../../utils/types/spoilerLevel';
 import { ImageFlaggingDto } from './imageFlaggingDto';
 
@@ -79,7 +80,7 @@ export interface CharacterDto {
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
    */
-  gender: string | null;
+  gender: CharacterGender | null;
 
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.
