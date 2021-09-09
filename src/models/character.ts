@@ -127,7 +127,7 @@ export interface Character {
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.
    */
-  spoilGender: string | null;
+  spoilerGender: string | null;
 
   /**
    * Blood type, "a", "b", "ab" or "o".

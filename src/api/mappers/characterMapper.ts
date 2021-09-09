@@ -53,7 +53,7 @@ export const characterFromDto = (dto: CharacterDto): Character => ({
   name: dto.name,
   originalName: dto.original,
   gender: dto.gender,
-  spoilGender: dto.spoil_gender,
+  spoilerGender: dto.spoil_gender,
   bloodType: dto.bloodt,
   birthday: `${dto.birthday[0]}-${dto.birthday[1]}`,
   aliases: dto.aliases,
