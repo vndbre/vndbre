@@ -1,3 +1,4 @@
+import { ReleaseType, ReleaseVoiced } from '../utils/types/releaseHelperTypes';
 import { VisualNovel } from './visualNovel';
 
 /**
@@ -90,7 +91,7 @@ export interface Release {
   /**
    * Release type.
    */
-  type: string;
+  type: ReleaseType;
 
   /**
    * Patch flag.
@@ -149,7 +150,7 @@ export interface Release {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  voiced: number | null;
+  voiced: ReleaseVoiced | null;
 
   /**
    * The array has two integer members,

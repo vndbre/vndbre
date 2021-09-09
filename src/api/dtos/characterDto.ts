@@ -1,3 +1,4 @@
+import { SpoilerLevel } from '../../utils/types/spoilerLevel';
 import { ImageFlaggingDto } from './imageFlaggingDto';
 
 /**
@@ -16,7 +17,7 @@ export interface CharacterInstanceDto {
    * 1=minor,
    * 2=major.
    */
-  spoiler: number;
+  spoiler: SpoilerLevel;
 
   /**
    * Character name.
@@ -88,7 +89,7 @@ export interface CharacterDto {
   /**
    * Blood type, "a", "b", "ab" or "o".
    */
-  bloodt: string | null;
+  bloodt: 'a' | 'b' | 'ab' | 'o' | null;
 
   /**
    * Array of two numbers: day of the month (1-31) and the month (1-12).

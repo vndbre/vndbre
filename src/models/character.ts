@@ -1,3 +1,4 @@
+import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { ImageFlagging } from './imageFlagging';
 
 /**
@@ -16,7 +17,7 @@ export interface CharacterInstance {
    * 1=minor,
    * 2=major.
    */
-  spoiler: number;
+  spoiler: SpoilerLevel;
 
   /**
    * Character name.
@@ -130,7 +131,7 @@ export interface Character {
   /**
    * Blood type, "a", "b", "ab" or "o".
    */
-  bloodType: string | null;
+  bloodType: 'a' | 'b' | 'ab' | 'o' | null;
 
   /**
    * Birthday in format dd-mm.

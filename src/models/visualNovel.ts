@@ -1,3 +1,4 @@
+import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
 
@@ -163,7 +164,7 @@ export interface VisualNovelTag {
   /**
    * Spoiler level (integer, 0=none, 1=minor, 2=major).
    */
-  spoilerLevel: number;
+  spoilerLevel: SpoilerLevel;
 }
 
 /**
