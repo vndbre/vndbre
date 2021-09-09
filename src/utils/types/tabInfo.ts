@@ -9,7 +9,7 @@ export interface TabInfo {
   name: string;
 
   /**
-   * The path to which tab redirects the user.
+   * The path to which the user should be directed.
    */
   path: string;
 

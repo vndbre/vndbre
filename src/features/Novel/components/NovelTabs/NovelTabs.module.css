@@ -12,35 +12,3 @@
 .item:not(:last-child) {
   margin-right: 24px;
 }
-
-.link {
-  position: relative;
-  top: 1px;
-  padding: 4px 8px;
-  border-bottom: 2px solid transparent;
-  font-size: var(--chakra-fontSizes-md);
-}
-
-/* Fixes layout shift when changing the font weight of the element */
-.link::after {
-  display: block;
-  content: attr(title);
-  font-weight: var(--chakra-fontWeights-semibold);
-  height: 0px;
-  color: transparent;
-  overflow: hidden;
-  visibility: hidden;
-}
-
-.link:hover {
-  border-bottom: 2px solid var(--chakra-colors-gray-400);  
-}
-
-.link:hover, .active {
-  transition: border linear 0.3s;
-}
-
-.active, .active:hover {
-  border-bottom: 2px solid var(--chakra-colors-orange-400);  
-  font-weight: var(--chakra-fontWeights-semibold);
-}

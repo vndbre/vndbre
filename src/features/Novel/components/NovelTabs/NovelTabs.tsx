@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
-import { NavLink } from 'react-router-dom';
 import { novelTabsInfo } from '../../utils/constants';
+import { NovelTab } from '../NovelTab/NovelTab';
 import styles from './NovelTabs.module.css';
 
 /**
@@ -16,25 +16,17 @@ interface NovelTabsProps {
 
 /**
  * Component for navigation between tabs on visual novel page.
+ * TODO: remove random badges when api requests appear.
  */
 export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
-  /**
-   * Computes classes for NavLink component.
-   * @param isActive Whether NavLink is selected or not.
-   */
-  const getNavLinkClassName = (isActive: boolean): string =>
-    (isActive ? `${styles.link} ${styles.active}` : styles.link);
-
   const tabs = novelTabsInfo.map(tabInfo => (
-    <li className={styles.item}>
-      <NavLink
+    <li key={tabInfo.path} className={styles.item}>
+      <NovelTab
         to={`/vn/${id}${tabInfo.path}`}
         title={tabInfo.name}
-        className={({ isActive }) => getNavLinkClassName(isActive)}
         end={!!tabInfo.end}
-      >
-        {tabInfo.name}
-      </NavLink>
+        badge={Math.random() > 0.5 ? '6' : undefined}
+      />
     </li>
   ));
 
