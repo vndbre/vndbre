@@ -1,15 +1,7 @@
 import React, { FC, memo } from 'react';
 import { NavLink } from 'react-router-dom';
+import { novelTabsInfo } from '../../utils/constants';
 import styles from './NovelTabs.module.css';
-
-const tabNames = [
-  'Overview',
-  'Releases',
-  'Characters',
-  'Relations',
-  'Discussions',
-  'Media',
-];
 
 /**
  * Props of NovelTabs component.
@@ -33,15 +25,15 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
   const getNavLinkClassName = (isActive: boolean): string =>
     (isActive ? `${styles.link} ${styles.active}` : styles.link);
 
-  const tabs = tabNames.map(tabName => (
+  const tabs = novelTabsInfo.map(tabInfo => (
     <li className={styles.item}>
       <NavLink
-        to={`/vn/${id}/${tabName === 'Overview' ? '' : tabName.toLowerCase()}`}
-        title={tabName}
+        to={`/vn/${id}${tabInfo.path}`}
+        title={tabInfo.name}
         className={({ isActive }) => getNavLinkClassName(isActive)}
-        end={tabName === 'Overview'}
+        end={!!tabInfo.end}
       >
-        {tabName}
+        {tabInfo.name}
       </NavLink>
     </li>
   ));
