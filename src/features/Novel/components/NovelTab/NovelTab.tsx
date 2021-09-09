@@ -41,14 +41,14 @@ export const NovelTab: FC<NovelTabProps> = memo(({ to, title, end, badge }) => {
       classNames.push(styles.active);
     }
 
-    if (badge?.length) {
+    if (badge) {
       classNames.push(styles.badge);
     }
 
     return classNames.join(' ');
   };
 
-  const badgeElement = badge?.length ? (
+  const badgeElement = badge ? (
     <Badge verticalAlign="top">{badge}</Badge>
   ) : null;
 
