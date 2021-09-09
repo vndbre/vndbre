@@ -1,4 +1,4 @@
-import { CharacterGender } from './../utils/types/characterHelperTypes';
+import { CharacterGender } from '../utils/types/characterHelperTypes';
 import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { ImageFlagging } from './imageFlagging';
 
