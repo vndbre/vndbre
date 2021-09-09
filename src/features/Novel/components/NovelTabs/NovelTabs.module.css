@@ -32,11 +32,15 @@
   visibility: hidden;
 }
 
+.link:hover {
+  border-bottom: 2px solid var(--chakra-colors-gray-400);  
+}
+
 .link:hover, .active {
-  border-bottom: 2px solid var(--chakra-colors-orange-400);  
   transition: border linear 0.3s;
 }
 
-.active {
+.active, .active:hover {
+  border-bottom: 2px solid var(--chakra-colors-orange-400);  
   font-weight: var(--chakra-fontWeights-semibold);
 }
