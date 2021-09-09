@@ -7,9 +7,9 @@ import { ImageFlaggingDto } from '../dtos/imageFlaggingDto';
  * @returns ImageFlagging object.
  */
 export const imageFlaggingFromDto = (dto: ImageFlaggingDto): ImageFlagging => ({
-    votecount: dto.votecount,
-    sexualAvg: dto.sexual_avg,
-    violenceAvg: dto.violence_avg,
+  votecount: dto.votecount,
+  sexualAvg: dto.sexual_avg,
+  violenceAvg: dto.violence_avg,
 });
 
 /**

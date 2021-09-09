@@ -56,7 +56,7 @@ export interface VisualNovelScreenshot {
   /**
    * Release ID.
    */
-  rid: number;
+  releaseId: number;
 
   /**
    * NSFW flag.
@@ -102,7 +102,7 @@ export interface VisualNovelRelated {
   /**
    * Original/official title.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Shows if a novel is original.
@@ -118,12 +118,12 @@ export interface VisualNovelStaff {
   /**
    * Staff id.
    */
-  sid: number;
+  staffId: number;
 
   /**
    * Alias id.
    */
-  aid: number;
+  aliasId: number;
 
   /**
    * Staff member name.
@@ -133,7 +133,7 @@ export interface VisualNovelStaff {
   /**
    * Original staff member name.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Staff member role.
@@ -185,7 +185,7 @@ export interface VisualNovel {
   /**
    * Original/official title.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Date of the first release.

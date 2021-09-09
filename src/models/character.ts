@@ -28,7 +28,7 @@ export interface CharacterInstance {
   /**
    * Character name in original.
    */
-  original: string;
+  originalName: string;
 }
 
 /**
@@ -44,12 +44,12 @@ export interface CharacterVoiced {
   /**
    * The staff alias id.
    */
-  aid: number;
+  aliasId: number;
 
   /**
    * VN id.
    */
-  vid: number;
+  visualNovelId: number;
 
   /**
    * Notes.
@@ -81,12 +81,12 @@ export interface CharacterNovel {
   /**
    * VN id.
    */
-  vid: number;
+  visualNovelId: number;
 
   /**
    * Release id.
    */
-  rid: number;
+  releaseId: number;
 
   /**
    * Spoiler level (0-2).
@@ -117,7 +117,7 @@ export interface Character {
   /**
    * Original (kana/kanji) name.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).

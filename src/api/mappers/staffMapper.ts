@@ -8,7 +8,7 @@ import { StaffCharacterVoiced, StaffVisualNovel, StaffAlias, Staff } from '../..
  */
 const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => ({
    id: dto.id,
-   aid: dto.aid,
+   aliasId: dto.aid,
    note: dto.note,
    role: dto.role,
 });
@@ -20,9 +20,9 @@ const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => 
  */
 const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharacterVoiced => ({
   id: dto.id,
-  aid: dto.aid,
+  aliasId: dto.aid,
   note: dto.note,
-  cid: dto.cid,
+  characterId: dto.cid,
 });
 
 /**
@@ -31,9 +31,9 @@ const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharact
  * @returns Array of objects.
  */
 const staffAliasesFromArray = (data: [number, string, string][]): StaffAlias[] => data.map(alias => ({
-  aid: alias[0],
+  aliasId: alias[0],
   name: alias[1],
-  original: alias[2],
+  originalName: alias[2],
 }));
 
 /**
@@ -52,5 +52,5 @@ export const staffFromDto = (dto: StaffDto): Staff => ({
   mainAlias: dto.main_alias,
   visualNovels: dto.vns.map(staffVnDto => staffVisualNovelFromDto(staffVnDto)),
   voiced: dto.voiced.map(voicedDto => staffCharacterVoicedFromDto(voicedDto)),
-  original: dto.original,
+  originalName: dto.original,
 });

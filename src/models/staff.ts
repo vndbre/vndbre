@@ -13,12 +13,12 @@ export interface StaffCharacterVoiced {
   /**
    * Alias id of this staff entry.
    */
-  aid: number;
+  aliasId: number;
 
   /**
    * Character id.
    */
-  cid: number;
+  characterId: number;
 
   /**
    * Note.
@@ -39,7 +39,7 @@ export interface StaffVisualNovel {
   /**
    * Alias id of this staff entry.
    */
-  aid: number;
+  aliasId: number;
 
   /**
    * Role.
@@ -60,7 +60,7 @@ export interface StaffAlias {
   /**
    * Alias id.
    */
-  aid: number;
+  aliasId: number;
 
   /**
    * Alias name (romaji).
@@ -70,7 +70,7 @@ export interface StaffAlias {
   /**
    * Primary original name.
    */
-  original: string;
+  originalName: string;
 }
 
 /**
@@ -91,7 +91,7 @@ export interface Staff {
   /**
    * Primary original name.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Gender.

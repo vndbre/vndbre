@@ -9,7 +9,7 @@ import { ProducerDto, ProducerRelatedDto } from '../dtos/producerDto';
 const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
   id: dto.id,
   name: dto.name,
-  original: dto.original,
+  originalName: dto.original,
   relation: dto.relation,
 });
 
@@ -21,7 +21,7 @@ const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
 export const producerFromDto = (dto: ProducerDto): Producer => ({
   id: dto.id,
   name: dto.name,
-  original: dto.original,
+  originalName: dto.original,
   type: dto.type,
   language: dto.language,
   links: dto.links,

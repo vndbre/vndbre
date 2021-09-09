@@ -23,7 +23,7 @@ export interface ProducerRelated {
   /**
    * Name in original.
    */
-  original: string | null;
+  originalName: string | null;
 }
 
 /**
@@ -44,7 +44,7 @@ export interface Producer {
   /**
    * Name in original.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Primary language.

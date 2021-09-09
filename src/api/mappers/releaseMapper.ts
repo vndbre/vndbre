@@ -9,7 +9,7 @@ import { Release, ReleaseMedia, ReleaseProducer } from '../../models/release';
  */
 const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
   medium: dto.medium,
-  qty: dto.qty,
+  quantity: dto.qty,
 });
 
 /**
@@ -21,7 +21,7 @@ const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
   id: dto.id,
   developer: dto.developer,
   name: dto.name,
-  original: dto.original,
+  originalName: dto.original,
   publisher: dto.publisher,
   type: dto.type,
 });
@@ -34,7 +34,7 @@ const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
 export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
   title: dto.title,
-  original: dto.original,
+  originalName: dto.original,
   released: dto.released ? new Date(dto.released) : null,
   type: dto.type,
   patch: dto.patch,

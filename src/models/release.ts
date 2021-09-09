@@ -29,7 +29,7 @@ export interface ReleaseProducer {
   /**
    * Name in original.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Type.
@@ -50,7 +50,7 @@ export interface ReleaseMedia {
   /**
    * Quantity.
    */
-  qty: number;
+  quantity: number;
 }
 
 /**
@@ -71,7 +71,7 @@ export interface Release {
   /**
    * Original/official title.
    */
-  original: string | null;
+  originalName: string | null;
 
   /**
    * Date of the first release.
