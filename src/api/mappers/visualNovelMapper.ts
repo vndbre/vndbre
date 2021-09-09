@@ -77,11 +77,11 @@ const visualNovelScreenShotFromDto = (dto: VisualNovelScreenshotDto): VisualNove
  * @returns Array of tags objects.
  */
 const tagsFromArray = (dto: number[][]): VisualNovelTag[] =>
-  (dto.length ? dto.map(tag => ({
+  dto.map(tag => ({
     id: tag[0],
     score: tag[1],
     spoilerLevel: tag[2],
-  })) : []);
+  }));
 
 /**
  * Maps dto to visual novel model.

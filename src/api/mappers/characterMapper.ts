@@ -41,12 +41,12 @@ const traitsFromArray = (data: number[][]): CharacterTrait[] => data.map(trait =
  * @param data Array of novels.
  * @returns Array of linked novel objects to the character.
  */
-const visualNovelsFromArray = (data: [number, number, number, string][]): CharacterNovel[] => (data.length ? data.map(novel => ({
+const visualNovelsFromArray = (data: [number, number, number, string][]): CharacterNovel[] => data.map(novel => ({
   visualNovelId: novel[0],
   releaseId: novel[1],
   spoilerLevel: novel[2],
   role: novel[3],
-})) : []);
+}));
 
 /**
  * Maps dto into model.
