@@ -3,9 +3,9 @@ import { imageFlaggingFromDto, imageFlaggingToDto } from './imageFlaggingMapper'
 import { VisualNovel, VisualNovelRelatedAnime, VisualNovelScreenshot, VisualNovelTag } from '../../models/visualNovel';
 
 /**
- * Maps dto to related anime model.
- * @param dto Dto object.
- * @returns RelatedAnime object.
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
  */
 const visualNovelRelatedAnimeFromDto = (dto: VisualNovelRelatedAnimeDto): VisualNovelRelatedAnime => ({
   id: dto.id,
@@ -34,8 +34,8 @@ const visualNovelRelatedAnimeToDto = (data: VisualNovelRelatedAnime): VisualNove
 
 /**
  * Maps dto into model.
- * @param dto Dto object.
- * @returns Screenshot object.
+ * @param dto Dto.
+ * @returns Model.
  */
 const visualNovelScreenShotFromDto = (dto: VisualNovelScreenshotDto): VisualNovelScreenshot => ({
   rid: dto.rid,
@@ -109,9 +109,9 @@ export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
 });
 
 /**
- * Maps model to dto.
- * @param data Visual novel object.
- * @returns Dto object.
+ * Maps dto into model.
+ * @param dto Dto.
+ * @returns Model.
  */
 export const visualNovelToDto = (data: VisualNovel): VisualNovelDto => ({
   id: data.id,

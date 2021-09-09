@@ -15,8 +15,8 @@ const producerRelatedFromDto = (dto: ProducerRelatedDto): ProducerRelated => ({
 
 /**
  * Maps dto into model.
- * @param dto Producer dto.
- * @returns Producer object.
+ * @param dto Dto.
+ * @returns Model.
  */
 export const producerFromDto = (dto: ProducerDto): Producer => ({
   id: dto.id,

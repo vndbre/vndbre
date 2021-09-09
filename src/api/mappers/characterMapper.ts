@@ -50,8 +50,8 @@ const visualNovelsFromArray = (data: [number, number, number, string][]): Charac
 
 /**
  * Maps dto into model.
- * @param dto Character dto.
- * @returns Character model.
+ * @param dto Dto.
+ * @returns Model.
  */
 export const characterFromDto = (dto: CharacterDto): Character => ({
   id: dto.id,

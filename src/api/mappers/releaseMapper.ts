@@ -4,8 +4,8 @@ import { Release, ReleaseMedia, ReleaseProducer } from '../../models/release';
 
 /**
  * Maps dto into model.
- * @param dto ReleaseMedia dto.
- * @returns ReleaseMedia object.
+ * @param dto Dto.
+ * @returns Model.
  */
 const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
   medium: dto.medium,
@@ -14,8 +14,8 @@ const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
 
 /**
  * Maps dto into model.
- * @param dto ReleaseMedia dto.
- * @returns ReleaseMedia object.
+ * @param dto Dto.
+ * @returns Model.
  */
 const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
   id: dto.id,
@@ -28,8 +28,8 @@ const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
 
 /**
  * Maps dto into model.
- * @param dto Release dto.
- * @returns Release object.
+ * @param dto Dto.
+ * @returns Model.
  */
 export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
