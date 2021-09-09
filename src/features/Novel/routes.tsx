@@ -38,7 +38,7 @@ export const novelRoutes = (isUserLoggedIn: boolean): PartialRouteObject[] => [
             element: <TestPage />,
           },
           {
-            path: '/media',
+            path: 'media',
             element: <TestPage />,
           },
         ],
