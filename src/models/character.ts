@@ -70,7 +70,7 @@ export interface CharacterTrait {
   /**
    * Between 0-2.
    */
-  spoilerLevel: number;
+  spoilerLevel: SpoilerLevel;
 }
 
 /**
@@ -91,7 +91,7 @@ export interface CharacterNovel {
   /**
    * Spoiler level (0-2).
    */
-  spoilerLevel: number;
+  spoilerLevel: SpoilerLevel;
 
   /**
    * Role.
