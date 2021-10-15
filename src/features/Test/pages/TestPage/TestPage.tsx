@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Stack, Button } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
-import { fetchTest } from '../../../../api/services/testService';
+import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
 
 /**
  * TODO: add comments.
  */
 export const TestPage: FC = () => {
-  const { isLoading, error, data } = useQuery('test', fetchTest);
+  const { isLoading, error, data } = useQuery('test', fetchFullVisualNovel);
 
   if (isLoading) {
     return <>Loading...</>;
@@ -21,7 +21,7 @@ export const TestPage: FC = () => {
     <div>
       TEST PAGE
       <div>
-        {data?.name}
+        {data?.title}
       </div>
       <Stack direction="row" spacing={4} align="center">
         <Button colorScheme="telegram" variant="solid">
