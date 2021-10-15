@@ -7,7 +7,7 @@ import { fetchFullVisualNovel } from '../../../../api/services/visualNovelServic
  * TODO: add comments.
  */
 export const TestPage: FC = () => {
-  const { isLoading, error, data } = useQuery('test', fetchFullVisualNovel);
+  const { isLoading, error, data } = useQuery('test', () => fetchFullVisualNovel('92'));
 
   if (isLoading) {
     return <>Loading...</>;

@@ -2,6 +2,7 @@ import React from 'react';
 import { PartialRouteObject } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { testRoutes } from '../features/Test/routes';
+import { visualNovelRoutes } from '../features/VisualNovel/routes';
 
 /**
  * Creates root router for app navigation.
@@ -9,8 +10,9 @@ import { testRoutes } from '../features/Test/routes';
  */
 export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
   ...testRoutes(isUserLoggedIn),
+  ...visualNovelRoutes(),
   {
-    path: '*',
+    path: '',
     element: <Navigate to="/test" />,
   },
 ];

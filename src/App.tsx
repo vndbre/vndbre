@@ -10,7 +10,6 @@ export const App: FC = () => {
 
   return (
     <div>
-      App
       {routes}
     </div>
   );

@@ -7,11 +7,17 @@ import { VisualNovel } from '../../models/visualNovel';
 /**
  * Fetches full visual novel.
  */
-export const fetchFullVisualNovel = async(): Promise<VisualNovel> => {
+export const fetchFullVisualNovel = async(id: string): Promise<VisualNovel> => {
   const { data } = await http.post<DataWrapper<VisualNovelDto>>(
     '',
-    'get vn basic,anime,details,relations,tags,stats,screens,staff (id = 92)',
+    `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
   );
+
+  const data1 = await http.post(
+    '',
+    `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
+  );
+  console.log(data1);
 
   return data.data.items.map(dto => visualNovelFromDto(dto))[0];
 };
