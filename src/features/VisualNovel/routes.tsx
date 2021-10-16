@@ -1,5 +1,5 @@
 import React from 'react';
-import { PartialRouteObject } from 'react-router';
+import { Navigate, PartialRouteObject } from 'react-router';
 import { OverviewPage } from './pages/OverviewPage/OverviewPage';
 import { VisualNovelPage } from './pages/VisualNovelPage/VisualNovelPage';
 
@@ -15,6 +15,10 @@ export const visualNovelRoutes = (): PartialRouteObject[] => [
         path: 'overview',
         element: <OverviewPage />,
       },
+      {
+        path: '',
+        element: <Navigate to="overview" />
+      }
     ],
   },
 ];

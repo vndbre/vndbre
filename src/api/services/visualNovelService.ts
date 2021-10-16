@@ -15,7 +15,7 @@ export const fetchFullVisualNovel = async(id: string): Promise<VisualNovel> => {
 
   const data1 = await http.post(
     '',
-    `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
+    `get release basic,details,producers (vn = ${id})`,
   );
   console.log(data1);
 

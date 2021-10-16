@@ -1,5 +1,8 @@
 .vn-page {
   padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .vn-header {
@@ -34,4 +37,10 @@
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+.vn-tabs {
+  height: 30px;
+  grid-column: span 2;
+  border-bottom: 2px solid orange;
 }

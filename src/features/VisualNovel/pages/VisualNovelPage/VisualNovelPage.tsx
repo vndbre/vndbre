@@ -48,6 +48,7 @@ export const VisualNovelPage: FC = () => {
               </div>
               <Text fontSize="xl">{data.description}</Text>
             </div>
+            <div className={cls['vn-tabs']}>Tabs</div>
           </header>
           <Outlet />
         </div>
