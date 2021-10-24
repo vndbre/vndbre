@@ -6,8 +6,12 @@
   font-size: var(--chakra-fontSizes-md);
 }
 
+.text {
+  display: inline-block;
+}
+
 /* Fixes layout shift when changing the font weight of the element */
-.link::after {
+.text::after {
   display: block;
   content: attr(title);
   font-weight: var(--chakra-fontWeights-semibold);

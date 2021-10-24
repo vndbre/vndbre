@@ -59,7 +59,7 @@ export const NovelTab: FC<NovelTabProps> = memo(({ to, title, end, badge }) => {
       end={end}
       className={({ isActive }) => getNavLinkClassNames(isActive)}
     >
-      {title}
+      <span title={title} className={styles.text}>{title}</span>
       {badgeElement}
     </NavLink>
   );
