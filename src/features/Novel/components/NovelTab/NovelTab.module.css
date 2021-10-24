@@ -1,9 +1,16 @@
 .link {
+  display: flex;
   position: relative;
   top: 1px;
   padding: 4px 8px;
   border-bottom: 2px solid transparent;
   font-size: var(--chakra-fontSizes-md);
+  white-space: nowrap;
+}
+
+.link:hover {
+  border-bottom: 2px solid var(--chakra-colors-gray-400);  
+  transition: border linear 0.3s;
 }
 
 .text {
@@ -21,12 +28,13 @@
   visibility: hidden;
 }
 
-.link:hover {
-  border-bottom: 2px solid var(--chakra-colors-gray-400);  
-  transition: border linear 0.3s;
+.badge {
+  font-size: 0.77rem;
+  font-weight: bold;
+  padding-left: 0.25rem;
 }
 
-.badge:hover {
+.hasBadge:hover {
   border-bottom: 2px solid var(--chakra-colors-gray-300);
 }
 

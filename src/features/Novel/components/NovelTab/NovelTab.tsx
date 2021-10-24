@@ -1,6 +1,5 @@
 import React, { FC, memo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Badge } from '@chakra-ui/react';
 import styles from './NovelTab.module.css';
 
 /**
@@ -49,7 +48,7 @@ export const NovelTab: FC<NovelTabProps> = memo(({ to, title, end, badge }) => {
   };
 
   const badgeElement = badge ? (
-    <Badge verticalAlign="top">{badge}</Badge>
+    <span className={styles.badge}>{badge}</span>
   ) : null;
 
   return (
