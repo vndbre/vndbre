@@ -25,7 +25,7 @@ export const NovelTabs: FC<NovelTabsProps> = memo(({ id }) => {
         to={`/vn/${id}${tabInfo.path}`}
         title={tabInfo.name}
         end={!!tabInfo.end}
-        badge={Math.random() > 0.5 ? '6' : undefined}
+        badge={Math.random() > 0.5 ? '6' : ''}
       />
     </li>
   ));

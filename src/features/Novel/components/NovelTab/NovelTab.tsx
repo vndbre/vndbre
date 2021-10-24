@@ -24,9 +24,9 @@ interface NovelTabProps {
   end: boolean;
 
   /**
-   * Text of optional badge.
+   * Text badge.
    */
-  badge?: string;
+  badge: string;
 }
 
 export const NovelTab: FC<NovelTabProps> = memo(({ to, title, end, badge }) => {
@@ -41,8 +41,8 @@ export const NovelTab: FC<NovelTabProps> = memo(({ to, title, end, badge }) => {
       classNames.push(styles.active);
     }
 
-    if (badge) {
-      classNames.push(styles.badge);
+    if (badge?.length > 0) {
+      classNames.push(styles.hasBadge);
     }
 
     return classNames.join(' ');
