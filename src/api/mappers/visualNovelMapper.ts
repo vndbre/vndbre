@@ -12,7 +12,7 @@ import {
   VisualNovelStaffDto,
   VisualNovelScreenshotDto,
   VisualNovelDto,
-} from '../dtos/ visualNovelDto';
+} from '../dtos/visualNovelDto';
 import { imageFlaggingFromDto } from './imageFlaggingMapper';
 
 /**

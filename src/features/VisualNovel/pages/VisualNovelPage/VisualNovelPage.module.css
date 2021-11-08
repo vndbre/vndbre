@@ -40,7 +40,5 @@
 }
 
 .vn-tabs {
-  height: 30px;
   grid-column: span 2;
-  border-bottom: 2px solid orange;
 }

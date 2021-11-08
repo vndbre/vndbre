@@ -7,6 +7,5 @@ export const queryClient = new QueryClient();
  * TODO: CHANGE BASE URL.
  */
 export const http: AxiosInstance = axios.create({
-  baseURL: 'https://vndbre-proxy.azurewebsites.net/api/v1/vndb',
-  headers: { 'Content-Type': 'text/plain' },
+  baseURL: 'https://vndbre-proxy.azurewebsites.net/api/v1/',
 });

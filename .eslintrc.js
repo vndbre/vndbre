@@ -23,7 +23,6 @@ module.exports = {
         tsconfigRootDir: __dirname, // https://github.com/typescript-eslint/typescript-eslint/issues/251
       },
       extends: [
-        "react-app",
         "airbnb",
         "airbnb/hooks",
         'plugin:@typescript-eslint/recommended',

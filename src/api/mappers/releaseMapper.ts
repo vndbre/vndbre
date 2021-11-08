@@ -1,6 +1,6 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
-import { visualNovelFromDto } from './visualNovelMapper';
 import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
+import { Languages, LanguagesEncoded } from '../../utils/types/languages';
 
 /**
  * Maps dto into model.
@@ -10,6 +10,27 @@ const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
   medium: dto.medium,
   quantity: dto.qty,
 });
+
+/**
+ * Maps encoded language into human-readable.
+ * @param language Encoded language.
+ */
+const languageMapper = (language: string): Languages => {
+  switch (language) {
+    case LanguagesEncoded.English:
+      return Languages.English;
+    case LanguagesEncoded.Japanese:
+      return Languages.Japanese;
+    case LanguagesEncoded.Russian:
+      return Languages.Russian;
+    case LanguagesEncoded.Chinese:
+      return Languages.Chinese;
+    case LanguagesEncoded.Korean:
+      return Languages.Korean;
+    default:
+      return Languages.Unknown;
+  }
+};
 
 /**
  * Maps release animation array into object.
@@ -46,7 +67,7 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   isPatch: dto.patch,
   isFreeware: dto.freeware,
   isDoujin: dto.doujin,
-  languages: dto.languages,
+  languages: dto.languages.map(lang => languageMapper(lang)),
   website: dto.website,
   notes: dto.notes,
   minAge: dto.minage,
@@ -57,6 +78,6 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   resolution: dto.resolution,
   voiced: dto.voiced,
   animation: releaseAnimationFromArray(dto.animation),
-  visualNovels: dto.vn.map(novelDto => visualNovelFromDto(novelDto)),
+  visualNovels: [],
   producers: dto.producers.map(producerDto => releaseProducerFromDto(producerDto)),
 });

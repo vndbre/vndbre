@@ -47,11 +47,6 @@ export interface Producer {
   originalName: string | null;
 
   /**
-   * Primary language.
-   */
-  language: string;
-
-  /**
    * Type.
    */
   type: string;
