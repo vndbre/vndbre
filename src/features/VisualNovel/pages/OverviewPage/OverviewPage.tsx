@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { Heading, Tag } from '@chakra-ui/react';
 
 import { useParams } from 'react-router';
@@ -13,8 +13,38 @@ import { fetchFullReleases } from '../../../../api/services/releaseService';
  */
 export const OverviewPage: FC = () => {
   const { id } = useParams();
+  const [developers, setDevelopers] = useState<string[]>([]);
+  const [publishers, setPublishers] = useState<Record<string, string[]>>(
+    ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
+  );
+
   const { isLoading, error, data } = useQuery(['vn', id], () => fetchFullVisualNovel(id));
-  const { isLoading: isReleasesLoading, error: releasesError, data: releases } = useQuery(['releases', id], () => fetchFullReleases(id));
+  const { isLoading: isReleasesLoading, error: releasesError, data: releases } = useQuery(
+    ['releases', id],
+    () => fetchFullReleases(id),
+    {
+      onSuccess(releasesData): void {
+        setDevelopers(Array.from(new Set(releasesData
+          .map(release => release.producers
+            .filter(p => p.isDeveloper)
+            .map(p => p.name)).flat())));
+
+        /**
+         * Filling publisher object with unique values.
+         */
+        const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
+        const publishersCopy = { ...publishers };
+        publisherReleases.forEach(release => {
+          release.languages.forEach(lang => {
+            const publisherNames = release.producers.map(p => p.name);
+            const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
+            publishersCopy[lang] = uniquePublisherNames;
+          });
+        setPublishers(publishersCopy);
+      });
+      },
+    },
+  );
 
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
@@ -23,19 +53,6 @@ export const OverviewPage: FC = () => {
   if (error) {
     return <>{`An error has occurred: ${(error as Error).message}`}</>;
   }
-
-  const developers = Array.from(new Set(releases?.map(release => release.producers.filter(p => p.isDeveloper).map(p => p.name)).flat()));
-  const publisherReleases = releases?.filter(release => release.producers.filter(p => p.isPublisher)).flat();
-
-  const publishers: Record<string, string[]> = ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
-
-  publisherReleases?.forEach(release => {
-      release.languages.forEach(lang => {
-        const publisherNames = release.producers.map(p => p.name);
-        const uniquePublisherNames = Array.from(new Set(publishers[lang].concat(publisherNames)));
-        publishers[lang] = uniquePublisherNames;
-      });
-  });
 
   return (
     <div className={cls['overview-page']}>
