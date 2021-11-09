@@ -16,14 +16,9 @@
   flex-wrap: wrap;
 }
 
-.overview-publisher-title {
+.overview-publisher-title,
+.overview-link {
   text-transform: capitalize;
-}
-
-.overview-note {
-  color: #404040;
-  font-weight: lighter;
-  margin-left: 5px;
 }
 
 .overview-staff {

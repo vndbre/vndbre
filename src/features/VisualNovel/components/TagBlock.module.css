@@ -1,0 +1,12 @@
+.tags {
+  display: flex;
+  margin-top: 5px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.note {
+  color: #404040;
+  font-weight: lighter;
+  margin-left: 5px;
+}

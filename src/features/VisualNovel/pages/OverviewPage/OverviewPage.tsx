@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
-import { Heading, Tag } from '@chakra-ui/react';
+import { Heading, Link, Tag } from '@chakra-ui/react';
 
 import { useParams } from 'react-router';
 import { useQuery } from 'react-query';
@@ -9,6 +9,8 @@ import { fetchFullVisualNovel } from '../../../../api/services/visualNovelServic
 import { fetchFullReleases } from '../../../../api/services/releaseService';
 import { fetchTags } from '../../../../api/services/tagService';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
+import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
+import { TagBlock } from '../../components/TagBlock';
 
 /**
  * Overview tab page.
@@ -70,156 +72,110 @@ export const OverviewPage: FC = () => {
   return (
     <div className={cls['overview-page']}>
       <div className={cls['overview-sidebar']}>
-        <div className={cls['overview-info-block']}>
-          <Heading as="h3" size="sm">
-            Developer
-          </Heading>
-          <div className={cls['overview-items']}>
-            {developers.map(developer => (
-              <Tag key={developer}>{developer}</Tag>
-            ))}
-          </div>
-        </div>
+        <TagBlock
+          title="Developers"
+          tags={developers.map(dev => ({ name: dev }))}
+        />
         {ISO6391.getAllCodes().map(key => (
           <Fragment key={key}>
             {publishers[key].length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm" className={cls['overview-publisher-title']}>
-                  Publisher (
-                  {ISO6391.getName(key)}
-                  )
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {publishers[key].map(publisher => (
-                    <Tag key={publisher}>{publisher}</Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title={`Publisher (${ISO6391.getName(key)})`}
+                tags={publishers[key].map(publisher => ({ name: publisher }))}
+              />
             )}
           </Fragment>
         ))}
+        <div className={cls['overview-info-block']}>
+          <Heading as="h3" size="sm">
+            Links
+          </Heading>
+          <div className={cls['overview-items']}>
+            {visualNovel && (
+                Object.keys(visualNovel.links).map(key => (
+                  <Link
+                    key={key}
+                    color="orange.500"
+                    className={cls['overview-link']}
+                    href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
+                  >
+                    {key}
+                  </Link>
+                ))
+            )}
+          </div>
+        </div>
       </div>
       <div className={cls['overview-content']}>
         {
           tags && tags.length > 0 && (
-            <div className={cls['overview-info-block']}>
-              <Heading as="h3" size="sm">
-                Tags
-              </Heading>
-              <div className={cls['overview-items']}>
-                {tags.map(tag => (
-                  <Tag key={tag.id}>{tag.name}</Tag>
-                ))}
-              </div>
-            </div>
+            <TagBlock title="Tags" tags={tags.map(tag => ({ name: tag.name }))} />
           )
         }
         <div className={cls['overview-staff']}>
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Director
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).map(staff => (
-                    <Tag key={staff.staffId}>{staff.name}</Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Directors"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).map(staff => ({ name: staff.name }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Scenario
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).map(staff => (
-                    <Tag key={staff.staffId}>{staff.name}</Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Directors"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).map(staff => ({ name: staff.name }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Artist
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).map(staff => (
-                    <Tag key={staff.staffId}>{staff.name}</Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Artists"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).map(staff => ({ name: staff.name }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.CharacterDesign).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Character Design
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.CharacterDesign).map(staff => (
-                    <Tag key={staff.staffId}>{staff.name}</Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Character Designers"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.CharacterDesign).map(staff => ({ name: staff.name }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Songs
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).map(staff => (
-                    <Tag key={staff.staffId}>
-                      {staff.name}
-                      <span className={cls['overview-note']}>{staff.note}</span>
-                    </Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Songs"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).map(staff => ({
+                  name: staff.name,
+                  note: staff.note,
+                }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Music).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Music
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Music).map(staff => (
-                    <Tag key={staff.staffId}>
-                      {staff.name}
-                      <span className={cls['overview-note']}>{staff.note}</span>
-                    </Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Music"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Music).map(staff => ({
+                  name: staff.name,
+                  note: staff.note,
+                }))}
+              />
             )
           }
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Staff).length > 0 && (
-              <div className={cls['overview-info-block']}>
-                <Heading as="h3" size="sm">
-                  Staff
-                </Heading>
-                <div className={cls['overview-items']}>
-                  {visualNovel.staff.filter(staff => staff.role === StaffRoles.Staff).map(staff => (
-                    <Tag key={staff.staffId}>
-                      {staff.name}
-                      <span className={cls['overview-note']}>{staff.note}</span>
-                    </Tag>
-                  ))}
-                </div>
-              </div>
+              <TagBlock
+                title="Staff"
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Staff).map(staff => ({
+                  name: staff.name,
+                  note: staff.note,
+                }))}
+              />
             )
           }
         </div>
