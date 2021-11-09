@@ -6,14 +6,21 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ChakraProvider } from '@chakra-ui/react';
 import { App } from './App';
 import { queryClient } from './api';
-import './theme/index.css';
+
+import { theme } from './theme';
+import './theme/css/base.css';
+import './theme/css/utilities.css';
+import '@fontsource/Inter/400.css';
+import '@fontsource/Inter/500.css';
+import '@fontsource/Inter/600.css';
+import '@fontsource/Inter/700.css';
 
 ReactDOM.render(
   <StrictMode>
     <Router>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <App />
         </ChakraProvider>
       </QueryClientProvider>
