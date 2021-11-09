@@ -1,4 +1,5 @@
 import { SpoilerLevel } from '../utils/types/spoilerLevel';
+import { StaffRoles } from '../utils/types/staffRoles';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
 
@@ -138,7 +139,7 @@ export interface VisualNovelStaff {
   /**
    * Staff member role.
    */
-  role: string;
+  role: StaffRoles;
 
   /**
    * Additional notes.

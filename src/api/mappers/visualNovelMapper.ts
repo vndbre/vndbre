@@ -6,6 +6,7 @@ import {
   VisualNovelTag,
   VisualNovel,
 } from '../../models/visualNovel';
+import { StaffRoles } from '../../utils/types/staffRoles';
 import {
   VisualNovelRelatedAnimeDto,
   VisualNovelRelatedDto,
@@ -51,7 +52,7 @@ const visualNovelStaffFromDto = (dto: VisualNovelStaffDto): VisualNovelStaff => 
   name: dto.name,
   originalName: dto.original,
   note: dto.note,
-  role: dto.role,
+  role: dto.role as StaffRoles,
 });
 
 /**
