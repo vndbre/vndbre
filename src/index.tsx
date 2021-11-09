@@ -10,10 +10,6 @@ import { queryClient } from './api';
 import { theme } from './theme';
 import './theme/css/base.css';
 import './theme/css/utilities.css';
-import '@fontsource/Inter/400.css';
-import '@fontsource/Inter/500.css';
-import '@fontsource/Inter/600.css';
-import '@fontsource/Inter/700.css';
 
 ReactDOM.render(
   <StrictMode>
