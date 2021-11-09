@@ -65,7 +65,7 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
           </Tag>
         ))}
         {isExpandable && tags.length > 10 && (
-          <Button size="sm" onClick={handleExpandButtonClick} type="button">...</Button>
+          <Button size="xs" onClick={handleExpandButtonClick} type="button" aria-label="Expand">...</Button>
         )}
       </div>
     </div>
