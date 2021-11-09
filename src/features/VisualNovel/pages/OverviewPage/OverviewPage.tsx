@@ -128,7 +128,7 @@ export const OverviewPage: FC = () => {
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).length > 0 && (
               <TagBlock
-                title="Directors"
+                title="Scenario"
                 tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).map(staff => ({ name: staff.name }))}
               />
             )
