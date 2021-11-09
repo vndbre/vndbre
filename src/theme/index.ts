@@ -6,6 +6,7 @@ import { components } from './components';
 import { shadows } from './foundations/shadows';
 import { fonts } from './foundations/fonts';
 import { radii } from './foundations/radii';
+import { lineHeights } from './foundations/lineHeights';
 
 export const theme = extendTheme({
   styles,
@@ -13,6 +14,7 @@ export const theme = extendTheme({
   shadows,
   fonts,
   radii,
+  lineHeights,
   components,
 },
 withDefaultColorScheme({
