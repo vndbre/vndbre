@@ -27,7 +27,7 @@ interface Props {
 const defaultProps = {
   style: undefined,
   className: undefined,
-  size: 'md',
+  size: 'md' as const,
 };
 
 const stringSizes = ['md', 'sm', 'xs'] as const;
