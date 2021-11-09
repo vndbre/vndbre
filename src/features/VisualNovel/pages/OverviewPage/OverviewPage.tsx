@@ -109,7 +109,11 @@ export const OverviewPage: FC = () => {
       <div className={cls['overview-content']}>
         {
           tags && tags.length > 0 && (
-            <TagBlock title="Tags" tags={tags.map(tag => ({ name: tag.name }))} />
+            <TagBlock
+              title="Tags"
+              tags={tags.map(tag => ({ name: tag.name }))}
+              isExpandable
+            />
           )
         }
         <div className={cls['overview-staff']}>
