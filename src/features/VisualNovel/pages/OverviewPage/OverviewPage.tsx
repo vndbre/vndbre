@@ -153,7 +153,7 @@ export const OverviewPage: FC = () => {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).length > 0 && (
               <TagBlock
                 title="Songs"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).map(staff => ({
+                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).map(staff => ({
                   name: staff.name,
                   note: staff.note,
                 }))}
