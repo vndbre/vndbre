@@ -1,5 +1,6 @@
 import React, { FC, memo } from 'react';
 import { Icon as IconifyIcon } from '@iconify/react';
+import { Icon as iconTheme } from '../../theme/components/Icon';
 
 interface Props {
 
@@ -21,26 +22,22 @@ interface Props {
   /**
    * Size in string format or pixels.
    */
-  size?: number | keyof typeof sizes;
+  size?: Size;
 }
 
-const sizes = {
-  md: 24,
-  sm: 20,
-  xs: 16,
-};
+type Size = number | keyof typeof iconTheme.sizes;
 
 /**
- * Map string sizes to number of pixels.
+ * Map Size to number of pixels.
  */
-function mapToPx(size: string | number): number {
+function mapToPx(size: Size): number {
   if (typeof size === 'number') {
     return size;
   }
-  if (size in sizes) {
-    return sizes[size as keyof typeof sizes];
+  if (size in iconTheme.sizes) {
+    return iconTheme.sizes[size];
   }
-  return sizes.md;
+  return iconTheme.sizes.md;
 }
 
 /**
