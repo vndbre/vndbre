@@ -7,22 +7,22 @@ interface Props {
   /**
    * Name of icon in format provider:icon-name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Style object.
    */
-  style?: React.CSSProperties;
+  readonly style?: React.CSSProperties;
 
   /**
    * Class name.
    */
-  className?: string;
+  readonly className?: string;
 
   /**
    * Size in string format or pixels.
    */
-  size?: Size;
+  readonly size?: Size;
 }
 
 type Size = number | keyof typeof iconTheme.sizes;
