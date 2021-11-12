@@ -1,0 +1,11 @@
+import { Button } from './Button';
+import { Link } from './Link';
+import { Text } from './Text';
+import { Tag } from './Tag';
+
+export const components = {
+  Button,
+  Link,
+  Text,
+  Tag,
+};
