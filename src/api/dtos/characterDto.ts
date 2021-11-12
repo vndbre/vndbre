@@ -158,7 +158,7 @@ export interface CharacterDto {
    * the trait id (integer),
    * the spoiler level (integer, 0-2).
    */
-  traits: number[][];
+  traits?: number[][];
 
   /**
    * VNs linked to this character.
@@ -173,7 +173,7 @@ export interface CharacterDto {
    * "side",
    * "appears".
    */
-  vns: [number, number, number, string][];
+  vns?: [number, number, number, string][];
 
   /**
    * Voice actresses that voiced this character, per VN.
@@ -183,5 +183,5 @@ export interface CharacterDto {
   /**
    * Instances of this character.
    */
-  instances: CharacterInstanceDto[];
+  instances?: CharacterInstanceDto[];
 }

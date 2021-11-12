@@ -10,7 +10,10 @@ import { fetchFullReleases } from '../../../../api/services/releaseService';
 import { fetchTags } from '../../../../api/services/tagService';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
-import { TagBlock } from '../../components/TagBlock';
+import { TagBlock } from '../../components/TagBlock/TagBlock';
+import { fetchCharacters } from '../../../../api/services/characterService';
+import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
+import { fetchStaff } from '../../../../api/services/staffService';
 
 /**
  * Overview tab page.
@@ -56,10 +59,13 @@ export const OverviewPage: FC = () => {
   );
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
-
   const { data: tags } = useQuery(['tags', id], () => fetchTags(tagIds), {
     enabled: tagIds.length > 0,
   });
+  const { data: characters } = useQuery(['characters', id], () => fetchCharacters(id));
+
+  // Const voicedActorsIds = Array.from(new Set(characters?.map(character => character.voicedActors.map(va => va.id)).flat())) ?? [];
+  // Const { data: voiceActors } = useQuery(['staff', id], () => fetchStaff(voicedActorsIds));
 
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
@@ -182,6 +188,22 @@ export const OverviewPage: FC = () => {
               />
             )
           }
+        </div>
+        <div>
+          <Heading as="h3" size="sm">
+            Characters
+          </Heading>
+          <div className={cls['overview-characters']}>
+            {characters && characters.length > 0 && (
+              characters.map(character => (
+                <Fragment key={character.id}>
+                  <CharacterCard
+                    character={character}
+                  />
+                </Fragment>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

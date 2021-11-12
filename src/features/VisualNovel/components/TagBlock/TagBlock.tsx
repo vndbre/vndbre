@@ -1,6 +1,6 @@
 /* eslint-disable dot-notation */
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Button, Heading, Tag } from '@chakra-ui/react';
+import { Button, Heading, Tag, Text } from '@chakra-ui/react';
 import React, { FC, memo, useState } from 'react';
 
 import cls from './TagBlock.module.css';
@@ -39,7 +39,6 @@ interface TagBlockProps {
  * Tag block component for tag data.
  */
 export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) => {
-  const [range, setRange] = useState(isExpandable ? [0, 10] : [0]);
   const [isExpanded, setIsExpanded] = useState(false);
 
   /**
@@ -47,7 +46,6 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
    */
   const handleExpandButtonClick = (): void => {
     setIsExpanded(!isExpanded);
-    setRange(isExpanded ? [0] : [0, 10]);
   };
 
   return (
@@ -56,11 +54,11 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
         {title}
       </Heading>
       <div className={cls['tags']}>
-        {tags.slice(...range).map(tag => (
+        {tags.slice(0, isExpanded ? -1 : 10).map(tag => (
           <Tag key={tag.name}>
             {tag.name}
             {tag.note && (
-              <span className={cls['note']}>{tag.note}</span>
+              <Text marginLeft="5px" noOfLines={2} color="gray.500">{tag.note}</Text>
             )}
           </Tag>
         ))}

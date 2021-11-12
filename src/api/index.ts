@@ -1,7 +1,13 @@
 import { QueryClient } from 'react-query';
 import axios, { AxiosInstance } from 'axios';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 /**
  * TODO: CHANGE BASE URL.

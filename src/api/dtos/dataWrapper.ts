@@ -23,5 +23,4 @@ export interface DataWrapper<T> {
      */
     items: T[];
   };
-
 }

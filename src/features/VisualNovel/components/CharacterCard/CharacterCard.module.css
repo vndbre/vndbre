@@ -1,0 +1,21 @@
+.card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  height: 112px;
+  background: var(--chakra-colors-gray-100);
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.image {
+  height: 112px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

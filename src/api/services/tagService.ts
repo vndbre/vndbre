@@ -13,5 +13,6 @@ export const fetchTags = async(ids: number[]): Promise<Tag[]> => {
     ApiUrls.TAGS,
     ids,
   );
+
   return data.map(dto => tagFromDto(dto));
 };

@@ -1,6 +1,7 @@
 import { CharacterVoicedDto, CharacterInstanceDto, CharacterDto } from '../dtos/characterDto';
 import { CharacterNovel, Character, CharacterTrait, CharacterInstance, CharacterVoiced } from '../../models/character';
 import { imageFlaggingFromDto } from './imageFlaggingMapper';
+import { Roles } from '../../utils/types/roles';
 
 /**
  * Maps dto into model.
@@ -41,7 +42,7 @@ const visualNovelsFromArray = (data: [number, number, number, string][]): Charac
   visualNovelId: novel[0],
   releaseId: novel[1],
   spoilerLevel: novel[2],
-  role: novel[3],
+  role: novel[3] as Roles,
 }));
 
 /**
@@ -67,8 +68,8 @@ export const characterFromDto = (dto: CharacterDto): Character => ({
   height: dto.height,
   weight: dto.weight,
   cupSize: dto.cup_size,
-  traits: traitsFromArray(dto.traits),
+  traits: dto.traits ? traitsFromArray(dto.traits) : undefined,
   voicedActors: dto.voiced.map(voicedDto => characterVoicedFromDto(voicedDto)),
-  instances: dto.instances.map(instanceDto => characterInstanceFromDto(instanceDto)),
-  visualNovels: visualNovelsFromArray(dto.vns),
+  instances: dto.instances?.map(instanceDto => characterInstanceFromDto(instanceDto)),
+  visualNovels: dto.vns ? visualNovelsFromArray(dto.vns) : undefined,
 });
