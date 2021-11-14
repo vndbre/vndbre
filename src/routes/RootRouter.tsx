@@ -1,7 +1,7 @@
 import React from 'react';
 import { PartialRouteObject } from 'react-router';
 import { Navigate } from 'react-router-dom';
-import { novelRoutes } from '../features/Novel/routes';
+import { novelRoutes } from '../features/VisualNovel/routes';
 import { testRoutes } from '../features/Test/routes';
 
 /**
