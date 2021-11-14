@@ -25,7 +25,7 @@ export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
     </Link>
   ));
 
-  /** Calculate default index for tabs. */
+  /** Calculates default index for tabs. */
   const getDefaultTabIndex = (): number => {
     const splitPath = location.pathname.split('/');
     const activeRoute = splitPath[splitPath.length - 1];

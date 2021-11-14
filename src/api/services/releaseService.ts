@@ -18,3 +18,9 @@ export const fetchFullReleases = async(vnId: string): Promise<Release[]> => {
   const releases = data.data.items.map(dto => releaseFromDto(dto));
   return releases;
 };
+
+/**
+ * Gets all unique language codes from releases.
+ * @param releases Releases of visual novel.
+ */
+export const getLanguageCodes = (releases: Release[]): string[] => Array.from(new Set(releases.map(release => release.languages).flat()));

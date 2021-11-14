@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router';
+import { getLanguageCodes } from '../../../../api/services/releaseService';
 import { useReleasesQuery } from '../../queries';
 
 /**
