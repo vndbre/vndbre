@@ -17,11 +17,6 @@
   gap: 24px;
 }
 
-.image {
-  border-radius: 8px;
-  height: 300px;
-}
-
 .heading {
   display: flex;
   gap: 16px;

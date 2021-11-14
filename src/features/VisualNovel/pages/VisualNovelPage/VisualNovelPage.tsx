@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text, Image } from '@chakra-ui/react';
 import { Outlet, useParams } from 'react-router';
 import { Icon } from '../../../../components/Icon/Icon';
 
@@ -27,11 +27,11 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <img src={data.image as string} alt={data.title} className={cls.image} />
+            <Image src={data.image as string} alt={data.title} h="300px" borderRadius="8px" />
             <div className={cls.info}>
               <div className={cls.heading}>
                 <div className={cls.title}>
-                  <Heading as="h1">
+                  <Heading as="h1" size="md">
                     {data.title}
                   </Heading>
                   <Heading as="h2" size="sm">
@@ -50,7 +50,7 @@ export const VisualNovelPage: FC = () => {
                 <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} variant="outline" />
                 <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} variant="outline" />
               </div>
-              <Text fontSize="xl">{data.description}</Text>
+              <Text>{data.description}</Text>
             </div>
             <VisualNovelTabs id={id} />
           </header>
