@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text } from '@chakra-ui/react';
-import { useQuery } from 'react-query';
 import { Outlet, useParams } from 'react-router';
-import { ChevronDownIcon, EditIcon, StarIcon, WarningIcon } from '@chakra-ui/icons';
-import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
+import { Icon } from '../../../../components/Icon/Icon';
 
 import cls from './VisualNovelPage.module.css';
+import { useVisualNovel } from '../../hooks/useVisualNovel';
 import { VisualNovelTabs } from '../../components';
 
 /**
@@ -13,25 +12,25 @@ import { VisualNovelTabs } from '../../components';
  */
 export const VisualNovelPage: FC = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useQuery(['vn', id], () => fetchFullVisualNovel(id));
+  const { isLoading, error, data } = useVisualNovel(id);
 
   if (isLoading) {
     return <>Loading...</>;
   }
 
   if (error) {
-    return <>{`An error has occurred: ${(error as Error).message}`}</>;
+    return <>{`An error has occurred: ${error.message}`}</>;
   }
 
   return (
     <>
       {data && (
-        <div className={cls['vn-page']}>
-          <header className={cls['vn-header']}>
-            <img src={data.image as string} alt={data.title} className={cls['vn-image']} />
-            <div className={cls['vn-info']}>
-              <div className={cls['vn-heading']}>
-                <div className={cls['vn-title']}>
+        <div className={cls.page}>
+          <header className={cls.header}>
+            <img src={data.image as string} alt={data.title} className={cls.image} />
+            <div className={cls.info}>
+              <div className={cls.heading}>
+                <div className={cls.title}>
                   <Heading as="h1" size="lg">
                     {data.title}
                   </Heading>
@@ -41,15 +40,15 @@ export const VisualNovelPage: FC = () => {
                 </div>
                 <Tag>{data.length}</Tag>
               </div>
-              <div className={cls['vn-controls']}>
-                <ButtonGroup size="lg" isAttached colorScheme="orange">
+              <div className={cls.controls}>
+                <ButtonGroup size="lg" isAttached>
                   <Button mr="-px">Add to list</Button>
                   <Divider colorScheme="whiteAlpha" height="12" orientation="vertical" />
-                  <IconButton aria-label="Add to list extended" icon={<ChevronDownIcon />} />
+                  <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
                 </ButtonGroup>
-                <IconButton aria-label="Star" size="lg" icon={<StarIcon />} variant="outline" />
-                <IconButton aria-label="Edit" size="lg" icon={<EditIcon />} variant="outline" />
-                <IconButton aria-label="Report" size="lg" icon={<WarningIcon />} variant="outline" />
+                <IconButton aria-label="Star" size="lg" icon={<Icon name="carbon:star" />} variant="outline" />
+                <IconButton aria-label="Edit" size="lg" icon={<Icon name="carbon:edit" />} variant="outline" />
+                <IconButton aria-label="Report" size="lg" icon={<Icon name="carbon:flag" />} variant="outline" />
               </div>
               <Text fontSize="xl">{data.description}</Text>
             </div>

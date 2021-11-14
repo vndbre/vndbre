@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useParams } from 'react-router';
-import { useReleasesQuery } from '../../queries/releases';
+import { useReleasesQuery } from '../../queries';
 
 /**
  * Releases page.

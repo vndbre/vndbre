@@ -18,3 +18,9 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.voiced {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

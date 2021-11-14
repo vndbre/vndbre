@@ -15,12 +15,13 @@ import {
 import { useQuery } from 'react-query';
 import { Icon } from '../../../../components/Icon/Icon';
 import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
+import { fetchTest } from '../../../../api/services/testService';
 
 /**
  * TODO: add comments.
  */
 export const TestPage: FC = () => {
-  const { isLoading, error, data } = useQuery('test', () => fetchFullVisualNovel('92'));
+  const { isLoading, error, data } = useQuery('test', () => fetchTest());
 
   if (isLoading) {
     return <>Loading...</>;
