@@ -1,0 +1,14 @@
+.list {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  border-bottom: 1px solid var(--chakra-colors-gray-300);
+}
+
+.item {
+  display: flex;
+}
+
+.item:not(:last-child) {
+  margin-right: 24px;
+}
