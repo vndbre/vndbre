@@ -41,14 +41,14 @@ export const VisualNovelPage: FC = () => {
                 <Tag>{data.length}</Tag>
               </div>
               <div className={cls.controls}>
-                <ButtonGroup size="lg" isAttached>
+                <ButtonGroup isAttached>
                   <Button mr="-px">Add to list</Button>
                   <Divider colorScheme="whiteAlpha" height="12" orientation="vertical" />
                   <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
                 </ButtonGroup>
-                <IconButton aria-label="Star" size="lg" icon={<Icon name="carbon:star" />} variant="outline" />
-                <IconButton aria-label="Edit" size="lg" icon={<Icon name="carbon:edit" />} variant="outline" />
-                <IconButton aria-label="Report" size="lg" icon={<Icon name="carbon:flag" />} variant="outline" />
+                <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} variant="outline" />
+                <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} variant="outline" />
+                <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} variant="outline" />
               </div>
               <Text fontSize="xl">{data.description}</Text>
             </div>
