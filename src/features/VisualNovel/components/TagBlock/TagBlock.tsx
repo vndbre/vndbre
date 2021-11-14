@@ -1,7 +1,8 @@
 /* eslint-disable dot-notation */
 /* eslint-disable @typescript-eslint/dot-notation */
-import { Button, Heading, Tag, Text } from '@chakra-ui/react';
 import React, { FC, memo, useState } from 'react';
+import { Heading, IconButton, Tag, Text } from '@chakra-ui/react';
+import { Icon } from '../../../../components/Icon/Icon';
 
 import cls from './TagBlock.module.css';
 
@@ -63,7 +64,14 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
           </Tag>
         ))}
         {isExpandable && tags.length > 10 && (
-          <Button size="xs" onClick={handleExpandButtonClick} type="button" aria-label="Expand">...</Button>
+          <IconButton
+            aria-label="Expand"
+            size="30px"
+            icon={<Icon name="carbon:overflow-menu-horizontal" />}
+            variant="solid"
+            colorScheme="gray"
+            onClick={handleExpandButtonClick}
+          />
         )}
       </div>
     </div>

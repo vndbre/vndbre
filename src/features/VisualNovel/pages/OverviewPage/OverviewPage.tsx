@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
-import { Heading, Link, Tag } from '@chakra-ui/react';
+import { Heading, Link } from '@chakra-ui/react';
 
 import { useParams } from 'react-router';
 import { useQuery } from 'react-query';
@@ -13,7 +13,6 @@ import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { fetchCharacters } from '../../../../api/services/characterService';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
-import { fetchStaff } from '../../../../api/services/staffService';
 
 /**
  * Overview tab page.
@@ -76,8 +75,8 @@ export const OverviewPage: FC = () => {
   }
 
   return (
-    <div className={cls['overview-page']}>
-      <div className={cls['overview-sidebar']}>
+    <div className={cls.page}>
+      <div className={cls.sidebar}>
         <TagBlock
           title="Developers"
           tags={developers.map(dev => ({ name: dev }))}
@@ -92,17 +91,16 @@ export const OverviewPage: FC = () => {
             )}
           </Fragment>
         ))}
-        <div className={cls['overview-info-block']}>
+        <div>
           <Heading as="h3" size="sm">
             Links
           </Heading>
-          <div className={cls['overview-items']}>
+          <div className={cls.items}>
             {visualNovel && (
                 Object.keys(visualNovel.links).map(key => (
                   <Link
                     key={key}
-                    color="orange.500"
-                    className={cls['overview-link']}
+                    className={cls.link}
                     href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
                   >
                     {key}
@@ -112,7 +110,7 @@ export const OverviewPage: FC = () => {
           </div>
         </div>
       </div>
-      <div className={cls['overview-content']}>
+      <div>
         {
           tags && tags.length > 0 && (
             <TagBlock
@@ -122,7 +120,7 @@ export const OverviewPage: FC = () => {
             />
           )
         }
-        <div className={cls['overview-staff']}>
+        <div className={cls.staff}>
           {
             visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).length > 0 && (
               <TagBlock
@@ -193,7 +191,7 @@ export const OverviewPage: FC = () => {
           <Heading as="h3" size="sm">
             Characters
           </Heading>
-          <div className={cls['overview-characters']}>
+          <div className={cls.characters}>
             {characters && characters.length > 0 && (
               characters.map(character => (
                 <Fragment key={character.id}>

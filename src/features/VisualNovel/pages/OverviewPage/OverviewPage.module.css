@@ -1,27 +1,27 @@
-.overview-page {
+.page {
   display: grid;
   grid-template-columns: 20% 1fr;
 }
 
-.overview-sidebar {
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.overview-items {
+.items {
   display: flex;
   margin-top: 5px;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.overview-publisher-title,
-.overview-link {
+.title,
+.link {
   text-transform: capitalize;
 }
 
-.overview-staff {
+.staff {
   display: grid;
   margin: 16px 0 40px 0;
   grid-template-columns: repeat(3, 1fr);
@@ -29,7 +29,7 @@
   
 }
 
-.overview-characters {
+.characters {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;

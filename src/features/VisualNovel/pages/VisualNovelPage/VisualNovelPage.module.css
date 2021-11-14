@@ -1,44 +1,44 @@
-.vn-page {
+.page {
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.vn-header {
+.header {
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 32px;
 }
 
-.vn-info {
+.info {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.vn-image {
+.image {
   border-radius: 8px;
   height: 300px;
 }
 
-.vn-heading {
+.heading {
   display: flex;
   gap: 16px;
   align-items: flex-start;
 }
 
-.vn-title {
+.title {
   display: flex;
   flex-direction: column; 
 }
 
-.vn-controls {
+.controls {
   display: flex;
   gap: 16px;
   align-items: center;
 }
 
-.vn-tabs {
+.tabs {
   grid-column: span 2;
 }
