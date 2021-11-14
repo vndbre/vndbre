@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Outlet, useParams } from 'react-router';
-import { NovelTabs } from '../../components';
+import { VisualNovelTabs } from '../../components';
 
 /**
  * TODO: add comments.
@@ -11,7 +11,7 @@ export const NovelPage: FC = () => {
   return (
     <div>
       <h1>Novel page</h1>
-      <NovelTabs id={id} />
+      <VisualNovelTabs id={id} />
       <Outlet />
     </div>
   );
