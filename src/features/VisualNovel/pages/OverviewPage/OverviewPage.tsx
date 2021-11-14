@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import ISO6391 from 'iso-639-1';
@@ -9,6 +9,7 @@ import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
+import { Release } from '../../../../models/release';
 
 /**
  * Overview tab page.
@@ -25,32 +26,39 @@ export const OverviewPage: FC = () => {
     isLoading: isReleasesLoading,
     error: releasesError,
     data: releases,
-  } = useReleasesQuery(
-    id,
-    {
-      onSuccess(releasesData): void {
-        setDevelopers(Array.from(new Set(releasesData
-          .map(release => release.producers
-            .filter(p => p.isDeveloper)
-            .map(p => p.name))
-          .flat())));
+  } = useReleasesQuery(id);
 
-        /**
-         * Filling publisher object with unique values.
-         */
-        const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
-        const publishersCopy = { ...publishers };
-        publisherReleases.forEach(release => {
-          release.languages.forEach(lang => {
-            const publisherNames = release.producers.map(p => p.name);
-            const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
-            publishersCopy[lang] = uniquePublisherNames;
-          });
-          setPublishers(publishersCopy);
-        });
-      },
-    },
-  );
+  /**
+   * Fills developers and publishers arrays.
+   * @param releasesData Releases.
+   */
+  const fillDeveloperTeam = (releasesData: Release[]): void => {
+    setDevelopers(Array.from(new Set(releasesData
+      .map(release => release.producers
+        .filter(p => p.isDeveloper)
+        .map(p => p.name))
+      .flat())));
+
+    /**
+     * Filling publisher object with unique values.
+     */
+    const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
+    const publishersCopy = { ...publishers };
+    publisherReleases.forEach(release => {
+      release.languages.forEach(lang => {
+        const publisherNames = release.producers.map(p => p.name);
+        const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
+        publishersCopy[lang] = uniquePublisherNames;
+      });
+      setPublishers(publishersCopy);
+    });
+  };
+
+  useEffect(() => {
+    if (releases && releases.length > 0) {
+      fillDeveloperTeam(releases);
+    }
+  }, [releases]);
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
   const { data: tags } = useTagsQuery(id, tagIds, {
