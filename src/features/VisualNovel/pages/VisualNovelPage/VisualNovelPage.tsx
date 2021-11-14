@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { Button, ButtonGroup, Divider, Heading, IconButton, Tab, TabList, TabPanel, TabPanels, Tabs, Tag, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
 import { Outlet, useParams } from 'react-router';
 import { ChevronDownIcon, EditIcon, StarIcon, WarningIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
 import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
 
 import cls from './VisualNovelPage.module.css';
+import { VisualNovelTabs } from '../../components';
 
 /**
  * Visual novel page.
@@ -53,37 +53,7 @@ export const VisualNovelPage: FC = () => {
               </div>
               <Text fontSize="xl">{data.description}</Text>
             </div>
-            <div className={cls['vn-tabs']}>
-              <Tabs colorScheme="orange">
-                <TabList>
-                  <Link to={`/vn/${id}/overview`}>
-                    <Tab>
-                      Overview
-                    </Tab>
-                  </Link>
-                  <Link to={`/vn/${id}/releases`}>
-                    <Tab>
-                      Releases
-                    </Tab>
-                  </Link>
-                  <Link to={`/vn/${id}/characters`}>
-                    <Tab>
-                      Characters
-                    </Tab>
-                  </Link>
-                  <Link to={`/vn/${id}/relations`}>
-                    <Tab>
-                      Relations
-                    </Tab>
-                  </Link>
-                  <Link to={`/vn/${id}/media`}>
-                    <Tab>
-                      Media
-                    </Tab>
-                  </Link>
-                </TabList>
-              </Tabs>
-            </div>
+            <VisualNovelTabs id={id} />
           </header>
           <Outlet />
         </div>
