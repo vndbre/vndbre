@@ -1,18 +1,17 @@
 import React, { FC, Fragment, useState } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
-import { useParams } from 'react-router';
-import { useQuery } from 'react-query';
 import ISO6391 from 'iso-639-1';
+import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
-import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
-import { fetchFullReleases } from '../../../../api/services/releaseService';
-import { fetchTags } from '../../../../api/services/tagService';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
-import { fetchCharacters } from '../../../../api/services/characterService';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
+import { useVisualNovel } from '../../hooks/useVisualNovel';
+import { useReleases } from '../../hooks/useReleases';
+import { useTags } from '../../hooks/useTags';
+import { useCharacters } from '../../hooks/useCharacters';
 
 /**
  * Overview tab page.
@@ -24,14 +23,13 @@ export const OverviewPage: FC = () => {
     ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
   );
 
-  const { isLoading, error, data: visualNovel } = useQuery(['vn', id], () => fetchFullVisualNovel(id));
+  const { isLoading, error, data: visualNovel } = useVisualNovel(id);
   const {
     isLoading: isReleasesLoading,
     error: releasesError,
     data: releases,
-  } = useQuery(
-    ['releases', id],
-    () => fetchFullReleases(id),
+  } = useReleases(
+    id,
     {
       onSuccess(releasesData): void {
         setDevelopers(Array.from(new Set(releasesData
@@ -58,10 +56,11 @@ export const OverviewPage: FC = () => {
   );
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
-  const { data: tags } = useQuery(['tags', id], () => fetchTags(tagIds), {
+  const { data: tags } = useTags(id, tagIds, {
     enabled: tagIds.length > 0,
   });
-  const { data: characters } = useQuery(['characters', id], () => fetchCharacters(id));
+
+  const { data: characters } = useCharacters(id);
 
   // Const voicedActorsIds = Array.from(new Set(characters?.map(character => character.voicedActors.map(va => va.id)).flat())) ?? [];
   // Const { data: voiceActors } = useQuery(['staff', id], () => fetchStaff(voicedActorsIds));
@@ -71,7 +70,7 @@ export const OverviewPage: FC = () => {
   }
 
   if (error) {
-    return <>{`An error has occurred: ${(error as Error).message}`}</>;
+    return <>{`An error has occurred: ${error.message}`}</>;
   }
 
   return (

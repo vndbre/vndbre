@@ -1,27 +1,25 @@
 import React, { FC } from 'react';
 import { Button, ButtonGroup, Divider, Heading, IconButton, Tab, TabList, TabPanels, Tabs, Tag, Text } from '@chakra-ui/react';
-import { useQuery } from 'react-query';
 import { Outlet, useParams } from 'react-router';
-import { EditIcon, StarIcon, WarningIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { Icon } from '../../../../components/Icon/Icon';
-import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
 
 import cls from './VisualNovelPage.module.css';
+import { useVisualNovel } from '../../hooks/useVisualNovel';
 
 /**
  * Visual novel page.
  */
 export const VisualNovelPage: FC = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useQuery(['vn', id], () => fetchFullVisualNovel(id));
+  const { isLoading, error, data } = useVisualNovel(id);
 
   if (isLoading) {
     return <>Loading...</>;
   }
 
   if (error) {
-    return <>{`An error has occurred: ${(error as Error).message}`}</>;
+    return <>{`An error has occurred: ${error.message}`}</>;
   }
 
   return (
