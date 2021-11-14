@@ -4,7 +4,7 @@ import { Outlet, useParams } from 'react-router';
 import { Icon } from '../../../../components/Icon/Icon';
 
 import cls from './VisualNovelPage.module.css';
-import { useVisualNovel } from '../../hooks/useVisualNovel';
+import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 
 /**
@@ -12,7 +12,7 @@ import { VisualNovelTabs } from '../../components';
  */
 export const VisualNovelPage: FC = () => {
   const { id } = useParams();
-  const { isLoading, error, data } = useVisualNovel(id);
+  const { isLoading, error, data } = useVisualNovelQuery(id);
 
   if (isLoading) {
     return <>Loading...</>;
@@ -31,7 +31,7 @@ export const VisualNovelPage: FC = () => {
             <div className={cls.info}>
               <div className={cls.heading}>
                 <div className={cls.title}>
-                  <Heading as="h1" size="lg">
+                  <Heading as="h1">
                     {data.title}
                   </Heading>
                   <Heading as="h2" size="sm">
@@ -41,14 +41,14 @@ export const VisualNovelPage: FC = () => {
                 <Tag>{data.length}</Tag>
               </div>
               <div className={cls.controls}>
-                <ButtonGroup size="lg" isAttached>
+                <ButtonGroup isAttached>
                   <Button mr="-px">Add to list</Button>
-                  <Divider colorScheme="whiteAlpha" height="12" orientation="vertical" />
+                  <Divider colorScheme="whiteAlpha" height="48px" orientation="vertical" />
                   <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
                 </ButtonGroup>
-                <IconButton aria-label="Star" size="lg" icon={<Icon name="carbon:star" />} variant="outline" />
-                <IconButton aria-label="Edit" size="lg" icon={<Icon name="carbon:edit" />} variant="outline" />
-                <IconButton aria-label="Report" size="lg" icon={<Icon name="carbon:flag" />} variant="outline" />
+                <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} variant="outline" />
+                <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} variant="outline" />
+                <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} variant="outline" />
               </div>
               <Text fontSize="xl">{data.description}</Text>
             </div>

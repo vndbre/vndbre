@@ -8,10 +8,7 @@ import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
-import { useVisualNovel } from '../../hooks/useVisualNovel';
-import { useTags } from '../../hooks/useTags';
-import { useCharacters } from '../../hooks/useCharacters';
-import { useReleasesQuery } from '../../queries';
+import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
 
 /**
  * Overview tab page.
@@ -23,7 +20,7 @@ export const OverviewPage: FC = () => {
     ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
   );
 
-  const { isLoading, error, data: visualNovel } = useVisualNovel(id);
+  const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
   const {
     isLoading: isReleasesLoading,
     error: releasesError,
@@ -56,11 +53,11 @@ export const OverviewPage: FC = () => {
   );
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
-  const { data: tags } = useTags(id, tagIds, {
+  const { data: tags } = useTagsQuery(id, tagIds, {
     enabled: tagIds.length > 0,
   });
 
-  const { data: characters } = useCharacters(id);
+  const { data: characters } = useCharactersQuery(id);
 
   // Const voicedActorsIds = Array.from(new Set(characters?.map(character => character.voicedActors.map(va => va.id)).flat())) ?? [];
   // Const { data: voiceActors } = useQuery(['staff', id], () => fetchStaff(voicedActorsIds));
