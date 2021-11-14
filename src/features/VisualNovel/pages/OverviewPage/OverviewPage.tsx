@@ -10,10 +10,9 @@ import { fetchFullReleases } from '../../../../api/services/releaseService';
 import { fetchTags } from '../../../../api/services/tagService';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
-import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { fetchCharacters } from '../../../../api/services/characterService';
-import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { fetchStaff } from '../../../../api/services/staffService';
+import { CharacterCard, TagBlock } from '../../components';
 
 /**
  * Overview tab page.
