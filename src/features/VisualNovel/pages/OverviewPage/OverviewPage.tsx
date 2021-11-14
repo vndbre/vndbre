@@ -1,18 +1,17 @@
 import React, { FC, Fragment, useState } from 'react';
-import { Heading, Link, Tag } from '@chakra-ui/react';
+import { Heading, Link } from '@chakra-ui/react';
 
 import { useParams } from 'react-router';
 import { useQuery } from 'react-query';
 import ISO6391 from 'iso-639-1';
 import cls from './OverviewPage.module.css';
 import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
-import { fetchFullReleases } from '../../../../api/services/releaseService';
 import { fetchTags } from '../../../../api/services/tagService';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { fetchCharacters } from '../../../../api/services/characterService';
-import { fetchStaff } from '../../../../api/services/staffService';
 import { CharacterCard, TagBlock } from '../../components';
+import { useReleasesQuery } from '../../queries';
 
 /**
  * Overview tab page.
@@ -29,9 +28,7 @@ export const OverviewPage: FC = () => {
     isLoading: isReleasesLoading,
     error: releasesError,
     data: releases,
-  } = useQuery(
-    ['releases', id],
-    () => fetchFullReleases(id),
+  } = useReleasesQuery(id,
     {
       onSuccess(releasesData): void {
         setDevelopers(Array.from(new Set(releasesData
@@ -54,8 +51,7 @@ export const OverviewPage: FC = () => {
           setPublishers(publishersCopy);
         });
       },
-    },
-  );
+    });
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
   const { data: tags } = useQuery(['tags', id], () => fetchTags(tagIds), {
