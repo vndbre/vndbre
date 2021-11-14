@@ -67,9 +67,6 @@ export const OverviewPage: FC = () => {
 
   const { data: characters } = useCharactersQuery(id);
 
-  // Const voicedActorsIds = Array.from(new Set(characters?.map(character => character.voicedActors.map(va => va.id)).flat())) ?? [];
-  // Const { data: voiceActors } = useQuery(['staff', id], () => fetchStaff(voicedActorsIds));
-
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
   }
