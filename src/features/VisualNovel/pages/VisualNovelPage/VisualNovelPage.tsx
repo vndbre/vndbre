@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
 import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text, Image } from '@chakra-ui/react';
 import { Outlet, useParams } from 'react-router';
-import { Icon } from '../../../../components/Icon/Icon';
 
+import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
+import { BBCode } from '../../../../components/BBCode/BBCode';
 
 /**
  * Visual novel page.
@@ -48,7 +49,11 @@ export const VisualNovelPage: FC = () => {
                 <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                 <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
               </div>
-              <Text>{data.description}</Text>
+              <Text className={cls.description}>
+                <BBCode>
+                  {data.description}
+                </BBCode>
+              </Text>
             </div>
             <VisualNovelTabs id={id} />
           </header>
