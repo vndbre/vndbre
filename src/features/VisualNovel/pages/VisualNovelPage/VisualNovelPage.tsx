@@ -43,7 +43,7 @@ export const VisualNovelPage: FC = () => {
               <div className={cls.controls}>
                 <ButtonGroup isAttached>
                   <Button mr="-px">Add to list</Button>
-                  <Divider colorScheme="whiteAlpha" height="12" orientation="vertical" />
+                  <Divider colorScheme="whiteAlpha" height="48px" orientation="vertical" />
                   <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
                 </ButtonGroup>
                 <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} variant="outline" />
