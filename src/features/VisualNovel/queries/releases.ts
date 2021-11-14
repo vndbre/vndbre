@@ -9,4 +9,4 @@ import { Release } from '../../../models/release';
  * @param options Query options.
  */
 export const useReleasesQuery = (id: string, options?: UseQueryOptions<Release[], Error>): UseQueryResult<Release[]> =>
-  useQuery(['releases', id], () => fetchFullReleases(id), { ...options, staleTime: defaultStaleTime });
+  useQuery(['releases', id], () => fetchFullReleases(id), { staleTime: defaultStaleTime, ...options });

@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import ISO6391 from 'iso-639-1';
@@ -8,10 +8,8 @@ import { StaffRoles } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
-import { useVisualNovel } from '../../hooks/useVisualNovel';
-import { useTags } from '../../hooks/useTags';
-import { useCharacters } from '../../hooks/useCharacters';
-import { useReleasesQuery } from '../../queries';
+import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
+import { Release } from '../../../../models/release';
 
 /**
  * Overview tab page.
@@ -23,44 +21,51 @@ export const OverviewPage: FC = () => {
     ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
   );
 
-  const { isLoading, error, data: visualNovel } = useVisualNovel(id);
+  const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
   const {
     isLoading: isReleasesLoading,
     error: releasesError,
     data: releases,
-  } = useReleasesQuery(
-    id,
-    {
-      onSuccess(releasesData): void {
-        setDevelopers(Array.from(new Set(releasesData
-          .map(release => release.producers
-            .filter(p => p.isDeveloper)
-            .map(p => p.name))
-          .flat())));
+  } = useReleasesQuery(id);
 
-        /**
-         * Filling publisher object with unique values.
-         */
-        const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
-        const publishersCopy = { ...publishers };
-        publisherReleases.forEach(release => {
-          release.languages.forEach(lang => {
-            const publisherNames = release.producers.map(p => p.name);
-            const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
-            publishersCopy[lang] = uniquePublisherNames;
-          });
-          setPublishers(publishersCopy);
-        });
-      },
-    },
-  );
+  /**
+   * Fills developers and publishers arrays.
+   * @param releasesData Releases.
+   */
+  const fillDeveloperTeam = (releasesData: Release[]): void => {
+    setDevelopers(Array.from(new Set(releasesData
+      .map(release => release.producers
+        .filter(p => p.isDeveloper)
+        .map(p => p.name))
+      .flat())));
+
+    /**
+     * Filling publisher object with unique values.
+     */
+    const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
+    const publishersCopy = { ...publishers };
+    publisherReleases.forEach(release => {
+      release.languages.forEach(lang => {
+        const publisherNames = release.producers.map(p => p.name);
+        const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
+        publishersCopy[lang] = uniquePublisherNames;
+      });
+      setPublishers(publishersCopy);
+    });
+  };
+
+  useEffect(() => {
+    if (releases && releases.length > 0) {
+      fillDeveloperTeam(releases);
+    }
+  }, [releases]);
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
-  const { data: tags } = useTags(id, tagIds, {
+  const { data: tags } = useTagsQuery(id, tagIds, {
     enabled: tagIds.length > 0,
   });
 
-  const { data: characters } = useCharacters(id);
+  const { data: characters } = useCharactersQuery(id);
 
   // Const voicedActorsIds = Array.from(new Set(characters?.map(character => character.voicedActors.map(va => va.id)).flat())) ?? [];
   // Const { data: voiceActors } = useQuery(['staff', id], () => fetchStaff(voicedActorsIds));
