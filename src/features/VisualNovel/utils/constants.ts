@@ -1,6 +1,6 @@
 import { TabInfo } from '../../../utils/types/tabInfo';
 
-export const VisualNovelTabInfo: TabInfo[] = [
+export const visualNovelTabInfo: TabInfo[] = [
   { name: 'Overview', path: 'overview' },
   { name: 'Releases', path: 'releases' },
   { name: 'Characters', path: 'characters' },

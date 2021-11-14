@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { VisualNovelTabInfo } from '../../utils/constants';
+import { Link, useLocation } from 'react-router-dom';
+import { visualNovelTabInfo } from '../../utils/constants';
 import cls from './VisualNovelTabs.module.css';
 
 interface VisualNovelTabsProps {
@@ -17,15 +17,26 @@ interface VisualNovelTabsProps {
  * TODO (Panov A.): Add badges to tabs.
  */
 export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
-  const tabs = VisualNovelTabInfo.map(tabInfo => (
-    <Link to={`/vn/${id}/${tabInfo.path}`}>
+  const location = useLocation();
+
+  const tabs = visualNovelTabInfo.map(tabInfo => (
+    <Link key={tabInfo.name} to={`/vn/${id}/${tabInfo.path}`}>
       <Tab>{tabInfo.name}</Tab>
     </Link>
   ));
 
+  /** Calculate default index for tabs. */
+  const getDefaultTabIndex = (): number => {
+    const splitPath = location.pathname.split('/');
+    const activeRoute = splitPath[splitPath.length - 1];
+    return visualNovelTabInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
+  };
+
+  const defaultTabIndex = getDefaultTabIndex();
+
   return (
     <nav className={cls.tabs}>
-      <Tabs colorScheme="orange">
+      <Tabs defaultIndex={defaultTabIndex} colorScheme="orange">
         <TabList>
           {tabs}
         </TabList>
