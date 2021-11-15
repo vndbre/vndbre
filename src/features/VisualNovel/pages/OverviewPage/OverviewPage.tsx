@@ -4,7 +4,7 @@ import { Heading, Link } from '@chakra-ui/react';
 import ISO6391 from 'iso-639-1';
 import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
-import { StaffRoles } from '../../../../utils/types/staffRoles';
+import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
@@ -123,69 +123,22 @@ export const OverviewPage: FC = () => {
         }
         <div className={cls.staff}>
           {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).length > 0 && (
-              <TagBlock
-                title="Directors"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Director).map(staff => ({ name: staff.name }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).length > 0 && (
-              <TagBlock
-                title="Scenario"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Scenario).map(staff => ({ name: staff.name }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).length > 0 && (
-              <TagBlock
-                title="Artists"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Artist).map(staff => ({ name: staff.name }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.CharacterDesign).length > 0 && (
-              <TagBlock
-                title="Character Designers"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.CharacterDesign).map(staff => ({ name: staff.name }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).length > 0 && (
-              <TagBlock
-                title="Songs"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Songs).map(staff => ({
-                  name: staff.name,
-                  note: staff.note,
-                }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Music).length > 0 && (
-              <TagBlock
-                title="Music"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Music).map(staff => ({
-                  name: staff.name,
-                  note: staff.note,
-                }))}
-              />
-            )
-          }
-          {
-            visualNovel && visualNovel.staff.filter(staff => staff.role === StaffRoles.Staff).length > 0 && (
-              <TagBlock
-                title="Staff"
-                tags={visualNovel.staff.filter(staff => staff.role === StaffRoles.Staff).map(staff => ({
-                  name: staff.name,
-                  note: staff.note,
-                }))}
-              />
-            )
+            Object.keys(STAFF_ROLES).map(key => (
+              <Fragment key={key}>
+                {visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
+                  <TagBlock
+                    title={STAFF_ROLES[key as StaffRoles].title}
+                    tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
+                      const data = { name: staff.name };
+                      if (STAFF_ROLES[key as StaffRoles].showNote) {
+                        return { ...data, note: staff.note };
+                      }
+                      return data;
+                    })}
+                  />
+                )}
+              </Fragment>
+            ))
           }
         </div>
         <div>
