@@ -17,6 +17,11 @@
   gap: 24px;
 }
 
+.image {
+  height: 300px;
+  border-radius: 8px;
+}
+
 .heading {
   display: flex;
   gap: 16px;
@@ -26,6 +31,10 @@
 .title {
   display: flex;
   flex-direction: column; 
+}
+
+.description {
+  white-space: break-spaces;
 }
 
 .controls {

@@ -25,7 +25,7 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
 
   return (
     <div className={cls.card}>
-      <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} h="112px" width="full" borderRadius="8px" />
+      <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} className={cls.image} />
       <div className={cls.container}>
         <div className={cls.info}>
           <Heading as="h4" size="sm">

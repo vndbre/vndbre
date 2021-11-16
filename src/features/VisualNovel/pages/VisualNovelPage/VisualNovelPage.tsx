@@ -27,7 +27,7 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <Image src={data.image as string} alt={data.title} h="300px" borderRadius="8px" />
+            <Image src={data.image as string} alt={data.title} className={cls.image} />
             <div className={cls.info}>
               <div className={cls.heading}>
                 <div className={cls.title}>
@@ -48,7 +48,7 @@ export const VisualNovelPage: FC = () => {
                 <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                 <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
               </div>
-              <Text whiteSpace="break-spaces">{data.description}</Text>
+              <Text className={cls.description}>{data.description}</Text>
             </div>
             <VisualNovelTabs id={id} />
           </header>
