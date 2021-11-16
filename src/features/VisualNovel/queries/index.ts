@@ -6,4 +6,12 @@ import { useReleasesQuery } from './releases';
 /** 10 minutes. */
 const defaultStaleTime = 10000 * 60;
 
-export { defaultStaleTime, useReleasesQuery, useVisualNovelQuery, useTagsQuery, useCharactersQuery };
+/** Default fetch strategy for queries.  */
+const defaultFetchStrategy = {
+  retry: false,
+  refetchOnMount: false,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
+};
+
+export { defaultStaleTime, defaultFetchStrategy, useReleasesQuery, useVisualNovelQuery, useTagsQuery, useCharactersQuery };

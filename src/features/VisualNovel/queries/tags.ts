@@ -1,5 +1,5 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultStaleTime } from '.';
+import { defaultFetchStrategy, defaultStaleTime } from '.';
 import { fetchTags } from '../../../api/services/tagService';
 import { Tag } from '../../../models/tag';
 
@@ -10,4 +10,4 @@ import { Tag } from '../../../models/tag';
  * @param options Query options.
  */
 export const useTagsQuery = (id: string, ids: number[], options?: QueryObserverOptions<Tag[], Error>): UseQueryResult<Tag[], Error> =>
-  useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...options });
+  useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
