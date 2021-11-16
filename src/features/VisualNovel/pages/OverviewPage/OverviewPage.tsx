@@ -1,7 +1,7 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
-import ISO6391 from 'iso-639-1';
+import languageCodes from 'iso-639-1';
 import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
 import { StaffRoles } from '../../../../utils/types/staffRoles';
@@ -18,7 +18,7 @@ export const OverviewPage: FC = () => {
   const { id } = useParams();
   const [developers, setDevelopers] = useState<string[]>([]);
   const [publishers, setPublishers] = useState<Record<string, string[]>>(
-    ISO6391.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
+    languageCodes.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
   );
 
   const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
@@ -82,11 +82,11 @@ export const OverviewPage: FC = () => {
           title="Developers"
           tags={developers.map(dev => ({ name: dev }))}
         />
-        {ISO6391.getAllCodes().map(key => (
+        {languageCodes.getAllCodes().map(key => (
           <Fragment key={key}>
             {publishers[key].length > 0 && (
               <TagBlock
-                title={`Publisher (${ISO6391.getName(key)})`}
+                title={`Publisher (${languageCodes.getName(key)})`}
                 tags={publishers[key].map(publisher => ({ name: publisher }))}
               />
             )}

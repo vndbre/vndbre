@@ -7,17 +7,14 @@ import { staffFromDto } from '../mappers/staffMapper';
 
 /**
  * Fetches staff by id.
- * @param id Staff id.
+ * @param ids Staff ids.
  * TODO: Add support for fetching more.
  */
 export const fetchStaff = async(ids: number[]): Promise<Staff[]> => {
-  console.log(ids);
   const { data } = await http.post<DataWrapper<StaffDto>>(
-    ApiUrls.VNDB,
+    ApiUrls.Vndb,
     `get staff basic (aid = [${ids}])`,
   );
-
-  console.log(data);
 
   return data.data.items.map(dto => staffFromDto(dto));
 };

@@ -26,7 +26,6 @@
   margin: 16px 0 40px 0;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 16px;
-  
 }
 
 .characters {

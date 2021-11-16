@@ -48,7 +48,7 @@ export const VisualNovelPage: FC = () => {
                 <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                 <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
               </div>
-              <Text>{data.description}</Text>
+              <Text whiteSpace="break-spaces">{data.description}</Text>
             </div>
             <VisualNovelTabs id={id} />
           </header>

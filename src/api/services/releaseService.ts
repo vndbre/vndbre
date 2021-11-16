@@ -11,7 +11,7 @@ import { ApiUrls } from '../../utils/types/apiUrls';
  */
 export const fetchFullReleases = async(vnId: string): Promise<Release[]> => {
   const { data } = await http.post<DataWrapper<ReleaseDto>>(
-    ApiUrls.VNDB,
+    ApiUrls.Vndb,
     `get release basic,details,producers (vn = ${vnId})`,
   );
 

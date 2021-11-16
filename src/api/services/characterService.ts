@@ -12,7 +12,7 @@ import { CharacterDto } from '../dtos/characterDto';
  */
 export const fetchCharacters = async(vnId: string): Promise<Character[]> => {
   const { data } = await http.post<DataWrapper<CharacterDto>>(
-    ApiUrls.VNDB,
+    ApiUrls.Vndb,
     `get character basic,details,meas,voiced,traits,vns (vn = ${vnId})`,
   );
 

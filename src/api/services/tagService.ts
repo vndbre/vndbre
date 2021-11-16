@@ -10,7 +10,7 @@ import { tagFromDto } from '../mappers/tagMapper';
  */
 export const fetchTags = async(ids: number[]): Promise<Tag[]> => {
   const { data } = await http.post<TagDto[]>(
-    ApiUrls.TAGS,
+    ApiUrls.Tags,
     ids,
   );
 

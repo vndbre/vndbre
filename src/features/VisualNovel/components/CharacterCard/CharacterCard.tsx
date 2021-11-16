@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React, { FC, memo } from 'react';
 import { Heading, Text, Image } from '@chakra-ui/react';
 import { useParams } from 'react-router';
@@ -9,9 +8,6 @@ import { Icon } from '../../../../components/Icon/Icon';
 
 import characterPlaceholder from '../../../../assets/person.png';
 
-/**
- * Component props.
- */
 interface CharacterCardProps {
 
   /**
