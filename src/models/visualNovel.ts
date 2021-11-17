@@ -1,5 +1,6 @@
 import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { StaffRoles } from '../utils/types/staffRoles';
+import { VisualNovelLength } from '../utils/types/visualNovelLength';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
 
@@ -216,7 +217,7 @@ export interface VisualNovel {
   /**
    * Length of the game, 1-5.
    */
-  length: number | null;
+  length: VisualNovelLength | null;
 
   /**
    * Description of the VN.

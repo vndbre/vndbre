@@ -78,6 +78,9 @@ export const OverviewPage: FC = () => {
   return (
     <div className={cls.page}>
       <div className={cls.sidebar}>
+        {visualNovel?.length && (
+          <TagBlock title="Game Length" tags={[{ name: visualNovel.length }]} />
+        )}
         <TagBlock
           title="Developers"
           tags={developers.map(dev => ({ name: dev }))}
