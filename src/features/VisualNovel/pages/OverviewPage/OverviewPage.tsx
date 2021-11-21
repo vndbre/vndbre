@@ -10,6 +10,7 @@ import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
 import { Release } from '../../../../models/release';
+import { VisualNovel } from '../../../../models/visualNovel';
 
 /**
  * Overview tab page.
@@ -17,11 +18,10 @@ import { Release } from '../../../../models/release';
 export const OverviewPage: FC = () => {
   const { id } = useParams();
   const [developers, setDevelopers] = useState<string[]>([]);
-  const [publishers, setPublishers] = useState<Record<string, string[]>>(
-    languageCodes.getAllCodes().reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {}),
-  );
+  const [publishers, setPublishers] = useState<Record<string, string[]>>();
 
   const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
+
   const {
     isLoading: isReleasesLoading,
     error: releasesError,
@@ -32,7 +32,7 @@ export const OverviewPage: FC = () => {
    * Fills developers and publishers arrays.
    * @param releasesData Releases.
    */
-  const fillDeveloperTeam = (releasesData: Release[]): void => {
+  const fillDeveloperTeam = (releasesData: Release[], vnData: VisualNovel): void => {
     setDevelopers(Array.from(new Set(releasesData
       .map(release => release.producers
         .filter(p => p.isDeveloper)
@@ -43,22 +43,22 @@ export const OverviewPage: FC = () => {
      * Filling publisher object with unique values.
      */
     const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
-    const publishersCopy = { ...publishers };
+    const groupedLangs: Record<string, string[]> = vnData.languages.reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
     publisherReleases.forEach(release => {
       release.languages.forEach(lang => {
         const publisherNames = release.producers.map(p => p.name);
-        const uniquePublisherNames = Array.from(new Set(publishersCopy[lang].concat(publisherNames)));
-        publishersCopy[lang] = uniquePublisherNames;
+        const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
+        groupedLangs[lang] = uniquePublisherNames;
       });
-      setPublishers(publishersCopy);
     });
+    setPublishers(groupedLangs);
   };
 
   useEffect(() => {
-    if (releases && releases.length > 0) {
-      fillDeveloperTeam(releases);
+    if (visualNovel && releases && releases.length > 0) {
+      fillDeveloperTeam(releases, visualNovel);
     }
-  }, [releases]);
+  }, [releases, visualNovel]);
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
   const { data: tags } = useTagsQuery(id, tagIds, {
@@ -85,9 +85,9 @@ export const OverviewPage: FC = () => {
           title="Developers"
           tags={developers.map(dev => ({ name: dev }))}
         />
-        {languageCodes.getAllCodes().map(key => (
+        {visualNovel?.languages.map(key => (
           <Fragment key={key}>
-            {publishers[key].length > 0 && (
+            {publishers && publishers[key].length > 0 && (
               <TagBlock
                 title={`Publisher (${languageCodes.getName(key)})`}
                 tags={publishers[key].map(publisher => ({ name: publisher }))}
@@ -127,20 +127,19 @@ export const OverviewPage: FC = () => {
         <div className={cls.staff}>
           {
             Object.keys(STAFF_ROLES).map(key => (
-              <Fragment key={key}>
-                {visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
-                  <TagBlock
-                    title={STAFF_ROLES[key as StaffRoles].title}
-                    tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
+                visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
+                <TagBlock
+                  key={key}
+                  title={STAFF_ROLES[key as StaffRoles].title}
+                  tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
                       const data = { name: staff.name };
                       if (STAFF_ROLES[key as StaffRoles].showNote) {
                         return { ...data, note: staff.note };
                       }
                       return data;
                     })}
-                  />
-                )}
-              </Fragment>
+                />
+              )
             ))
           }
         </div>
