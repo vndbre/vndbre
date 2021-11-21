@@ -40,9 +40,7 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
 
         </div>
         {
-          role && (
-            <Text fontSize="xs">{Roles.toReadable(role)}</Text>
-          )
+          role && <Text fontSize="xs">{Roles.toReadable(role)}</Text>
         }
       </div>
     </div>
