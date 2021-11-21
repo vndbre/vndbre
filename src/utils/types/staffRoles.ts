@@ -23,18 +23,9 @@ interface DisplayStaffRole {
    */
   readonly showNote?: boolean;
 }
-interface MappedStaffRoles {
-  [StaffRoles.Director]: DisplayStaffRole;
-  [StaffRoles.Scenario]: DisplayStaffRole;
-  [StaffRoles.Artist]: DisplayStaffRole;
-  [StaffRoles.CharacterDesign]: DisplayStaffRole;
-  [StaffRoles.Music]: DisplayStaffRole;
-  [StaffRoles.Songs]: DisplayStaffRole;
-  [StaffRoles.Staff]: DisplayStaffRole;
-}
 
 /** Object to display staff roles. */
-export const STAFF_ROLES: MappedStaffRoles = {
+export const STAFF_ROLES: Record<StaffRoles, DisplayStaffRole> = {
   [StaffRoles.Director]: { title: 'Director' },
   [StaffRoles.Scenario]: { title: 'Scenario' },
   [StaffRoles.Artist]: { title: 'Artist' },
