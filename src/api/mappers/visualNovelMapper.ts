@@ -7,7 +7,7 @@ import {
   VisualNovel,
 } from '../../models/visualNovel';
 import { StaffRoles } from '../../utils/types/staffRoles';
-import { VisualNovelLength } from '../../utils/types/visualNovelLength';
+import { DisplayVisualNovelLength, VisualNovelLength } from '../../utils/types/visualNovelLength';
 import {
   VisualNovelRelatedAnimeDto,
   VisualNovelRelatedDto,
@@ -21,20 +21,20 @@ import { imageFlaggingFromDto } from './imageFlaggingMapper';
  * Maps VN length to readable format.
  * @param length Visual novel length.
  */
-const mapVisualNovelLength = (length: number): VisualNovelLength => {
+const mapVisualNovelLength = (length: number): DisplayVisualNovelLength => {
   switch (length) {
-    case 1:
-      return VisualNovelLength.VeryShort;
-    case 2:
-      return VisualNovelLength.Short;
-    case 3:
-      return VisualNovelLength.Medium;
-    case 4:
-      return VisualNovelLength.Long;
-    case 5:
-      return VisualNovelLength.VeryLong;
+    case VisualNovelLength.VeryShort:
+      return DisplayVisualNovelLength.VeryShort;
+    case VisualNovelLength.Short:
+      return DisplayVisualNovelLength.Short;
+    case VisualNovelLength.Medium:
+      return DisplayVisualNovelLength.Medium;
+    case VisualNovelLength.Long:
+      return DisplayVisualNovelLength.Long;
+    case VisualNovelLength.VeryLong:
+      return DisplayVisualNovelLength.VeryLong;
     default:
-      return VisualNovelLength.Medium;
+      return DisplayVisualNovelLength.Medium;
   }
 };
 

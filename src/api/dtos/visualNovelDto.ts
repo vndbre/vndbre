@@ -1,5 +1,6 @@
 import { ImageFlaggingDto } from './imageFlaggingDto';
 import { VisualNovelLinks } from '../../utils/types/visualNovelLinks';
+import { VisualNovelLength } from '../../utils/types/visualNovelLength';
 
 /**
  * Represents visual novel screenshot.
@@ -197,7 +198,7 @@ export interface VisualNovelDto {
   /**
    * Length of the game, 1-5.
    */
-  length: number | null;
+  length: VisualNovelLength | null;
 
   /**
    * Description of the VN.
