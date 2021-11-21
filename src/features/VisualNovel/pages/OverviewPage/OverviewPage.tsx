@@ -67,6 +67,22 @@ export const OverviewPage: FC = () => {
 
   const { data: characters } = useCharactersQuery(id);
 
+  const staffBlock = Object.keys(STAFF_ROLES).map(key => (
+    visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
+      <TagBlock
+        key={key}
+        title={STAFF_ROLES[key as StaffRoles].title}
+        tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
+          const data = { name: staff.name };
+          if (STAFF_ROLES[key as StaffRoles].showNote) {
+            return { ...data, note: staff.note };
+          }
+          return data;
+        })}
+      />
+    )
+  ));
+
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
   }
@@ -125,23 +141,7 @@ export const OverviewPage: FC = () => {
           )
         }
         <div className={cls.staff}>
-          {
-            Object.keys(STAFF_ROLES).map(key => (
-                visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
-                <TagBlock
-                  key={key}
-                  title={STAFF_ROLES[key as StaffRoles].title}
-                  tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
-                      const data = { name: staff.name };
-                      if (STAFF_ROLES[key as StaffRoles].showNote) {
-                        return { ...data, note: staff.note };
-                      }
-                      return data;
-                    })}
-                />
-              )
-            ))
-          }
+          {staffBlock}
         </div>
         <div>
           <Heading as="h3" size="sm">
