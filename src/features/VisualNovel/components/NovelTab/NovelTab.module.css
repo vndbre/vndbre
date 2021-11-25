@@ -9,7 +9,7 @@
 }
 
 .link:hover {
-  border-bottom: 2px solid var(--chakra-colors-gray-400);  
+  border-bottom: 2px solid var(--chakra-colors-gray-400);
   transition: border linear 0.3s;
 }
 
@@ -22,7 +22,7 @@
   display: block;
   content: attr(title);
   font-weight: var(--chakra-fontWeights-semibold);
-  height: 0px;
+  height: 0;
   color: transparent;
   overflow: hidden;
   visibility: hidden;
@@ -38,7 +38,8 @@
   border-bottom: 2px solid var(--chakra-colors-gray-300);
 }
 
-.active, .active:hover {
-  border-bottom: 2px solid var(--chakra-colors-orange-400);  
+.active,
+.active:hover {
+  border-bottom: 2px solid var(--chakra-colors-orange-400);
   font-weight: var(--chakra-fontWeights-semibold);
 }
