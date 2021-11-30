@@ -17,9 +17,6 @@ import { VisualNovel } from '../../../../models/visualNovel';
  */
 export const OverviewPage: FC = () => {
   const { id } = useParams();
-  const [developers, setDevelopers] = useState<string[]>([]);
-  const [publishers, setPublishers] = useState<Record<string, string[]>>();
-
   const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
 
   const {
@@ -29,36 +26,44 @@ export const OverviewPage: FC = () => {
   } = useReleasesQuery(id);
 
   /**
+   * Returns publishers grouped by language.
+   * @param releasesData List of releases.
+   * @param vnData Visual novel.
+   */
+  const fillPublishers = (releasesData?: Release[], vnData?: VisualNovel): Record<string, string[]> | null => {
+    // Filling publisher object with unique values.
+    if (releasesData && vnData) {
+      const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
+      const groupedLangs: Record<string, string[]> = vnData.languages.reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
+      publisherReleases.forEach(release => {
+        release.languages.forEach(lang => {
+          const publisherNames = release.producers.map(p => p.name);
+          const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
+          groupedLangs[lang] = uniquePublisherNames;
+        });
+      });
+      return groupedLangs;
+    }
+    return null;
+  };
+
+  /**
    * Fills developers and publishers arrays.
    * @param releasesData Releases.
    */
-  const fillDeveloperTeam = (releasesData: Release[], vnData: VisualNovel): void => {
-    setDevelopers(Array.from(new Set(releasesData
-      .map(release => release.producers
-        .filter(p => p.isDeveloper)
-        .map(p => p.name))
-      .flat())));
-
-    /**
-     * Filling publisher object with unique values.
-     */
-    const publisherReleases = releasesData.filter(release => release.producers.filter(p => p.isPublisher)).flat();
-    const groupedLangs: Record<string, string[]> = vnData.languages.reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
-    publisherReleases.forEach(release => {
-      release.languages.forEach(lang => {
-        const publisherNames = release.producers.map(p => p.name);
-        const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
-        groupedLangs[lang] = uniquePublisherNames;
-      });
-    });
-    setPublishers(groupedLangs);
+  const fillDevelopers = (releasesData?: Release[]): string[] => {
+    if (releasesData) {
+      return Array.from(new Set(releasesData
+        .map(release => release.producers
+          .filter(p => p.isDeveloper)
+          .map(p => p.name))
+        .flat()));
+    }
+    return [];
   };
 
-  useEffect(() => {
-    if (visualNovel && releases && releases.length > 0) {
-      fillDeveloperTeam(releases, visualNovel);
-    }
-  }, [releases, visualNovel]);
+  const developers = fillDevelopers(releases);
+  const publishers = fillPublishers(releases, visualNovel);
 
   const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
   const { data: tags } = useTagsQuery(id, tagIds, {
