@@ -1,4 +1,5 @@
-import { NovelTab } from './NovelTab/NovelTab';
-import { NovelTabs } from './NovelTabs/NovelTabs';
+import { VisualNovelTabs } from './VisualNovelTabs/VisualNovelTabs';
+import { CharacterCard } from './CharacterCard/CharacterCard';
+import { TagBlock } from './TagBlock/TagBlock';
 
-export { NovelTab, NovelTabs };
+export { VisualNovelTabs, CharacterCard, TagBlock };

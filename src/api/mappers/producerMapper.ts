@@ -21,7 +21,6 @@ export const producerFromDto = (dto: ProducerDto): Producer => ({
   name: dto.name,
   originalName: dto.original,
   type: dto.type,
-  language: dto.language,
   links: dto.links,
   aliases: dto.aliases,
   description: dto.description,

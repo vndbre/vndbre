@@ -1,3 +1,5 @@
-import { NovelPage } from './NovelPage/NovelPage';
+import { VisualNovelPage } from './VisualNovelPage/VisualNovelPage';
+import { OverviewPage } from './OverviewPage/OverviewPage';
+import { ReleasesPage } from './ReleasesPage/ReleasesPage';
 
-export { NovelPage };
+export { VisualNovelPage, OverviewPage, ReleasesPage };

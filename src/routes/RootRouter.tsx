@@ -1,7 +1,7 @@
 import React from 'react';
 import { PartialRouteObject } from 'react-router';
 import { Navigate } from 'react-router-dom';
-import { novelRoutes } from '../features/VisualNovel/routes';
+import { visualNovelRoutes } from '../features/VisualNovel/routes';
 import { testRoutes } from '../features/Test/routes';
 
 /**
@@ -10,13 +10,13 @@ import { testRoutes } from '../features/Test/routes';
  */
 export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
   ...testRoutes(isUserLoggedIn),
-  ...novelRoutes(isUserLoggedIn),
+  ...visualNovelRoutes(),
   {
     path: '/',
 
     /**
      * TODO: change redirection path.
      */
-    element: <Navigate to="/vn/4/" />,
+    element: <Navigate to="/vn/11/" />,
   },
 ];

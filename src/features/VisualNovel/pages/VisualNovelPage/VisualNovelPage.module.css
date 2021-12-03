@@ -1,0 +1,44 @@
+.page {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.image {
+  height: 300px;
+  border-radius: 8px;
+}
+
+.heading {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.title {
+  display: flex;
+  flex-direction: column; 
+}
+
+.description {
+  white-space: break-spaces;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}

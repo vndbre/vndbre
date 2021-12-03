@@ -1,47 +1,26 @@
 import React from 'react';
-import { PartialRouteObject } from 'react-router';
-import { GuardPage } from '../../components';
-import { TestPage } from '../Test/pages/TestPage/TestPage';
-import { NovelPage } from './pages';
+import { Navigate, PartialRouteObject } from 'react-router';
+import { OverviewPage, ReleasesPage, VisualNovelPage } from './pages';
 
 /**
  * Creates routes for test module.
- * @param isUserLoggedIn Is current user logged in or not.
  */
-export const novelRoutes = (isUserLoggedIn: boolean): PartialRouteObject[] => [
+export const visualNovelRoutes = (): PartialRouteObject[] => [
   {
-    path: 'vn',
-    element: isUserLoggedIn ? <NovelPage /> : <GuardPage />,
+    path: 'vn/:id',
+    element: <VisualNovelPage />,
     children: [
       {
-        path: ':id',
-        element: <TestPage />,
-        children: [
-          {
-            path: '/',
-            element: <TestPage />,
-          },
-          {
-            path: 'releases',
-            element: <TestPage />,
-          },
-          {
-            path: 'characters',
-            element: <TestPage />,
-          },
-          {
-            path: 'relations',
-            element: <TestPage />,
-          },
-          {
-            path: 'discussions',
-            element: <TestPage />,
-          },
-          {
-            path: 'media',
-            element: <TestPage />,
-          },
-        ],
+        path: 'overview',
+        element: <OverviewPage />,
+      },
+      {
+        path: 'releases',
+        element: <ReleasesPage />,
+      },
+      {
+        path: '',
+        element: <Navigate to="overview" />,
       },
     ],
   },

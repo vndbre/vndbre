@@ -23,7 +23,6 @@ module.exports = {
         tsconfigRootDir: __dirname, // https://github.com/typescript-eslint/typescript-eslint/issues/251
       },
       extends: [
-        "react-app",
         "airbnb",
         "airbnb/hooks",
         'plugin:@typescript-eslint/recommended',
@@ -453,14 +452,7 @@ module.exports = {
         "@typescript-eslint/no-misused-new": "error",
         "@typescript-eslint/no-non-null-assertion": "warn",
         "@typescript-eslint/no-unused-vars": [
-          "error",
-          {
-            "vars": "all",
-            "args": "after-used",
-            "ignoreRestSiblings": false,
-            "argsIgnorePattern": "^_",
-            "varsIgnorePattern": "^_"
-          }
+          "off",
         ],
         "@typescript-eslint/type-annotation-spacing": "error",
         "@typescript-eslint/unified-signatures": "error",
@@ -477,9 +469,9 @@ module.exports = {
           }
         ],
         "jsdoc/require-param": "off",
-        "jsdoc/require-param-name": "error",
-        "jsdoc/require-param-description": "error",
-        "jsdoc/no-types": "error",
+        "jsdoc/require-param-name": "warn",
+        "jsdoc/require-param-description": "warn",
+        "jsdoc/no-types": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "import/prefer-default-export": "off",
@@ -534,11 +526,11 @@ module.exports = {
         ],
         "implicit-arrow-linebreak": 0,
         "no-dupe-class-members": 0,
-        "jsdoc/check-alignment": "error",
-        "jsdoc/newline-after-description": ["error", "never"],
-        "jsdoc/no-bad-blocks": "error",
+        "jsdoc/check-alignment": "warn",
+        "jsdoc/newline-after-description": ["warn", "never"],
+        "jsdoc/no-bad-blocks": "warn",
         "jsdoc/require-jsdoc": [
-          "error",
+          "warn",
           {
             "contexts": [
               "MethodDefinition:not([accessibility='private'])",
