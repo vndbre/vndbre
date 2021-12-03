@@ -34,6 +34,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
       ],
       rules: {
+        'capitalized-comments': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
         'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }],
@@ -552,6 +553,21 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      parser: '@typescript-eslint/parser',
+      files: ['*Dto.ts'],
+      rules: {
+        '@typescript-eslint/naming-convention': 'off',
+        'jsdoc/require-jsdoc': 'off',
+      },
+    },
+    {
+      parser: '@typescript-eslint/parser',
+      files: ['*Mapper.ts'],
+      rules: {
+        '@typescript-eslint/naming-convention': ['off', { selector: 'property' }],
       },
     },
   ],
