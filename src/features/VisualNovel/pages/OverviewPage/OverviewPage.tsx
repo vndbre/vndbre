@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useContext, useEffect, useState } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import languageCodes from 'iso-639-1';
@@ -11,6 +11,8 @@ import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
 import { Release } from '../../../../models/release';
 import { VisualNovel } from '../../../../models/visualNovel';
+import { Tag } from '../../../../models/tag';
+import { useSettingsContext } from '../../../../providers';
 
 /**
  * Overview tab page.
@@ -65,9 +67,9 @@ export const OverviewPage: FC = () => {
   const developers = fillDevelopers(releases);
   const publishers = fillPublishers(releases, visualNovel);
 
-  const tagIds = visualNovel?.tags.map(tag => tag.id) ?? [];
-  const { data: tags } = useTagsQuery(id, tagIds, {
-    enabled: tagIds.length > 0,
+  const visualNovelTags = visualNovel?.tags ?? [];
+  const { data: tags } = useTagsQuery(id, visualNovelTags, {
+    enabled: visualNovelTags.length > 0,
   });
 
   const { data: characters } = useCharactersQuery(id);
@@ -87,6 +89,15 @@ export const OverviewPage: FC = () => {
       />
     )
   ));
+
+  const settingsContext = useSettingsContext();
+
+  /**
+   * Filter tags by category.
+   */
+  function tagsFilterPredicate(tag: Tag): boolean {
+    return settingsContext.showTags[tag.cat] && settingsContext.spoilerLevel === tag.spoilerLevel;
+  }
 
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
@@ -140,7 +151,7 @@ export const OverviewPage: FC = () => {
           tags && tags.length > 0 && (
             <TagBlock
               title="Tags"
-              tags={tags.map(tag => ({ name: tag.name }))}
+              tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
               isExpandable
             />
           )

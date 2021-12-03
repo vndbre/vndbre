@@ -1,3 +1,4 @@
+import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { TagClassification } from '../utils/types/tagClassification';
 
 /**
@@ -49,4 +50,14 @@ export interface Tag {
    * Whether this tag can be applied to VN entries.
    */
   readonly isApplicable: boolean;
+
+  /**
+   * Tag score (between 1 and 3).
+   */
+  readonly score: number;
+
+  /**
+   * Spoiler level (integer, 0=none, 1=minor, 2=major).
+   */
+  readonly spoilerLevel: SpoilerLevel;
 }
