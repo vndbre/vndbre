@@ -10,8 +10,7 @@ interface Settings {
   showTags: Record<TagClassification, boolean>;
 
   /**
-   * Amount of spoilers to show.
-   * @default {SpoilerLevels.None}
+   * Spoiler level for tags.
    */
   spoilerLevel: SpoilerLevel;
 }
