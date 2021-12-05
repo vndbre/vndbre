@@ -7,7 +7,7 @@ import { VisualNovelTag } from '../../../models/visualNovel';
 /**
  * Hook for fetching visual novel tags.
  * @param id Vn id for query key.
- * @param ids Tag ids.
+ * @param tags Tags array from within visual novel.
  * @param options Query options.
  */
 export const useTagsQuery = (
