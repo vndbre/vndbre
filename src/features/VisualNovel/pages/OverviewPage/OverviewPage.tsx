@@ -11,8 +11,8 @@ import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
 import { Release } from '../../../../models/release';
 import { VisualNovel } from '../../../../models/visualNovel';
-import { Tag } from '../../../../models/tag';
 import { useSettingsContext } from '../../../../providers';
+import { ExtendedTag } from '../../../../models/extendedTag';
 
 /**
  * Overview tab page.
@@ -67,9 +67,9 @@ export const OverviewPage: FC = () => {
   const developers = fillDevelopers(releases);
   const publishers = fillPublishers(releases, visualNovel);
 
-  const visualNovelTags = visualNovel?.tags ?? [];
-  const { data: tags } = useTagsQuery(id, visualNovelTags, {
-    enabled: visualNovelTags.length > 0,
+  const vnTags = visualNovel?.tags ?? [];
+  const { data: tags } = useTagsQuery(id, vnTags, {
+    enabled: vnTags.length > 0,
   });
 
   const { data: characters } = useCharactersQuery(id);
@@ -95,7 +95,7 @@ export const OverviewPage: FC = () => {
   /**
    * Filter tags by category.
    */
-  function tagsFilterPredicate(tag: Tag): boolean {
+  function tagsFilterPredicate(tag: ExtendedTag): boolean {
     return settingsContext.showTags[tag.cat] && settingsContext.spoilerLevel === tag.spoilerLevel;
   }
 

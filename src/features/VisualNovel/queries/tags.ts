@@ -28,8 +28,8 @@ const extendTags = async(tags: Promise<Tag[]>, vnTags: VisualNovelTag[]): Promis
 export const useTagsQuery = (
   id: string,
   vnTags: VisualNovelTag[],
-  options?: QueryObserverOptions<Tag[], Error>,
-): UseQueryResult<Tag[], Error> => useQuery(
+  options?: QueryObserverOptions<ExtendedTag[], Error>,
+): UseQueryResult<ExtendedTag[], Error> => useQuery(
   ['tags', id],
   () => extendTags(fetchTags(vnTags.map(t => t.id)), vnTags),
   { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options },
