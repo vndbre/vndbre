@@ -4,7 +4,7 @@ import { TagClassification } from '../utils/types/tagClassification';
 /**
  * Represents vn tag.
  */
-export interface Tag {
+export interface ExtendedTag {
 
   /**
    * Tag id.
@@ -50,4 +50,14 @@ export interface Tag {
    * Whether this tag can be applied to VN entries.
    */
   readonly isApplicable: boolean;
+
+  /**
+   * Tag score (between 1 and 3).
+   */
+  readonly score: number;
+
+  /**
+   * Spoiler level (integer, 0=major, 1=minor, 2=none).
+   */
+  readonly spoilerLevel: SpoilerLevel;
 }
