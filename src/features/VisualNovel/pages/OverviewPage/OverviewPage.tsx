@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useContext, useEffect, useState } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import languageCodes from 'iso-639-1';

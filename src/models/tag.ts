@@ -1,4 +1,3 @@
-import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { TagClassification } from '../utils/types/tagClassification';
 
 /**
