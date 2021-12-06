@@ -96,7 +96,7 @@ export const OverviewPage: FC = () => {
    * Filter tags by category and spoiler level.
    */
   function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return settingsContext.showTags[tag.cat] && settingsContext.spoilerLevel === tag.spoilerLevel;
+    return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
   }
 
   if (isLoading || isReleasesLoading) {

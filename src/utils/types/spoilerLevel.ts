@@ -2,7 +2,7 @@
  * Represents spoiler level.
  */
 export enum SpoilerLevel {
-  Major = 0,
+  None = 0,
   Minor,
-  None,
+  Major,
 }
