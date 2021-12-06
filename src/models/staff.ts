@@ -106,30 +106,30 @@ export interface Staff {
   /**
    * Links to staff's external resources.
    */
-  links: StaffLinks;
+  links?: StaffLinks;
 
   /**
    * Description or notes.
    */
-  description: string | null;
+  description?: string | null;
 
   /**
    * Names and aliases.
    */
-  aliases: StaffAlias[];
+  aliases?: StaffAlias[];
 
   /**
    * ID of the alias that is the "primary" name of the entry.
    */
-  mainAlias: number;
+  mainAlias?: number;
 
   /**
    * Visual novels that this staff entry has been credited in (excluding character voicing).
    */
-  visualNovels: StaffVisualNovel[];
+  visualNovels?: StaffVisualNovel[];
 
   /**
    * Characters that this staff entry has voiced.
    */
-  voiced: StaffCharacterVoiced[];
+  voiced?: StaffCharacterVoiced[];
 }

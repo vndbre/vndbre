@@ -13,14 +13,15 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
-import { fetchTest } from '../../../../api/services/testService';
 import { Icon } from '../../../../components/Icon/Icon';
+import { fetchFullVisualNovel } from '../../../../api/services/visualNovelService';
+import { fetchTest } from '../../../../api/services/testService';
 
 /**
  * TODO: add comments.
  */
 export const TestPage: FC = () => {
-  const { isLoading, error, data } = useQuery('test', fetchTest);
+  const { isLoading, error, data } = useQuery('test', () => fetchTest());
 
   if (isLoading) {
     return <>Loading...</>;

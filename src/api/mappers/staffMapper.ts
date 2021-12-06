@@ -44,9 +44,9 @@ export const staffFromDto = (dto: StaffDto): Staff => ({
   language: dto.language,
   links: dto.links,
   description: dto.description,
-  aliases: staffAliasesFromArray(dto.aliases),
+  aliases: dto.aliases ? staffAliasesFromArray(dto.aliases) : undefined,
   mainAlias: dto.main_alias,
-  visualNovels: dto.vns.map(staffVnDto => staffVisualNovelFromDto(staffVnDto)),
-  voiced: dto.voiced.map(voicedDto => staffCharacterVoicedFromDto(voicedDto)),
+  visualNovels: dto.vns?.map(staffVnDto => staffVisualNovelFromDto(staffVnDto)),
+  voiced: dto.voiced?.map(voicedDto => staffCharacterVoicedFromDto(voicedDto)),
   originalName: dto.original,
 });

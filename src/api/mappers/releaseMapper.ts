@@ -1,5 +1,4 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
-import { visualNovelFromDto } from './visualNovelMapper';
 import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
 
 /**
@@ -57,6 +56,6 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   resolution: dto.resolution,
   voiced: dto.voiced,
   animation: releaseAnimationFromArray(dto.animation),
-  visualNovels: dto.vn.map(novelDto => visualNovelFromDto(novelDto)),
+  visualNovels: [],
   producers: dto.producers.map(producerDto => releaseProducerFromDto(producerDto)),
 });

@@ -1,3 +1,4 @@
+import { Roles } from '../utils/types/roles';
 import { CharacterGender } from '../utils/types/characterHelperTypes';
 import { SpoilerLevel } from '../utils/types/spoilerLevel';
 import { ImageFlagging } from './imageFlagging';
@@ -96,7 +97,7 @@ export interface CharacterNovel {
   /**
    * Role.
    */
-  role: string;
+  role: Roles;
 }
 
 /**
@@ -197,12 +198,12 @@ export interface Character {
   /**
    * Traits linked to this character.
    */
-  traits: CharacterTrait[];
+  traits?: CharacterTrait[];
 
   /**
    * VNs linked to this character.
    */
-  visualNovels: CharacterNovel[];
+  visualNovels?: CharacterNovel[];
 
   /**
    * Voice actresses that voiced this character, per VN.
@@ -212,5 +213,5 @@ export interface Character {
   /**
    * Instances of this character.
    */
-  instances: CharacterInstance[];
+  instances?: CharacterInstance[];
 }

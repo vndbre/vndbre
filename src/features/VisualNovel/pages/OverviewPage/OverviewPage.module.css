@@ -1,0 +1,35 @@
+.page {
+  display: grid;
+  grid-template-columns: 20% 1fr;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.items {
+  display: flex;
+  margin-top: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.title,
+.link {
+  text-transform: capitalize;
+}
+
+.staff {
+  display: grid;
+  margin: 16px 0 40px 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+}
+
+.characters {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}

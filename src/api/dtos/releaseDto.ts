@@ -1,5 +1,5 @@
 import { ReleaseType, ReleaseVoiced } from '../../utils/types/releaseHelperTypes';
-import { VisualNovelDto } from './ visualNovelDto';
+import { VisualNovelDto } from './visualNovelDto';
 
 /**
  * Represents producer involved into release.

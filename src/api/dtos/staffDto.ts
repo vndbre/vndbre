@@ -85,7 +85,7 @@ export interface StaffDto {
   /**
    * Links to staff's external resources.
    */
-  links: StaffLinks;
+  links?: StaffLinks;
 
   /**
    * Description or notes.
@@ -100,20 +100,20 @@ export interface StaffDto {
    * the original name.
    * This list also includes the "primary" name.
    */
-  aliases: [number, string, string][];
+  aliases?: [number, string, string][];
 
   /**
    * ID of the alias that is the "primary" name of the entry.
    */
-  main_alias: number;
+  main_alias?: number;
 
   /**
    * Visual novels that this staff entry has been credited in (excluding character voicing).
    */
-  vns: StaffVisualNovelDto[];
+  vns?: StaffVisualNovelDto[];
 
   /**
    * Characters that this staff entry has voiced.
    */
-  voiced: StaffCharacterVoicedDto[];
+  voiced?: StaffCharacterVoicedDto[];
 }
