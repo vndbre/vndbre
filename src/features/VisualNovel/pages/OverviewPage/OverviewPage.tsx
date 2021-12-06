@@ -93,7 +93,7 @@ export const OverviewPage: FC = () => {
   const settingsContext = useSettingsContext();
 
   /**
-   * Filter tags by category.
+   * Filter tags by category and spoiler level.
    */
   function tagsFilterPredicate(tag: ExtendedTag): boolean {
     return settingsContext.showTags[tag.cat] && settingsContext.spoilerLevel === tag.spoilerLevel;

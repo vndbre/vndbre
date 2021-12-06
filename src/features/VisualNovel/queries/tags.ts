@@ -8,7 +8,7 @@ import { VisualNovelTag } from '../../../models/visualNovel';
 /**
  * Maps extended tags from tags and visual novel tags.
  * @param tags Tags array.
- * @param vnTtags Tags array from within visual novel.
+ * @param vnTags Tags array from within visual novel.
  */
 const extendTags = async(tags: Promise<Tag[]>, vnTags: VisualNovelTag[]): Promise<ExtendedTag[]> => {
   const vnTagsObj = vnTags.reduce<Record<string, VisualNovelTag>>((acc, cur) => ({ ...acc, [cur.id]: cur }), {});
