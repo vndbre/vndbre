@@ -23,7 +23,6 @@ export const OverviewPage: FC = () => {
 
   const {
     isLoading: isReleasesLoading,
-    error: releasesError,
     data: releases,
   } = useReleasesQuery(id);
 

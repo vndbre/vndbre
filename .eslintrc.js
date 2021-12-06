@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
+  ignorePatterns: [
+    'vite.config.ts',
+    '.eslintrc.js',
+  ],
   plugins: [
     'jsdoc',
   ],
@@ -8,13 +12,9 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ['.eslintrc.js', '.stylelintrc.js'],
-      rules: { 'linebreak-style': 'off' },
-    },
-    {
       parser: '@typescript-eslint/parser',
       files: [
-        '*.tsx', '*.ts',
+        '*.js', '*.tsx', '*.ts',
       ],
       parserOptions: {
         project: [
@@ -88,10 +88,6 @@ module.exports = {
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/no-empty-function': 'warn',
         camelcase: 'off',
-        'capitalized-comments': [
-          'error',
-          'always',
-        ],
         'import/no-deprecated': 'error',
         'jsdoc/require-example': 'off',
         'jsdoc/require-file-overview': 'off',

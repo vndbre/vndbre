@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, ButtonGroup, Divider, Heading, IconButton, Tag, Text, Image } from '@chakra-ui/react';
+import { Button, ButtonGroup, Heading, IconButton, Text, Image } from '@chakra-ui/react';
 import { Outlet, useParams } from 'react-router';
 import { Icon } from '../../../../components/Icon/Icon';
 

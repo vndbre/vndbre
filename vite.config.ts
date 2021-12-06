@@ -1,6 +1,8 @@
-import { defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
-import ViteFonts from 'vite-plugin-fonts'
+import { defineConfig } from 'vite';
+import reactRefresh from '@vitejs/plugin-react-refresh';
+import ViteFonts from 'vite-plugin-fonts';
+import eslintPlugin from "@nabla/vite-plugin-eslint";
+
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,5 +13,6 @@ export default defineConfig({
         families: ['Inter']
       },
     }),
+    eslintPlugin({ eslintOptions: { cache: false } })
   ],
 });

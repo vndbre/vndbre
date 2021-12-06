@@ -31,7 +31,7 @@ const extendTags = async(tags: Promise<Tag[]>, vnTags: VisualNovelTag[]): Promis
 /**
  * Hook for fetching visual novel tags.
  * @param id Vn id for query key.
- * @param vnTtags Tags array from within visual novel.
+ * @param vnTags Tags array from within visual novel.
  * @param options Query options.
  */
 export const useExtendedTagsQuery = (
