@@ -13,7 +13,7 @@ interface ImportMetaEnv {
 interface ImportMeta {
 
   /**
-   * Vite imprort dot env buzzword meta code review typing.
+   * Vite import dot env buzzword meta code review typing.
    */
   readonly env: ImportMetaEnv;
 }
