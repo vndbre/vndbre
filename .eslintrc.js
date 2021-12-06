@@ -1,12 +1,5 @@
 module.exports = {
   root: true,
-  ignorePatterns: [
-    'projects/**/*',
-    'extra-webpack.config.js',
-    'polyfills.ts',
-    'environments/',
-    '.eslintrc.js',
-  ],
   plugins: [
     'jsdoc',
   ],
@@ -14,6 +7,10 @@ module.exports = {
     'airbnb',
   ],
   overrides: [
+    {
+      files: ['.eslintrc.js', '.stylelintrc.js'],
+      rules: { 'linebreak-style': 'off' },
+    },
     {
       parser: '@typescript-eslint/parser',
       files: [
@@ -26,7 +23,6 @@ module.exports = {
         tsconfigRootDir: __dirname, // https://github.com/typescript-eslint/typescript-eslint/issues/251
       },
       extends: [
-        'react-app',
         'airbnb',
         'airbnb/hooks',
         'plugin:@typescript-eslint/recommended',
