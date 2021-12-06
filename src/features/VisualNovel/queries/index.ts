@@ -1,5 +1,5 @@
 import { useCharactersQuery } from './characters';
-import { useTagsQuery } from './tags';
+import { useTagsQuery, useExtendedTagsQuery } from './tags';
 import { useVisualNovelQuery } from './visualNovel';
 import { useReleasesQuery } from './releases';
 
@@ -14,4 +14,12 @@ const defaultFetchStrategy = {
   refetchOnReconnect: false,
 };
 
-export { defaultStaleTime, defaultFetchStrategy, useReleasesQuery, useVisualNovelQuery, useTagsQuery, useCharactersQuery };
+export {
+  defaultStaleTime,
+  defaultFetchStrategy,
+  useReleasesQuery,
+  useVisualNovelQuery,
+  useTagsQuery,
+  useExtendedTagsQuery,
+  useCharactersQuery,
+};

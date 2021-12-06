@@ -8,7 +8,7 @@ import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
 import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
-import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useTagsQuery } from '../../queries';
+import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedTagsQuery } from '../../queries';
 import { Release } from '../../../../models/release';
 import { VisualNovel } from '../../../../models/visualNovel';
 import { useSettingsContext } from '../../../../providers';
@@ -68,7 +68,7 @@ export const OverviewPage: FC = () => {
   const publishers = fillPublishers(releases, visualNovel);
 
   const vnTags = visualNovel?.tags ?? [];
-  const { data: tags } = useTagsQuery(id, vnTags, {
+  const { data: tags } = useExtendedTagsQuery(id, vnTags, {
     enabled: vnTags.length > 0,
   });
 
