@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm dev`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -27,6 +27,10 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `npm run lint`
 
 Runs ESLint to find out problems in code.
+
+### `npm run dev-dev`
+
+Runs the app in the development mode. Uses backend, which runs through `docker compose up`.
 
 ## Learn More
 
