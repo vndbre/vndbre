@@ -6,10 +6,10 @@ import { StaffCharacterVoiced, StaffVisualNovel, StaffAlias, Staff } from '../..
  * @param dto Dto.
  */
 const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => ({
-   id: dto.id,
-   aliasId: dto.aid,
-   note: dto.note,
-   role: dto.role,
+  id: dto.id,
+  aliasId: dto.aid,
+  note: dto.note,
+  role: dto.role,
 });
 
 /**

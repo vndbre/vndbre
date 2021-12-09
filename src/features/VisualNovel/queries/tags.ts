@@ -12,7 +12,7 @@ import { VisualNovelTag } from '../../../models/visualNovel';
  * @param options Query options.
  */
 export const useTagsQuery = (id: string, ids: number[], options?: QueryObserverOptions<Tag[], Error>): UseQueryResult<Tag[], Error> =>
- useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+  useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
 
 /**
  * Maps extended tags from tags and visual novel tags.

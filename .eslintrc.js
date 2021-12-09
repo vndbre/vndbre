@@ -508,7 +508,6 @@ module.exports = {
               'TSTypeAliasDeclaration *',
               'TSTypeParameterInstantiation > *',
               'TSTypeAnnotation',
-              'ArrowFunctionExpression Identifier',
               'ArrowFunctionExpression BlockStatement',
             ],
           },

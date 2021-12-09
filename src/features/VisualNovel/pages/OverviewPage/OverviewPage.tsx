@@ -132,15 +132,15 @@ export const OverviewPage: FC = () => {
           </Heading>
           <div className={cls.items}>
             {visualNovel && (
-                Object.keys(visualNovel.links).map(key => (
-                  <Link
-                    key={key}
-                    className={cls.link}
-                    href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
-                  >
-                    {key}
-                  </Link>
-                ))
+              Object.keys(visualNovel.links).map(key => (
+                <Link
+                  key={key}
+                  className={cls.link}
+                  href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
+                >
+                  {key}
+                </Link>
+              ))
             )}
           </div>
         </div>
