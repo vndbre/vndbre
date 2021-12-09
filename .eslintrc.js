@@ -25,6 +25,8 @@ module.exports = {
         'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
         'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }],
         'react/jsx-props-no-spreading': 'off',
+        'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+        'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
         '@typescript-eslint/consistent-type-definitions': 'error',
         '@typescript-eslint/ban-types': [
           'error',
