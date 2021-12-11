@@ -12,7 +12,7 @@ import { VisualNovelTag } from '../../../models/visualNovel';
  * @param options Query options.
  */
 export const useTagsQuery = (id: string, ids: number[], options?: QueryObserverOptions<Tag[], Error>): UseQueryResult<Tag[], Error> =>
- useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+  useQuery(['tags', id], () => fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
 
 /**
  * Maps extended tags from tags and visual novel tags.
@@ -31,7 +31,7 @@ const extendTags = async(tags: Promise<Tag[]>, vnTags: VisualNovelTag[]): Promis
 /**
  * Hook for fetching visual novel tags.
  * @param id Vn id for query key.
- * @param vnTtags Tags array from within visual novel.
+ * @param vnTags Tags array from within visual novel.
  * @param options Query options.
  */
 export const useExtendedTagsQuery = (

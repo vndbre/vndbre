@@ -1,32 +1,18 @@
 module.exports = {
   root: true,
-  ignorePatterns: [
-    'projects/**/*',
-    'extra-webpack.config.js',
-    'polyfills.ts',
-    'environments/',
-    '.eslintrc.js',
-  ],
-  plugins: [
-    'jsdoc',
-  ],
-  extends: [
-    'airbnb',
-  ],
+  plugins: ['jsdoc'],
+  extends: ['airbnb'],
   overrides: [
     {
       parser: '@typescript-eslint/parser',
-      files: [
-        '*.tsx', '*.ts',
-      ],
+      files: ['*.js', '*.tsx', '*.ts'],
       parserOptions: {
-        project: [
-          'tsconfig.json',
-        ],
-        tsconfigRootDir: __dirname, // https://github.com/typescript-eslint/typescript-eslint/issues/251
+        project: ['tsconfig.json'],
+
+        // https://github.com/typescript-eslint/typescript-eslint/issues/251
+        tsconfigRootDir: __dirname,
       },
       extends: [
-        'react-app',
         'airbnb',
         'airbnb/hooks',
         'plugin:@typescript-eslint/recommended',
@@ -39,6 +25,8 @@ module.exports = {
         'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
         'react/jsx-no-duplicate-props': ['error', { ignoreCase: false }],
         'react/jsx-props-no-spreading': 'off',
+        'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+        'react/jsx-no-useless-fragment': [2, { allowExpressions: true }],
         '@typescript-eslint/consistent-type-definitions': 'error',
         '@typescript-eslint/ban-types': [
           'error',
@@ -46,7 +34,7 @@ module.exports = {
             types: {
               /**
                * We need that to use `extends object` in custom types.
-               * https://github.com/typescript-eslint/typescript-eslint/issues/2068
+               * Https://github.com/typescript-eslint/typescript-eslint/issues/2068.
                */
               object: false,
             },
@@ -68,7 +56,8 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': [
           'error',
           {
-            allowArgumentsExplicitlyTypedAsAny: true, // For legacy parts usage.
+            // For legacy parts usage.
+            allowArgumentsExplicitlyTypedAsAny: true,
           },
         ],
         '@typescript-eslint/no-magic-numbers': [
@@ -91,11 +80,7 @@ module.exports = {
         '@typescript-eslint/quotes': ['error', 'single'],
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/no-empty-function': 'warn',
-        camelcase: 'off',
-        'capitalized-comments': [
-          'error',
-          'always',
-        ],
+        'camelcase': 'off',
         'import/no-deprecated': 'error',
         'jsdoc/require-example': 'off',
         'jsdoc/require-file-overview': 'off',
@@ -109,6 +94,7 @@ module.exports = {
         'jsdoc/check-access': 'off',
         'jsdoc/empty-tags': 'off',
         'jsdoc/check-tag-names': 'off',
+
         /**
          * The rule to show an error if result of fork-like
          * method is not used.
@@ -116,6 +102,7 @@ module.exports = {
         'no-restricted-syntax': [
           'error',
           {
+            // eslint-disable-next-line max-len
             selector: 'ExpressionStatement[expression.type="CallExpression"][expression.callee.type="MemberExpression"][expression.callee.property.name=/fork.*/]',
             message: 'Unused fork-like method result.',
           },
@@ -158,12 +145,12 @@ module.exports = {
         'no-unsafe-optional-chaining': 'error',
         'require-atomic-updates': 'error',
         'use-isnan': 'error',
-        curly: ['error', 'all'],
+        'curly': ['error', 'all'],
         'default-case': 'error',
         'default-case-last': 'error',
         'dot-location': ['error', 'property'],
         'dot-notation': 'error',
-        eqeqeq: ['error', 'smart'],
+        'eqeqeq': ['error', 'smart'],
         'no-alert': 'error',
         'no-caller': 'error',
         'no-case-declarations': 'error',
@@ -214,10 +201,10 @@ module.exports = {
         'no-with': 'error',
         'prefer-named-capture-group': 'off',
         'prefer-promise-reject-errors': 'error',
-        radix: 'error',
+        'radix': 'error',
         'require-await': 'error',
         'require-unicode-regexp': 'off',
-        yoda: [
+        'yoda': [
           'error',
           'never',
           {
@@ -334,7 +321,7 @@ module.exports = {
         'prefer-exponentiation-operator': 'error',
         'prefer-object-spread': 'error',
         'quote-props': ['error', 'consistent-as-needed'],
-        quotes: [
+        'quotes': [
           'error',
           'single',
           {
@@ -513,7 +500,7 @@ module.exports = {
             },
           },
         ],
-        indent: 'off',
+        'indent': 'off',
         '@typescript-eslint/indent': [
           'error',
           2,
@@ -523,8 +510,6 @@ module.exports = {
               'TSTypeAliasDeclaration *',
               'TSTypeParameterInstantiation > *',
               'TSTypeAnnotation',
-              'ArrowFunctionExpression Identifier',
-              'ArrowFunctionExpression BlockStatement',
             ],
           },
         ],
@@ -537,9 +522,9 @@ module.exports = {
           'error',
           {
             contexts: [
-              "MethodDefinition:not([accessibility='private'])",
+              'MethodDefinition:not([accessibility=\'private\'])',
               'ClassDeclaration',
-              "ClassProperty:not([accessibility='private'])",
+              'ClassProperty:not([accessibility=\'private\'])',
               'TSEnumDeclaration',
               'ExportNamedDeclaration[declaration.type="TSInterfaceDeclaration"]',
               'TSInterfaceDeclaration :matches(TSCallSignatureDeclaration, TSMethodSignature, TSPropertySignature)',

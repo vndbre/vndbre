@@ -1,4 +1,5 @@
 /* eslint-disable import/export */
+/** Role types. */
 export enum Roles {
   Main = 'main',
   Primary = 'primary',
@@ -6,6 +7,7 @@ export enum Roles {
   Side = 'side',
 }
 
+/** Role types in readable form. */
 export enum ReadableRoles {
   Protagonist = 'Protagonist',
   Main = 'Main character',
