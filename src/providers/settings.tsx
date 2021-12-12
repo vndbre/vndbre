@@ -15,19 +15,19 @@ interface Settings {
   spoilerLevel: SpoilerLevel;
 
   /**
-   * What images to show.
+   * Whether nsfw content allowed or not.
    */
-  showNsfwImages: boolean;
+  isNsfwContentAllowed: boolean;
 }
 
-const defaultSettings = {
+const defaultSettings: Settings = {
   showTags: {
     [TagClassification.Content]: true,
     [TagClassification.Ero]: true,
     [TagClassification.Technical]: true,
   },
   spoilerLevel: SpoilerLevel.Major,
-  showNsfwImages: true,
+  isNsfwContentAllowed: false,
 };
 
 export const SettingsContext = createContext<Settings>(defaultSettings);

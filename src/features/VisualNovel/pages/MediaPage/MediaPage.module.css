@@ -1,11 +1,10 @@
 .list {
-  display: flex; 
+  display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
 .image {
-  height: auto;
   border-radius: 8px;
   width: 320px;
 }

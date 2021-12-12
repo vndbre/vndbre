@@ -15,12 +15,14 @@ export const MediaPage: VFC = () => {
   const settingsContext = useSettingsContext();
 
   /** Filter screenshots by nsfw flag. */
-  const filterPredicate = (screen: VisualNovelScreenshot): boolean => (settingsContext.showNsfwImages ? true : !screen.isNsfw);
+  const filterPredicate = (screen: VisualNovelScreenshot): boolean => (settingsContext.isNsfwContentAllowed ? true : !screen.isNsfw);
 
+  /** TODO: Replace it when loading wrapper will be implemented. */
   if (isLoading) {
     return <>Loading...</>;
   }
 
+  /** TODO: Replace it when error wrapper will be implemented. */
   if (error) {
     return <>{`An error has occurred: ${error.message}`}</>;
   }
