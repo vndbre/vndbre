@@ -13,6 +13,11 @@ interface Settings {
    * Spoiler level for tags.
    */
   spoilerLevel: SpoilerLevel;
+
+  /**
+   * What images to show.
+   */
+  showNsfwImages: boolean;
 }
 
 const defaultSettings = {
@@ -22,6 +27,7 @@ const defaultSettings = {
     [TagClassification.Technical]: true,
   },
   spoilerLevel: SpoilerLevel.Major,
+  showNsfwImages: true,
 };
 
 export const SettingsContext = createContext<Settings>(defaultSettings);
