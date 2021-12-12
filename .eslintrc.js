@@ -14,10 +14,8 @@ module.exports = {
       },
       extends: [
         'airbnb',
-        'airbnb/hooks',
-        'plugin:@typescript-eslint/recommended',
+        'airbnb-typescript',
         'plugin:jsdoc/recommended',
-        'plugin:@typescript-eslint/recommended',
       ],
       rules: {
         'capitalized-comments': 'off',
