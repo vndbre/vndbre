@@ -16,9 +16,9 @@
   flex-wrap: wrap;
 }
 
-.title,
-.link {
-  text-transform: capitalize;
+.title   ,
+.link  {
+  text-transform:  capitalize        ;
 }
 
 
@@ -30,7 +30,7 @@
 }
 
 
-.characters {
+.charac ters {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
