@@ -17,7 +17,7 @@ jobs:
       - uses: reviewdog/action-eslint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-check
+          reporter: github-pr-check
           fail_on_error: true
           eslint_flags: "--ext .jsx,.js,.ts,.tsx ."
   stylelint:
@@ -31,6 +31,6 @@ jobs:
       - uses: reviewdog/action-stylelint@v1
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-check
+          reporter: github-pr-check
           fail_on_error: true
-          stylelint_input: "src/**/*.css"
+          stylelint_input: "\"./src/**/*.css\""
