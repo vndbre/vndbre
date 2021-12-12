@@ -26,7 +26,4 @@ jobs:
         with:
           node-version: '16'
       - run: npm ci
-      - uses: actions-hub/stylelint@v1.1.3
-        env:
-          CONFIG_PATH: .stylelintrc.json
-          PATTERN: "**/*.css"
+      - run: npm run stylelint
