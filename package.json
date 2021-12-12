@@ -23,7 +23,7 @@
     "serve": "vite preview",
     "lint": "eslint --ext .jsx,.js,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
-    "stylelint": "stylelint '**/*.css'"
+    "stylelint": "stylelint src/**/*.css"
   },
   "devDependencies": {
     "@nabla/vite-plugin-eslint": "^1.3.5",
