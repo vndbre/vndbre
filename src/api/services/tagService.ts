@@ -14,5 +14,5 @@ export const fetchTags = async(ids: number[]): Promise<Tag[]> => {
     ids,
   );
 
-  return data.map(dto => tagFromDto(dto));
+  return data.map(tagFromDto);
 };

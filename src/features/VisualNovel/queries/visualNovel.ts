@@ -1,5 +1,5 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from '.';
+import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { fetchFullVisualNovel } from '../../../api/services/visualNovelService';
 import { VisualNovel } from '../../../models/visualNovel';
 
