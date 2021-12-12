@@ -30,7 +30,12 @@ Runs ESLint to find out problems in code.
 
 ### `npm run dev-dev`
 
-Runs the app in the development mode. Uses backend, which runs through `docker compose up`.
+```
+docker compose up -d
+npm run dev-dev
+```
+
+Will run the app in the development mode which uses backend from [compose](./docker-compose.yml) file.
 
 ## Learn More
 

@@ -1,8 +1,6 @@
-version: "2.2"
+version: "3.9"
 services:
   vndbre-proxy:
-    container_name: vndbre-proxy-dev
-    init: true
     image: ghcr.io/vndbre/vndbre-proxy:c1c0835ba6d7103c99c4baa5bfb460fb9c5b5a6f
     ports:
      - 7878:443
