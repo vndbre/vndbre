@@ -29,6 +29,7 @@
   grid-gap: 16px;
 }
 
+
 .characters {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
