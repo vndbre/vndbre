@@ -1,5 +1,5 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultStaleTime } from '.';
+import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { fetchCharacters } from '../../../api/services/characterService';
 import { Character } from '../../../models/character';
 
@@ -9,4 +9,4 @@ import { Character } from '../../../models/character';
  * @param options Query options.
  */
 export const useCharactersQuery = (id: string, options?: QueryObserverOptions<Character[], Error>): UseQueryResult<Character[], Error> =>
-  useQuery(['characters', id], () => fetchCharacters(id), { staleTime: defaultStaleTime, ...options });
+  useQuery(['characters', id], () => fetchCharacters(id), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });

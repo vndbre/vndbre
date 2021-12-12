@@ -1,5 +1,3 @@
-/* eslint-disable dot-notation */
-/* eslint-disable @typescript-eslint/dot-notation */
 import React, { FC, memo, useState } from 'react';
 import { Heading, IconButton, Tag, Text } from '@chakra-ui/react';
 import { Icon } from '../../../../components/Icon/Icon';
@@ -33,7 +31,6 @@ interface TagBlockProps {
    * Whether tag list is expandable or not.
    */
   readonly isExpandable?: boolean;
-
 }
 
 /**
@@ -50,11 +47,11 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
   };
 
   return (
-    <div className={cls['tag-block']}>
+    <div>
       <Heading as="h3" size="sm">
         {title}
       </Heading>
-      <div className={cls['tags']}>
+      <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map(tag => (
           <Tag key={tag.name}>
             {tag.name}

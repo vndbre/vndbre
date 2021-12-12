@@ -10,13 +10,15 @@
 
 .image {
   height: 112px;
+  border-radius: 8px;
+  width: 100%;
 }
 
 .container {
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 10px;
 }
 
 .voiced {

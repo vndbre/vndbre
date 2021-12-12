@@ -1,15 +1,13 @@
-/* eslint-disable react/require-default-props */
-import React, { FC, memo, useState } from 'react';
-import { Heading, Text } from '@chakra-ui/react';
+import React, { FC, memo } from 'react';
+import { Heading, Text, Image } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { Character } from '../../../../models/character';
 import cls from './CharacterCard.module.css';
 import { Roles } from '../../../../utils/types/roles';
 import { Icon } from '../../../../components/Icon/Icon';
 
-/**
- * Component props.
- */
+import characterPlaceholder from '../../../../assets/person.png';
+
 interface CharacterCardProps {
 
   /**
@@ -21,13 +19,13 @@ interface CharacterCardProps {
 /**
  * Character card component.
  */
-export const CharacterCard: FC<CharacterCardProps> = ({ character }) => {
+export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
   const { id } = useParams();
   const role = character.visualNovels?.find(vn => vn.visualNovelId === Number(id))?.role;
 
   return (
     <div className={cls.card}>
-      <img src={character.image} alt={character.name} className={cls.image} />
+      <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} className={cls.image} />
       <div className={cls.container}>
         <div className={cls.info}>
           <Heading as="h4" size="sm">
@@ -42,11 +40,9 @@ export const CharacterCard: FC<CharacterCardProps> = ({ character }) => {
 
         </div>
         {
-          role && (
-            <Text fontSize="xs">{Roles.toReadable(role)}</Text>
-          )
+          role && <Text fontSize="xs">{Roles.toReadable(role)}</Text>
         }
       </div>
     </div>
   );
-};
+});

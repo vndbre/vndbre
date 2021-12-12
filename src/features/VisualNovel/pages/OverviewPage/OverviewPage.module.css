@@ -11,7 +11,7 @@
 
 .items {
   display: flex;
-  margin-top: 5px;
+  margin-top: 12px;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -23,10 +23,9 @@
 
 .staff {
   display: grid;
-  margin: 16px 0 40px 0;
+  margin: 16px 0 40px;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 16px;
-  
 }
 
 .characters {

@@ -18,8 +18,8 @@
 }
 
 .image {
-  border-radius: 8px;
   height: 300px;
+  border-radius: 8px;
 }
 
 .heading {
@@ -30,7 +30,11 @@
 
 .title {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+}
+
+.description {
+  white-space: break-spaces;
 }
 
 .controls {
