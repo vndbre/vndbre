@@ -28,5 +28,6 @@ jobs:
           reporter: github-pr-check
           fail_on_error: true
           stylelint_input: src/**/*.css
-          stylelint_config: .stylelintrc.js
+          stylelint_config: .stylelintrc.json
           workdir: .
+          filter_mode: nofilter
