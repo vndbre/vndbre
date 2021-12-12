@@ -1,5 +1,5 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from '.';
+import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { fetchTags } from '../../../api/services/tagService';
 import { ExtendedTag } from '../../../models/extendedTag';
 import { Tag } from '../../../models/tag';

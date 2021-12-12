@@ -1,5 +1,5 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from './index';
+import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { fetchFullReleases } from '../../../api/services/releaseService';
 import { Release } from '../../../models/release';
 
