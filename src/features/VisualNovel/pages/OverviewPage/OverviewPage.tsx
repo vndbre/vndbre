@@ -13,6 +13,7 @@ import { Release } from '../../../../models/release';
 import { VisualNovel } from '../../../../models/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
+import { ContentWrapper } from '../../../../components';
 
 /**
  * Overview tab page.
@@ -24,6 +25,7 @@ export const OverviewPage: FC = () => {
   const {
     isLoading: isReleasesLoading,
     data: releases,
+    error: releasesError,
   } = useReleasesQuery(id);
 
   /**
@@ -67,11 +69,11 @@ export const OverviewPage: FC = () => {
   const publishers = fillPublishers(releases, visualNovel);
 
   const vnTags = visualNovel?.tags ?? [];
-  const { data: tags } = useExtendedTagsQuery(id, vnTags, {
+  const { data: tags, isLoading: isTagsLoading, error: tagsError } = useExtendedTagsQuery(id, vnTags, {
     enabled: vnTags.length > 0,
   });
 
-  const { data: characters } = useCharactersQuery(id);
+  const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(id);
 
   const staffBlock = Object.keys(STAFF_ROLES).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
@@ -98,85 +100,83 @@ export const OverviewPage: FC = () => {
     return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
   }
 
-  /** TODO: Replace it when loading wrapper will be implemented. */
-  if (isLoading || isReleasesLoading) {
-    return <>Loading...</>;
-  }
-
-  /** TODO: Replace it when error wrapper will be implemented. */
-  if (error) {
-    return <>{`An error has occurred: ${error.message}`}</>;
-  }
-
   return (
-    <div className={cls.page}>
-      <div className={cls.sidebar}>
-        {visualNovel?.length && (
-          <TagBlock title="Game Length" tags={[{ name: visualNovel.length }]} />
-        )}
-        <TagBlock
-          title="Developers"
-          tags={developers.map(dev => ({ name: dev }))}
-        />
-        {visualNovel?.languages.map(key => (
-          <Fragment key={key}>
-            {publishers && publishers[key].length > 0 && (
-              <TagBlock
-                title={`Publisher (${languageCodes.getName(key)})`}
-                tags={publishers[key].map(publisher => ({ name: publisher }))}
-              />
+    <ContentWrapper isLoading={isLoading} error={error}>
+      <div className={cls.page}>
+        <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
+          <div className={cls.sidebar}>
+            {visualNovel?.length && (
+              <TagBlock title="Game Length" tags={[{ name: visualNovel.length }]} />
             )}
-          </Fragment>
-        ))}
-        <div>
-          <Heading as="h3" size="sm">
-            Links
-          </Heading>
-          <div className={cls.items}>
-            {visualNovel && (
-              Object.keys(visualNovel.links).map(key => (
-                <Link
-                  key={key}
-                  className={cls.link}
-                  href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
-                >
-                  {key}
-                </Link>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
-      <div>
-        {
-          tags && tags.length > 0 && (
             <TagBlock
-              title="Tags"
-              tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
-              isExpandable
+              title="Developers"
+              tags={developers.map(dev => ({ name: dev }))}
             />
-          )
-        }
-        <div className={cls.staff}>
-          {staffBlock}
-        </div>
-        <div>
-          <Heading as="h3" size="sm">
-            Characters
-          </Heading>
-          <div className={cls.characters}>
-            {characters && characters.length > 0 && (
-              characters.map(character => (
-                <Fragment key={character.id}>
-                  <CharacterCard
-                    character={character}
+            {visualNovel?.languages.map(key => (
+              <Fragment key={key}>
+                {publishers && publishers[key].length > 0 && (
+                  <TagBlock
+                    title={`Publisher (${languageCodes.getName(key)})`}
+                    tags={publishers[key].map(publisher => ({ name: publisher }))}
                   />
-                </Fragment>
-              ))
-            )}
+                )}
+              </Fragment>
+            ))}
+            <div>
+              <Heading as="h3" size="sm">
+                Links
+              </Heading>
+              <div className={cls.items}>
+                {visualNovel && (
+                  Object.keys(visualNovel.links).map(key => (
+                    <Link
+                      key={key}
+                      className={cls.link}
+                      href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
+                    >
+                      {key}
+                    </Link>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
+        </ContentWrapper>
+        <div>
+          <ContentWrapper isLoading={isTagsLoading} error={tagsError}>
+            {
+              tags && tags.length > 0 && (
+                <TagBlock
+                  title="Tags"
+                  tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
+                  isExpandable
+                />
+              )
+            }
+          </ContentWrapper>
+          <div className={cls.staff}>
+            {staffBlock}
+          </div>
+          <ContentWrapper isLoading={isCharactersLoading} error={charactersError}>
+            <div>
+              <Heading as="h3" size="sm">
+                Characters
+              </Heading>
+              <div className={cls.characters}>
+                {characters && characters.length > 0 && (
+                  characters.map(character => (
+                    <Fragment key={character.id}>
+                      <CharacterCard
+                        character={character}
+                      />
+                    </Fragment>
+                  ))
+                )}
+              </div>
+            </div>
+          </ContentWrapper>
         </div>
       </div>
-    </div>
+    </ContentWrapper>
   );
 };

@@ -6,6 +6,7 @@ import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
+import { ContentWrapper } from '../../../../components';
 
 /**
  * Visual novel page.
@@ -14,18 +15,10 @@ export const VisualNovelPage: FC = () => {
   const { id } = useParams();
   const { isLoading, error, data } = useVisualNovelQuery(id);
 
-  /** TODO: Replace it when loading wrapper will be implemented. */
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
-  /** TODO: Replace it when error wrapper will be implemented. */
-  if (error) {
-    return <>{`An error has occurred: ${error.message}`}</>;
-  }
-
   return (
-    <>
+
+    // TODO: Add height 100vh to route/page.
+    <ContentWrapper isLoading={isLoading} error={error}>
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
@@ -57,6 +50,6 @@ export const VisualNovelPage: FC = () => {
           <Outlet />
         </div>
       )}
-    </>
+    </ContentWrapper>
   );
 };
