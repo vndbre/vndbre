@@ -1,5 +1,5 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from '.';
+import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { fetchCharacters } from '../../../api/services/characterService';
 import { Character } from '../../../models/character';
 

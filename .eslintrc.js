@@ -14,12 +14,11 @@ module.exports = {
       },
       extends: [
         'airbnb',
-        'airbnb/hooks',
-        'plugin:@typescript-eslint/recommended',
+        'airbnb-typescript',
         'plugin:jsdoc/recommended',
-        'plugin:@typescript-eslint/recommended',
       ],
       rules: {
+        '@typescript-eslint/space-before-function-paren': 'off',
         'capitalized-comments': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
