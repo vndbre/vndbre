@@ -98,10 +98,12 @@ export const OverviewPage: FC = () => {
     return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
   }
 
+  /** TODO: Replace it when loading wrapper will be implemented. */
   if (isLoading || isReleasesLoading) {
     return <>Loading...</>;
   }
 
+  /** TODO: Replace it when error wrapper will be implemented. */
   if (error) {
     return <>{`An error has occurred: ${error.message}`}</>;
   }
