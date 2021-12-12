@@ -17,6 +17,6 @@ export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
     /**
      * TODO: change redirection path.
      */
-    element: <Navigate to="/vn/11/" />,
+    element: <Navigate to="/vn/7/" />,
   },
 ];
