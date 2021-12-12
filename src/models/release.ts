@@ -92,7 +92,7 @@ export interface Release {
   /**
    * Date of the first release.
    */
-  released: Date | null;
+  released: Date;
 
   /**
    * Visual novel languages.
