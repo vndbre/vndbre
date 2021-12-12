@@ -7,7 +7,7 @@ on:
 
 jobs:
   eslint:
-    name: runner / eslint
+    name: eslint (reviewdog)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
           fail_on_error: true
-          eslint_flags: "--ext .jsx,.js,.ts,.tsx ."
+          eslint_flags: "--ext .js,.ts,.tsx ."
   stylelint:
     name: stylelint
     runs-on: ubuntu-latest
