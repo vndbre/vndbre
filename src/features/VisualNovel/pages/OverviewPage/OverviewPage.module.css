@@ -16,11 +16,10 @@
   flex-wrap: wrap;
 }
 
-.title   ,
-.link  {
-  text-transform:  capitalize        ;
+.title,
+.link {
+  text-transform: capitalize;
 }
-
 
 .staff {
   display: grid;
@@ -29,8 +28,7 @@
   grid-gap: 16px;
 }
 
-
-.charac ters {
+.characters {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
