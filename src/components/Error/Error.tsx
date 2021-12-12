@@ -3,9 +3,8 @@ import { Box } from '@chakra-ui/react';
 
 interface Props {
 
-  /** Is data loading. */
+  /** Error object. */
   error: Error;
-
 }
 
 /**

@@ -18,11 +18,6 @@ export const MediaPage: VFC = () => {
   /** Filter screenshots by nsfw flag. */
   const filterPredicate = (screen: VisualNovelScreenshot): boolean => (settingsContext.isNsfwContentAllowed ? true : !screen.isNsfw);
 
-  /** TODO: Replace it when error wrapper will be implemented. */
-  if (error) {
-    return <>{`An error has occurred: ${error.message}`}</>;
-  }
-
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
       <div>
