@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   plugins: ['jsdoc'],
-  extends: ['airbnb'],
+  extends: ['airbnb'] ,
   overrides: [
     {
       parser: '@typescript-eslint/parser',
