@@ -13,7 +13,7 @@ export const Header: VFC = memo(() => (
     </div>
     <div className={cls.profile}>
       <Icon name="carbon:user-avatar" size={32} />
-      <span> Profile</span>
+      <span>Profile</span>
     </div>
     <Icon name="carbon:notification" size={32} />
     <Icon name="carbon:add" size={36} />
