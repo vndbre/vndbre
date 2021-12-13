@@ -21,7 +21,6 @@
 
 .heading {
   margin-top: 12px;
-  font-size: var(--chakra-fontSizes-md) !important;
   font-weight: 600;
 }
 
