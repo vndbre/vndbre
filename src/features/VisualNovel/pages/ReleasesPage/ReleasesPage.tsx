@@ -54,12 +54,12 @@ export const ReleasesPage: VFC = () => {
         </AccordionButton>
       </h2>
       <AccordionPanel>
-        {[...releases].sort((a, b) => a.released.getTime() - b.released.getTime()).map(release => (
-          <Box display="grid" gridGap={5} gridTemplateColumns="120px 1fr 2fr 1fr" key={release.id} marginBottom={1}>
-            <Text>{release.released && DateService.toISODate(release.released)}</Text>
+        {releases.map(release => (
+          <Box display="grid" gridGap={5} gridTemplateColumns="120px 2fr 1fr 1fr" key={release.id} marginBottom={1}>
+            <Text>{release.released ? DateService.toISODate(release.released) : 'TBA'}</Text>
             <Text fontWeight="bold">{release.title}</Text>
             <Text>
-              {release.minAge && (`${release.minAge}+`)}
+              {release.minAge !== null && `${release.minAge}+`}
             </Text>
             <Text>Test</Text>
           </Box>

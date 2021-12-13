@@ -11,6 +11,9 @@ export enum Country {
   Vietnam = 'vi',
   China = 'zh',
   Spain = 'es',
+  Turkey = 'tr',
+  Germany = 'de',
+  Brazil = 'pt-br',
 }
 
 interface CountryInfo {
@@ -36,6 +39,9 @@ export namespace CountryService {
     [Country.Vietnam]: { name: 'Vietnam', language: 'Vietnamese' },
     [Country.China]: { name: 'China', language: 'Chinese' },
     [Country.Spain]: { name: 'Spain', language: 'Spanish' },
+    [Country.Turkey]: { name: 'Turkey', language: 'Turkish' },
+    [Country.Germany]: { name: 'Germany', language: 'German' },
+    [Country.Brazil]: { name: 'Brazil', language: 'Portuguese (Brazil)' },
   };
 
   /**

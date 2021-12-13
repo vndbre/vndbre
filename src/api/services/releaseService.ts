@@ -12,7 +12,7 @@ import { ApiUrls } from '../../utils/types/apiUrls';
 export const fetchFullReleases = async(vnId: string): Promise<Release[]> => {
   const { data } = await http.post<DataWrapper<ReleaseDto>>(
     ApiUrls.Vndb,
-    `get release basic,details,producers (vn = ${vnId})`,
+    `get release basic,details,producers (vn = ${vnId}) {"results": 25, "sort": "released"}`,
   );
 
   const releases = data.data.items.map(dto => releaseFromDto(dto));
