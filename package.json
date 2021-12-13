@@ -19,7 +19,7 @@
   },
   "scripts": {
     "dev": "vite --mode production",
-    "dev-dev": "vite --mode development",
+    "dev:docker": "vite --mode development",
     "build": "tsc && vite build --mode production",
     "serve": "vite preview",
     "lint": "eslint \"src/**/*.{ts,tsx,js}\"",

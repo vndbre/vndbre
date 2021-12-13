@@ -28,11 +28,11 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Runs ESLint to find out problems in code.
 
-### `npm run dev-dev`
+### `npm run dev:docker`
 
 ```
 docker compose up -d
-npm run dev-dev
+npm run dev:docker
 ```
 
 Will run the app in the development mode which uses backend from [compose](./docker-compose.yml) file.
