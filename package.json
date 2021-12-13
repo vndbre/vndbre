@@ -22,7 +22,7 @@
     "dev:docker": "vite --mode development",
     "build": "tsc && vite build --mode production",
     "serve": "vite preview",
-    "lint": "eslint \"src/**/*.{ts,tsx,js}\"",
+    "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
     "stylelint": "stylelint '**/*.css'"
   },
