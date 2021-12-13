@@ -10,11 +10,34 @@ import { ApiUrls } from '../../utils/types/apiUrls';
  * @param vnId Visual novel id.
  */
 export const fetchFullReleases = async(vnId: string): Promise<Release[]> => {
-  const { data } = await http.post<DataWrapper<ReleaseDto>>(
-    ApiUrls.Vndb,
-    `get release basic,details,producers (vn = ${vnId}) {"results": 25, "sort": "released"}`,
-  );
+  let currentPage = 1;
+  let hasToFetchMore = true;
+  const releasesChunks = [];
 
-  const releases = data.data.items.map(dto => releaseFromDto(dto));
-  return releases;
+  /**
+   * Fetches releases by page.
+   * @param page Page.
+   */
+  const fetch = async(page: number): Promise<DataWrapper<ReleaseDto>> => {
+    const { data } = await http.post<DataWrapper<ReleaseDto>>(
+      ApiUrls.Vndb,
+      `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
+    );
+
+    return data;
+  };
+
+  while (hasToFetchMore) {
+    // eslint-disable-next-line no-await-in-loop
+    const releasesData = await fetch(currentPage);
+    releasesChunks.push(releasesData.data.items);
+
+    if (releasesData.data.more) {
+      currentPage += 1;
+    } else {
+      hasToFetchMore = false;
+    }
+  }
+
+  return releasesChunks.map(releasesChunk => releasesChunk.map(dto => releaseFromDto(dto))).flat();
 };

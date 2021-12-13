@@ -90,9 +90,9 @@ export interface Release {
   originalName: string | null;
 
   /**
-   * Date of the first release.
+   * Date of the first release in 'yyyy-mm-dd' format.
    */
-  released: Date | null;
+  releasedISODate: string;
 
   /**
    * Visual novel languages.
@@ -135,9 +135,9 @@ export interface Release {
   notes: string | null;
 
   /**
-   * Age rating, 0 = all ages.
+   * Age rating.
    */
-  minAge: number | null;
+  ageRating: string;
 
   /**
    * AN/UPC/EAN code. This is actually an integer, but formatted as a string to avoid an overflow on 32bit platforms.
