@@ -1,5 +1,5 @@
 import { Heading, Link } from '@chakra-ui/react';
-import React, { memo, VFC } from 'react';
+import React, { Fragment, memo, VFC } from 'react';
 import { NavLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
 
@@ -110,14 +110,14 @@ export const Sidebar: VFC = memo(() => (
       switch (el.type) {
         case SidebarElementType.Heading: {
           return (
-            <>
+            <Fragment key={el.text + el.type}>
               <Heading className={cls.heading}>{el.text}</Heading>
-              {el.items.map(_el => <Link as={NavLink} to={_el.link}>{_el.text}</Link>)}
-            </>
+              {el.items.map(_el => <Link as={NavLink} to={_el.link} key={_el.link + _el.text}>{_el.text}</Link>)}
+            </Fragment>
           );
         }
         case SidebarElementType.Link: {
-          return <Link as={NavLink} to={el.link}>{el.text}</Link>;
+          return <Link as={NavLink} to={el.link} key={el.link + el.text}>{el.text}</Link>;
         }
         default: {
           return null;
