@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { ReactElement, VFC } from 'react';
 import { useParams } from 'react-router';
 import {
   Accordion,
@@ -15,6 +15,8 @@ import { Platform, PlatformService } from '../../../../api/services/platformServ
 import { Icon } from '../../../../components/Icon/Icon';
 import { Release } from '../../../../models/release';
 import { useReleasesQuery } from '../../queries';
+import { ContentWrapper } from '../../../../components';
+import { ReleaseType } from '../../../../utils/types/releaseHelperTypes';
 
 interface ReleaseGroups {
   [language: string]: Release[];
@@ -29,6 +31,7 @@ export const ReleasesPage: VFC = () => {
   const {
     isLoading: isReleasesLoading,
     data: releasesData,
+    error: releasesError,
   } = useReleasesQuery(id);
 
   /**
@@ -47,9 +50,32 @@ export const ReleasesPage: VFC = () => {
     }, { } as ReleaseGroups,
   );
 
-  if (isReleasesLoading) {
-    return <div>Loading...</div>;
-  }
+  /**
+   * Gets release status.
+   * @param release Release.
+   */
+  const getReleaseStatus = (release: Release): ReactElement => {
+    switch (release.type) {
+      case ReleaseType.Trial:
+        return (
+          <Tooltip hasArrow label={ReleaseType.Trial}>
+            <span><Icon name="carbon:circle-dash" /></span>
+          </Tooltip>
+        );
+      case ReleaseType.Partial:
+        return (
+          <Tooltip hasArrow label={ReleaseType.Partial}>
+            <span><Icon name="carbon:incomplete" /></span>
+          </Tooltip>
+        );
+      default:
+        return (
+          <Tooltip hasArrow label={ReleaseType.Complete}>
+            <span><Icon name="carbon:circle-solid" /></span>
+          </Tooltip>
+        );
+    }
+  };
 
   const releasesBlock = releasesData && Object.entries(groupReleases(releasesData)).map(([language, releases]) => (
     <AccordionItem key={language} borderColor="transparent">
@@ -64,9 +90,12 @@ export const ReleasesPage: VFC = () => {
       </h2>
       <AccordionPanel>
         {releases.map(release => (
-          <Box display="grid" gridGap={5} gridTemplateColumns="120px 2fr 1fr 1fr" key={release.id} marginBottom={1}>
+          <Box display="grid" gridGap={4} gridTemplateColumns="120px 2fr 1fr 1fr" key={release.id} marginBottom={1}>
             <Text>{release.releasedISODate}</Text>
-            <Text fontWeight="bold">{release.title}</Text>
+            <Box display="flex" gridGap={1}>
+              {getReleaseStatus(release)}
+              <Text fontWeight="bold">{release.title}</Text>
+            </Box>
             <Box display="flex" gridGap={2}>
               {release.ageRating && (
                 <Text>
@@ -93,8 +122,10 @@ export const ReleasesPage: VFC = () => {
   ));
 
   return (
-    <Accordion defaultIndex={[0]} allowMultiple paddingBottom={1}>
-      {releasesBlock}
-    </Accordion>
+    <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
+      <Accordion defaultIndex={[0]} allowMultiple paddingBottom={1}>
+        {releasesBlock}
+      </Accordion>
+    </ContentWrapper>
   );
 };
