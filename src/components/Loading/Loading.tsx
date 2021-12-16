@@ -8,7 +8,7 @@ interface Props {
   isLoading: boolean;
 
   /** Children node. */
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 /**
@@ -17,7 +17,7 @@ interface Props {
 const LoadingComponent: VFC<Props> = ({ isLoading, children }) => (
   <>
     {isLoading ? (
-      <Box h="full" w="full" display="flex" alignItems="center" justifyContent="center">
+      <Box py={4} w="full" display="flex" alignItems="center" justifyContent="center">
         <CircularProgress isIndeterminate {...theme.baseStyle} />
       </Box>
     ) : children }

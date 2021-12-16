@@ -19,7 +19,7 @@ interface Props {
  * Depending on these states it will give a correct feedback.
  * Each of containing blocks can be used separately.
  */
-const ContentWrapperComponent: VFC<Props> = ({ isLoading, error, children }) => {
+const ContentWrapperComponent: VFC<Props> = ({ isLoading, error = null, children }) => {
   if (error) {
     return <Error error={error} />;
   }
