@@ -1,4 +1,6 @@
-import { ReleaseAnimationType, ReleaseType, ReleaseVoiced } from '../utils/types/releaseHelperTypes';
+import { ReleaseAnimationType } from './enums/releaseAnimationType';
+import { ReleaseType } from './enums/releaseType';
+import { ReleaseVoiceStatus } from './enums/releaseVoiceStatus';
 import { VisualNovel } from './visualNovel';
 
 /**
@@ -166,7 +168,7 @@ export interface Release {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  voiced: ReleaseVoiced | null;
+  voiced: ReleaseVoiceStatus | null;
 
   /**
    * Animation status.

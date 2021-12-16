@@ -1,4 +1,5 @@
-import { ReleaseType, ReleaseVoiced } from '../../utils/types/releaseHelperTypes';
+import { ReleaseType } from '../../models/enums/releaseType';
+import { ReleaseVoiceStatus } from '../../models/enums/releaseVoiceStatus';
 import { VisualNovelDto } from './visualNovelDto';
 
 /**
@@ -150,7 +151,7 @@ export interface ReleaseDto {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  voiced: ReleaseVoiced | null;
+  voiced: ReleaseVoiceStatus | null;
 
   /**
    * The array has two integer members,
