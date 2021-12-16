@@ -1,11 +1,10 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import languageCodes from 'iso-639-1';
 import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
 import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
-import { VisualNovelLinks } from '../../../../utils/types/visualNovelLinks';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedTagsQuery } from '../../queries';
@@ -75,6 +74,37 @@ export const OverviewPage: FC = () => {
 
   const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(id);
 
+  const settingsContext = useSettingsContext();
+
+  /**
+   * Filter tags by category and spoiler level.
+   */
+  function tagsFilterPredicate(tag: ExtendedTag): boolean {
+    return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
+  }
+
+  const publishersBlock = visualNovel?.languages.map(key => (
+    publishers && publishers[key].length > 0 && (
+      <TagBlock
+        key={key}
+        title={`Publisher (${languageCodes.getName(key)})`}
+        tags={publishers[key].map(publisher => ({ name: publisher }))}
+      />
+    )
+  ));
+
+  const linksBlock = visualNovel && (
+    Object.entries(visualNovel.links).map(([key, value]) => (
+      <Link
+        key={key}
+        className={cls.link}
+        href={value ?? '#'}
+      >
+        {key}
+      </Link>
+    ))
+  );
+
   const staffBlock = Object.keys(STAFF_ROLES).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
       <TagBlock
@@ -91,14 +121,22 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const settingsContext = useSettingsContext();
+  const tagsBlock = tags && tags.length > 0 && (
+    <TagBlock
+      title="Tags"
+      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
+      isExpandable
+    />
+  );
 
-  /**
-   * Filter tags by category and spoiler level.
-   */
-  function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
-  }
+  const charactersBlock = characters && characters.length > 0 && (
+    characters.map(character => (
+      <CharacterCard
+        key={character.id}
+        character={character}
+      />
+    ))
+  );
 
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
@@ -112,47 +150,20 @@ export const OverviewPage: FC = () => {
               title="Developers"
               tags={developers.map(dev => ({ name: dev }))}
             />
-            {visualNovel?.languages.map(key => (
-              <Fragment key={key}>
-                {publishers && publishers[key].length > 0 && (
-                  <TagBlock
-                    title={`Publisher (${languageCodes.getName(key)})`}
-                    tags={publishers[key].map(publisher => ({ name: publisher }))}
-                  />
-                )}
-              </Fragment>
-            ))}
+            {publishersBlock}
             <div>
               <Heading as="h3" size="sm">
                 Links
               </Heading>
               <div className={cls.items}>
-                {visualNovel && (
-                  Object.keys(visualNovel.links).map(key => (
-                    <Link
-                      key={key}
-                      className={cls.link}
-                      href={visualNovel.links[key as keyof VisualNovelLinks] ?? '#'}
-                    >
-                      {key}
-                    </Link>
-                  ))
-                )}
+                {linksBlock}
               </div>
             </div>
           </div>
         </ContentWrapper>
         <div>
           <ContentWrapper isLoading={isTagsLoading} error={tagsError}>
-            {
-              tags && tags.length > 0 && (
-                <TagBlock
-                  title="Tags"
-                  tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
-                  isExpandable
-                />
-              )
-            }
+            {tagsBlock}
           </ContentWrapper>
           <div className={cls.staff}>
             {staffBlock}
@@ -163,15 +174,7 @@ export const OverviewPage: FC = () => {
                 Characters
               </Heading>
               <div className={cls.characters}>
-                {characters && characters.length > 0 && (
-                  characters.map(character => (
-                    <Fragment key={character.id}>
-                      <CharacterCard
-                        character={character}
-                      />
-                    </Fragment>
-                  ))
-                )}
+                {charactersBlock}
               </div>
             </div>
           </ContentWrapper>
