@@ -4,8 +4,8 @@ import axios, { AxiosInstance } from 'axios';
 export const queryClient = new QueryClient();
 
 /**
- * TODO: CHANGE BASE URL.
+ * Configured axios instance.
  */
 export const http: AxiosInstance = axios.create({
-  baseURL: 'https://vndbre-proxy.azurewebsites.net/api/v1/',
+  baseURL: import.meta.env.VITE_VNDBRE_PROXY_BASEURL,
 });

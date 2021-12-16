@@ -223,13 +223,6 @@ module.exports = {
         'array-bracket-spacing': ['error', 'never'],
         'array-element-newline': ['error', 'consistent'],
         '@typescript-eslint/brace-style': ['error', '1tbs'],
-        'comma-spacing': [
-          'error',
-          {
-            before: false,
-            after: true,
-          },
-        ],
         'comma-style': 'error',
         'computed-property-spacing': ['error', 'never'],
         'eol-last': 'error',

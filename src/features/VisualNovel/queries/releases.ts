@@ -8,5 +8,5 @@ import { Release } from '../../../models/release';
  * @param id Id of visual novel.
  * @param options Query options.
  */
-export const useReleasesQuery = (id: string, options?: UseQueryOptions<Release[], Error>): UseQueryResult<Release[]> =>
+export const useReleasesQuery = (id: string, options?: UseQueryOptions<Release[], Error>): UseQueryResult<Release[], Error> =>
   useQuery(['releases', id], () => fetchFullReleases(id), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
