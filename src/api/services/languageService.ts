@@ -53,7 +53,7 @@ interface LanguageInfo {
   /** Language's name. */
   name: string;
 
-  /** Icon name for language. */
+  /** Suffix for language icon. */
   iconSuffix?: string;
 }
 

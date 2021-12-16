@@ -54,7 +54,7 @@ interface PlatformInfo {
   /** Platform's name. */
   name: string;
 
-  /** Icon name for platform. */
+  /** Suffix for platform icon. */
   iconSuffix?: string;
 }
 
