@@ -52,7 +52,7 @@ export const ReleasesPage: VFC = () => {
   }
 
   const releasesBlock = releasesData && Object.entries(groupReleases(releasesData)).map(([language, releases]) => (
-    <AccordionItem key={language} borderColor="white">
+    <AccordionItem key={language} borderColor="transparent">
       <h2>
         <AccordionButton>
           <Box display="flex" gridGap={3} textAlign="left" marginRight={3}>
@@ -93,7 +93,7 @@ export const ReleasesPage: VFC = () => {
   ));
 
   return (
-    <Accordion defaultIndex={[0]} allowMultiple>
+    <Accordion defaultIndex={[0]} allowMultiple paddingBottom={1}>
       {releasesBlock}
     </Accordion>
   );
