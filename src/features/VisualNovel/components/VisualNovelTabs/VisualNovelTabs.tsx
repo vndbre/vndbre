@@ -4,6 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { visualNovelTabInfo } from '../../utils/constants';
 import cls from './VisualNovelTabs.module.css';
 
+const FIRST_INDEX = 0;
+
 interface VisualNovelTabsProps {
 
   /**
@@ -29,7 +31,8 @@ export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
   const getDefaultTabIndex = (): number => {
     const splitPath = location.pathname.split('/');
     const activeRoute = splitPath[splitPath.length - 1];
-    return visualNovelTabInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
+    const tabIndex = visualNovelTabInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
+    return tabIndex >= FIRST_INDEX ? tabIndex : FIRST_INDEX;
   };
 
   const defaultTabIndex = getDefaultTabIndex();
