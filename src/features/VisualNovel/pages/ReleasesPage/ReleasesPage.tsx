@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Link,
   Text,
   Tooltip,
 } from '@chakra-ui/react';
@@ -22,7 +23,8 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { Release } from '../../../../models/release';
 import { useReleasesQuery } from '../../queries';
 import { ContentWrapper } from '../../../../components';
-import { ReleaseType } from '../../../../utils/types/releaseHelperTypes';
+import { ReleaseService } from '../../../../api/services/releaseService';
+import { ReleaseType } from '../../../../models/enums/releaseType';
 
 interface ReleaseGroups {
   [language: string]: Release[];
@@ -116,7 +118,7 @@ export const ReleasesPage: VFC = () => {
             <Box
               display="grid"
               gridGap={4}
-              gridTemplateColumns="120px 2fr 1fr 1fr"
+              gridTemplateColumns="120px 2.5fr 1fr 1fr 25px"
               key={release.id}
               marginBottom={1}
             >
@@ -145,7 +147,24 @@ export const ReleasesPage: VFC = () => {
                   );
                 })}
               </Box>
-              <Text>Test</Text>
+              <Box display="flex" gridGap={2}>
+                {ReleaseService.getReleaseIcons(release).map(releaseIcon => (
+                  <Tooltip
+                    key={releaseIcon.icon + releaseIcon.label}
+                    hasArrow
+                    label={releaseIcon.label}
+                  >
+                    <span>
+                      <Icon name={releaseIcon.icon} />
+                    </span>
+                  </Tooltip>
+                ))}
+              </Box>
+              {release.website && (
+                <Link borderBottomColor="transparent" href={release.website} isExternal>
+                  <Icon name="ri:external-link-line" />
+                </Link>
+              )}
             </Box>
           ))}
         </AccordionPanel>
