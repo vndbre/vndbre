@@ -74,11 +74,15 @@ export const ReleasesPage: VFC = () => {
                 </Text>
               )}
               {release.platforms.map(
-                platform => (
-                  <Tooltip key={platform + String(release.id)} hasArrow label={PlatformService.toReadable(platform as Platform)}>
-                    <span><Icon name={PlatformService.getPlatformIcon(platform as Platform)} /></span>
-                  </Tooltip>
-                ),
+                platform => {
+                  const suffix = PlatformService.getPlatformIcon(platform as Platform);
+
+                  return (
+                    <Tooltip key={platform + String(release.id)} hasArrow label={PlatformService.toReadable(platform as Platform)}>
+                      <span><Icon name={suffix} /></span>
+                    </Tooltip>
+                  );
+                },
               )}
             </Box>
             <Text>Test</Text>

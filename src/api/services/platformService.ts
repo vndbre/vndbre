@@ -4,8 +4,31 @@ export enum Platform {
   Linux = 'lin',
   IOS = 'ios',
   Web = 'web',
+  GameBoyAdvance = 'gba',
+  GameBoyColor = 'gbc',
+  VNDS = 'vnd',
   Android = 'and',
   MacOs = 'mac',
+  PC88 = 'p88',
+  PC98 = 'p98',
+  Sharp1X = 'x1s',
+  MSX = 'msx',
+  SharpX68000 = 'x68',
+  TDO = 'tdo',
+  FMTowns = 'fmt',
+  FM7 = 'fm7',
+  FM8 = 'fm8',
+  SegaSaturn = 'sat',
+  Famicon = 'nes',
+  SuperFamicon = 'sfc',
+  Dreamcast = 'drc',
+  DVD = 'dvd',
+  BluRay = 'bdp',
+  DOS = 'dos',
+  PCEngine = 'pce',
+  PCFX = 'pcf',
+  SegaMegaCD = 'scd',
+  SegaMegaDrive = 'smd',
   PlayStationVita = 'psv',
   PlayStation1 = 'ps1',
   PlayStation2 = 'ps2',
@@ -13,6 +36,7 @@ export enum Platform {
   PlayStation4 = 'ps4',
   PlayStation5 = 'ps5',
   PlayStationPortable = 'psp',
+  NintendoDS = 'nds',
   Nintendo3DS = 'n3d',
   NintendoWii = 'wii',
   NintendoWiiU = 'wiu',
@@ -21,6 +45,8 @@ export enum Platform {
   Xbox360 = 'xb3',
   XboxOne = 'xbo',
   XboxXS = 'xxs',
+  Other = 'oth',
+  OtherMobile = 'mob',
 }
 
 interface PlatformInfo {
@@ -28,36 +54,63 @@ interface PlatformInfo {
   /** Platform's name. */
   name: string;
 
-  /** Platform's name for icon. */
+  /** Icon name for platform. */
   iconSuffix?: string;
 }
 
 export namespace PlatformService {
 
+  const DEFAULT_PLATFORM_ICON = 'bi:question-square';
   const PLATFORM_ICON_BASE = 'simple-icons:';
 
   const MAP_PLATFORM_INFO: Record<Platform, PlatformInfo> = {
-    [Platform.Windows]: { name: 'Windows' },
-    [Platform.Linux]: { name: 'Linux' },
-    [Platform.IOS]: { name: 'IOS' },
+    [Platform.Windows]: { name: 'Windows', iconSuffix: 'windows' },
+    [Platform.Linux]: { name: 'Linux', iconSuffix: 'linux' },
+    [Platform.IOS]: { name: 'IOS', iconSuffix: 'ios' },
     [Platform.Web]: { name: 'Website', iconSuffix: 'googlechrome' },
-    [Platform.Android]: { name: 'Android' },
+    [Platform.Android]: { name: 'Android', iconSuffix: 'android' },
     [Platform.MacOs]: { name: 'Mac OS', iconSuffix: 'apple' },
-    [Platform.PlayStationVita]: { name: 'Playstation Vita' },
+    [Platform.GameBoyAdvance]: { name: 'Game Boy Advance' },
+    [Platform.GameBoyColor]: { name: 'Game Boy Color' },
+    [Platform.PC88]: { name: 'PC-88' },
+    [Platform.PC98]: { name: 'PC-98' },
+    [Platform.Sharp1X]: { name: 'Sharp X1' },
+    [Platform.MSX]: { name: 'MSX' },
+    [Platform.SharpX68000]: { name: 'Sharp X68000' },
+    [Platform.TDO]: { name: '3DO' },
+    [Platform.VNDS]: { name: 'VNDS' },
+    [Platform.FMTowns]: { name: 'FM Towns' },
+    [Platform.FM7]: { name: 'FM-7' },
+    [Platform.FM8]: { name: 'FM-8' },
+    [Platform.SegaSaturn]: { name: 'Sega Saturn' },
+    [Platform.Famicon]: { name: 'Famicon' },
+    [Platform.SuperFamicon]: { name: 'Super Famicon' },
+    [Platform.Dreamcast]: { name: 'Dreamcast' },
+    [Platform.DVD]: { name: 'DVD Player' },
+    [Platform.BluRay]: { name: 'Blu-ray Player' },
+    [Platform.DOS]: { name: 'DOS' },
+    [Platform.PCEngine]: { name: 'PC Engine' },
+    [Platform.PCFX]: { name: 'PC-FX' },
+    [Platform.SegaMegaCD]: { name: 'Sega Mega-CD' },
+    [Platform.SegaMegaDrive]: { name: 'Sega Mega Drive' },
+    [Platform.PlayStationVita]: { name: 'Playstation Vita', iconSuffix: 'playstationvita' },
     [Platform.PlayStation1]: { name: 'Playstation 1', iconSuffix: 'playstation' },
-    [Platform.PlayStation2]: { name: 'Playstation 2' },
-    [Platform.PlayStation3]: { name: 'Playstation 3' },
-    [Platform.PlayStation4]: { name: 'Playstation 4' },
-    [Platform.PlayStation5]: { name: 'Playstation 5' },
+    [Platform.PlayStation2]: { name: 'Playstation 2', iconSuffix: 'playstation2' },
+    [Platform.PlayStation3]: { name: 'Playstation 3', iconSuffix: 'playstation3' },
+    [Platform.PlayStation4]: { name: 'Playstation 4', iconSuffix: 'playstation4' },
+    [Platform.PlayStation5]: { name: 'Playstation 5', iconSuffix: 'playstation5' },
     [Platform.PlayStationPortable]: { name: 'Playstation Portable', iconSuffix: 'playstation' },
-    [Platform.Nintendo3DS]: { name: 'Nintendo 3DS' },
-    [Platform.NintendoWii]: { name: 'Wii' },
-    [Platform.NintendoWiiU]: { name: 'Wii U' },
-    [Platform.NintendoSwitch]: { name: 'Nintendo Switch' },
-    [Platform.Xbox]: { name: 'Xbox' },
+    [Platform.NintendoDS]: { name: 'Nintendo DS', iconSuffix: 'nintendo3ds' },
+    [Platform.Nintendo3DS]: { name: 'Nintendo 3DS', iconSuffix: 'nintendo3ds' },
+    [Platform.NintendoWii]: { name: 'Wii', iconSuffix: 'nintendowii' },
+    [Platform.NintendoWiiU]: { name: 'Wii U', iconSuffix: 'nintendowiiu' },
+    [Platform.NintendoSwitch]: { name: 'Nintendo Switch', iconSuffix: 'nintendoswitch' },
+    [Platform.Xbox]: { name: 'Xbox', iconSuffix: 'xbox' },
     [Platform.Xbox360]: { name: 'Xbox 360', iconSuffix: 'xbox' },
     [Platform.XboxOne]: { name: 'Xbox One', iconSuffix: 'xbox' },
     [Platform.XboxXS]: { name: 'Xbox X/S', iconSuffix: 'xbox' },
+    [Platform.Other]: { name: 'Other' },
+    [Platform.OtherMobile]: { name: 'Other Mobile' },
   };
 
   /**
@@ -67,15 +120,16 @@ export namespace PlatformService {
   export const toReadable = (value: Platform): string => MAP_PLATFORM_INFO[value]?.name ?? '';
 
   /**
-   * Gets name of icon for platform.
+   * Gets icon name for platform.
    * @param value Platform.
    */
   export const getPlatformIcon = (value: Platform): string => {
-    const suffix = MAP_PLATFORM_INFO[value]?.iconSuffix ?? toReadable(value)
-      .toLowerCase()
-      .split(' ')
-      .join('');
+    const iconSuffix = MAP_PLATFORM_INFO[value]?.iconSuffix;
 
-    return PLATFORM_ICON_BASE + suffix;
+    if (iconSuffix) {
+      return PLATFORM_ICON_BASE + iconSuffix;
+    }
+
+    return DEFAULT_PLATFORM_ICON;
   };
 }
