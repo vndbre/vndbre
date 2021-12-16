@@ -1,5 +1,5 @@
+import React, { Fragment, VFC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
-import React, { Fragment, memo, VFC } from 'react';
 import { NavLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
 import { data, SidebarElementType } from './data';
@@ -7,7 +7,7 @@ import { data, SidebarElementType } from './data';
 /**
  * Sidebar.
  */
-export const Sidebar: VFC = memo(() => (
+export const Sidebar: VFC = () => (
   <aside className={cls.sidebar}>
     <div className={cls.logo}>vndbre</div>
     {data.map(el => {
@@ -49,4 +49,4 @@ export const Sidebar: VFC = memo(() => (
       }
     })}
   </aside>
-));
+);
