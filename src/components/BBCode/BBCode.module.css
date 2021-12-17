@@ -7,9 +7,7 @@
   outline: transparent solid 2px;
   outline-offset: 2px;
   color: inherit;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: var(--chakra-colors-gray-500);
+  border-bottom: solid 1px var(--chakra-colors-gray-500);
 }
 
 .bbcode > a:hover,
