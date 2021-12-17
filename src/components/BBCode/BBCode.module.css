@@ -1,4 +1,20 @@
 .bbcode > a {
-  color: orange;
-  text-decoration: underline;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-fast);
+  transition-timing-function: var(--chakra-transition-easing-ease-out);
+  cursor: pointer;
+  text-decoration: none;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  color: inherit;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: var(--chakra-colors-gray-500);
+}
+
+.bbcode > a:hover,
+.bbcode > a[data-hover] {
+  text-decoration: none;
+  color: var(--chakra-colors-orange-500);
+  border-bottom-color: var(--chakra-colors-orange-500);
 }
