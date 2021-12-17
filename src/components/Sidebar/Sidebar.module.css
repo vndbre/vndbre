@@ -20,8 +20,7 @@
 }
 
 .heading {
-  margin-top: 12px;
-  font-size: var(--chakra-fontSizes-md) !important;
+  margin-top: var(--chakra-sizes-3);
   font-weight: 600;
 }
 
