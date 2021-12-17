@@ -33,8 +33,3 @@
   gap: 16px;
   align-items: center;
 }
-
-.description > span > a {
-  color: blue !important;
-  text-decoration: underline !important;
-}
