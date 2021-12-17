@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, ButtonGroup, Heading, IconButton, Text, Image } from '@chakra-ui/react';
+import { Button, ButtonGroup, Heading, IconButton, Image } from '@chakra-ui/react';
 import { Outlet, useParams } from 'react-router';
 
 import { Icon } from '../../../../components/Icon/Icon';
@@ -45,7 +45,9 @@ export const VisualNovelPage: FC = () => {
                   <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                   <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
                 </div>
-                <Text className={cls.description}>{data.description}</Text>
+                <BBCode>
+                  {data.description}
+                </BBCode>
               </div>
             </div>
             <VisualNovelTabs id={id} />
