@@ -22,32 +22,36 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <Image src={data.image as string} alt={data.title} className={cls.image} />
-            <div className={cls.info}>
-              <div className={cls.heading}>
-                <div className={cls.title}>
-                  <Heading as="h1" size="md">
-                    {data.title}
-                  </Heading>
-                  <Heading as="h2" size="sm" fontWeight="normal">
-                    {data.originalName}
-                  </Heading>
+            <div className={cls.overview}>
+              <Image src={data.image as string} alt={data.title} className={cls.image} />
+              <div className={cls.info}>
+                <div className={cls.heading}>
+                  <div className={cls.title}>
+                    <Heading as="h1" size="md">
+                      {data.title}
+                    </Heading>
+                    <Heading as="h2" size="sm" fontWeight="normal">
+                      {data.originalName}
+                    </Heading>
+                  </div>
                 </div>
+                <div className={cls.controls}>
+                  <ButtonGroup isAttached>
+                    <Button mr="-px">Add to list</Button>
+                    <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
+                  </ButtonGroup>
+                  <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} colorScheme="gray" />
+                  <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
+                  <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
+                </div>
+                <Text className={cls.description}>{data.description}</Text>
               </div>
-              <div className={cls.controls}>
-                <ButtonGroup isAttached>
-                  <Button mr="-px">Add to list</Button>
-                  <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
-                </ButtonGroup>
-                <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} colorScheme="gray" />
-                <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
-                <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
-              </div>
-              <Text className={cls.description}>{data.description}</Text>
             </div>
             <VisualNovelTabs id={id} />
           </header>
-          <Outlet />
+          <div className={cls.tabContent}>
+            <Outlet />
+          </div>
         </div>
       )}
     </ContentWrapper>

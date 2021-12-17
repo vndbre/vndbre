@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  position: fixed;
+  width: 240px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 240px;
+  width: 100%;
+}

@@ -35,9 +35,9 @@ export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
   const defaultTabIndex = getDefaultTabIndex();
 
   return (
-    <nav className={cls.tabs}>
+    <nav>
       <Tabs defaultIndex={defaultTabIndex} colorScheme="orange">
-        <TabList>
+        <TabList className={cls.tabList}>
           {tabs}
         </TabList>
       </Tabs>

@@ -1,0 +1,29 @@
+.sidebar {
+  border-right: 1px solid var(--chakra-colors-gray-300);
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--chakra-sizes-3);
+  padding-left: var(--chakra-sizes-6);
+  padding-bottom: var(--chakra-sizes-8);
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  flex-shrink: 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.heading {
+  margin-top: var(--chakra-sizes-3);
+  font-weight: 600;
+}
+
+.link {
+  font-size: var(--chakra-fontSizes-sm);
+}

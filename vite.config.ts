@@ -10,7 +10,12 @@ export default defineConfig({
     reactRefresh(),
     ViteFonts({
       google: {
-        families: ['Inter'],
+        families: [
+          {
+            name: 'Inter',
+            styles: 'wght@400;500;600;700',
+          },
+        ],
       },
     }),
     eslintPlugin({ eslintOptions: { cache: false } }),
