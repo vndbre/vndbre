@@ -66,14 +66,14 @@ export namespace ReleaseService {
   const getIsFreewareIcon = (isFreeware: boolean): ReleaseIcon => {
     if (isFreeware) {
       return {
-        label: 'Non-free',
-        icon: 'bx:bx-dollar',
+        label: 'Freeware',
+        icon: 'eva:gift-fill',
       };
     }
 
     return {
-      label: 'Freeware',
-      icon: 'eva:gift-fill',
+      label: 'Non-free',
+      icon: 'bx:bx-dollar',
     };
   };
 
