@@ -24,7 +24,7 @@ import { Release } from '../../../../models/release';
 import { useReleasesQuery } from '../../queries';
 import { ContentWrapper } from '../../../../components';
 import { ReleaseService } from '../../../../api/services/releaseService';
-import { ReleaseType } from '../../../../models/enums/releaseType';
+import { ReleaseType } from '../../../../enums/releaseType';
 
 interface ReleaseGroups {
   [language: string]: Release[];

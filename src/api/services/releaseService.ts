@@ -4,8 +4,8 @@ import { ReleaseDto } from '../dtos/releaseDto';
 import { releaseFromDto } from '../mappers/releaseMapper';
 import { Release, ReleaseAnimation } from '../../models/release';
 import { ApiUrls } from '../../utils/types/apiUrls';
-import { ReleaseAnimationType } from '../../models/enums/releaseAnimationType';
-import { ReleaseVoiceStatus } from '../../models/enums/releaseVoiceStatus';
+import { ReleaseAnimationType } from '../../enums/releaseAnimationType';
+import { ReleaseVoiceStatus } from '../../enums/releaseVoiceStatus';
 
 interface ReleaseIcon {
 

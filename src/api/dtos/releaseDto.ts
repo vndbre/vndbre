@@ -1,5 +1,5 @@
-import { ReleaseType } from '../../models/enums/releaseType';
-import { ReleaseVoiceStatus } from '../../models/enums/releaseVoiceStatus';
+import { ReleaseType } from '../../enums/releaseType';
+import { ReleaseVoiceStatus } from '../../enums/releaseVoiceStatus';
 import { VisualNovelDto } from './visualNovelDto';
 
 /**

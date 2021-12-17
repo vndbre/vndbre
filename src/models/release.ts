@@ -1,6 +1,6 @@
-import { ReleaseAnimationType } from './enums/releaseAnimationType';
-import { ReleaseType } from './enums/releaseType';
-import { ReleaseVoiceStatus } from './enums/releaseVoiceStatus';
+import { ReleaseAnimationType } from '../enums/releaseAnimationType';
+import { ReleaseType } from '../enums/releaseType';
+import { ReleaseVoiceStatus } from '../enums/releaseVoiceStatus';
 import { VisualNovel } from './visualNovel';
 
 /**
