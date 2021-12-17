@@ -1,8 +1,14 @@
-export namespace ApiUrls {
+/**
+ * Api endpoint paths.
+ */
+export enum ApiUrls {
 
   /** Vndb proxy endpoint. */
-  export const VNDB = 'vndb';
+  Vndb = 'vndb',
 
   /** Tags api endpoint. */
-  export const TAGS = 'tags';
+  Tags = 'tags',
+
+  /** Traits api endpoints. */
+  Traits = 'traits',
 }

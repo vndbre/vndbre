@@ -1,11 +1,19 @@
 .page {
-  padding: 40px;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.header {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.header {
+.overview {
+  padding: 0 40px;
   display: grid;
   grid-template-columns: 200px 1fr;
   gap: 32px;
@@ -17,6 +25,11 @@
   gap: 24px;
 }
 
+.image {
+  height: 300px;
+  border-radius: 8px;
+}
+
 .heading {
   display: flex;
   gap: 16px;
@@ -25,11 +38,19 @@
 
 .title {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+}
+
+.description {
+  white-space: break-spaces;
 }
 
 .controls {
   display: flex;
   gap: 16px;
   align-items: center;
+}
+
+.tabContent {
+  padding: 0 40px;
 }

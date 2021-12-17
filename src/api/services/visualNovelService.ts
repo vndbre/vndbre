@@ -10,7 +10,7 @@ import { ApiUrls } from '../../utils/types/apiUrls';
  */
 export const fetchFullVisualNovel = async(id: string): Promise<VisualNovel> => {
   const { data } = await http.post<DataWrapper<VisualNovelDto>>(
-    ApiUrls.VNDB,
+    ApiUrls.Vndb,
     `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
   );
 

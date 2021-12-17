@@ -90,7 +90,7 @@ export interface StaffDto {
   /**
    * Description or notes.
    */
-  description?: string | null;
+  description: string | null;
 
   /**
    * List of names and aliases.

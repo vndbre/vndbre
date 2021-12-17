@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React, { FC, memo } from 'react';
 import { Heading, Text, Image } from '@chakra-ui/react';
 import { useParams } from 'react-router';
@@ -9,9 +8,6 @@ import { Icon } from '../../../../components/Icon/Icon';
 
 import characterPlaceholder from '../../../../assets/person.png';
 
-/**
- * Component props.
- */
 interface CharacterCardProps {
 
   /**
@@ -29,7 +25,7 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
 
   return (
     <div className={cls.card}>
-      <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} h="112px" />
+      <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} className={cls.image} />
       <div className={cls.container}>
         <div className={cls.info}>
           <Heading as="h4" size="sm">
@@ -44,9 +40,7 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
 
         </div>
         {
-          role && (
-            <Text fontSize="xs">{Roles.toReadable(role)}</Text>
-          )
+          role && <Text fontSize="xs">{Roles.toReadable(role)}</Text>
         }
       </div>
     </div>

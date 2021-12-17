@@ -9,4 +9,9 @@ export const Link = {
       borderBottomColor: 'orange.500',
     },
   },
+  variants: {
+    'no-underline': {
+      borderBottom: 'none',
+    },
+  },
 };

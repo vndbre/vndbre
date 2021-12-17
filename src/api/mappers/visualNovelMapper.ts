@@ -7,6 +7,7 @@ import {
   VisualNovel,
 } from '../../models/visualNovel';
 import { StaffRoles } from '../../utils/types/staffRoles';
+import { DisplayVisualNovelLength, VisualNovelLength } from '../../utils/types/visualNovelLength';
 import {
   VisualNovelRelatedAnimeDto,
   VisualNovelRelatedDto,
@@ -15,6 +16,27 @@ import {
   VisualNovelDto,
 } from '../dtos/visualNovelDto';
 import { imageFlaggingFromDto } from './imageFlaggingMapper';
+
+/**
+ * Maps VN length to readable format.
+ * @param length Visual novel length.
+ */
+const mapVisualNovelLength = (length: number): DisplayVisualNovelLength => {
+  switch (length) {
+    case VisualNovelLength.VeryShort:
+      return DisplayVisualNovelLength.VeryShort;
+    case VisualNovelLength.Short:
+      return DisplayVisualNovelLength.Short;
+    case VisualNovelLength.Medium:
+      return DisplayVisualNovelLength.Medium;
+    case VisualNovelLength.Long:
+      return DisplayVisualNovelLength.Long;
+    case VisualNovelLength.VeryLong:
+      return DisplayVisualNovelLength.VeryLong;
+    default:
+      return DisplayVisualNovelLength.Medium;
+  }
+};
 
 /**
  * Maps dto into model.
@@ -92,7 +114,7 @@ export const visualNovelFromDto = (dto: VisualNovelDto): VisualNovel => ({
   originalLanguage: dto.orig_lang,
   platforms: dto.platforms,
   aliases: dto.aliases,
-  length: dto.length,
+  length: dto.length ? mapVisualNovelLength(dto.length) : null,
   description: dto.description,
   links: dto.links,
   image: dto.image,
