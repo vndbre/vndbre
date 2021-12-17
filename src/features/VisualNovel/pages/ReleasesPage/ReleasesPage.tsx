@@ -23,8 +23,8 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { Release } from '../../../../models/release';
 import { useReleasesQuery } from '../../queries';
 import { ContentWrapper } from '../../../../components';
-import { ReleaseService } from '../../../../api/services/releaseService';
 import { ReleaseType } from '../../../../enums/releaseType';
+import { ReleaseService } from '../../../../api/services/releaseService';
 
 interface ReleaseGroups {
   [language: string]: Release[];
