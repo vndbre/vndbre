@@ -11,7 +11,7 @@ interface Props {
   children: ReactNode;
 
   /** Error object. */
-  error: Error | null;
+  error?: Error | null;
 }
 
 /**
