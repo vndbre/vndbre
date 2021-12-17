@@ -6,6 +6,7 @@ import { Release, ReleaseAnimation } from '../../models/release';
 import { ApiUrls } from '../../utils/types/apiUrls';
 import { ReleaseAnimationType } from '../../enums/releaseAnimationType';
 import { ReleaseVoiceStatus } from '../../enums/releaseVoiceStatus';
+import { ReleaseType } from '../../enums/releaseType';
 
 interface ReleaseIcon {
 
@@ -63,7 +64,7 @@ export namespace ReleaseService {
    * Gets free/non-free icon for release.
    * @param isFreeware Whether release if free or not.
    */
-  const getIsFreewareIcon = (isFreeware: boolean): ReleaseIcon => {
+  export const getIsFreewareIcon = (isFreeware: boolean): ReleaseIcon => {
     if (isFreeware) {
       return {
         label: 'Freeware',
@@ -78,10 +79,30 @@ export namespace ReleaseService {
   };
 
   /**
+   * Gets icon for release status.
+   * @param releaseType Release type.
+   */
+  export const getReleaseStatusIcon = (releaseType: ReleaseType): ReleaseIcon => {
+    const label = ReleaseType.toReadable(releaseType);
+    const icon = (() => {
+      switch (releaseType) {
+        case ReleaseType.Trial:
+          return 'carbon:circle-dash';
+        case ReleaseType.Partial:
+          return 'carbon:incomplete';
+        default:
+          return 'carbon:circle-solid';
+      }
+    })();
+
+    return { label, icon };
+  };
+
+  /**
    * Gets icons for release story and ero animations.
    * @param animations Release animation info.
    */
-  const getAnimationIcons = (animations: ReleaseAnimation): ReleaseIcon[] => {
+  export const getAnimationIcons = (animations: ReleaseAnimation): ReleaseIcon[] => {
     const animationIcons = [];
 
     if (animations.storyAnimation) {
@@ -114,7 +135,7 @@ export namespace ReleaseService {
    * Gets voice icon for release.
    * @param releaseVoiced How release is voiced.
    */
-  const getVoiceIcon = (releaseVoiced: ReleaseVoiceStatus | null): ReleaseIcon | null => {
+  export const getVoiceIcon = (releaseVoiced: ReleaseVoiceStatus | null): ReleaseIcon | null => {
     switch (releaseVoiced) {
       case ReleaseVoiceStatus.NotVoiced:
         return {

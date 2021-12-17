@@ -64,36 +64,19 @@ export const ReleasesPage: VFC = () => {
     }, {} as ReleaseGroups);
 
   /**
-   * Gets release status.
-   * @param release Release.
+   * Gets element with icon for release status.
+   * @param releaseType Release type.
    */
-  const getReleaseStatus = (release: Release): ReactElement => {
-    switch (release.type) {
-      case ReleaseType.Trial:
-        return (
-          <Tooltip hasArrow label={ReleaseType.Trial}>
-            <span>
-              <Icon name="carbon:circle-dash" />
-            </span>
-          </Tooltip>
-        );
-      case ReleaseType.Partial:
-        return (
-          <Tooltip hasArrow label={ReleaseType.Partial}>
-            <span>
-              <Icon name="carbon:incomplete" />
-            </span>
-          </Tooltip>
-        );
-      default:
-        return (
-          <Tooltip hasArrow label={ReleaseType.Complete}>
-            <span>
-              <Icon name="carbon:circle-solid" />
-            </span>
-          </Tooltip>
-        );
-    }
+  const getReleaseStatusElement = (releaseType: ReleaseType): ReactElement => {
+    const releaseIcon = ReleaseService.getReleaseStatusIcon(releaseType);
+
+    return (
+      <Tooltip hasArrow label={releaseIcon.label}>
+        <span>
+          <Icon name={releaseIcon.icon} />
+        </span>
+      </Tooltip>
+    );
   };
 
   const releasesBlock =
@@ -124,13 +107,13 @@ export const ReleasesPage: VFC = () => {
             >
               <Text>{release.releasedISODate}</Text>
               <Box display="flex" gridGap={1}>
-                {getReleaseStatus(release)}
+                {getReleaseStatusElement(release.type)}
                 <Text fontWeight="bold">{release.title}</Text>
               </Box>
               <Box display="flex" gridGap={2}>
                 {release.ageRating && <Text>{release.ageRating}</Text>}
                 {release.platforms.map(platform => {
-                  const suffix = PlatformService.getPlatformIcon(
+                  const icon = PlatformService.getPlatformIcon(
                     platform as Platform,
                   );
 
@@ -141,7 +124,7 @@ export const ReleasesPage: VFC = () => {
                       label={PlatformService.toReadable(platform as Platform)}
                     >
                       <span>
-                        <Icon name={suffix} />
+                        <Icon name={icon} />
                       </span>
                     </Tooltip>
                   );
@@ -161,7 +144,11 @@ export const ReleasesPage: VFC = () => {
                 ))}
               </Box>
               {release.website && (
-                <Link borderBottomColor="transparent" href={release.website} isExternal>
+                <Link
+                  borderBottomColor="transparent"
+                  href={release.website}
+                  isExternal
+                >
                   <Icon name="ri:external-link-line" />
                 </Link>
               )}
