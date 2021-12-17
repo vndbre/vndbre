@@ -1,5 +1,3 @@
-import { Release } from '../../models/release';
-
 /** Language. */
 export enum Language {
   Russian = 'ru',
@@ -130,12 +128,4 @@ export namespace LanguageService {
 
     return DEFAULT_LANGUAGE_ICON;
   };
-
-  /**
-   * Gets all unique languages from releases.
-   * @param releases Releases of visual novel.
-   */
-  export const getLanguagesFromReleases = (releases: Release[]): Language[] => Array.from(
-    new Set(releases.map(release => release.languages).flat()),
-  ) as Language[];
 }
