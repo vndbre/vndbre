@@ -21,7 +21,5 @@ export namespace ReleaseAnimationType {
    * Converts a certain release animation type to readable equivalent.
    * @param value Type of animation of release.
    */
-  export function toReadable(value: ReleaseAnimationType): string {
-    return TO_READABLE_MAP[value];
-  }
+  export const toReadable = (value: ReleaseAnimationType): string => TO_READABLE_MAP[value];
 }

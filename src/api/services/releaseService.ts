@@ -57,7 +57,7 @@ export namespace ReleaseService {
       }
     }
 
-    return releasesChunks.map(releasesChunk => releasesChunk.map(dto => releaseFromDto(dto))).flat();
+    return releasesChunks.flatMap(releasesChunk => releasesChunk.map(dto => releaseFromDto(dto)));
   };
 
   /**
@@ -84,16 +84,11 @@ export namespace ReleaseService {
    */
   export const getReleaseStatusIcon = (releaseType: ReleaseType): ReleaseIcon => {
     const label = ReleaseType.toReadable(releaseType);
-    const icon = (() => {
-      switch (releaseType) {
-        case ReleaseType.Trial:
-          return 'carbon:circle-dash';
-        case ReleaseType.Partial:
-          return 'carbon:incomplete';
-        default:
-          return 'carbon:circle-solid';
-      }
-    })();
+    const icon = {
+      [ReleaseType.Trial]: 'carbon:circle-dash',
+      [ReleaseType.Partial]: 'carbon:incomplete',
+      [ReleaseType.Complete]: 'carbon:circle-solid',
+    }[releaseType];
 
     return { label, icon };
   };
@@ -115,16 +110,12 @@ export namespace ReleaseService {
     if (animations.eroAnimation) {
       const animation = animations.eroAnimation;
       const label = `Ero: ${ReleaseAnimationType.toReadable(animation).toLowerCase()}`;
-      const icon = (() => {
-        switch (animation) {
-          case ReleaseAnimationType.NoAnimation:
-            return 'carbon:favorite';
-          case ReleaseAnimationType.FullyAnimated:
-            return 'carbon:favorite-filled';
-          default:
-            return 'carbon:favorite-half';
-        }
-      })();
+      const icon = {
+        [ReleaseAnimationType.NoAnimation]: 'carbon:favorite',
+        [ReleaseAnimationType.SimpleAnimation]: 'carbon:favorite-half',
+        [ReleaseAnimationType.SomeFullyAnimated]: 'carbon:favorite-half',
+        [ReleaseAnimationType.FullyAnimated]: 'carbon:favorite-filled',
+      }[animation];
       animationIcons.push({ label, icon });
     }
 

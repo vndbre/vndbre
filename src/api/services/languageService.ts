@@ -46,6 +46,7 @@ export enum Language {
   Norwegian = 'no',
   Slovak = 'sk',
   ScottishGaelic = 'gd',
+  OtherLanguage = 'other',
 }
 
 interface LanguageInfo {
@@ -107,13 +108,14 @@ export namespace LanguageService {
     [Language.Norwegian]: { name: 'Norwegian', iconSuffix: 'norway' },
     [Language.Slovak]: { name: 'Slovak', iconSuffix: 'slovakia' },
     [Language.ScottishGaelic]: { name: 'Scottish Gaelic' },
+    [Language.OtherLanguage]: { name: 'Other language' },
   };
 
   /**
    * Converts a certain language to readable equivalent.
    * @param value Language.
    */
-  export const toReadable = (value: Language): string => MAP_LANGUAGE_INFO[value]?.name ?? '';
+  export const toReadable = (value: Language): string => MAP_LANGUAGE_INFO[value]?.name ?? MAP_LANGUAGE_INFO[Language.OtherLanguage];
 
   /**
    * Gets name of icon for language.

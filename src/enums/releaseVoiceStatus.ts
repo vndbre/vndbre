@@ -21,7 +21,5 @@ export namespace ReleaseVoiceStatus {
    * Converts a certain voice status of release type to readable equivalent.
    * @param value Voice status of release.
    */
-  export function toReadable(value: ReleaseVoiceStatus): string {
-    return TO_READABLE_MAP[value];
-  }
+  export const toReadable = (value: ReleaseVoiceStatus): string => TO_READABLE_MAP[value];
 }

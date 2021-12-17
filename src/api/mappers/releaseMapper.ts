@@ -38,13 +38,15 @@ const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
  * @param minAge Minimum age.
  */
 const mapMinAgeToRating = (minAge: number | null): string => {
-  if (minAge !== null) {
-    if (minAge === 0) {
-      return 'All ages';
-    }
-    return `${minAge}+`;
+  if (minAge === null) {
+    return '';
   }
-  return '';
+
+  if (minAge === 0) {
+    return 'All ages';
+  }
+
+  return `${minAge}+`;
 };
 
 /**

@@ -117,7 +117,7 @@ export namespace PlatformService {
    * Converts a certain platform to readable equivalent.
    * @param value Platform.
    */
-  export const toReadable = (value: Platform): string => MAP_PLATFORM_INFO[value]?.name ?? '';
+  export const toReadable = (value: Platform): string => MAP_PLATFORM_INFO[value]?.name ?? MAP_PLATFORM_INFO[Platform.Other];
 
   /**
    * Gets icon name for platform.

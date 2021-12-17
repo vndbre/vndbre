@@ -19,7 +19,5 @@ export namespace ReleaseType {
    * Converts a certain release type to readable equivalent.
    * @param value Release type.
    */
-  export function toReadable(value: ReleaseType): string {
-    return TO_READABLE_MAP[value];
-  }
+  export const toReadable = (value: ReleaseType): string => TO_READABLE_MAP[value];
 }

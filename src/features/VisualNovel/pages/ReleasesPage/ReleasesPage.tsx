@@ -47,8 +47,8 @@ export const ReleasesPage: VFC = () => {
    * @param releases Releases.
    */
   const groupReleases = (releases: Release[]): ReleaseGroups =>
-    releases.reduce((accumulatedReleases, currentRelease) => {
-      const release = currentRelease.languages.reduce(
+    releases.reduce<ReleaseGroups>((accumulatedReleases, currentRelease) => {
+      const release = currentRelease.languages.reduce<ReleaseGroups>(
         (accumulatedMultiLanguageRelease, currentLanguage) => {
           const languageReleases = accumulatedReleases[currentLanguage] ?
             [...accumulatedReleases[currentLanguage], currentRelease] :
@@ -58,10 +58,10 @@ export const ReleasesPage: VFC = () => {
             [currentLanguage]: languageReleases,
           };
         },
-        {} as ReleaseGroups,
+        {},
       );
       return { ...accumulatedReleases, ...release };
-    }, {} as ReleaseGroups);
+    }, {});
 
   /**
    * Gets element with icon for release status.
@@ -108,7 +108,7 @@ export const ReleasesPage: VFC = () => {
               <Text>{release.releasedISODate}</Text>
               <Box display="flex" gridGap={1}>
                 {getReleaseStatusElement(release.type)}
-                <Text fontWeight="bold">{release.title}</Text>
+                <Text fontWeight="semibold">{release.title}</Text>
               </Box>
               <Box display="flex" gridGap={2}>
                 {release.ageRating && <Text>{release.ageRating}</Text>}
@@ -145,7 +145,7 @@ export const ReleasesPage: VFC = () => {
               </Box>
               {release.website && (
                 <Link
-                  borderBottomColor="transparent"
+                  variant="no-underline"
                   href={release.website}
                   isExternal
                 >
