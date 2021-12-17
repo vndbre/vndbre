@@ -18,9 +18,9 @@
     "react-router-dom": "^6.0.0-beta.3"
   },
   "scripts": {
-    "dev": "vite --mode production",
-    "dev:docker": "vite --mode development",
-    "build": "tsc && vite build --mode production",
+    "dev": "vite",
+    "dev:docker": "vite --mode docker",
+    "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint --ext .js,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
