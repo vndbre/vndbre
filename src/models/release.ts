@@ -1,3 +1,5 @@
+import { Language } from '../api/services/languageService';
+import { Platform } from '../api/services/platformService';
 import { ReleaseAnimationType } from '../enums/releaseAnimationType';
 import { ReleaseType } from '../enums/releaseType';
 import { ReleaseVoiceStatus } from '../enums/releaseVoiceStatus';
@@ -99,12 +101,12 @@ export interface Release {
   /**
    * Visual novel languages.
    */
-  languages: string[];
+  languages: Language[];
 
   /**
    * Platform where visual novel was released.
    */
-  platforms: string[];
+  platforms: Platform[];
 
   /**
    * Release type.

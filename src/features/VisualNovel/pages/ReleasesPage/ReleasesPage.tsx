@@ -16,7 +16,6 @@ import {
   LanguageService,
 } from '../../../../api/services/languageService';
 import {
-  Platform,
   PlatformService,
 } from '../../../../api/services/platformService';
 import { Icon } from '../../../../components/Icon/Icon';
@@ -79,18 +78,18 @@ export const ReleasesPage: VFC = () => {
     );
   };
 
-  const releasesBlock =
+  const releasesElement =
     releasesData &&
-    Object.entries(groupReleases(releasesData)).map(([language, releases]) => (
+    (Object.entries(groupReleases(releasesData)) as [Language, Release[]][]).map(([language, releases]) => (
       <AccordionItem key={language} borderColor="transparent">
         <h2>
           <AccordionButton>
             <Box display="flex" gridGap={3} textAlign="left" marginRight={3}>
               <Icon
-                name={LanguageService.getLanguageIcon(language as Language)}
+                name={LanguageService.getLanguageIcon(language)}
               />
               <Text fontWeight="bold">
-                {LanguageService.toReadable(language as Language)}
+                {LanguageService.toReadable(language)}
               </Text>
             </Box>
             <AccordionIcon />
@@ -113,15 +112,13 @@ export const ReleasesPage: VFC = () => {
               <Box display="flex" gridGap={2}>
                 {release.ageRating && <Text>{release.ageRating}</Text>}
                 {release.platforms.map(platform => {
-                  const icon = PlatformService.getPlatformIcon(
-                    platform as Platform,
-                  );
+                  const icon = PlatformService.getPlatformIcon(platform);
 
                   return (
                     <Tooltip
                       key={platform + String(release.id)}
                       hasArrow
-                      label={PlatformService.toReadable(platform as Platform)}
+                      label={PlatformService.toReadable(platform)}
                     >
                       <span>
                         <Icon name={icon} />
@@ -161,7 +158,7 @@ export const ReleasesPage: VFC = () => {
   return (
     <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
       <Accordion defaultIndex={[0]} allowMultiple paddingBottom={1}>
-        {releasesBlock}
+        {releasesElement}
       </Accordion>
     </ContentWrapper>
   );
