@@ -1,6 +1,8 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
 import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
 import { DateService } from '../services/dateService';
+import { LanguageService } from '../services/languageService';
+import { PlatformService } from '../services/platformService';
 
 /**
  * Maps dto into model.
@@ -62,13 +64,13 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   isPatch: dto.patch,
   isFreeware: dto.freeware,
   isDoujin: dto.doujin,
-  languages: dto.languages,
+  languages: dto.languages.map(language => LanguageService.toLanguage(language)),
   website: dto.website,
   notes: dto.notes,
   ageRating: mapMinAgeToRating(dto.minage),
   gtin: dto.gtin,
   catalog: dto.catalog,
-  platforms: dto.platforms,
+  platforms: dto.platforms.map(platform => PlatformService.toPlatform(platform)),
   media: dto.media.map(mediaDto => releaseMediaFromDto(mediaDto)),
   resolution: dto.resolution,
   voiced: dto.voiced,

@@ -113,7 +113,16 @@ export namespace LanguageService {
    * Converts a certain language to readable equivalent.
    * @param value Language.
    */
-  export const toReadable = (value: Language): string => MAP_LANGUAGE_INFO[value]?.name ?? MAP_LANGUAGE_INFO[Language.OtherLanguage];
+  export const toReadable = (value: Language): string => MAP_LANGUAGE_INFO[value].name;
+
+  /**
+   * Convert string value to value of Language type.
+   * @param value Value.
+   */
+  export const toLanguage = (value: string): Language => {
+    const language = value as Language;
+    return MAP_LANGUAGE_INFO[language] ? language : Language.OtherLanguage;
+  };
 
   /**
    * Gets name of icon for language.
