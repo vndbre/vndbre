@@ -22,7 +22,7 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <Image src={data.image as string} alt={data.title} className={cls.image} />
+            <Image src={data.image ?? undefined} loading="eager" alt={data.title} className={cls.image} />
             <div className={cls.info}>
               <div className={cls.heading}>
                 <div className={cls.title}>
