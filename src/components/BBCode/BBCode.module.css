@@ -7,6 +7,10 @@
   outline-offset: 2px;
 }
 
+.bbcode > a:focus {
+  box-shadow: var(--chakra-shadows-outline);
+}
+
 .bbcode > a:hover {
   color: var(--chakra-colors-orange-500);
   border-bottom-color: var(--chakra-colors-orange-500);
