@@ -2,17 +2,12 @@
   transition-property: var(--chakra-transition-property-common);
   transition-duration: var(--chakra-transition-duration-fast);
   transition-timing-function: var(--chakra-transition-easing-ease-out);
-  cursor: pointer;
-  text-decoration: none;
+  border-bottom: solid 1px var(--chakra-colors-gray-500);
   outline: transparent solid 2px;
   outline-offset: 2px;
-  color: inherit;
-  border-bottom: solid 1px var(--chakra-colors-gray-500);
 }
 
-.bbcode > a:hover,
-.bbcode > a[data-hover] {
-  text-decoration: none;
+.bbcode > a:hover {
   color: var(--chakra-colors-orange-500);
   border-bottom-color: var(--chakra-colors-orange-500);
 }
