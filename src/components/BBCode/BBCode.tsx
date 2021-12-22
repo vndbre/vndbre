@@ -9,7 +9,7 @@ import cls from './BBCode.module.css';
  * Typed BBCode component.
  */
 export const BBCode: FC = ({ children }) => (
-  <BBCodeUntyped plugins={reactPreset()} componentProps={{ className: cls.bbcode }}>
+  <BBCodeUntyped plugins={[reactPreset()]} componentProps={{ className: cls.bbcode }}>
     {children}
   </BBCodeUntyped>
 );
