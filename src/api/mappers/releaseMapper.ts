@@ -1,5 +1,8 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
 import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
+import { DateService } from '../services/dateService';
+import { LanguageService } from '../services/languageService';
+import { PlatformService } from '../services/platformService';
 
 /**
  * Maps dto into model.
@@ -33,6 +36,22 @@ const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
 });
 
 /**
+ * Maps minimum age to age rating.
+ * @param minAge Minimum age.
+ */
+const mapMinAgeToRating = (minAge: number | null): string => {
+  if (minAge === null) {
+    return '';
+  }
+
+  if (minAge === 0) {
+    return 'All ages';
+  }
+
+  return `${minAge}+`;
+};
+
+/**
  * Maps dto into model.
  * @param dto Dto.
  */
@@ -40,18 +59,18 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
   title: dto.title,
   originalName: dto.original,
-  released: dto.released ? new Date(dto.released) : null,
+  releasedISODate: dto.released && dto.released !== 'tba' ? DateService.toISODate(new Date(dto.released)) : 'TBA',
   type: dto.type,
   isPatch: dto.patch,
   isFreeware: dto.freeware,
   isDoujin: dto.doujin,
-  languages: dto.languages,
+  languages: dto.languages.map(language => LanguageService.toLanguage(language)),
   website: dto.website,
   notes: dto.notes,
-  minAge: dto.minage,
+  ageRating: mapMinAgeToRating(dto.minage),
   gtin: dto.gtin,
   catalog: dto.catalog,
-  platforms: dto.platforms,
+  platforms: dto.platforms.map(platform => PlatformService.toPlatform(platform)),
   media: dto.media.map(mediaDto => releaseMediaFromDto(mediaDto)),
   resolution: dto.resolution,
   voiced: dto.voiced,

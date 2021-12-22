@@ -547,6 +547,13 @@ module.exports = {
         '@typescript-eslint/naming-convention': ['off', { selector: 'property' }],
       },
     },
+    {
+      parser: '@typescript-eslint/parser',
+      files: ['**/enums/*.ts'],
+      rules: {
+        'import/export': 'off',
+      },
+    },
   ],
 
 };

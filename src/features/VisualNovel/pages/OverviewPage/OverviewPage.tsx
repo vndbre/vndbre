@@ -39,9 +39,11 @@ export const OverviewPage: FC = () => {
       const groupedLangs: Record<string, string[]> = vnData.languages.reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
       publisherReleases.forEach(release => {
         release.languages.forEach(lang => {
-          const publisherNames = release.producers.map(p => p.name);
-          const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
-          groupedLangs[lang] = uniquePublisherNames;
+          if (lang in vnData.languages) {
+            const publisherNames = release.producers.map(p => p.name);
+            const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
+            groupedLangs[lang] = uniquePublisherNames;
+          }
         });
       });
       return groupedLangs;

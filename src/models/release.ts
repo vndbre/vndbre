@@ -1,4 +1,8 @@
-import { ReleaseAnimationType, ReleaseType, ReleaseVoiced } from '../utils/types/releaseHelperTypes';
+import { Language } from '../api/services/languageService';
+import { Platform } from '../api/services/platformService';
+import { ReleaseAnimationType } from '../enums/releaseAnimationType';
+import { ReleaseType } from '../enums/releaseType';
+import { ReleaseVoiceStatus } from '../enums/releaseVoiceStatus';
 import { VisualNovel } from './visualNovel';
 
 /**
@@ -90,19 +94,19 @@ export interface Release {
   originalName: string | null;
 
   /**
-   * Date of the first release.
+   * Date of the first release in 'yyyy-mm-dd' format.
    */
-  released: Date | null;
+  releasedISODate: string;
 
   /**
    * Visual novel languages.
    */
-  languages: string[];
+  languages: Language[];
 
   /**
    * Platform where visual novel was released.
    */
-  platforms: string[];
+  platforms: Platform[];
 
   /**
    * Release type.
@@ -135,9 +139,9 @@ export interface Release {
   notes: string | null;
 
   /**
-   * Age rating, 0 = all ages.
+   * Age rating.
    */
-  minAge: number | null;
+  ageRating: string;
 
   /**
    * AN/UPC/EAN code. This is actually an integer, but formatted as a string to avoid an overflow on 32bit platforms.
@@ -166,7 +170,7 @@ export interface Release {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  voiced: ReleaseVoiced | null;
+  voiced: ReleaseVoiceStatus | null;
 
   /**
    * Animation status.
