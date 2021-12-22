@@ -2,7 +2,13 @@
   "name": "vndbre",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=15",
+    "npm": ">=7"
+  },
   "dependencies": {
+    "@bbob/preset-react": "^2.7.1",
+    "@bbob/react": "^2.7.1",
     "@chakra-ui/react": "^1.6.7",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
