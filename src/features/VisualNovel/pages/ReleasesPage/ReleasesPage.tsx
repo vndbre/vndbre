@@ -70,7 +70,7 @@ export const ReleasesPage: VFC = () => {
     const releaseIcon = ReleaseService.getReleaseStatusIcon(releaseType);
 
     return (
-      <Tooltip hasArrow label={releaseIcon.label}>
+      <Tooltip label={releaseIcon.label}>
         <span>
           <Icon name={releaseIcon.icon} />
         </span>
@@ -116,7 +116,7 @@ export const ReleasesPage: VFC = () => {
                   return (
                     <Tooltip
                       key={platform + String(release.id)}
-                      hasArrow
+
                       label={PlatformService.toReadable(platform)}
                     >
                       <span>
@@ -130,7 +130,7 @@ export const ReleasesPage: VFC = () => {
                 {ReleaseService.getReleaseIcons(release).map(releaseIcon => (
                   <Tooltip
                     key={releaseIcon.icon + releaseIcon.label}
-                    hasArrow
+
                     label={releaseIcon.label}
                   >
                     <span>
