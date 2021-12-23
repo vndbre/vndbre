@@ -1,10 +1,10 @@
 .list {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: var(--chakra-sizes-5);
 }
 
 .image {
-  border-radius: 8px;
-  width: 320px;
+  border-radius: var(--chakra-radii-md);
+  width: var(--chakra-sizes-80);
 }

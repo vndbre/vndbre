@@ -98,9 +98,9 @@ export const ReleasesPage: VFC = () => {
           {releases.map(release => (
             <Grid
               gap={4}
-              templateColumns="120px 2.5fr 1fr 1fr 25px"
+              templateColumns="120px 2.5fr 1fr 1fr 24px"
               key={release.id}
-              marginBottom={1}
+              marginBottom={4}
             >
               <Text>{release.releasedISODate}</Text>
               <HStack spacing={1}>

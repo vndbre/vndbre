@@ -5,13 +5,13 @@
 
 .sidebar {
   position: fixed;
-  width: 240px;
+  width: var(--chakra-sizes-60);
 }
 
 .content {
+  padding-bottom: var(--chakra-sizes-8);
+  margin-left: var(--chakra-sizes-60);
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-left: 240px;
-  width: 100%;
-  padding-bottom: var(--chakra-sizes-8);
 }

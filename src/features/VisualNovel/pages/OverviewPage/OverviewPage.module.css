@@ -1,18 +1,19 @@
 .page {
   display: grid;
-  grid-template-columns: 20% 1fr;
+  grid-template-columns: minmax(var(--chakra-sizes-64), var(--chakra-sizes-72)) 1fr;
+  gap: var(--chakra-sizes-8);
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--chakra-sizes-6);
 }
 
 .items {
   display: flex;
-  margin-top: 12px;
-  gap: 12px;
+  margin-top: var(--chakra-sizes-3);
+  gap: var(--chakra-sizes-3);
   flex-wrap: wrap;
 }
 
@@ -23,13 +24,16 @@
 
 .staff {
   display: grid;
-  margin: 16px 0 40px;
+  margin: var(--chakra-sizes-4) 0 var(--chakra-sizes-10);
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 16px;
+  grid-gap: var(--chakra-sizes-4);
 }
 
 .characters {
+  margin-top: var(--chakra-sizes-3);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr));
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--chakra-sizes-4);
+  overflow: hidden;
 }
