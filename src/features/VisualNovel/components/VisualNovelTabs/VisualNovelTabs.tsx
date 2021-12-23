@@ -22,9 +22,7 @@ export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
   const location = useLocation();
 
   const tabs = visualNovelTabInfo.map(tabInfo => (
-    <Link key={tabInfo.name} to={`/vn/${id}/${tabInfo.path}`}>
-      <Tab>{tabInfo.name}</Tab>
-    </Link>
+    <Tab as={Link} key={tabInfo.name} to={`/vn/${id}/${tabInfo.path}`}>{tabInfo.name}</Tab>
   ));
 
   /** Calculates default index for tabs. */
