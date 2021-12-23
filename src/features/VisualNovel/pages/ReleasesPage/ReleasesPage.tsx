@@ -11,6 +11,7 @@ import {
   Link,
   Text,
   Tooltip,
+  Heading,
 } from '@chakra-ui/react';
 import {
   Language,
@@ -83,7 +84,7 @@ export const ReleasesPage: VFC = () => {
       Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
     ).map(([language, releases]) => (
       <AccordionItem key={language} borderColor="transparent">
-        <h2>
+        <Heading as="h2" size="xl">
           <AccordionButton>
             <HStack spacing={3} marginRight={3}>
               <Icon name={LanguageService.getLanguageIcon(language)} />
@@ -93,7 +94,7 @@ export const ReleasesPage: VFC = () => {
             </HStack>
             <AccordionIcon />
           </AccordionButton>
-        </h2>
+        </Heading>
         <AccordionPanel>
           {releases.map(release => (
             <Grid
