@@ -1,6 +1,4 @@
-import { StyleConfig } from '../types';
-
-export const Icon: StyleConfig = {
+export const Icon = {
   sizes: {
     md: 24,
     sm: 20,
