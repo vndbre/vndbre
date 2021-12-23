@@ -1,6 +1,4 @@
-import { StyleConfig } from '../types';
-
-export const CircularProgress: StyleConfig = {
+export const CircularProgress = {
   baseStyle: {
     color: 'orange.500',
   },
