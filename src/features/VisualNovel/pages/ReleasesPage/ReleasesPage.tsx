@@ -83,12 +83,12 @@ export const ReleasesPage: VFC = () => {
     (
       Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
     ).map(([language, releases]) => (
-      <AccordionItem key={language} borderColor="transparent">
-        <Heading as="h2" size="xl">
+      <AccordionItem key={language}>
+        <Heading as="h2">
           <AccordionButton>
             <HStack spacing={3} marginRight={3}>
               <Icon name={LanguageService.getLanguageIcon(language)} />
-              <Text fontWeight="bold">
+              <Text fontWeight="bold" fontSize="sm">
                 {LanguageService.toReadable(language)}
               </Text>
             </HStack>
