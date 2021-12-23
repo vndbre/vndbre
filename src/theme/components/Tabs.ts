@@ -8,6 +8,11 @@ export const Tabs: StyleConfig = {
         borderColor: 'gray.300',
         paddingBottom: '1px',
       },
+      tab: {
+        _active: {
+          bg: 'transparent',
+        },
+      },
     },
   },
 };
