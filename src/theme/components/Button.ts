@@ -1,4 +1,6 @@
-export const Button = {
+import { StyleConfig } from './types';
+
+export const Button: StyleConfig = {
   sizes: {
     xs: {
       h: '24px',

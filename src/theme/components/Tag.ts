@@ -1,4 +1,6 @@
-export const Tag = {
+import { StyleConfig } from './types';
+
+export const Tag: StyleConfig = {
   sizes: {
     sm: {
       container: {

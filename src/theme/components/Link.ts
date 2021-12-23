@@ -1,4 +1,6 @@
-export const Link = {
+import { StyleConfig } from './types';
+
+export const Link: StyleConfig = {
   baseStyle: {
     borderBottomStyle: 'solid',
     borderBottomWidth: '1px',

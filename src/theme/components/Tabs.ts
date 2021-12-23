@@ -1,4 +1,6 @@
-export const Tabs = {
+import { StyleConfig } from './types';
+
+export const Tabs: StyleConfig = {
   variants: {
     line: {
       tablist: {

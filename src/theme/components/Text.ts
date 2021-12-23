@@ -1,4 +1,6 @@
-export const Text = {
+import { StyleConfig } from './types';
+
+export const Text: StyleConfig = {
   baseStyle: {
     fontWeight: 'normal',
   },
