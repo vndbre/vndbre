@@ -28,7 +28,7 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
       <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} className={cls.image} />
       <div className={cls.container}>
         <div className={cls.info}>
-          <Heading as="h4" size="sm">
+          <Heading lineHeight="22px" as="h4" size="sm">
             {character.name}
           </Heading>
           <div className={cls.voiced}>
