@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 import { Icon as IconifyIcon } from '@iconify/react';
-import { Icon as iconTheme } from '../../theme/components/Icon';
+import { Icon as iconTheme } from '../../theme/components/external/Icon';
 
 interface Props {
 

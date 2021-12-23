@@ -1,6 +1,6 @@
 import React, { VFC, memo, ReactNode } from 'react';
 import { Box, CircularProgress } from '@chakra-ui/react';
-import { CircularProgress as theme } from '../../theme/components/CircularProgress';
+import { CircularProgress as theme } from '../../theme/components/external/CircularProgress';
 
 interface Props {
 
