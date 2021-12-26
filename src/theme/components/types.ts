@@ -13,7 +13,7 @@ type Size = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl';
 
 export interface StyleConfig {
   baseStyle?: StyleInterpolation;
-  sizes?: Record<Size, StyleInterpolation>;
+  sizes?: Partial<Record<Size, StyleInterpolation>>;
   variants?: Record<string, StyleInterpolation>;
   defaultProps?: {
     variant: string;
