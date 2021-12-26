@@ -9,6 +9,7 @@ import { App } from './App';
 import { queryClient } from './api';
 
 import { theme } from './theme';
+import 'focus-visible/dist/focus-visible';
 import './theme/css/base.css';
 import './theme/css/utilities.css';
 
