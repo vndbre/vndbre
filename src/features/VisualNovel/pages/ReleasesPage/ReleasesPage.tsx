@@ -116,7 +116,6 @@ export const ReleasesPage: VFC = () => {
                   return (
                     <Tooltip
                       key={platform + String(release.id)}
-
                       label={PlatformService.toReadable(platform)}
                     >
                       <span>
@@ -130,7 +129,6 @@ export const ReleasesPage: VFC = () => {
                 {ReleaseService.getReleaseIcons(release).map(releaseIcon => (
                   <Tooltip
                     key={releaseIcon.icon + releaseIcon.label}
-
                     label={releaseIcon.label}
                   >
                     <span>
