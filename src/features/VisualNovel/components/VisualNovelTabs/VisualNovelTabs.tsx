@@ -1,12 +1,10 @@
-import React, { FC, memo } from 'react';
+import React, { VFC, memo, useState } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { visualNovelTabInfo } from '../../utils/constants';
 import cls from './VisualNovelTabs.module.css';
 
-const FIRST_INDEX = 0;
-
-interface VisualNovelTabsProps {
+interface Props {
 
   /**
    * Id of visual novel.
@@ -14,30 +12,58 @@ interface VisualNovelTabsProps {
   id: string;
 }
 
+const FIRST_INDEX = 0;
+
+/**
+ * Calculates initial index for tabs based on route.
+ * @param pathname URL pathname.
+ */
+const getInitialTabIndex = (pathname: string): number => {
+  const splitPath = pathname.split('/');
+  const activeRoute = splitPath[splitPath.length - 1];
+  const tabIndex = visualNovelTabInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
+  return tabIndex >= FIRST_INDEX ? tabIndex : FIRST_INDEX;
+};
+
 /**
  * Component for navigation on visual novel page.
  * TODO (Panov A.): Add badges to tabs.
  */
-export const VisualNovelTabs: FC<VisualNovelTabsProps> = memo(({ id }) => {
+export const VisualNovelTabs: VFC<Props> = memo(({ id }) => {
   const location = useLocation();
+  const [tabIndex, setTabIndex] = useState(getInitialTabIndex(location.pathname));
 
-  const tabs = visualNovelTabInfo.map(tabInfo => (
-    <Tab as={Link} key={tabInfo.name} to={`/vn/${id}/${tabInfo.path}`}>{tabInfo.name}</Tab>
-  ));
+  /**
+   * Handles click on tab.
+   * @param index Tab index.
+   */
+  const onTabClick = (index: number): () => void => () => setTabIndex(index);
 
-  /** Calculates default index for tabs. */
-  const getDefaultTabIndex = (): number => {
-    const splitPath = location.pathname.split('/');
-    const activeRoute = splitPath[splitPath.length - 1];
-    const tabIndex = visualNovelTabInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
-    return tabIndex >= FIRST_INDEX ? tabIndex : FIRST_INDEX;
+  /**
+   * Handles key press on tab.
+   * @param index Tab index.
+   */
+  const onTabPress = (index: number): (event: React.KeyboardEvent) => void => (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      setTabIndex(index);
+    }
   };
 
-  const defaultTabIndex = getDefaultTabIndex();
+  const tabs = visualNovelTabInfo.map((tabInfo, index) => (
+    <Tab
+      as={Link}
+      key={tabInfo.name}
+      to={`/vn/${id}/${tabInfo.path}`}
+      onClick={onTabClick(index)}
+      onKeyPress={onTabPress(index)}
+    >
+      {tabInfo.name}
+    </Tab>
+  ));
 
   return (
     <nav>
-      <Tabs defaultIndex={defaultTabIndex} colorScheme="orange">
+      <Tabs index={tabIndex} colorScheme="orange">
         <TabList className={cls.tabList}>
           {tabs}
         </TabList>
