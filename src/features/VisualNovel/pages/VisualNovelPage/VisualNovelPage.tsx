@@ -4,6 +4,7 @@ import { Outlet, useParams } from 'react-router';
 import { Icon } from '../../../../components/Icon/Icon';
 
 import cls from './VisualNovelPage.module.css';
+import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 import { ContentWrapper } from '../../../../components';
@@ -22,7 +23,13 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <Image src={data.image ?? undefined} loading="eager" alt={data.title} className={cls.image} />
+            <Image
+              src={data.image ?? undefined}
+              fallbackSrc={vnPosterPlaceholder}
+              loading="eager"
+              alt={data.title}
+              className={cls.image}
+            />
             <div className={cls.info}>
               <div className={cls.heading}>
                 <div className={cls.title}>

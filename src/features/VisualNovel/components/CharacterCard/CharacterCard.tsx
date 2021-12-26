@@ -6,7 +6,7 @@ import cls from './CharacterCard.module.css';
 import { Roles } from '../../../../utils/types/roles';
 import { Icon } from '../../../../components/Icon/Icon';
 
-import characterPlaceholder from '../../../../assets/person.png';
+import characterPlaceholder from '../../../../assets/person.svg';
 
 interface CharacterCardProps {
 
