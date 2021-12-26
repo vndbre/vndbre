@@ -1,4 +1,5 @@
 /* stylelint-disable custom-property-pattern */
+/* stylelint-disable max-line-length */
 :root {
   --chakra-ring-inset: var(--chakra-empty,/*!*/ /*!*/);
   --chakra-ring-offset-width: 0;
