@@ -1,37 +1,66 @@
 import React, { FC } from 'react';
 
-import BBCodeUntyped from '@bbob/react/es/Component';
-import reactPreset from '@bbob/preset-react/es';
-
-import { make as Stub } from 'rescript-bbcode/src/Stub.gen';
 import { parse, ast, ast_item, ast_to_array } from 'rescript-bbcode/src/BBCode.gen';
-import cls from './BBCode.module.css';
 import { Link } from '@chakra-ui/react';
 
-const astToElement = (a: ast) => {
-  return <>{ast_to_array(a).map(astItemToElement)}</>
-}
+/**
+ * Transforms AST to React element array through astItemToElement function.
+ * @param a AST.
+ * @returns React element array.
+ */
+// eslint-disable-next-line @typescript-eslint/no-use-before-define
+const astToElement = (a: ast): JSX.Element[] => ast_to_array(a).map(astItemToElement);
 
-const astItemToElement = (as: ast_item) => {
-  switch (as.tag) {
-    case "Text": return <span>{as.value}</span>;
-    case "Bold": return <b>{astToElement(as.value.children)}</b>;
-    case "Italic": return <i>{astToElement(as.value.children)}</i>;
-    case "Link": return <a href={as.value.url} />;
-    case "LinkNamed": return <Link href={as.value.url} isExternal>{astToElement(as.value.children)}</Link>;
-    default: <div></div>;
+/**
+ * Transforms AST item to corresponding React element.
+ * @param astItem AST item.
+ * @returns React element.
+ */
+const astItemToElement = (astItem: ast_item): JSX.Element => {
+  switch (astItem.tag) {
+    case 'Text': return <span key={astItem.value.substring(0, 10)}>{astItem.value}</span>;
+    case 'Bold': return <b key="b">{astToElement(astItem.value.children)}</b>;
+    case 'Italic': return <i key="i">{astToElement(astItem.value.children)}</i>;
+    case 'Link': return <Link key={astItem.value.url} href={astItem.value.url} isExternal />;
+    case 'LinkNamed':
+      return <Link key={astItem.value.url} href={astItem.value.url} isExternal>{astToElement(astItem.value.children)}</Link>;
+    default:
+      return <div key="default">{astItem}</div>;
   }
+};
+
+/**
+ * Trying to parse text to AST.
+ * @param text Input.
+ * @returns AST or `null` if failure.
+ */
+const tryParse = (text: string): ast | null => {
+  try {
+    const parsed = parse(text);
+    if (parsed === undefined) {
+      return null;
+    }
+    return parsed;
+  } catch {
+    return null;
+  }
+};
+
+interface Props {
+
+  /**
+   * BBCode-text which must be parsed and displayed.
+   */
+  children: string;
 }
 
 /**
- * Typed BBCode component.
+ * BBCode component.
  */
-export const BBCode: FC<{ text: string }> = ({ text }) => {
-  console.log(text);
-  const parsed = parse(text);
-  console.log(parsed);
+export const BBCode: FC<Props> = ({ children }) => {
+  const parsed = tryParse(children);
   if (parsed) {
     return <div>{astToElement(parsed)}</div>;
   }
-  else return <>{"fail"}</>
+  return <div>{children}</div>;
 };
