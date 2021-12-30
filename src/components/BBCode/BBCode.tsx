@@ -6,6 +6,7 @@ import reactPreset from '@bbob/preset-react/es';
 import { make as Stub } from 'rescript-bbcode/src/Stub.gen';
 import { parse, ast, ast_item, ast_to_array } from 'rescript-bbcode/src/BBCode.gen';
 import cls from './BBCode.module.css';
+import { Link } from '@chakra-ui/react';
 
 const astToElement = (a: ast) => {
   return <>{ast_to_array(a).map(astItemToElement)}</>
@@ -17,8 +18,8 @@ const astItemToElement = (as: ast_item) => {
     case "Bold": return <b>{astToElement(as.value.children)}</b>;
     case "Italic": return <i>{astToElement(as.value.children)}</i>;
     case "Link": return <a href={as.value.url} />;
-    case "LinkNamed": return <a href={as.value.url}>{astToElement(as.value.children)}</a>;
-    default: <Stub a={as} />;
+    case "LinkNamed": return <Link href={as.value.url} isExternal>{astToElement(as.value.children)}</Link>;
+    default: <div></div>;
   }
 }
 
