@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { parse, ast, ast_item, ast_to_array } from 'rescript-bbcode/src/BBCode.gen';
+import { parse, ast, ast_item, ast_to_array } from '@prekel/rescript-bbcode/src/BBCode.gen';
 import { Link } from '@chakra-ui/react';
 
 /**
