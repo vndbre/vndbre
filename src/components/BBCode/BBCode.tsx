@@ -1,46 +1,48 @@
-import React, { FC } from 'react';
+import React, { ReactElement, VFC } from 'react';
 
 import { parse, ast, ast_item, ast_to_array } from '@prekel/rescript-bbcode/src/BBCode.gen';
-import { Link } from '@chakra-ui/react';
+import { Box, Link, Text } from '@chakra-ui/react';
 
 /**
  * Transforms AST to React element array through astItemToElement function.
- * @param a AST.
- * @returns React element array.
+ * @param parsed Parsed representation of BBCoded-text (AST).
  */
-// eslint-disable-next-line @typescript-eslint/no-use-before-define
-const astToElement = (a: ast): JSX.Element[] => ast_to_array(a).map(astItemToElement);
-
-/**
- * Transforms AST item to corresponding React element.
- * @param astItem AST item.
- * @returns React element.
- */
-const astItemToElement = (astItem: ast_item): JSX.Element => {
-  switch (astItem.tag) {
-    case 'Text': return <span key={astItem.value.substring(0, 10)}>{astItem.value}</span>;
-    case 'Bold': return <b key="b">{astToElement(astItem.value.children)}</b>;
-    case 'Italic': return <i key="i">{astToElement(astItem.value.children)}</i>;
-    case 'Link': return <Link key={astItem.value.url} href={astItem.value.url} isExternal />;
-    case 'LinkNamed':
-      return <Link key={astItem.value.url} href={astItem.value.url} isExternal>{astToElement(astItem.value.children)}</Link>;
-    default:
-      return <div key="default">{astItem}</div>;
-  }
+const mapAstToElements = (parsed: ast): ReactElement[] => {
+  /**
+   * Transforms AST item to corresponding React element.
+   * @param astItem An AST item.
+   * @param index Index which used in key.
+   */
+  const astItemToElement = (astItem: ast_item, index: number): ReactElement => {
+    const itemKey = `${astItem.tag}${index.toString()}`;
+    switch (astItem.tag) {
+      case 'Text': return <Text key={itemKey} as="span">{astItem.value}</Text>;
+      case 'Bold': return <Text key={itemKey} as="b">{mapAstToElements(astItem.value.children)}</Text>;
+      case 'Italic': return <Text key={itemKey} as="i">{mapAstToElements(astItem.value.children)}</Text>;
+      case 'Underline': return <Text key={itemKey} as="u">{mapAstToElements(astItem.value.children)}</Text>;
+      case 'Strikethrough': return <Text key={itemKey} as="s">{mapAstToElements(astItem.value.children)}</Text>;
+      case 'Link': return <Link key={itemKey} href={astItem.value.url} isExternal />;
+      case 'LinkNamed':
+        // TODO: Handle vndb-relative url (like "/v3126").
+        return <Link key={itemKey} href={astItem.value.url} isExternal>{mapAstToElements(astItem.value.children)}</Link>;
+      case 'Spoiler':
+        // TODO: Display spoiler vir Chakra components.
+        return <details key={itemKey}>{mapAstToElements(astItem.value.children)}</details>;
+      default:
+        return <Box key={itemKey}>{astItem}</Box>;
+    }
+  };
+  return ast_to_array(parsed).map((item, index) => astItemToElement(item, index));
 };
 
 /**
  * Trying to parse text to AST.
  * @param text Input.
- * @returns AST or `null` if failure.
  */
 const tryParse = (text: string): ast | null => {
   try {
     const parsed = parse(text);
-    if (parsed === undefined) {
-      return null;
-    }
-    return parsed;
+    return parsed ?? null;
   } catch {
     return null;
   }
@@ -51,16 +53,16 @@ interface Props {
   /**
    * BBCode-text which must be parsed and displayed.
    */
-  children: string;
+  text: string;
 }
 
 /**
  * BBCode component.
  */
-export const BBCode: FC<Props> = ({ children }) => {
-  const parsed = tryParse(children);
+export const BBCode: VFC<Props> = ({ text }) => {
+  const parsed = tryParse(text);
   if (parsed) {
-    return <div>{astToElement(parsed)}</div>;
+    return <Box>{mapAstToElements(parsed)}</Box>;
   }
-  return <div>{children}</div>;
+  return <Text>{text}</Text>;
 };

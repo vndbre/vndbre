@@ -45,7 +45,7 @@ export const VisualNovelPage: FC = () => {
                   <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                   <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
                 </div>
-                {(data.description ? <BBCode>{data.description}</BBCode> : <Text>No description.</Text>)}
+                {(data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>)}
               </div>
             </div>
             <VisualNovelTabs id={id} />
