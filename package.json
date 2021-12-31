@@ -11,7 +11,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@iconify/react": "^3.0.1",
-    "@prekel/rescript-bbcode": "^0.0.7",
+    "@prekel/rescript-bbcode": "^0.0.8",
     "axios": "^0.21.3",
     "framer-motion": "^4.1.17",
     "history": "^5.0.1",
