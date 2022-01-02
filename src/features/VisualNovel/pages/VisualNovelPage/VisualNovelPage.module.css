@@ -41,10 +41,6 @@
   flex-direction: column;
 }
 
-.description {
-  white-space: break-spaces;
-}
-
 .controls {
   display: flex;
   gap: 16px;

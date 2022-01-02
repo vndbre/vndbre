@@ -2,6 +2,7 @@ import React, { ReactElement, VFC } from 'react';
 
 import { parse, ast, ast_item, ast_to_array } from '@prekel/rescript-bbcode/src/BBCode.gen';
 import { Box, Link, Text } from '@chakra-ui/react';
+import cls from './BBCode.module.css';
 
 /**
  * Transforms AST to React element array through astItemToElement function.
@@ -16,7 +17,7 @@ const mapAstToElements = (parsed: ast): ReactElement[] => {
   const mapAstItemToElement = (astItem: ast_item, index: number): ReactElement => {
     const itemKey = `${astItem.tag}${index.toString()}`;
     switch (astItem.tag) {
-      case 'Text': return <Text key={itemKey} as="span">{astItem.value}</Text>;
+      case 'Text': return <Text key={itemKey} as="span" className={cls.text}>{astItem.value}</Text>;
       case 'Bold': return <Text key={itemKey} as="b">{mapAstToElements(astItem.value.children)}</Text>;
       case 'Italic': return <Text key={itemKey} as="i">{mapAstToElements(astItem.value.children)}</Text>;
       case 'Underline': return <Text key={itemKey} as="u">{mapAstToElements(astItem.value.children)}</Text>;
@@ -40,7 +41,7 @@ const mapAstToElements = (parsed: ast): ReactElement[] => {
  * If failure, return `null` and log warn.
  * @param text Input (BBCode-text).
  */
-const tryDisplayBBCode = (text: string): ReactElement[] | null => {
+const displayBBCode = (text: string): ReactElement[] | null => {
   try {
     const parsed = parse(text);
     if (!parsed) {
@@ -68,7 +69,7 @@ interface Props {
  * BBCode component.
  */
 export const BBCode: VFC<Props> = ({ text }) => {
-  const bb = tryDisplayBBCode(text);
+  const bb = displayBBCode(text);
   if (bb) {
     return <Box>{bb}</Box>;
   }
