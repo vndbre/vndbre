@@ -102,7 +102,7 @@ export const ReleasesPage: VFC = () => {
               key={release.id}
               marginBottom={1}
             >
-              <Text>{release.releasedYear}</Text>
+              <Text>{release.releasedDate}</Text>
               <HStack spacing={1}>
                 {getReleaseStatusElement(release.type)}
                 <Text fontWeight="semibold">{release.title}</Text>

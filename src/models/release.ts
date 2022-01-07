@@ -96,7 +96,7 @@ export interface Release {
   /**
    * Date of the first release. Can be in 'yyyy', 'TBA', 'yyyy-mm', 'yyyy-mm-dd' formats.
    */
-  releasedYear: string;
+  releasedDate: string;
 
   /**
    * Visual novel languages.
