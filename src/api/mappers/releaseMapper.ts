@@ -58,7 +58,7 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
   title: dto.title,
   originalName: dto.original,
-  releasedISODate: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
+  releasedYear: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
   type: dto.type,
   isPatch: dto.patch,
   isFreeware: dto.freeware,

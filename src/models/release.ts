@@ -94,9 +94,9 @@ export interface Release {
   originalName: string | null;
 
   /**
-   * Date of the first release in 'yyyy-mm-dd' format.
+   * Date of the first release. Can be in 'yyyy', 'TBA', 'yyyy-mm', 'yyyy-mm-dd' formats.
    */
-  releasedISODate: string;
+  releasedYear: string;
 
   /**
    * Visual novel languages.
