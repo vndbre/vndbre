@@ -6,9 +6,9 @@ import cls from './BBCode.module.css';
 
 /**
  * Transforms AST to React element array through astItemToElement function.
- * @param parsed Parsed representation of BBCode-text (AST).
+ * @param parsedText Parsed representation of BBCode-text (AST).
  */
-const mapAstToElements = (parsed: ast): ReactElement[] => {
+const mapAstToElements = (parsedText: ast): ReactElement[] => {
   /**
    * Transforms AST item to corresponding React element.
    * @param astItem An AST item.
@@ -24,16 +24,16 @@ const mapAstToElements = (parsed: ast): ReactElement[] => {
       case 'Strikethrough': return <Text key={itemKey} as="s">{mapAstToElements(astItem.value.children)}</Text>;
       case 'Link': return <Link key={itemKey} href={astItem.value.url} isExternal />;
       case 'LinkNamed':
-        // TODO: Handle vndb-relative url (like "/v3126").
+        // TODO (https://github.com/vndbre/vndbre/issues/75): Handle vndb-relative url (like "/v3126").
         return <Link key={itemKey} href={astItem.value.url} isExternal>{mapAstToElements(astItem.value.children)}</Link>;
       case 'Spoiler':
-        // TODO: Display spoiler via Chakra components.
-        return <details key={itemKey}>{mapAstToElements(astItem.value.children)}</details>;
+        // TODO (https://github.com/vndbre/vndbre/issues/77): Make custom component for spoiler.
+        return <Text key={itemKey} as="s">{mapAstToElements(astItem.value.children)}</Text>;
       default:
         throw Error(`Unexpected ${JSON.stringify(astItem)}`);
     }
   };
-  return ast_to_array(parsed).map((item, index) => mapAstItemToElement(item, index));
+  return ast_to_array(parsedText).map((item, index) => mapAstItemToElement(item, index));
 };
 
 /**
@@ -41,18 +41,18 @@ const mapAstToElements = (parsed: ast): ReactElement[] => {
  * If failure, return `null` and log warn.
  * @param text Input (BBCode-text).
  */
-const displayBBCode = (text: string): ReactElement[] | null => {
+const tryParseBBCode = (text: string): ReactElement[] | null => {
   try {
     const parsed = parse(text);
     if (!parsed) {
       // eslint-disable-next-line no-console
-      console.warn('Cannot parse');
+      console.error('Cannot parse');
       return null;
     }
     return mapAstToElements(parsed);
   } catch (err: unknown) {
     // eslint-disable-next-line no-console
-    console.warn('Cannot parse or display:', err);
+    console.error('Cannot parse or display:', err);
     return null;
   }
 };
@@ -69,9 +69,9 @@ interface Props {
  * BBCode component.
  */
 export const BBCode: VFC<Props> = ({ text }) => {
-  const bb = displayBBCode(text);
-  if (bb) {
-    return <Box>{bb}</Box>;
+  const parsedText = tryParseBBCode(text);
+  if (parsedText) {
+    return <Box>{parsedText}</Box>;
   }
   return <Text>{text}</Text>;
 };
