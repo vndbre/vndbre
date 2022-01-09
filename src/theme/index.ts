@@ -1,11 +1,11 @@
-import { extendTheme, withDefaultColorScheme, withDefaultVariant } from '@chakra-ui/react';
+import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react';
 
 import { styles } from './styles';
 import { colors } from './colors';
 import { components } from './components';
 import { shadows } from './foundations/shadows';
 import { fonts } from './foundations/fonts';
-import { radii } from './foundations/radii';
+import { fontSizes } from './foundations/fontSizes';
 import { lineHeights } from './foundations/lineHeights';
 
 export const theme = extendTheme({
@@ -13,15 +13,11 @@ export const theme = extendTheme({
   colors,
   shadows,
   fonts,
-  radii,
+  fontSizes,
   lineHeights,
   components,
 },
 withDefaultColorScheme({
   colorScheme: 'orange',
   components: ['Button'],
-}),
-withDefaultVariant({
-  variant: 'solid',
-  components: ['IconButton'],
 }));

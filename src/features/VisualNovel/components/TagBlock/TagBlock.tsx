@@ -53,10 +53,13 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map(tag => (
-          <Tag key={tag.name}>
-            {tag.name}
+          <Tag noOfLines={2} key={tag.name}>
+            <Text display="inline">{tag.name}</Text>
             {tag.note && (
-              <Text marginLeft="5px" noOfLines={2} color="gray.500">{tag.note}</Text>
+              <Text display="inline" color="gray.500">
+                {' '}
+                {tag.note}
+              </Text>
             )}
           </Tag>
         ))}
@@ -64,6 +67,8 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
           <IconButton
             aria-label="Expand"
             size="30px"
+            paddingX={2}
+            borderRadius="sm"
             icon={<Icon name="carbon:overflow-menu-horizontal" />}
             variant="solid"
             colorScheme="gray"

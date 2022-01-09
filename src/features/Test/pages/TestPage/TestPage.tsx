@@ -45,8 +45,8 @@ export const TestPage: FC = () => {
           <HStack>
             <ButtonGroup isAttached colorScheme="orange">
               <Button>Add to list</Button>
-              <Box w="6px" h="48px" bg="orange.500">
-                <Box borderRadius="4px" w="2px" h="32px" ml="2px" mt="8px" bg="white" opacity="0.75" />
+              <Box w={2} h={12} bg="orange.500">
+                <Box borderRadius="md" w="2px" h="32px" ml="2px" mt="8px" bg="white" opacity="0.75" />
               </Box>
               <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
             </ButtonGroup>
@@ -74,17 +74,17 @@ export const TestPage: FC = () => {
         <Stack spacing={2}>
           <Heading size="md">Tags</Heading>
           <HStack>
-            <Tag spacing="24px">
+            <Tag spacing={10}>
               Просто тег
             </Tag>
-            <Tag spacing="24px">
+            <Tag spacing={10}>
               <TagLabel as={HStack} wordBreak="keep-all">
                 <Text fontWeight="medium">Жопный Тег</Text>
                 <Text variant="dim">а че</Text>
               </TagLabel>
             </Tag>
             <Button variant="unstyled">
-              <Tag spacing="24px">
+              <Tag spacing={10}>
                 тег кнопка
               </Tag>
             </Button>

@@ -11,6 +11,7 @@ import {
   Link,
   Text,
   Tooltip,
+  Heading,
 } from '@chakra-ui/react';
 import {
   Language,
@@ -69,7 +70,7 @@ export const ReleasesPage: VFC = () => {
     const releaseIcon = ReleaseService.getReleaseStatusIcon(releaseType);
 
     return (
-      <Tooltip hasArrow label={releaseIcon.label}>
+      <Tooltip label={releaseIcon.label}>
         <span>
           <Icon name={releaseIcon.icon} />
         </span>
@@ -82,25 +83,25 @@ export const ReleasesPage: VFC = () => {
     (
       Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
     ).map(([language, releases]) => (
-      <AccordionItem key={language} borderColor="transparent">
-        <h2>
+      <AccordionItem key={language}>
+        <Heading as="h2">
           <AccordionButton>
             <HStack spacing={3} marginRight={3}>
               <Icon name={LanguageService.getLanguageIcon(language)} />
-              <Text fontWeight="bold">
+              <Text fontWeight="bold" fontSize="sm">
                 {LanguageService.toReadable(language)}
               </Text>
             </HStack>
             <AccordionIcon />
           </AccordionButton>
-        </h2>
+        </Heading>
         <AccordionPanel>
           {releases.map(release => (
             <Grid
               gap={4}
-              templateColumns="120px 2.5fr 1fr 1fr 25px"
+              templateColumns="120px 2.5fr 1fr 1fr 24px"
               key={release.id}
-              marginBottom={1}
+              marginBottom={4}
             >
               <Text>{release.releasedISODate}</Text>
               <HStack spacing={1}>
@@ -115,7 +116,6 @@ export const ReleasesPage: VFC = () => {
                   return (
                     <Tooltip
                       key={platform + String(release.id)}
-                      hasArrow
                       label={PlatformService.toReadable(platform)}
                     >
                       <span>
@@ -129,7 +129,6 @@ export const ReleasesPage: VFC = () => {
                 {ReleaseService.getReleaseIcons(release).map(releaseIcon => (
                   <Tooltip
                     key={releaseIcon.icon + releaseIcon.label}
-                    hasArrow
                     label={releaseIcon.label}
                   >
                     <span>

@@ -1,12 +1,6 @@
 .tags {
   display: flex;
-  margin-top: 12px;
-  gap: 12px;
+  margin-top: var(--chakra-sizes-3);
+  gap: var(--chakra-sizes-3);
   flex-wrap: wrap;
-}
-
-.note {
-  color: #404040;
-  font-weight: lighter;
-  margin-left: 5px;
 }

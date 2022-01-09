@@ -9,13 +9,13 @@ import { data, SidebarElementType } from './data';
  */
 export const Sidebar: VFC = () => (
   <aside className={cls.sidebar}>
-    <div className={cls.logo}>vndbre</div>
+    <Heading as="h2" size="md" className={cls.logo}>vndbre</Heading>
     {data.map(el => {
       switch (el.type) {
         case SidebarElementType.Heading: {
           return (
             <Fragment key={el.text + el.type}>
-              <Heading size="sm" className={cls.heading}>{el.text}</Heading>
+              <Heading as="h3" size="sm" className={cls.heading}>{el.text}</Heading>
               {el.items.map(_el => (
                 <Link
                   key={_el.link + _el.text}
