@@ -43,10 +43,6 @@
   flex-direction: column;
 }
 
-.description {
-  white-space: break-spaces;
-}
-
 .controls {
   display: flex;
   gap: var(--chakra-sizes-4);
