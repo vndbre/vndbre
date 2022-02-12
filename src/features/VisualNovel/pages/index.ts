@@ -1,6 +1,5 @@
-import { MediaPage } from './MediaPage/MediaPage';
-import { VisualNovelPage } from './VisualNovelPage/VisualNovelPage';
-import { OverviewPage } from './OverviewPage/OverviewPage';
-import { ReleasesPage } from './ReleasesPage/ReleasesPage';
-
-export { VisualNovelPage, OverviewPage, ReleasesPage, MediaPage };
+export { MediaPage } from './MediaPage/MediaPage';
+export { VisualNovelPage } from './VisualNovelPage/VisualNovelPage';
+export { OverviewPage } from './OverviewPage/OverviewPage';
+export { ReleasesPage } from './ReleasesPage/ReleasesPage';
+export { CharactersPage } from './CharactersPage/CharactersPage';

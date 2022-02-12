@@ -14,6 +14,8 @@ import { ContentWrapper } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
+const CHARACTERS_TO_DISPLAY = 5 as const;
+
 /**
  * Overview tab page.
  */
@@ -132,7 +134,7 @@ export const OverviewPage: FC = () => {
   );
 
   const charactersBlock = characters && characters.length > 0 && (
-    characters.map(character => (
+    characters.slice(0, CHARACTERS_TO_DISPLAY).map(character => (
       <CharacterCard
         key={character.id}
         character={character}

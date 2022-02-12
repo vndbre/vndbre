@@ -4,7 +4,6 @@ import { useParams } from 'react-router';
 import { Character } from '../../../../models/character';
 import cls from './CharacterCard.module.css';
 import { Roles } from '../../../../utils/types/roles';
-import { Icon } from '../../../../components/Icon/Icon';
 
 import characterPlaceholder from '../../../../assets/person.png';
 
@@ -31,13 +30,6 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
           <Heading lineHeight="22px" as="h4" size="sm">
             {character.name}
           </Heading>
-          <div className={cls.voiced}>
-            <Icon size="xs" name="carbon:microphone" />
-            <Text fontSize="xs">
-              Voice Actor
-            </Text>
-          </div>
-
         </div>
         {
           role && <Text fontSize="xs">{Roles.toReadable(role)}</Text>
