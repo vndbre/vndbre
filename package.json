@@ -15,10 +15,11 @@
     "react-dom": "^17.0.2",
     "react-query": "^3.21.1",
     "react-router": "^6.0.0-beta.3",
-    "react-router-dom": "^6.0.0-beta.3"
+    "react-router-dom": "^6.0.0-beta.3",
+    "react-viewer": "^3.2.2"
   },
   "scripts": {
-    "dev": "vite --mode production",
+    "dev": "vite",
     "dev:docker": "vite --mode development",
     "build": "tsc && vite build --mode production",
     "serve": "vite preview",

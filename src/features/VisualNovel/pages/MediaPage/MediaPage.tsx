@@ -1,10 +1,11 @@
-import React, { useState, VFC } from 'react';
+import React, { useCallback, useState, VFC } from 'react';
 import { useParams } from 'react-router';
-import { Image, useDisclosure } from '@chakra-ui/react';
+import { Image } from '@chakra-ui/react';
+import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';
 import { VisualNovelScreenshot } from '../../../../models/visualNovel';
-import { ContentWrapper, ImagePreviewDialog } from '../../../../components';
+import { ContentWrapper } from '../../../../components';
 
 import cls from './MediaPage.module.css';
 
@@ -12,9 +13,8 @@ import cls from './MediaPage.module.css';
 export const MediaPage: VFC = () => {
   const { id } = useParams();
   const { isLoading, error, data } = useVisualNovelQuery(id);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedImage, setSelectedImage] = useState('');
-
+  const [isVisible, setIsVisible] = useState(false);
+  const [imageActiveIndex, setImageActiveIndex] = useState(0);
   const settingsContext = useSettingsContext();
 
   /** Filter screenshots by nsfw flag. */
@@ -22,32 +22,45 @@ export const MediaPage: VFC = () => {
 
   /**
    * Handles clicking image.
-   * @param image Image url.
+   * @param index Image clicked index.
    */
-  const handleClickOnImage = (image: string): void => {
-    setSelectedImage(image);
-    onOpen();
-  };
+  const handleClickOnImage = useCallback((index: number) => {
+    setImageActiveIndex(index);
+    setIsVisible(true);
+  }, []);
+
+  /** Handles closing of image viewer. */
+  const handleViewerClose = useCallback(() => {
+    setIsVisible(false);
+  }, []);
 
   const images = data && (
     <div className={cls.list}>
-      {data.screens.filter(filterPredicate).map(screen => (
+      {data.screens.filter(filterPredicate).map((screen, idx) => (
         <Image
-          onClick={() => handleClickOnImage(screen.image)}
+          onClick={() => handleClickOnImage(idx)}
           key={screen.image}
           src={screen.image}
           className={cls.image}
         />
       ))}
+      <Viewer
+        visible={isVisible}
+        images={data.screens.filter(filterPredicate).map(screen => ({ src: screen.image }))}
+        activeIndex={imageActiveIndex}
+        noToolbar
+        noNavbar
+        drag={false}
+        disableMouseZoom
+        noClose
+        onMaskClick={handleViewerClose}
+      />
     </div>
   );
 
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
-      <div>
-        {images}
-        {isOpen ? <ImagePreviewDialog image={selectedImage} onClose={onClose} isOpen={isOpen} /> : null}
-      </div>
+      {images}
     </ContentWrapper>
   );
 };
