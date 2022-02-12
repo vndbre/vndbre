@@ -12,9 +12,11 @@ const routes: RouteObject[] = [
   {
     path: '/',
     element: <DefaultLayout />,
+    caseSensitive: true,
     children: [
       {
         path: '/',
+        caseSensitive: true,
 
         /**
          * TODO: change redirection path.

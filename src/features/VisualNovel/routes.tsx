@@ -13,18 +13,22 @@ export const visualNovelRoutes: RouteObject[] = [
   {
     path: 'vn/:id',
     element: <VisualNovelPage />,
+    caseSensitive: true,
     children: [
       {
         path: '',
         element: <OverviewPage />,
+        caseSensitive: false,
       },
       {
         path: 'releases',
         element: <ReleasesPage />,
+        caseSensitive: true,
       },
       {
         path: 'media',
         element: <MediaPage />,
+        caseSensitive: true,
       },
     ],
   },
