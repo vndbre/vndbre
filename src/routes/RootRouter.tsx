@@ -1,15 +1,14 @@
-import React from 'react';
-import { PartialRouteObject } from 'react-router';
+import React, { VFC } from 'react';
+import { RouteObject, useRoutes } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { visualNovelRoutes } from '../features/VisualNovel/routes';
-import { testRoutes } from '../features/Test/routes';
 import { DefaultLayout } from '../layouts/DefaultLayout/DefaultLayout';
 
 /**
  * Creates root router for app navigation.
  * @param isUserLoggedIn Is current user logged in or not.
  */
-export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
+const routes: RouteObject[] = [
   {
     path: '/',
     element: <DefaultLayout />,
@@ -22,8 +21,10 @@ export const router = (isUserLoggedIn: boolean): PartialRouteObject[] => [
          */
         element: <Navigate to="/vn/7/" />,
       },
-      ...testRoutes(isUserLoggedIn),
-      ...visualNovelRoutes(),
+      ...visualNovelRoutes,
     ],
   },
 ];
+
+/** Root app router. */
+export const RootRouter: VFC = () => useRoutes(routes);

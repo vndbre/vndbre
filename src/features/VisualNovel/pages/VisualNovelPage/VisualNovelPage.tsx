@@ -1,19 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { Button, ButtonGroup, Heading, IconButton, Image, Text } from '@chakra-ui/react';
-import { Outlet, useParams } from 'react-router';
+import { Outlet } from 'react-router';
 
 import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper } from '../../../../components';
+import { ContentWrapper, Loading } from '../../../../components';
+import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
 /**
  * Visual novel page.
  */
 export const VisualNovelPage: FC = () => {
-  const { id } = useParams();
+  const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data } = useVisualNovelQuery(id);
 
   return (
@@ -51,7 +53,9 @@ export const VisualNovelPage: FC = () => {
             <VisualNovelTabs id={id} />
           </header>
           <div className={cls.tabContent}>
-            <Outlet />
+            <Suspense fallback={<Loading isLoading />}>
+              <Outlet />
+            </Suspense>
           </div>
         </div>
       )}

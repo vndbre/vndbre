@@ -1,5 +1,4 @@
 import React, { ReactElement, VFC } from 'react';
-import { useParams } from 'react-router';
 import {
   Accordion,
   AccordionButton,
@@ -24,6 +23,8 @@ import { useReleasesQuery } from '../../queries';
 import { ContentWrapper } from '../../../../components';
 import { ReleaseType } from '../../../../enums/releaseType';
 import { ReleaseService } from '../../../../api/services/releaseService';
+import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
 interface ReleaseGroups {
   [language: string]: Release[];
@@ -33,7 +34,7 @@ interface ReleaseGroups {
  * Releases page.
  */
 export const ReleasesPage: VFC = () => {
-  const { id } = useParams();
+  const { id } = useRouteParams<VisualNovelRouteParams>();
 
   const {
     isLoading: isReleasesLoading,
