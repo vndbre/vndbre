@@ -1,13 +1,11 @@
-import React, { useCallback, useState, VFC } from 'react';
+import React, { useCallback, useMemo, useState, VFC } from 'react';
 import { useParams } from 'react-router';
-import { Image } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';
 import { VisualNovelScreenshot } from '../../../../models/visualNovel';
 import { ContentWrapper } from '../../../../components';
-
-import cls from './MediaPage.module.css';
 
 /** Media page tab, contains vn screenshots. */
 export const MediaPage: VFC = () => {
@@ -19,6 +17,13 @@ export const MediaPage: VFC = () => {
 
   /** Filter screenshots by nsfw flag. */
   const filterPredicate = (screen: VisualNovelScreenshot): boolean => (settingsContext.isNsfwContentAllowed ? true : !screen.isNsfw);
+
+  const filteredScreens = useMemo(() => {
+    if (data) {
+      return data.screens.filter(filterPredicate);
+    }
+    return [];
+  }, [data, filterPredicate]);
 
   /**
    * Handles clicking image.
@@ -35,18 +40,20 @@ export const MediaPage: VFC = () => {
   }, []);
 
   const images = data && (
-    <div className={cls.list}>
-      {data.screens.filter(filterPredicate).map((screen, idx) => (
+    <Flex gridGap="5" flexWrap="wrap">
+      {filteredScreens.map((screen, idx) => (
         <Image
           onClick={() => handleClickOnImage(idx)}
           key={screen.image}
           src={screen.image}
-          className={cls.image}
+          width="80"
+          borderRadius="8"
+          cursor="zoom-in"
         />
       ))}
       <Viewer
         visible={isVisible}
-        images={data.screens.filter(filterPredicate).map(screen => ({ src: screen.image }))}
+        images={filteredScreens.map(screen => ({ src: screen.image }))}
         activeIndex={imageActiveIndex}
         noToolbar
         noNavbar
@@ -55,7 +62,7 @@ export const MediaPage: VFC = () => {
         noClose
         onMaskClick={handleViewerClose}
       />
-    </div>
+    </Flex>
   );
 
   return (
