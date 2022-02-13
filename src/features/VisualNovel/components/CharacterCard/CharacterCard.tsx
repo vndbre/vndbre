@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { VFC, memo } from 'react';
 import { Heading, Text, Image } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { Character } from '../../../../models/character';
@@ -6,7 +6,7 @@ import cls from './CharacterCard.module.css';
 import { Roles } from '../../../../utils/types/roles';
 import { Icon } from '../../../../components/Icon/Icon';
 
-import characterPlaceholder from '../../../../assets/person.png';
+import characterPlaceholder from '../../../../assets/person.svg';
 
 interface CharacterCardProps {
 
@@ -19,7 +19,7 @@ interface CharacterCardProps {
 /**
  * Character card component.
  */
-export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
+export const CharacterCardComponent: VFC<CharacterCardProps> = ({ character }) => {
   const { id } = useParams();
   const role = character.visualNovels?.find(vn => vn.visualNovelId === Number(id))?.role;
 
@@ -45,4 +45,6 @@ export const CharacterCard: FC<CharacterCardProps> = memo(({ character }) => {
       </div>
     </div>
   );
-});
+};
+
+export const CharacterCard = memo(CharacterCardComponent);

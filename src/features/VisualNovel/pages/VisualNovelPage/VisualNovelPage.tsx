@@ -4,6 +4,7 @@ import { Outlet } from 'react-router';
 
 import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
+import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
@@ -25,18 +26,22 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <div className={cls.overview}>
-              <Image src={data.image as string} alt={data.title} className={cls.image} />
-              <div className={cls.info}>
-                <div className={cls.heading}>
-                  <div className={cls.title}>
-                    <Heading as="h1" size="md">
-                      {data.title}
-                    </Heading>
-                    <Heading as="h2" size="sm" fontWeight="normal">
-                      {data.originalName}
-                    </Heading>
-                  </div>
+            <Image
+              src={data.image ?? undefined}
+              fallbackSrc={vnPosterPlaceholder}
+              loading="eager"
+              alt={data.title}
+              className={cls.image}
+            />
+            <div className={cls.info}>
+              <div className={cls.heading}>
+                <div className={cls.title}>
+                  <Heading as="h1" size="md">
+                    {data.title}
+                  </Heading>
+                  <Heading as="h2" size="sm" fontWeight="normal">
+                    {data.originalName}
+                  </Heading>
                 </div>
                 <div className={cls.controls}>
                   <ButtonGroup isAttached>
