@@ -70,8 +70,6 @@ export const OverviewPage: FC = () => {
   const developers = fillDevelopers(releases);
   const publishers = fillPublishers(releases, visualNovel);
 
-  console.log(publishers);
-
   const vnTags = visualNovel?.tags ?? [];
   const { data: tags, isLoading: isTagsLoading, error: tagsError } = useExtendedTagsQuery(id, vnTags, {
     enabled: vnTags.length > 0,
