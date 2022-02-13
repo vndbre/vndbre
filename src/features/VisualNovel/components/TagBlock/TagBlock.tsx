@@ -1,5 +1,5 @@
-import React, { FC, memo, useState } from 'react';
-import { Heading, IconButton, Tag, Text } from '@chakra-ui/react';
+import React, { FC, memo, ReactNode, useState } from 'react';
+import { Heading, HStack, IconButton, Tag, Text } from '@chakra-ui/react';
 import { Icon } from '../../../../components/Icon/Icon';
 
 import cls from './TagBlock.module.css';
@@ -28,6 +28,11 @@ interface TagBlockProps {
   readonly title: string;
 
   /**
+   * Block title icon component.
+   */
+  readonly titleIcon?: ReactNode;
+
+  /**
    * Whether tag list is expandable or not.
    */
   readonly isExpandable?: boolean;
@@ -36,7 +41,7 @@ interface TagBlockProps {
 /**
  * Tag block component for tag data.
  */
-export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) => {
+export const TagBlock: FC<TagBlockProps> = memo(({ title, titleIcon, tags, isExpandable }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   /**
@@ -49,7 +54,10 @@ export const TagBlock: FC<TagBlockProps> = memo(({ title, tags, isExpandable }) 
   return (
     <div>
       <Heading as="h3" size="sm">
-        {title}
+        <HStack>
+          {titleIcon}
+          <Text fontWeight="bold">{title}</Text>
+        </HStack>
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map(tag => (
