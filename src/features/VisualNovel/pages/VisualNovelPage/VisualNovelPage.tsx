@@ -26,22 +26,24 @@ export const VisualNovelPage: FC = () => {
       {data && (
         <div className={cls.page}>
           <header className={cls.header}>
-            <Image
-              src={data.image ?? undefined}
-              fallbackSrc={vnPosterPlaceholder}
-              loading="eager"
-              alt={data.title}
-              className={cls.image}
-            />
-            <div className={cls.info}>
-              <div className={cls.heading}>
-                <div className={cls.title}>
-                  <Heading as="h1" size="md">
-                    {data.title}
-                  </Heading>
-                  <Heading as="h2" size="sm" fontWeight="normal">
-                    {data.originalName}
-                  </Heading>
+            <div className={cls.overview}>
+              <Image
+                src={data.image ?? undefined}
+                fallbackSrc={vnPosterPlaceholder}
+                loading="eager"
+                alt={data.title}
+                className={cls.image}
+              />
+              <div className={cls.info}>
+                <div className={cls.heading}>
+                  <div className={cls.title}>
+                    <Heading as="h1" size="md">
+                      {data.title}
+                    </Heading>
+                    <Heading as="h2" size="sm" fontWeight="normal">
+                      {data.originalName}
+                    </Heading>
+                  </div>
                 </div>
                 <div className={cls.controls}>
                   <ButtonGroup isAttached>
