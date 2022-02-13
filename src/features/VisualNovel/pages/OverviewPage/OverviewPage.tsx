@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
-import languageCodes from 'iso-639-1';
 import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
 import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
@@ -13,6 +12,8 @@ import { VisualNovel } from '../../../../models/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
 import { ContentWrapper } from '../../../../components';
+import { LanguageService } from '../../../../api/services/languageService';
+import { Icon } from '../../../../components/Icon/Icon';
 
 /**
  * Overview tab page.
@@ -39,7 +40,7 @@ export const OverviewPage: FC = () => {
       const groupedLangs: Record<string, string[]> = vnData.languages.reduce((acc, val) => ({ ...acc, [val]: [] as string[] }), {});
       publisherReleases.forEach(release => {
         release.languages.forEach(lang => {
-          if (lang in vnData.languages) {
+          if (vnData.languages.includes(lang)) {
             const publisherNames = release.producers.map(p => p.name);
             const uniquePublisherNames = Array.from(new Set(groupedLangs[lang].concat(publisherNames)));
             groupedLangs[lang] = uniquePublisherNames;
@@ -89,7 +90,8 @@ export const OverviewPage: FC = () => {
     publishers && publishers[key].length > 0 && (
       <TagBlock
         key={key}
-        title={`Publisher (${languageCodes.getName(key)})`}
+        title="Publisher"
+        titleIcon={<Icon name={LanguageService.getLanguageIcon(LanguageService.toLanguage(key))} />}
         tags={publishers[key].map(publisher => ({ name: publisher }))}
       />
     )
