@@ -1,16 +1,12 @@
-import React, { FC } from 'react';
-import { useRoutes } from 'react-router-dom';
-import { router } from './routes/RootRouter';
+import React, { VFC, Suspense } from 'react';
+import { RootRouter } from './routes/RootRouter';
+import { Loading } from './components';
 
 /**
  * TODO: add comments.
  */
-export const App: FC = () => {
-  const routes = useRoutes(router(true));
-
-  return (
-    <div>
-      {routes}
-    </div>
-  );
-};
+export const App: VFC = () => (
+  <Suspense fallback={<Loading isLoading />}>
+    <RootRouter />
+  </Suspense>
+);

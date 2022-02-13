@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
-import { useParams } from 'react-router';
 import cls from './OverviewPage.module.css';
 import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
@@ -14,12 +13,14 @@ import { ExtendedTag } from '../../../../models/extendedTag';
 import { ContentWrapper } from '../../../../components';
 import { LanguageService } from '../../../../api/services/languageService';
 import { Icon } from '../../../../components/Icon/Icon';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { useRouteParams } from '../../../../hooks/useRouterParams';
 
 /**
  * Overview tab page.
  */
 export const OverviewPage: FC = () => {
-  const { id } = useParams();
+  const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
 
   const {
