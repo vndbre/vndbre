@@ -14,6 +14,7 @@ export enum RelationType {
   FanDisc = 'fan',
   Sequel = 'seq',
   SameSeries = 'ser',
+  ParentStory = 'par',
 }
 
 /**
