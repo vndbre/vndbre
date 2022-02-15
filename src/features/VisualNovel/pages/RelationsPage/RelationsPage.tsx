@@ -1,5 +1,7 @@
 import React, { VFC } from 'react';
+import { ContentWrapper, Error } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { RelationCard } from '../../components';
 import { useVisualNovelQuery } from '../../queries';
 import { useRelatedVisualNovelsQuery } from '../../queries/visualNovel';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
@@ -17,6 +19,16 @@ export const RelationsPage: VFC = () => {
     },
   );
 
-  console.log(relatedNovels);
-  return <div>test</div>;
+  if (visualNovelError) {
+    return <Error error={visualNovelError} />;
+  }
+
+
+  return (
+    <ContentWrapper isLoading={isVisualNovelLoading || isRelatedNovelsLoading} error={relatedNovelsError}>
+      {relatedNovels && relatedNovels.length > 0 ? (
+        
+      ): null}
+    </ContentWrapper>
+  );
 };
