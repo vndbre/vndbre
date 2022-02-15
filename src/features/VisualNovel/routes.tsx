@@ -5,6 +5,7 @@ const VisualNovelPage = lazy(() => import('./pages').then(module => ({ default: 
 const OverviewPage = lazy(() => import('./pages').then(module => ({ default: module.OverviewPage })));
 const ReleasesPage = lazy(() => import('./pages').then(module => ({ default: module.ReleasesPage })));
 const MediaPage = lazy(() => import('./pages').then(module => ({ default: module.MediaPage })));
+const RelationsPage = lazy(() => import('./pages').then(module => ({ default: module.RelationsPage })));
 
 /**
  * Creates routes for test module.
@@ -23,6 +24,11 @@ export const visualNovelRoutes: RouteObject[] = [
       {
         path: 'releases',
         element: <ReleasesPage />,
+        caseSensitive: true,
+      },
+      {
+        path: 'relations',
+        element: <RelationsPage />,
         caseSensitive: true,
       },
       {

@@ -5,6 +5,7 @@ import {
   VisualNovelScreenshot,
   VisualNovelTag,
   VisualNovel,
+  RelationType,
 } from '../../models/visualNovel';
 import { StaffRoles } from '../../utils/types/staffRoles';
 import { DisplayVisualNovelLength, VisualNovelLength } from '../../utils/types/visualNovelLength';
@@ -60,7 +61,7 @@ const visualNovelRelatedFromDto = (dto: VisualNovelRelatedDto): VisualNovelRelat
   id: dto.id,
   isOfficial: dto.official,
   originalName: dto.original,
-  relation: dto.relation,
+  relation: dto.relation as RelationType,
   title: dto.title,
 });
 

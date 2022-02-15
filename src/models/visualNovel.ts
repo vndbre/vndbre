@@ -4,6 +4,18 @@ import { DisplayVisualNovelLength } from '../utils/types/visualNovelLength';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
 
+/** Represents relation type. */
+export enum RelationType {
+  Alternative = 'alt',
+  SharesCharacters = 'char',
+  Prequel = 'preq',
+  SideStory = 'side',
+  SameSettings = 'set',
+  FanDisc = 'fan',
+  Sequel = 'seq',
+  SameSeries = 'ser',
+}
+
 /**
  * Represents anime related to the VN.
  */
@@ -94,7 +106,7 @@ export interface VisualNovelRelated {
   /**
    * Relation to the VN.
    */
-  relation: string;
+  relation: RelationType;
 
   /**
    * VN title (romaji).
