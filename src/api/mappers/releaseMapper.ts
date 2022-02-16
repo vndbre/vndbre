@@ -1,6 +1,5 @@
 import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
 import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
-import { DateService } from '../services/dateService';
 import { LanguageService } from '../services/languageService';
 import { PlatformService } from '../services/platformService';
 
@@ -59,7 +58,7 @@ export const releaseFromDto = (dto: ReleaseDto): Release => ({
   id: dto.id,
   title: dto.title,
   originalName: dto.original,
-  releasedISODate: dto.released && dto.released !== 'tba' ? DateService.toISODate(new Date(dto.released)) : 'TBA',
+  releasedDate: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
   type: dto.type,
   isPatch: dto.patch,
   isFreeware: dto.freeware,
