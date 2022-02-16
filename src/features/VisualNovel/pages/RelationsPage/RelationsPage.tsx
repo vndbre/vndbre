@@ -26,7 +26,11 @@ export const RelationsPage: VFC = () => {
     return <Error error={visualNovelError} />;
   }
 
-  /** Displays relation cards. */
+  /**
+   * Displays related novel cards.
+   * @param novels Array of related visual novels.
+   * @param novel Parent visual novel.
+   */
   const displayRelationCards = (novels: VisualNovel[], novel: VisualNovel): JSX.Element[] =>
     novels.map(relatedNovel => {
       const { isOfficial, relationType } = VisualNovelRelationService.getRelationData(relatedNovel.id, novel);
