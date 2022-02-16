@@ -1,4 +1,4 @@
-import React, { VFC, memo, useState } from 'react';
+import React, { VFC, memo, useState, useEffect } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { visualNovelTabInfo } from '../../utils/constants';
@@ -32,6 +32,10 @@ const getInitialTabIndex = (pathname: string): number => {
 export const VisualNovelTabs: VFC<Props> = memo(({ id }) => {
   const location = useLocation();
   const [tabIndex, setTabIndex] = useState(getInitialTabIndex(location.pathname));
+
+  useEffect(() => {
+    setTabIndex(getInitialTabIndex(location.pathname));
+  }, [id]);
 
   /**
    * Handles click on tab.

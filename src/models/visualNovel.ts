@@ -4,13 +4,13 @@ import { DisplayVisualNovelLength } from '../utils/types/visualNovelLength';
 import { VisualNovelLinks } from '../utils/types/visualNovelLinks';
 import { ImageFlagging } from './imageFlagging';
 
-/** Represents relation type. */
+/** Represents visual novel relation type. */
 export enum RelationType {
   Alternative = 'alt',
   SharesCharacters = 'char',
   Prequel = 'preq',
   SideStory = 'side',
-  SameSettings = 'set',
+  SameSetting = 'set',
   FanDisc = 'fan',
   Sequel = 'seq',
   SameSeries = 'ser',
