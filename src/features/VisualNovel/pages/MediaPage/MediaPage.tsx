@@ -12,7 +12,7 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 /** Media page tab, contains vn screenshots. */
 export const MediaPage: VFC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { isLoading, error, data } = useVisualNovelQuery(id);
+  const { isLoading, error, data } = useVisualNovelQuery(Number(id));
 
   const settingsContext = useSettingsContext();
 
