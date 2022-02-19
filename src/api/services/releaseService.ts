@@ -7,6 +7,8 @@ import { ApiUrls } from '../../utils/types/apiUrls';
 import { ReleaseAnimationType } from '../../enums/releaseAnimationType';
 import { ReleaseVoiceStatus } from '../../enums/releaseVoiceStatus';
 import { ReleaseType } from '../../enums/releaseType';
+import { PaginationService } from './paginationService';
+import { VisualNovel } from '../../models/visualNovel';
 
 interface ReleaseIcon {
 
@@ -24,41 +26,24 @@ interface ReleaseIcon {
 export namespace ReleaseService {
 
   /**
+   * Fetches paginated releases by vn id with given query page.
+   * @param vnId Visual novel id.
+   * @param page Query page.
+   */
+  export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<DataWrapper<ReleaseDto>> => {
+    const { data } = await http.post<DataWrapper<ReleaseDto>>(
+      ApiUrls.Vndb,
+      `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
+    );
+    return data;
+  };
+
+  /**
    * Fetches full releases.
    * @param vnId Visual novel id.
    */
-  export const fetchFullReleases = async(vnId: string): Promise<Release[]> => {
-    let currentPage = 1;
-    let hasToFetchMore = true;
-    const releasesChunks = [];
-
-    /**
-     * Fetches releases by page.
-     * @param page Page.
-     */
-    const fetch = async(page: number): Promise<DataWrapper<ReleaseDto>> => {
-      const { data } = await http.post<DataWrapper<ReleaseDto>>(
-        ApiUrls.Vndb,
-        `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
-      );
-
-      return data;
-    };
-
-    while (hasToFetchMore) {
-    // eslint-disable-next-line no-await-in-loop
-      const releasesData = await fetch(currentPage);
-      releasesChunks.push(releasesData.data.items);
-
-      if (releasesData.data.more) {
-        currentPage += 1;
-      } else {
-        hasToFetchMore = false;
-      }
-    }
-
-    return releasesChunks.flatMap(releasesChunk => releasesChunk.map(dto => releaseFromDto(dto)));
-  };
+  export const fetchFullReleases = async(vnId: VisualNovel['id']): Promise<Release[]> =>
+    (await PaginationService.fetchAllDataById(vnId, fetchReleasesPaginatedByVnId)).map(dto => releaseFromDto(dto));
 
   /**
    * Gets free/non-free icon for release.

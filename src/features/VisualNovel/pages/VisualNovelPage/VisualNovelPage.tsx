@@ -16,7 +16,7 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
  */
 export const VisualNovelPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { isLoading, error, data } = useVisualNovelQuery(id);
+  const { isLoading, error, data } = useVisualNovelQuery(Number(id));
 
   return (
 

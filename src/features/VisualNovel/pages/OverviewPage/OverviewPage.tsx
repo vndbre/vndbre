@@ -21,13 +21,13 @@ const CHARACTERS_TO_DISPLAY = 5 as const;
  */
 export const OverviewPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { isLoading, error, data: visualNovel } = useVisualNovelQuery(id);
+  const { isLoading, error, data: visualNovel } = useVisualNovelQuery(Number(id));
 
   const {
     isLoading: isReleasesLoading,
     data: releases,
     error: releasesError,
-  } = useReleasesQuery(id);
+  } = useReleasesQuery(Number(id));
 
   /**
    * Returns publishers grouped by language.
@@ -76,7 +76,7 @@ export const OverviewPage: FC = () => {
     enabled: vnTags.length > 0,
   });
 
-  const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(id);
+  const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
 
   const settingsContext = useSettingsContext();
 

@@ -26,7 +26,7 @@ type GroupedCharacters = Record<Roles, Character[]>;
 /** Character page component. */
 export const CharactersPage: VFC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { data, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(id);
+  const { data, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
 
   /** Displays list of characters. */
   const displayCharacterList = (characters: Character[]): JSX.Element[] => (
@@ -89,8 +89,10 @@ export const CharactersPage: VFC = () => {
         <Accordion defaultIndex={[0]} allowMultiple>
           {groupedCharacterElements}
         </Accordion>
+      ) :
 
-      ) : <Text>No characters :(</Text>}
+      // TODO (Maximov): Replace it after design will be implemented.
+        <Text>No characters :(</Text>}
     </ContentWrapper>
   );
 };

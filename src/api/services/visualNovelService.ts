@@ -5,14 +5,19 @@ import { visualNovelFromDto } from '../mappers/visualNovelMapper';
 import { VisualNovel } from '../../models/visualNovel';
 import { ApiUrls } from '../../utils/types/apiUrls';
 
-/**
- * Fetches full visual novel.
- */
-export const fetchFullVisualNovel = async(id: string): Promise<VisualNovel> => {
-  const { data } = await http.post<DataWrapper<VisualNovelDto>>(
-    ApiUrls.Vndb,
-    `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
-  );
+export namespace VisualNovelService {
 
-  return data.data.items.map(dto => visualNovelFromDto(dto))[0];
-};
+  /**
+   * Fetches full visual novel.
+   * @param id Visual novel id.
+   */
+  export const fetchFullVisualNovel = async(id: VisualNovel['id']): Promise<VisualNovel> => {
+    const { data } = await http.post<DataWrapper<VisualNovelDto>>(
+      ApiUrls.Vndb,
+      `get vn basic,anime,details,relations,tags,stats,screens,staff (id = ${id})`,
+    );
+
+    return data.data.items.map(dto => visualNovelFromDto(dto))[0];
+  };
+
+}
