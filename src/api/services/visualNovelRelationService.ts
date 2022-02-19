@@ -28,7 +28,7 @@ export namespace VisualNovelRelationService {
    * Gets relation type for related novel.
    * @param relatedNovelId Related novel id.
    */
-  export const getRelationData = (relatedNovelId: number, novel: VisualNovel): RelationData => {
+  export const getRelationData = (relatedNovelId: VisualNovel['id'], novel: VisualNovel): RelationData => {
     const relationData = novel.relations.find(relation => relation.id === relatedNovelId);
     return { relationType: relationData?.relation ?? RelationType.SharesCharacters, isOfficial: relationData?.isOfficial ?? false };
   };

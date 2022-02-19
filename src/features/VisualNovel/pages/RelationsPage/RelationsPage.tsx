@@ -15,7 +15,7 @@ export const RelationsPage: VFC = () => {
   const { data: visualNovel, isLoading: isVisualNovelLoading, error: visualNovelError } = useVisualNovelQuery(id);
   const relatedNovelsIds: number[] = visualNovel?.relations?.map(relation => relation.id) ?? [];
   const { data: relatedNovels, isLoading: isRelatedNovelsLoading, error: relatedNovelsError } = useRelatedVisualNovelsQuery(
-    id,
+    Number(id),
     relatedNovelsIds,
     {
       enabled: relatedNovelsIds.length > 0,

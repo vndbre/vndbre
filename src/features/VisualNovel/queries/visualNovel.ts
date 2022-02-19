@@ -18,8 +18,8 @@ export const useVisualNovelQuery = (id: string, options?: QueryObserverOptions<V
  * @param options Query options.
  */
 export const useRelatedVisualNovelsQuery = (
-  id: string,
-  ids: number[],
+  id: VisualNovel['id'],
+  ids: VisualNovel['id'][],
   options?: QueryObserverOptions<VisualNovel[], Error>,
 ): UseQueryResult<VisualNovel[], Error> =>
   useQuery(['relatedVns', id], () => fetchVisualNovelByIds(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });

@@ -21,7 +21,7 @@ export const fetchFullVisualNovel = async(id: string): Promise<VisualNovel> => {
  * Fetches visual novels by vnIds.
  * @param ids Array of vn ids.
  */
-export const fetchVisualNovelByIds = async(ids: number[]): Promise<VisualNovel[]> => {
+export const fetchVisualNovelByIds = async(ids: VisualNovel['id'][]): Promise<VisualNovel[]> => {
   const { data } = await http.post<DataWrapper<VisualNovelDto>>(
     ApiUrls.Vndb,
     `get vn basic,anime,details,relations,tags,stats,screens,staff (id = [${ids}]) {"results": 25}`,

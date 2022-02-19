@@ -6,15 +6,15 @@ import { ImageFlagging } from './imageFlagging';
 
 /** Represents visual novel relation type. */
 export enum RelationType {
-  Alternative = 'alt',
-  SharesCharacters = 'char',
-  Prequel = 'preq',
-  SideStory = 'side',
-  SameSetting = 'set',
-  FanDisc = 'fan',
-  Sequel = 'seq',
-  SameSeries = 'ser',
-  ParentStory = 'par',
+  Alternative = 'alternative',
+  SharesCharacters = 'shares characters',
+  Prequel = 'prequel',
+  SideStory = 'side story',
+  SameSetting = 'same setting',
+  FanDisc = 'fandisc',
+  Sequel = 'sequel',
+  SameSeries = 'same series',
+  ParentStory = 'parent story',
 }
 
 /**

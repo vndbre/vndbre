@@ -46,7 +46,7 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
     <GridItem p="3">
       <Flex direction="column" justify="space-between" h="full">
         <Box>
-          {!isOfficial && <Text as="span" fontSize="xs">Unofficial</Text>}
+          {isOfficial === false && <Text as="span" fontSize="xs">Unofficial</Text>}
           <Link as={NavLink} to={`/vn/${id}`}>
             <Heading lineHeight="22px" as="h4" size="xs">{title}</Heading>
           </Link>
