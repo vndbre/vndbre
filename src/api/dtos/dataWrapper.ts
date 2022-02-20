@@ -6,21 +6,21 @@ export interface DataWrapper<T> {
   /**
    * Data wrapper.
    */
-  data: {
+  readonly data: {
 
     /**
      * Flag that shows if there is more data to fetch.
      */
-    more: boolean;
+    readonly more: boolean;
 
     /**
      * Number of items in response.
      */
-    num: number;
+    readonly num: number;
 
     /**
      * Array of items.
      */
-    items: T[];
+    readonly items: readonly T[];
   };
 }

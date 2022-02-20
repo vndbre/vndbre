@@ -6,15 +6,15 @@ export interface QuoteDto {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * VN title.
    */
-  title: string;
+  readonly title: string;
 
   /**
    * Quote.
    */
-  quote: string;
+  readonly quote: string;
 }

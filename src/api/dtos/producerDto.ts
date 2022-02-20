@@ -8,22 +8,22 @@ export interface ProducerRelatedDto {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Relation to current producer.
    */
-  relation: string;
+  readonly relation: string;
 
   /**
    * Producer name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  original: string | null;
+  readonly original: string | null;
 }
 
 /**
@@ -34,45 +34,45 @@ export interface ProducerDto {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Producer name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Type.
    */
-  type: string;
+  readonly type: string;
 
   /**
    * Primary language.
    */
-  language: string;
+  readonly language: string;
 
   /**
    * Links to external resources.
    */
-  links: ProducerLinks;
+  readonly links: ProducerLinks;
 
   /**
    * Alternative names, separated by a newline.
    */
-  aliases: string | null;
+  readonly aliases: string | null;
 
   /**
    * Description/notes of the producer.
    */
-  description: string | null;
+  readonly description: string | null;
 
   /**
    * Related producers to the current producer.
    */
-  relations: ProducerRelatedDto[];
+  readonly relations: readonly ProducerRelatedDto[];
 }

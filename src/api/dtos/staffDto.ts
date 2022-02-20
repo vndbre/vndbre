@@ -8,22 +8,22 @@ export interface StaffCharacterVoicedDto {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Alias id of this staff entry.
    */
-  aid: number;
+  readonly aid: number;
 
   /**
    * Character id.
    */
-  cid: number;
+  readonly cid: number;
 
   /**
    * Note.
    */
-  note: string | null;
+  readonly note: string | null;
 }
 
 /**
@@ -34,22 +34,22 @@ export interface StaffVisualNovelDto {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Alias id of this staff entry.
    */
-  aid: number;
+  readonly aid: number;
 
   /**
    * Role.
    */
-  role: string;
+  readonly role: string;
 
   /**
    * Note.
    */
-  note: string | null;
+  readonly note: string | null;
 }
 
 /**
@@ -60,37 +60,37 @@ export interface StaffDto {
   /**
    * Staff id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Staff name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Primary original name.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Gender.
    */
-  gender: string | null;
+  readonly gender: string | null;
 
   /**
    * Primary language.
    */
-  language: string;
+  readonly language: string;
 
   /**
    * Links to staff's external resources.
    */
-  links?: StaffLinks;
+  readonly links?: StaffLinks;
 
   /**
    * Description or notes.
    */
-  description: string | null;
+  readonly description: string | null;
 
   /**
    * List of names and aliases.
@@ -100,20 +100,20 @@ export interface StaffDto {
    * the original name.
    * This list also includes the "primary" name.
    */
-  aliases?: [number, string, string][];
+  readonly aliases?: readonly [number, string, string][];
 
   /**
    * ID of the alias that is the "primary" name of the entry.
    */
-  main_alias?: number;
+  readonly main_alias?: number;
 
   /**
    * Visual novels that this staff entry has been credited in (excluding character voicing).
    */
-  vns?: StaffVisualNovelDto[];
+  readonly vns?: readonly StaffVisualNovelDto[];
 
   /**
    * Characters that this staff entry has voiced.
    */
-  voiced?: StaffCharacterVoicedDto[];
+  readonly voiced?: readonly StaffCharacterVoicedDto[];
 }
