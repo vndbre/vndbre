@@ -5,6 +5,7 @@ import {
   VisualNovelScreenshot,
   VisualNovelTag,
   VisualNovel,
+  RelationType,
 } from '../../models/visualNovel';
 import { StaffRoles } from '../../utils/types/staffRoles';
 import { DisplayVisualNovelLength, VisualNovelLength } from '../../utils/types/visualNovelLength';
@@ -14,8 +15,21 @@ import {
   VisualNovelStaffDto,
   VisualNovelScreenshotDto,
   VisualNovelDto,
+  RelationTypeDto,
 } from '../dtos/visualNovelDto';
 import { imageFlaggingFromDto } from './imageFlaggingMapper';
+
+const RELATION_MAP_FROM_DTO: Readonly<Record<RelationTypeDto, RelationType>> = {
+  [RelationTypeDto.Alternative]: RelationType.Alternative,
+  [RelationTypeDto.SharesCharacters]: RelationType.SharesCharacters,
+  [RelationTypeDto.SideStory]: RelationType.SideStory,
+  [RelationTypeDto.SameSetting]: RelationType.SameSetting,
+  [RelationTypeDto.FanDisc]: RelationType.FanDisc,
+  [RelationTypeDto.Sequel]: RelationType.Sequel,
+  [RelationTypeDto.Prequel]: RelationType.Prequel,
+  [RelationTypeDto.SameSeries]: RelationType.SameSeries,
+  [RelationTypeDto.ParentStory]: RelationType.ParentStory,
+};
 
 /**
  * Maps VN length to readable format.
@@ -60,7 +74,7 @@ const visualNovelRelatedFromDto = (dto: VisualNovelRelatedDto): VisualNovelRelat
   id: dto.id,
   isOfficial: dto.official,
   originalName: dto.original,
-  relation: dto.relation,
+  relation: RELATION_MAP_FROM_DTO[dto.relation],
   title: dto.title,
 });
 
