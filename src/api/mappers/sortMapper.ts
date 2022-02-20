@@ -12,7 +12,7 @@ export namespace SortMapper {
   }
 
   /**
-   * Maps sort options to dto.
+   * Maps sort options to dto representation.
    * @param data Sort options.
    * @param fieldMap Object for mapping sort fields to the ones that are acceptable for the API.
    */

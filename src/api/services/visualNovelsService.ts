@@ -83,7 +83,7 @@ export namespace VisualNovelsService {
       ApiUrls.Vndb, `${QUERY_BASE} (id = ${id})`,
     );
 
-    return data.data.items.map(dto => VisualNovelMapper.fromDto(dto))[0];
+    return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items[0];
   }
 
   /**
@@ -124,11 +124,9 @@ export namespace VisualNovelsService {
       }
     }
 
-    const filtersString = visualNovelFilters.length > 0 ? `(${visualNovelFilters.join(' and ')})` : '';
-
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
       ApiUrls.Vndb,
-      `${QUERY_BASE} ${filtersString} {${visualNovelOptions.join(', ')}}`,
+      `${QUERY_BASE} (${visualNovelFilters.join(' and ')}) {${visualNovelOptions.join(', ')}}`,
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto);
