@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC, Suspense, useEffect } from 'react';
 import { Button, ButtonGroup, Heading, IconButton, Image, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
@@ -11,6 +11,11 @@ import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ContentWrapper, Loading } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { useVisualNovelsPageQuery } from '../../queries/visualNovel';
+import { Language } from '../../../../api/services/languageService';
+import { Platform } from '../../../../api/services/platformService';
+import { SortType } from '../../../../models/sortOptions';
+import { VisualNovelSortField } from '../../../../api/services/visualNovelsService';
 
 /**
  * Visual novel page.
@@ -18,6 +23,24 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 export const VisualNovelPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data } = useVisualNovelQuery(id);
+
+  /** TODO (Panov A.): Remove test usage of hook. */
+  const { data: novelList } = useVisualNovelsPageQuery({
+    page: 1,
+    pageSize: 15,
+    releasedRange: {
+      startDate: new Date('2004-01-01'),
+      endDate: new Date('2010-02-25'),
+    },
+    languages: [Language.Russian, Language.German],
+    platforms: [Platform.PlayStation3],
+    sort: { type: SortType.Descending, field: VisualNovelSortField.Released },
+  });
+
+  useEffect(() => {
+    /** TODO (Panov A.): Remove console log. */
+    console.log(novelList);
+  }, [novelList]);
 
   return (
 

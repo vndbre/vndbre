@@ -1,7 +1,7 @@
 import { http } from '..';
 import { Staff } from '../../models/staff';
 import { ApiUrls } from '../../utils/types/apiUrls';
-import { DataWrapper } from '../dtos/dataWrapper';
+import { PaginationDto } from '../dtos/paginationDto';
 import { StaffDto } from '../dtos/staffDto';
 import { staffFromDto } from '../mappers/staffMapper';
 
@@ -11,7 +11,7 @@ import { staffFromDto } from '../mappers/staffMapper';
  * TODO: Add support for fetching more.
  */
 export const fetchStaff = async(ids: number[]): Promise<Staff[]> => {
-  const { data } = await http.post<DataWrapper<StaffDto>>(
+  const { data } = await http.post<PaginationDto<StaffDto>>(
     ApiUrls.Vndb,
     `get staff basic (aid = [${ids}])`,
   );
