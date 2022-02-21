@@ -40,7 +40,7 @@ export const ReleasesPage: VFC = () => {
     isLoading: isReleasesLoading,
     data: releasesData,
     error: releasesError,
-  } = useReleasesQuery(id);
+  } = useReleasesQuery(Number(id));
 
   /**
    * Groups releases by language.

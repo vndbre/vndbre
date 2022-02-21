@@ -1,6 +1,6 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { defaultFetchStrategy, defaultStaleTime } from './config';
-import { fetchFullVisualNovel, fetchVisualNovelByIds } from '../../../api/services/visualNovelService';
+import { VisualNovelService } from '../../../api/services/visualNovelService';
 import { VisualNovel } from '../../../models/visualNovel';
 
 /**
@@ -8,8 +8,12 @@ import { VisualNovel } from '../../../models/visualNovel';
  * @param id Visual novel id.
  * @param options Query options.
  */
-export const useVisualNovelQuery = (id: string, options?: QueryObserverOptions<VisualNovel, Error>): UseQueryResult<VisualNovel, Error> =>
-  useQuery(['vn', id], () => fetchFullVisualNovel(id), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+export const useVisualNovelQuery = (
+  id: VisualNovel['id'], options?: QueryObserverOptions<VisualNovel, Error>,
+): UseQueryResult<VisualNovel, Error> =>
+  useQuery(['vn', id],
+    () => VisualNovelService.fetchFullVisualNovel(id),
+    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
 
 /**
  * Hook for fetching related visual novels by array of vn ids.
@@ -22,4 +26,6 @@ export const useRelatedVisualNovelsQuery = (
   ids: VisualNovel['id'][],
   options?: QueryObserverOptions<VisualNovel[], Error>,
 ): UseQueryResult<VisualNovel[], Error> =>
-  useQuery(['relatedVns', id], () => fetchVisualNovelByIds(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+  useQuery(['relatedVns', id],
+    () => VisualNovelService.fetchVisualNovelByIds(ids),
+    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });

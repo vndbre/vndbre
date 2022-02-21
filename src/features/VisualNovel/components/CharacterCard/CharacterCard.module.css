@@ -1,17 +1,20 @@
 .card {
   display: grid;
   grid-template-columns: var(--chakra-sizes-20) 1fr;
+  grid-template-rows: 100%;
   height: var(--chakra-sizes-28);
   background: var(--chakra-colors-gray-100);
   border-radius: var(--chakra-radii-lg);
   overflow: hidden;
   min-width: var(--chakra-sizes-72);
+  width: 100%;
 }
 
 .image {
   height: 100%;
   width: 100%;
   border-radius: var(--chakra-radii-lg);
+  object-fit: cover;
 }
 
 .container {
@@ -19,12 +22,5 @@
   flex-direction: column;
   justify-content: space-between;
   padding: var(--chakra-sizes-3);
-  gap: var(--chakra-sizes-1);
-}
-
-.voiced {
-  margin-top: var(--chakra-sizes-1);
-  display: flex;
-  align-items: center;
   gap: var(--chakra-sizes-1);
 }

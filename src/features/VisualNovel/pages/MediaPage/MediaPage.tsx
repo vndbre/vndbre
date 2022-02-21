@@ -12,9 +12,10 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 /** Media page tab, contains vn screenshots. */
 export const MediaPage: VFC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { isLoading, error, data } = useVisualNovelQuery(id);
   const [isVisible, setIsVisible] = useState(false);
   const [imageActiveIndex, setImageActiveIndex] = useState(0);
+  const { isLoading, error, data } = useVisualNovelQuery(Number(id));
+
   const settingsContext = useSettingsContext();
 
   /** Filter screenshots by nsfw flag. */
