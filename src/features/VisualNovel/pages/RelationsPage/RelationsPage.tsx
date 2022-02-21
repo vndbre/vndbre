@@ -12,7 +12,7 @@ import { VisualNovelRelationService } from '../../../../api/services/visualNovel
 /** Relations page component. */
 export const RelationsPage: VFC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
-  const { data: visualNovel, isLoading: isVisualNovelLoading, error: visualNovelError } = useVisualNovelQuery(id);
+  const { data: visualNovel, isLoading: isVisualNovelLoading, error: visualNovelError } = useVisualNovelQuery(Number(id));
   const relatedNovelsIds: number[] = visualNovel?.relations?.map(relation => relation.id) ?? [];
   const { data: relatedNovels, isLoading: isRelatedNovelsLoading, error: relatedNovelsError } = useRelatedVisualNovelsQuery(
     Number(id),
