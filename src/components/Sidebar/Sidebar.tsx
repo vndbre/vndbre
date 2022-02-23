@@ -1,5 +1,5 @@
 import React, { Fragment, VFC } from 'react';
-import { Heading, Link, IconButton, VStack, HStack } from '@chakra-ui/react';
+import { Heading, Link, IconButton, HStack } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
 import { data, SidebarElementType } from './data';
