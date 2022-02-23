@@ -9,12 +9,12 @@ import { Pagination } from '../../../models/pagination';
  * @param id Visual novel id.
  * @param options Query options.
  */
-export const useVisualNovelQuery = (id: string, options?: QueryObserverOptions<VisualNovel, Error>): UseQueryResult<VisualNovel, Error> =>
-  useQuery(
-    ['vn', id],
+export const useVisualNovelQuery = (
+  id: VisualNovel['id'], options?: QueryObserverOptions<VisualNovel, Error>,
+): UseQueryResult<VisualNovel, Error> =>
+  useQuery(['vn', id],
     () => VisualNovelsService.fetchFullVisualNovel(id),
-    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options },
-  );
+    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
 
 /**
  * Hook for fetching page of visual novels.
@@ -27,3 +27,18 @@ export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginatio
     () => VisualNovelsService.fetchPaginatedVisualNovels(paginationOptions),
     { staleTime: defaultStaleTime, ...defaultFetchStrategy },
   );
+
+/**
+ * Hook for fetching related visual novels by array of vn ids.
+ * @param id Visual novel id.
+ * @param ids Array of vns.
+ * @param options Query options.
+ */
+export const useRelatedVisualNovelsQuery = (
+  id: VisualNovel['id'],
+  ids: VisualNovel['id'][],
+  options?: QueryObserverOptions<VisualNovel[], Error>,
+): UseQueryResult<VisualNovel[], Error> =>
+  useQuery(['relatedVns', id],
+    () => VisualNovelsService.fetchVisualNovelByIds(ids),
+    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });

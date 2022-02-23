@@ -78,13 +78,26 @@ export namespace VisualNovelsService {
    * Fetches visual novel with detailed information.
    * @param id Visual novel id.
    */
-  export async function fetchFullVisualNovel(id: string): Promise<VisualNovel> {
+  export async function fetchFullVisualNovel(id: VisualNovel['id']): Promise<VisualNovel> {
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
       ApiUrls.Vndb, `${QUERY_BASE} (id = ${id})`,
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items[0];
   }
+
+  /**
+   * Fetches visual novels by vnIds.
+   * @param ids Array of vn ids.
+   */
+  export const fetchVisualNovelByIds = async(ids: VisualNovel['id'][]): Promise<VisualNovel[]> => {
+    const { data } = await http.post<PaginationDto<VisualNovelDto>>(
+      ApiUrls.Vndb,
+      `get vn basic,anime,details,relations,tags,stats,screens,staff (id = [${ids}]) {"results": 25}`,
+    );
+
+    return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items as VisualNovel[];
+  };
 
   /**
    * Get a page of visual novels.

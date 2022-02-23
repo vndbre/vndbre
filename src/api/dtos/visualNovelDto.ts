@@ -2,6 +2,19 @@ import { ImageFlaggingDto } from './imageFlaggingDto';
 import { VisualNovelLinks } from '../../utils/types/visualNovelLinks';
 import { VisualNovelLength } from '../../utils/types/visualNovelLength';
 
+/** Represents visual novel relation type. */
+export enum RelationTypeDto {
+  Alternative = 'alt',
+  SharesCharacters = 'char',
+  Prequel = 'preq',
+  SideStory = 'side',
+  SameSetting = 'set',
+  FanDisc = 'fan',
+  Sequel = 'seq',
+  SameSeries = 'ser',
+  ParentStory = 'par',
+}
+
 /**
  * Represents visual novel screenshot.
  */
@@ -132,7 +145,7 @@ export interface VisualNovelRelatedDto {
   /**
    * Relation to the VN.
    */
-  readonly relation: string;
+  readonly relation: RelationTypeDto;
 
   /**
    * VN title (romaji).
