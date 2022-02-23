@@ -1,4 +1,4 @@
-import { TagClassification } from '../utils/types/tagClassification';
+import { TagClassification } from './tagClassification';
 
 /**
  * Represents vn tag.
@@ -18,7 +18,7 @@ export interface Tag {
   /**
    * (Possibly empty) list of alternative names.
    */
-  readonly aliases: string[];
+  readonly aliases: readonly string[];
 
   /**
    * Tag classification.
@@ -33,7 +33,7 @@ export interface Tag {
   /**
    * List of parent tags (empty for root tags). The first element in this array points to the primary parent tag.
    */
-  readonly parents: number[];
+  readonly parents: readonly number[];
 
   /**
    * Whether it's possible to filter VNs by this tag.

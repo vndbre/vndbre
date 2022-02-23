@@ -6,10 +6,10 @@ export interface Links {
   /**
    * Name of the related article on the English Wikipedia.
    */
-  wikipedia: string | null;
+  readonly wikipedia: string | null;
 
   /**
    * Wikidata identifier.
    */
-  wikidata: string | null;
+  readonly wikidata: string | null;
 }

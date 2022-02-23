@@ -56,12 +56,12 @@ interface LanguageInfo {
   iconSuffix?: string;
 }
 
-export namespace LanguageService {
+export namespace Language {
 
   const DEFAULT_LANGUAGE_ICON = 'twemoji:white-flag';
   const LANGUAGE_ICON_BASE = 'twemoji:flag-for-flag-';
 
-  const MAP_LANGUAGE_INFO: Record<Language, LanguageInfo> = {
+  const TO_LANGUAGE_INFO_MAP: Record<Language, LanguageInfo> = {
     [Language.Russian]: { name: 'Russian', iconSuffix: 'russia' },
     [Language.English]: { name: 'English', iconSuffix: 'united-kingdom' },
     [Language.French]: { name: 'French', iconSuffix: 'france' },
@@ -113,28 +113,30 @@ export namespace LanguageService {
    * Converts a certain language to readable equivalent.
    * @param value Language.
    */
-  export const toReadable = (value: Language): string => MAP_LANGUAGE_INFO[value].name;
+  export function toReadable(value: Language): string {
+    return TO_LANGUAGE_INFO_MAP[value].name;
+  }
 
   /**
    * Convert string value to value of Language type.
    * @param value Value.
    */
-  export const toLanguage = (value: string): Language => {
+  export function toLanguage(value: string): Language {
     const language = value as Language;
-    return MAP_LANGUAGE_INFO[language] ? language : Language.OtherLanguage;
-  };
+    return TO_LANGUAGE_INFO_MAP[language] ? language : Language.OtherLanguage;
+  }
 
   /**
    * Gets name of icon for language.
    * @param value Language.
    */
-  export const getLanguageIcon = (value: Language): string => {
-    const suffix = MAP_LANGUAGE_INFO[value]?.iconSuffix;
+  export function getLanguageIcon(value: Language): string {
+    const suffix = TO_LANGUAGE_INFO_MAP[value]?.iconSuffix;
 
     if (suffix) {
       return LANGUAGE_ICON_BASE + suffix;
     }
 
     return DEFAULT_LANGUAGE_ICON;
-  };
+  }
 }

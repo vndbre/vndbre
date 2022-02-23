@@ -1,13 +1,15 @@
-import { VisualNovel } from '../../models/visualNovel';
-import { http } from '..';
-import { Character } from '../../models/character';
-import { ApiUrls } from '../../utils/types/apiUrls';
+import { VisualNovel } from '../../models/visualNovels/visualNovel';
+import { ApiProxyEndpoints, http } from '..';
+import { Character } from '../../models/characters/character';
 import { PaginationDto } from '../dtos/paginationDto';
 import { CharacterDto } from '../dtos/characterDto';
 import { PaginationService } from './paginationService';
 import { CharacterMapper } from '../mappers/characterMapper';
 
-export namespace CharacterService {
+/**
+ * Characters service.
+ */
+export namespace CharactersService {
 
   /**
    * Fetches vn characters with given id and page.
@@ -17,7 +19,7 @@ export namespace CharacterService {
    */
   const fetchCharactersPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<CharacterDto>> => {
     const { data } = await http.post<PaginationDto<CharacterDto>>(
-      ApiUrls.Vndb,
+      ApiProxyEndpoints.Vndb,
       `get character basic,details,meas,voiced,traits,vns (vn = ${vnId}) {"results": 25, "page": ${page}}`,
     );
     return data;
@@ -29,5 +31,4 @@ export namespace CharacterService {
    */
   export const fetchCharactersByVnId = async(vnId: VisualNovel['id']): Promise<Character[]> =>
     (await PaginationService.fetchAllDataById(vnId, fetchCharactersPaginatedByVnId)).map(dto => CharacterMapper.fromDto(dto));
-
 }

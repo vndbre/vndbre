@@ -14,14 +14,14 @@ import {
 } from '@chakra-ui/react';
 import { ContentWrapper } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
-import { Character } from '../../../../models/character';
-import { Roles } from '../../../../utils/types/roles';
+import { Character } from '../../../../models/characters/character';
 import { CharacterCard } from '../../components';
 import { useCharactersQuery } from '../../queries';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { CharacterRole } from '../../../../models/characters/characterRole';
 
 /** Describes shape of grouped characters. */
-type GroupedCharacters = Record<Roles, Character[]>;
+type GroupedCharacters = Record<CharacterRole, Character[]>;
 
 /** Character page component. */
 export const CharactersPage: VFC = () => {
@@ -40,10 +40,10 @@ export const CharactersPage: VFC = () => {
   /** Returns grouped characters by role. */
   const groupCharacters = (): GroupedCharacters => {
     const groupedCharacters: GroupedCharacters = {
-      [Roles.Main]: [],
-      [Roles.Primary]: [],
-      [Roles.Side]: [],
-      [Roles.Appears]: [],
+      [CharacterRole.Main]: [],
+      [CharacterRole.Primary]: [],
+      [CharacterRole.Side]: [],
+      [CharacterRole.Appears]: [],
     };
 
     if (data) {
@@ -66,7 +66,7 @@ export const CharactersPage: VFC = () => {
           <AccordionButton>
             <HStack spacing={2}>
               <Text fontWeight="bold" fontSize="sm">
-                {Roles.toReadable(role as Roles)}
+                {CharacterRole.toReadable(role as CharacterRole)}
               </Text>
               <Badge>{characters.length}</Badge>
               <AccordionIcon />

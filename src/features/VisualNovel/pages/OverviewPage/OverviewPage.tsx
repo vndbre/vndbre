@@ -2,19 +2,19 @@ import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
-import { StaffRoles, STAFF_ROLES } from '../../../../utils/types/staffRoles';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedTagsQuery } from '../../queries';
-import { Release } from '../../../../models/release';
-import { VisualNovel } from '../../../../models/visualNovel';
+import { Release } from '../../../../models/releases/release';
+import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
 import { ContentWrapper } from '../../../../components';
-import { LanguageService } from '../../../../api/services/languageService';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { Language } from '../../../../models/language';
+import { StaffRole } from '../../../../models/staffRole';
 
 const CHARACTERS_TO_DISPLAY = 5 as const;
 
@@ -94,7 +94,7 @@ export const OverviewPage: FC = () => {
       <TagBlock
         key={key}
         title="Publisher"
-        titleIcon={<Icon name={LanguageService.getLanguageIcon(LanguageService.toLanguage(key))} />}
+        titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
         tags={publishers[key].map(publisher => ({ name: publisher }))}
       />
     )
@@ -112,14 +112,14 @@ export const OverviewPage: FC = () => {
     ))
   );
 
-  const staffBlock = Object.keys(STAFF_ROLES).map(key => (
+  const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
       <TagBlock
         key={key}
-        title={STAFF_ROLES[key as StaffRoles].title}
+        title={StaffRole.getStaffRoleInfo(key as StaffRole).title}
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
           const data = { name: staff.name };
-          if (STAFF_ROLES[key as StaffRoles].showNote) {
+          if (StaffRole.getStaffRoleInfo(key as StaffRole).shouldNoteBeDisplayed) {
             return { ...data, note: staff.note };
           }
           return data;

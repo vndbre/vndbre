@@ -9,3 +9,12 @@ export const queryClient = new QueryClient();
 export const http: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_VNDBRE_PROXY_BASEURL,
 });
+
+/**
+ * Api proxy endpoints.
+ */
+export enum ApiProxyEndpoints {
+  Vndb = 'vndb',
+  Tags = 'tags',
+  Traits = 'traits',
+}

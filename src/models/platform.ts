@@ -58,12 +58,12 @@ interface PlatformInfo {
   iconSuffix?: string;
 }
 
-export namespace PlatformService {
+export namespace Platform {
 
   const DEFAULT_PLATFORM_ICON = 'bi:question-square';
   const PLATFORM_ICON_BASE = 'simple-icons:';
 
-  const MAP_PLATFORM_INFO: Record<Platform, PlatformInfo> = {
+  const TO_PLATFORM_INFO_MAP: Record<Platform, PlatformInfo> = {
     [Platform.Windows]: { name: 'Windows', iconSuffix: 'windows' },
     [Platform.Linux]: { name: 'Linux', iconSuffix: 'linux' },
     [Platform.IOS]: { name: 'IOS', iconSuffix: 'ios' },
@@ -117,23 +117,25 @@ export namespace PlatformService {
    * Converts a certain platform to readable equivalent.
    * @param value Platform.
    */
-  export const toReadable = (value: Platform): string => MAP_PLATFORM_INFO[value].name;
+  export function toReadable(value: Platform): string {
+    return TO_PLATFORM_INFO_MAP[value].name;
+  }
 
   /**
    * Convert string value to value of Platform type.
    * @param value Value.
    */
-  export const toPlatform = (value: string): Platform => {
+  export function toPlatform(value: string): Platform {
     const platform = value as Platform;
-    return MAP_PLATFORM_INFO[platform] ? platform : Platform.Other;
-  };
+    return TO_PLATFORM_INFO_MAP[platform] ? platform : Platform.Other;
+  }
 
   /**
    * Gets icon name for platform.
    * @param value Platform.
    */
   export const getPlatformIcon = (value: Platform): string => {
-    const iconSuffix = MAP_PLATFORM_INFO[value]?.iconSuffix;
+    const iconSuffix = TO_PLATFORM_INFO_MAP[value]?.iconSuffix;
 
     if (iconSuffix) {
       return PLATFORM_ICON_BASE + iconSuffix;

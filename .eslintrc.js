@@ -549,13 +549,13 @@ module.exports = {
     },
     {
       parser: '@typescript-eslint/parser',
-      files: ['**/enums/*.ts'],
+      files: ['**/models/**/*.ts'],
       rules: {
         'import/export': 'off',
       },
     },
     {
-      files: ['**/dtos/*.ts'],
+      files: ['**/dtos/**/*.ts'],
       rules: {
         'no-restricted-syntax': [
           'error',

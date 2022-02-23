@@ -1,6 +1,6 @@
 import React, { createContext, FC, useContext } from 'react';
-import { SpoilerLevel } from '../utils/types/spoilerLevel';
-import { TagClassification } from '../utils/types/tagClassification';
+import { SpoilerLevel } from '../models/spoilerLevel';
+import { TagClassification } from '../models/tagClassification';
 
 interface Settings {
 

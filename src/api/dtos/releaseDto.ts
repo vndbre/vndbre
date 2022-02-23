@@ -1,6 +1,15 @@
-import { ReleaseType } from '../../enums/releaseType';
-import { ReleaseVoiceStatus } from '../../enums/releaseVoiceStatus';
-import { VisualNovelDto } from './visualNovelDto';
+export enum ReleaseTypeDto {
+  Complete = 'complete',
+  Partial = 'partial',
+  Trial = 'trial',
+}
+
+export enum ReleaseVoiceStatusDto {
+  NotVoiced = 1,
+  EroVoiced,
+  PartiallyVoiced,
+  FullyVoiced,
+}
 
 /**
  * Represents producer involved into release.
@@ -55,6 +64,24 @@ export interface ReleaseMediaDto {
 }
 
 /**
+ * Represents novel related to release.
+ */
+export interface ReleaseNovelDto {
+
+  /** Novel id. */
+  readonly id: number;
+
+  /** Original name of the novel. */
+  readonly original: string | null;
+
+  /** Release type. */
+  readonly rtype: ReleaseTypeDto;
+
+  /** Novel title. */
+  readonly title: string;
+}
+
+/**
  * Represents release.
  */
 export interface ReleaseDto {
@@ -92,7 +119,7 @@ export interface ReleaseDto {
   /**
    * Release type.
    */
-  readonly type: ReleaseType;
+  readonly type: ReleaseTypeDto;
 
   /**
    * Patch flag.
@@ -151,7 +178,7 @@ export interface ReleaseDto {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  readonly voiced: ReleaseVoiceStatus | null;
+  readonly voiced: ReleaseVoiceStatusDto | null;
 
   /**
    * The array has two integer members,
@@ -169,7 +196,7 @@ export interface ReleaseDto {
   /**
    * Visual novels linked to this release.
    */
-  readonly vn: readonly VisualNovelDto[];
+  readonly vn?: readonly ReleaseNovelDto[];
 
   /**
    * Producers involved into release.

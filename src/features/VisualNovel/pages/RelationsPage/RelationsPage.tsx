@@ -2,12 +2,11 @@ import React, { VFC } from 'react';
 import { Grid } from '@chakra-ui/react';
 import { ContentWrapper, Error } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
-import { VisualNovel } from '../../../../models/visualNovel';
+import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { RelationCard } from '../../components';
 import { useVisualNovelQuery } from '../../queries';
 import { useRelatedVisualNovelsQuery } from '../../queries/visualNovel';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
-import { VisualNovelRelationService } from '../../../../api/services/visualNovelRelationService';
 
 /** Relations page component. */
 export const RelationsPage: VFC = () => {
@@ -33,7 +32,7 @@ export const RelationsPage: VFC = () => {
    */
   const displayRelationCards = (novels: VisualNovel[], novel: VisualNovel): JSX.Element[] =>
     novels.map(relatedNovel => {
-      const { isOfficial, relationType } = VisualNovelRelationService.getRelationData(relatedNovel.id, novel);
+      const { isOfficial, relationType } = VisualNovel.getRelationData(novel, relatedNovel.id);
       return (
         <RelationCard
           key={relatedNovel.id}

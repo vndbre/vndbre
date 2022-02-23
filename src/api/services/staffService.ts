@@ -1,6 +1,5 @@
-import { http } from '..';
+import { ApiProxyEndpoints, http } from '..';
 import { Staff } from '../../models/staff';
-import { ApiUrls } from '../../utils/types/apiUrls';
 import { PaginationDto } from '../dtos/paginationDto';
 import { StaffDto } from '../dtos/staffDto';
 import { staffFromDto } from '../mappers/staffMapper';
@@ -12,7 +11,7 @@ import { staffFromDto } from '../mappers/staffMapper';
  */
 export const fetchStaff = async(ids: number[]): Promise<Staff[]> => {
   const { data } = await http.post<PaginationDto<StaffDto>>(
-    ApiUrls.Vndb,
+    ApiProxyEndpoints.Vndb,
     `get staff basic (aid = [${ids}])`,
   );
 

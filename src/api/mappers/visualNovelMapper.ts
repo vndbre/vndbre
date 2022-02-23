@@ -1,116 +1,116 @@
+import { Language } from '../../models/language';
+import { Platform } from '../../models/platform';
+import { StaffRole } from '../../models/staffRole';
+import { VisualNovel } from '../../models/visualNovels/visualNovel';
+import { ReadableVisualNovelLength, VisualNovelLength } from '../../models/visualNovels/visualNovelLength';
+import { VisualNovelRelation } from '../../models/visualNovels/visualNovelRelation';
+
 import {
-  VisualNovelRelatedAnime,
-  VisualNovelRelated,
-  VisualNovelStaff,
-  VisualNovelScreenshot,
-  VisualNovelTag,
-  VisualNovel,
-  RelationType,
-} from '../../models/visualNovel';
-import { StaffRoles } from '../../utils/types/staffRoles';
-import { DisplayVisualNovelLength, VisualNovelLength } from '../../utils/types/visualNovelLength';
-import {
-  VisualNovelRelatedAnimeDto,
-  VisualNovelRelatedDto,
-  VisualNovelStaffDto,
-  VisualNovelScreenshotDto,
   VisualNovelDto,
   RelationTypeDto,
+  VisualNovelLengthDto,
 } from '../dtos/visualNovelDto';
-import { imageFlaggingFromDto } from './imageFlaggingMapper';
+import { ImageFlaggingMapper } from './imageFlaggingMapper';
 
 /** Visual novel mapper. */
 export namespace VisualNovelMapper {
-  const RELATION_MAP_FROM_DTO: Readonly<Record<RelationTypeDto, RelationType>> = {
-    [RelationTypeDto.Alternative]: RelationType.Alternative,
-    [RelationTypeDto.SharesCharacters]: RelationType.SharesCharacters,
-    [RelationTypeDto.SideStory]: RelationType.SideStory,
-    [RelationTypeDto.SameSetting]: RelationType.SameSetting,
-    [RelationTypeDto.FanDisc]: RelationType.FanDisc,
-    [RelationTypeDto.Sequel]: RelationType.Sequel,
-    [RelationTypeDto.Prequel]: RelationType.Prequel,
-    [RelationTypeDto.SameSeries]: RelationType.SameSeries,
-    [RelationTypeDto.ParentStory]: RelationType.ParentStory,
+  const RELATION_FROM_DTO_MAP: Readonly<Record<RelationTypeDto, VisualNovelRelation>> = {
+    [RelationTypeDto.Alternative]: VisualNovelRelation.Alternative,
+    [RelationTypeDto.SharesCharacters]: VisualNovelRelation.SharesCharacters,
+    [RelationTypeDto.SideStory]: VisualNovelRelation.SideStory,
+    [RelationTypeDto.SameSetting]: VisualNovelRelation.SameSetting,
+    [RelationTypeDto.FanDisc]: VisualNovelRelation.FanDisc,
+    [RelationTypeDto.Sequel]: VisualNovelRelation.Sequel,
+    [RelationTypeDto.Prequel]: VisualNovelRelation.Prequel,
+    [RelationTypeDto.SameSeries]: VisualNovelRelation.SameSeries,
+    [RelationTypeDto.ParentStory]: VisualNovelRelation.ParentStory,
+  };
+
+  const LENGTH_FROM_DTO_MAP: Readonly<Record<VisualNovelLengthDto, VisualNovelLength>> = {
+    [VisualNovelLengthDto.VeryShort]: VisualNovelLength.VeryShort,
+    [VisualNovelLengthDto.Short]: VisualNovelLength.Short,
+    [VisualNovelLengthDto.Medium]: VisualNovelLength.Medium,
+    [VisualNovelLengthDto.Long]: VisualNovelLength.Long,
+    [VisualNovelLengthDto.VeryLong]: VisualNovelLength.VeryLong,
+  };
+
+  const TO_TEXT_LENGTH_MAP: Readonly<Record<VisualNovelLength, ReadableVisualNovelLength>> = {
+    [VisualNovelLength.VeryShort]: ReadableVisualNovelLength.VeryShort,
+    [VisualNovelLength.Short]: ReadableVisualNovelLength.Short,
+    [VisualNovelLength.Medium]: ReadableVisualNovelLength.Medium,
+    [VisualNovelLength.Long]: ReadableVisualNovelLength.Long,
+    [VisualNovelLength.VeryLong]: ReadableVisualNovelLength.VeryLong,
   };
 
   /**
-   * Maps VN length to readable format.
-   * @param length Visual novel length.
+   * Maps VN length from dto.
+   * @param dto Dto.
    */
-  const mapVisualNovelLengthFromDto = (length: VisualNovelDto['length']): DisplayVisualNovelLength => {
-    switch (length) {
-      case VisualNovelLength.VeryShort:
-        return DisplayVisualNovelLength.VeryShort;
-      case VisualNovelLength.Short:
-        return DisplayVisualNovelLength.Short;
-      case VisualNovelLength.Medium:
-        return DisplayVisualNovelLength.Medium;
-      case VisualNovelLength.Long:
-        return DisplayVisualNovelLength.Long;
-      case VisualNovelLength.VeryLong:
-        return DisplayVisualNovelLength.VeryLong;
-      default:
-        return DisplayVisualNovelLength.Medium;
+  const mapVisualNovelLengthFromDto = (dto: VisualNovelDto['length']): VisualNovel['length'] => {
+    if (dto === null) {
+      return null;
     }
+
+    return TO_TEXT_LENGTH_MAP[LENGTH_FROM_DTO_MAP[dto]];
   };
 
   /**
-   * Maps dto into model.
+   * Maps related to the vn anime from dto.
    * @param dto Dto.
    */
-  const mapVisualNovelRelatedAnimeFromDto = (dto: VisualNovelRelatedAnimeDto): VisualNovelRelatedAnime => ({
-    id: dto.id,
-    annId: dto.ann_id,
-    nfoId: dto.nfo_id,
-    titleKanji: dto.title_kanji,
-    titleRomaji: dto.title_romaji,
-    type: dto.type,
-    year: dto.year ? new Date(dto.year) : null,
-  });
+  const mapVisualNovelRelatedAnimeFromDto = (dto: VisualNovelDto['anime']): VisualNovel['anime'] => dto.map(animeDto => ({
+    id: animeDto.id,
+    annId: animeDto.ann_id,
+    nfoId: animeDto.nfo_id,
+    titleKanji: animeDto.title_kanji,
+    titleRomaji: animeDto.title_romaji,
+    type: animeDto.type,
+    year: animeDto.year ? new Date(animeDto.year) : null,
+  }));
 
   /**
-   * Maps dto into model.
+   * Maps vn relations from dto.
    * @param dto Dto.
    */
-  const mapVisualNovelRelatedFromDto = (dto: VisualNovelRelatedDto): VisualNovelRelated => ({
-    id: dto.id,
-    isOfficial: dto.official,
-    originalName: dto.original,
-    relation: RELATION_MAP_FROM_DTO[dto.relation],
-    title: dto.title,
-  });
+  const mapVisualNovelRelatedFromDto = (dto: VisualNovelDto['relations']): VisualNovel['relations'] => dto.map(relationDto => ({
+    id: relationDto.id,
+    isOfficial: relationDto.official,
+    originalName: relationDto.original,
+    relation: RELATION_FROM_DTO_MAP[relationDto.relation],
+    title: relationDto.title,
+  }));
 
   /**
-   * Maps dto into model.
+   * Maps vn staff from dto.
    * @param dto Dto.
    */
-  const mapVisualNovelStaffFromDto = (dto: VisualNovelStaffDto): VisualNovelStaff => ({
-    aliasId: dto.aid,
-    staffId: dto.sid,
-    name: dto.name,
-    originalName: dto.original,
-    note: dto.note,
-    role: dto.role as StaffRoles,
-  });
+  const mapVisualNovelStaffFromDto = (dto: VisualNovelDto['staff']): VisualNovel['staff'] => dto.map(staffDto => ({
+    aliasId: staffDto.aid,
+    staffId: staffDto.sid,
+    name: staffDto.name,
+    originalName: staffDto.original,
+    note: staffDto.note,
+    role: staffDto.role as StaffRole,
+  }));
 
   /**
-   * Maps dto into model.
+   * Maps vn screenshots from dto.
    * @param dto Dto.
    */
-  const mapVisualNovelScreenShotFromDto = (dto: VisualNovelScreenshotDto): VisualNovelScreenshot => ({
-    releaseId: dto.rid,
-    height: dto.height,
-    width: dto.width,
-    image: dto.image,
-    isNsfw: dto.nsfw,
-    flagging: dto.flagging ? imageFlaggingFromDto(dto.flagging) : null,
-  });
+  const mapVisualNovelScreenshotsFromDto = (dto: VisualNovelDto['screens']): VisualNovel['screens'] => dto.map(screenShotDto => ({
+    releaseId: screenShotDto.rid,
+    height: screenShotDto.height,
+    width: screenShotDto.width,
+    image: screenShotDto.image,
+    isNsfw: screenShotDto.nsfw,
+    flagging: screenShotDto.flagging ? ImageFlaggingMapper.fromDto(screenShotDto.flagging) : null,
+  }));
 
   /**
    * Maps tags arrays to tag array of objects.
    * @param dto Array of arrays.
    */
-  const magTagsFromDto = (dto: VisualNovelDto['tags']): readonly VisualNovelTag[] =>
+  const magTagsFromDto = (dto: VisualNovelDto['tags']): VisualNovel['tags'] =>
     dto.map(tag => ({
       id: tag[0],
       score: tag[1],
@@ -126,22 +126,22 @@ export namespace VisualNovelMapper {
     title: dto.title,
     originalName: dto.original,
     released: dto.released ? new Date(dto.released) : null,
-    languages: dto.languages,
-    originalLanguage: dto.orig_lang,
-    platforms: dto.platforms,
+    languages: dto.languages.map(languageDto => Language.toLanguage(languageDto)),
+    originalLanguage: dto.orig_lang.map(originalLanguageDto => Language.toLanguage(originalLanguageDto)),
+    platforms: dto.platforms.map(platformDto => Platform.toPlatform(platformDto)),
     aliases: dto.aliases,
     length: dto.length ? mapVisualNovelLengthFromDto(dto.length) : null,
     description: dto.description,
     links: dto.links,
     image: dto.image,
-    imageFlagging: dto.image_flagging ? imageFlaggingFromDto(dto.image_flagging) : null,
-    anime: dto.anime.map(animeDto => mapVisualNovelRelatedAnimeFromDto(animeDto)),
-    relations: dto.relations.map(relationDto => mapVisualNovelRelatedFromDto(relationDto)),
+    imageFlagging: dto.image_flagging ? ImageFlaggingMapper.fromDto(dto.image_flagging) : null,
+    anime: mapVisualNovelRelatedAnimeFromDto(dto.anime),
+    relations: mapVisualNovelRelatedFromDto(dto.relations),
     tags: magTagsFromDto(dto.tags),
     popularity: dto.popularity,
     rating: dto.rating,
-    screens: dto.screens.map(screenshotDto => mapVisualNovelScreenShotFromDto(screenshotDto)),
-    staff: dto.staff.map(staffDto => mapVisualNovelStaffFromDto(staffDto)),
+    screens: mapVisualNovelScreenshotsFromDto(dto.screens),
+    staff: mapVisualNovelStaffFromDto(dto.staff),
     isImageNsfw: dto.image_nsfw,
     voteCount: dto.votecount,
   });
