@@ -1,5 +1,5 @@
 import { http } from '../index';
-import { DataWrapper } from '../dtos/dataWrapper';
+import { PaginationDto } from '../dtos/paginationDto';
 import { ReleaseDto } from '../dtos/releaseDto';
 import { releaseFromDto } from '../mappers/releaseMapper';
 import { Release, ReleaseAnimation } from '../../models/release';
@@ -30,8 +30,8 @@ export namespace ReleaseService {
    * @param vnId Visual novel id.
    * @param page Query page.
    */
-  export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<DataWrapper<ReleaseDto>> => {
-    const { data } = await http.post<DataWrapper<ReleaseDto>>(
+  export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<ReleaseDto>> => {
+    const { data } = await http.post<PaginationDto<ReleaseDto>>(
       ApiUrls.Vndb,
       `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
     );

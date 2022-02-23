@@ -10,32 +10,32 @@ export interface ReleaseProducerDto {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Is developer.
    */
-  developer: boolean;
+  readonly developer: boolean;
 
   /**
    * Is publisher.
    */
-  publisher: boolean;
+  readonly publisher: boolean;
 
   /**
    * Producer name(romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Type.
    */
-  type: string;
+  readonly type: string;
 }
 
 /**
@@ -46,12 +46,12 @@ export interface ReleaseMediaDto {
   /**
    * Medium.
    */
-  medium: string;
+  readonly medium: string;
 
   /**
    * Quantity.
    */
-  qty: number;
+  readonly qty: number;
 }
 
 /**
@@ -62,87 +62,87 @@ export interface ReleaseDto {
   /**
    * Visual novel ID.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Main title.
    */
-  title: string;
+  readonly title: string;
 
   /**
    * Original/official title.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Date of the first release.
    */
-  released: string | null;
+  readonly released: string | null;
 
   /**
    * Visual novel languages.
    */
-  languages: string[];
+  readonly languages: readonly string[];
 
   /**
    * Platform where visual novel was released.
    */
-  platforms: string[];
+  readonly platforms: readonly string[];
 
   /**
    * Release type.
    */
-  type: ReleaseType;
+  readonly type: ReleaseType;
 
   /**
    * Patch flag.
    */
-  patch: boolean;
+  readonly patch: boolean;
 
   /**
    * Freeware flag.
    */
-  freeware: boolean;
+  readonly freeware: boolean;
 
   /**
    * Doujin flag.
    */
-  doujin: boolean;
+  readonly doujin: boolean;
 
   /**
    * Official website url.
    */
-  website: string | null;
+  readonly website: string | null;
 
   /**
    * Random notes.
    */
-  notes: string | null;
+  readonly notes: string | null;
 
   /**
    * Age rating, 0 = all ages.
    */
-  minage: number | null;
+  readonly minage: number | null;
 
   /**
    * AN/UPC/EAN code. This is actually an integer, but formatted as a string to avoid an overflow on 32bit platforms.
    */
-  gtin: string | null;
+  readonly gtin: string | null;
 
   /**
    * Catalog number.
    */
-  catalog: string | null;
+  readonly catalog: string | null;
 
   /**
    * Media.
    */
-  media: ReleaseMediaDto[];
+  readonly media: readonly ReleaseMediaDto[];
 
   /**
    * Resolution.
    */
-  resolution: string | null;
+  readonly resolution: string | null;
 
   /**
    * Voiced release.
@@ -151,7 +151,7 @@ export interface ReleaseDto {
    * 3 = Partially voiced,
    * 4 = Fully voiced.
    */
-  voiced: ReleaseVoiceStatus | null;
+  readonly voiced: ReleaseVoiceStatus | null;
 
   /**
    * The array has two integer members,
@@ -164,15 +164,15 @@ export interface ReleaseDto {
    * 3 = Some fully animated scenes,
    * 4 = All scenes fully animated.
    */
-  animation: [number | null, number | null];
+  readonly animation: [number | null, number | null];
 
   /**
    * Visual novels linked to this release.
    */
-  vn: VisualNovelDto[];
+  readonly vn: readonly VisualNovelDto[];
 
   /**
    * Producers involved into release.
    */
-  producers: ReleaseProducerDto[];
+  readonly producers: readonly ReleaseProducerDto[];
 }

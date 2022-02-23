@@ -10,7 +10,7 @@ export interface CharacterInstanceDto {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Spoiler level.
@@ -18,17 +18,17 @@ export interface CharacterInstanceDto {
    * 1=minor,
    * 2=major.
    */
-  spoiler: SpoilerLevel;
+  readonly spoiler: SpoilerLevel;
 
   /**
    * Character name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Character name in original.
    */
-  original: string;
+  readonly original: string;
 }
 
 /**
@@ -39,22 +39,22 @@ export interface CharacterVoicedDto {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * The staff alias id.
    */
-  aid: number;
+  readonly aid: number;
 
   /**
    * VN id.
    */
-  vid: number;
+  readonly vid: number;
 
   /**
    * Notes.
    */
-  note: string;
+  readonly note: string;
 }
 
 /**
@@ -65,92 +65,92 @@ export interface CharacterDto {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Character name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Original (kana/kanji) name.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
    */
-  gender: CharacterGender | null;
+  readonly gender: CharacterGender | null;
 
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.
    */
-  spoil_gender: string | null;
+  readonly spoil_gender: string | null;
 
   /**
    * Blood type, "a", "b", "ab" or "o".
    */
-  bloodt: 'a' | 'b' | 'ab' | 'o' | null;
+  readonly bloodt: 'a' | 'b' | 'ab' | 'o' | null;
 
   /**
    * Array of two numbers: day of the month (1-31) and the month (1-12).
    */
-  birthday: number[];
+  readonly birthday: readonly number[];
 
   /**
    * Alternative names, separated with a newline.
    */
-  aliases: string | null;
+  readonly aliases: string | null;
 
   /**
    * Description/notes.
    */
-  description: string | null;
+  readonly description: string | null;
 
   /**
    * Age in years.
    */
-  age: number | null;
+  readonly age: number | null;
 
   /**
    * Image url.
    */
-  image: string;
+  readonly image: string;
 
   /**
    * Image flagging summary.
    */
-  image_flagging: ImageFlaggingDto | null;
+  readonly image_flagging: ImageFlaggingDto | null;
 
   /**
    * Bust in cm.
    */
-  bust: number | null;
+  readonly bust: number | null;
 
   /**
    * Waist in cm.
    */
-  waist: number | null;
+  readonly waist: number | null;
 
   /**
    * Hip in cm.
    */
-  hip: number | null;
+  readonly hip: number | null;
 
   /**
    * Height in cm.
    */
-  height: number | null;
+  readonly height: number | null;
 
   /**
    * Weight in kg.
    */
-  weight: number | null;
+  readonly weight: number | null;
 
   /**
    * Cup size.
    */
-  cup_size: string | null;
+  readonly cup_size: string | null;
 
   /**
    * Traits linked to this character.
@@ -158,7 +158,7 @@ export interface CharacterDto {
    * the trait id (integer),
    * the spoiler level (integer, 0-2).
    */
-  traits?: number[][];
+  readonly traits?: readonly number[][];
 
   /**
    * VNs linked to this character.
@@ -173,15 +173,15 @@ export interface CharacterDto {
    * "side",
    * "appears".
    */
-  vns?: [number, number, number, string][];
+  readonly vns?: readonly [number, number, number, string][];
 
   /**
    * Voice actresses that voiced this character, per VN.
    */
-  voiced: CharacterVoicedDto[];
+  readonly voiced: readonly CharacterVoicedDto[];
 
   /**
    * Instances of this character.
    */
-  instances?: CharacterInstanceDto[];
+  readonly instances?: readonly CharacterInstanceDto[];
 }

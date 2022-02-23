@@ -554,6 +554,22 @@ module.exports = {
         'import/export': 'off',
       },
     },
+    {
+      files: ['**/dtos/*.ts'],
+      rules: {
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector: 'TSPropertySignature[readonly=undefined]',
+            message: 'Missing \'readonly\' modifier for the DTO property.',
+          },
+          {
+            selector: 'TSPropertySignature TSTypeAnnotation[typeAnnotation.type=\'TSArrayType\']',
+            message: 'Missing \'readonly\' type modifier for array.',
+          },
+        ],
+      },
+    },
   ],
 
 };

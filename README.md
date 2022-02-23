@@ -42,3 +42,8 @@ Will run the app in the development mode which uses backend from [compose](./doc
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Links
+
+- [Figma](https://www.figma.com/file/YXz9Xy3xEA3C4G45DGa9cc/vndb)
+- [Swagger](https://vndbre-proxy.azurewebsites.net/swagger/index.html)

@@ -23,32 +23,32 @@ export interface VisualNovelScreenshotDto {
   /**
    * URL of the full-size screenshot.
    */
-  image: string;
+  readonly image: string;
 
   /**
    * Release ID.
    */
-  rid: number;
+  readonly rid: number;
 
   /**
    * NSFW flag.
    */
-  nsfw: boolean;
+  readonly nsfw: boolean;
 
   /**
    * Image flagging summary of the main VN image.
    */
-  flagging: ImageFlaggingDto | null;
+  readonly flagging: ImageFlaggingDto | null;
 
   /**
    * Height of the full-size screenshot.
    */
-  height: number;
+  readonly height: number;
 
   /**
    * Width of the full-size screenshot.
    */
-  width: number;
+  readonly width: number;
 }
 
 /**
@@ -59,32 +59,32 @@ export interface VisualNovelStaffDto {
   /**
    * Staff id.
    */
-  sid: number;
+  readonly sid: number;
 
   /**
    * Alias id.
    */
-  aid: number;
+  readonly aid: number;
 
   /**
    * Staff member name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Original staff member name.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Staff member role.
    */
-  role: string;
+  readonly role: string;
 
   /**
    * Additional notes.
    */
-  note: string | null;
+  readonly note: string | null;
 }
 
 /**
@@ -99,37 +99,37 @@ export interface VisualNovelRelatedAnimeDto {
   /**
    * AniDB ID.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * AnimeNewsNetwork ID.
    */
-  ann_id: number | null;
+  readonly ann_id: number | null;
 
   /**
    * AnimeNfo ID.
    */
-  nfo_id: string | null;
+  readonly nfo_id: string | null;
 
   /**
    * Title in romaji.
    */
-  title_romaji: string | null;
+  readonly title_romaji: string | null;
 
   /**
    * Title in kanji.
    */
-  title_kanji: string | null;
+  readonly title_kanji: string | null;
 
   /**
    * Year in which the anime was aired.
    */
-  year: number | null;
+  readonly year: number | null;
 
   /**
    * Anime type.
    */
-  type: string | null;
+  readonly type: string | null;
 }
 
 /**
@@ -140,27 +140,27 @@ export interface VisualNovelRelatedDto {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Relation to the VN.
    */
-  relation: RelationTypeDto;
+  readonly relation: RelationTypeDto;
 
   /**
    * VN title (romaji).
    */
-  title: string;
+  readonly title: string;
 
   /**
    * Original/official title.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Shows if a novel is original.
    */
-  official: boolean;
+  readonly official: boolean;
 }
 
 /**
@@ -171,82 +171,82 @@ export interface VisualNovelDto {
   /**
    * Visual novel ID.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Main title.
    */
-  title: string;
+  readonly title: string;
 
   /**
    * Original/official title.
    */
-  original: string | null;
+  readonly original: string | null;
 
   /**
    * Date of the first release.
    */
-  released: string | null;
+  readonly released: string | null;
 
   /**
    * Visual novel languages.
    */
-  languages: string[];
+  readonly languages: readonly string[];
 
   /**
    * Original language of the VN. Always contains a single language.
    */
-  orig_lang: string[];
+  readonly orig_lang: readonly string[];
 
   /**
    * Platform where visual novel was released.
    */
-  platforms: string[];
+  readonly platforms: readonly string[];
 
   /**
    * Aliases, separated by newlines.
    */
-  aliases: string | null;
+  readonly aliases: string | null;
 
   /**
    * Length of the game, 1-5.
    */
-  length: VisualNovelLength | null;
+  readonly length: VisualNovelLength | null;
 
   /**
    * Description of the VN.
    */
-  description: string | null;
+  readonly description: string | null;
 
   /**
    * Links to related data.
    */
-  links: VisualNovelLinks;
+  readonly links: VisualNovelLinks;
 
   /**
    * HTTP link to the VN image.
    */
-  image: string | null;
+  readonly image: string | null;
 
   /**
    * Whether the VN image is flagged as NSFW or not.
    */
-  image_nsfw: boolean;
+  readonly image_nsfw: boolean;
 
   /**
    * Image flagging summary of the main VN image.
    */
-  image_flagging: ImageFlaggingDto | null;
+  readonly image_flagging: ImageFlaggingDto | null;
 
   /**
    * Anime related to the VN.
    */
-  anime: VisualNovelRelatedAnimeDto[];
+  readonly anime: readonly VisualNovelRelatedAnimeDto[];
 
   /**
    * Related visual novels to the VN.
    */
-  relations: VisualNovelRelatedDto[];
+  readonly relations: readonly VisualNovelRelatedDto[];
 
   /**
    * (Possibly empty) list of tags linked to this VN. Each tag is represented as an array with three elements:
@@ -259,30 +259,30 @@ export interface VisualNovelDto {
    * Keep in mind that it is possible that a tag has only recently been added and is not available in the dump yet,
    * though this doesn't happen often.
    */
-  tags: number[][];
+  readonly tags: readonly number[][];
 
   /**
    * Between 0 (unpopular) and 100 (most popular).
    */
-  popularity: number;
+  readonly popularity: number;
 
   /**
    * Bayesian rating, between 1 and 10.
    */
-  rating: number;
+  readonly rating: number;
 
   /**
    * Number of votes.
    */
-  votecount: number;
+  readonly votecount: number;
 
   /**
    * VN screenshots.
    */
-  screens: VisualNovelScreenshotDto[];
+  readonly screens: readonly VisualNovelScreenshotDto[];
 
   /**
    * Staff related to the VN.
    */
-  staff: VisualNovelStaffDto[];
+  readonly staff: readonly VisualNovelStaffDto[];
 }

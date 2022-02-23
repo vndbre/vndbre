@@ -1,7 +1,7 @@
-import { DataWrapper } from '../dtos/dataWrapper';
+import { PaginationDto } from '../dtos/paginationDto';
 
 export namespace PaginationService {
-  type PaginatedFetchFunctionById<T> = (id: number, page: number) => Promise<DataWrapper<T>>;
+  type PaginatedFetchFunctionById<T> = (id: number, page: number) => Promise<PaginationDto<T>>;
 
   /**
    * Helper function to fetch paginated data to get more data from api.

@@ -11,7 +11,7 @@ export interface CharacterInstance {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Spoiler level.
@@ -19,17 +19,17 @@ export interface CharacterInstance {
    * 1=minor,
    * 2=major.
    */
-  spoiler: SpoilerLevel;
+  readonly spoiler: SpoilerLevel;
 
   /**
    * Character name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Character name in original.
    */
-  originalName: string;
+  readonly originalName: string;
 }
 
 /**
@@ -40,22 +40,22 @@ export interface CharacterVoiced {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * The staff alias id.
    */
-  aliasId: number;
+  readonly aliasId: number;
 
   /**
    * VN id.
    */
-  visualNovelId: number;
+  readonly visualNovelId: number;
 
   /**
    * Notes.
    */
-  note: string;
+  readonly note: string;
 }
 
 /**
@@ -66,12 +66,12 @@ export interface CharacterTrait {
   /**
    * Trait id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Between 0-2.
    */
-  spoilerLevel: SpoilerLevel;
+  readonly spoilerLevel: SpoilerLevel;
 }
 
 /**
@@ -82,22 +82,22 @@ export interface CharacterNovel {
   /**
    * VN id.
    */
-  visualNovelId: number;
+  readonly visualNovelId: number;
 
   /**
    * Release id.
    */
-  releaseId: number;
+  readonly releaseId: number;
 
   /**
    * Spoiler level (0-2).
    */
-  spoilerLevel: SpoilerLevel;
+  readonly spoilerLevel: SpoilerLevel;
 
   /**
    * Role.
    */
-  role: Roles;
+  readonly role: Roles;
 }
 
 /**
@@ -108,110 +108,110 @@ export interface Character {
   /**
    * Character id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Character name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Original (kana/kanji) name.
    */
-  originalName: string | null;
+  readonly originalName: string | null;
 
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
    */
-  gender: CharacterGender | null;
+  readonly gender: CharacterGender | null;
 
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.
    */
-  spoilerGender: string | null;
+  readonly spoilerGender: string | null;
 
   /**
    * Blood type, "a", "b", "ab" or "o".
    */
-  bloodType: 'a' | 'b' | 'ab' | 'o' | null;
+  readonly bloodType: 'a' | 'b' | 'ab' | 'o' | null;
 
   /**
    * Birthday in format dd-mm.
    */
-  birthday: string;
+  readonly birthday: string;
 
   /**
    * Alternative names, separated with a newline.
    */
-  aliases: string | null;
+  readonly aliases: string | null;
 
   /**
    * Description/notes.
    */
-  description: string | null;
+  readonly description: string | null;
 
   /**
    * Age in years.
    */
-  age: number | null;
+  readonly age: number | null;
 
   /**
    * Image url.
    */
-  image: string;
+  readonly image: string;
 
   /**
    * Image flagging summary.
    */
-  imageFlagging: ImageFlagging | null;
+  readonly imageFlagging: ImageFlagging | null;
 
   /**
    * Bust in cm.
    */
-  bust: number | null;
+  readonly bust: number | null;
 
   /**
    * Waist in cm.
    */
-  waist: number | null;
+  readonly waist: number | null;
 
   /**
    * Hip in cm.
    */
-  hip: number | null;
+  readonly hip: number | null;
 
   /**
    * Height in cm.
    */
-  height: number | null;
+  readonly height: number | null;
 
   /**
    * Weight in kg.
    */
-  weight: number | null;
+  readonly weight: number | null;
 
   /**
    * Cup size.
    */
-  cupSize: string | null;
+  readonly cupSize: string | null;
 
   /**
    * Traits linked to this character.
    */
-  traits?: CharacterTrait[];
+  readonly traits?: readonly CharacterTrait[];
 
   /**
    * VNs linked to this character.
    */
-  visualNovels?: CharacterNovel[];
+  readonly visualNovels?: readonly CharacterNovel[];
 
   /**
    * Voice actresses that voiced this character, per VN.
    */
-  voicedActors: CharacterVoiced[];
+  readonly voicedActors: readonly CharacterVoiced[];
 
   /**
    * Instances of this character.
    */
-  instances?: CharacterInstance[];
+  readonly instances?: readonly CharacterInstance[];
 }
