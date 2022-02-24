@@ -1,4 +1,5 @@
-import React, { VFC } from 'react';
+import { Box } from '@chakra-ui/react';
+import React, { useCallback, VFC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
@@ -9,21 +10,24 @@ import cls from './DefaultLayout.module.css';
  * Default layout with sidebar and header.
  */
 export const DefaultLayout: VFC = () => {
-  const [isSidebarVisible, serSiderbarVisibility] = useLocalStorage('vndbre:sidebar-visible', true);
+  const [isSidebarVisible, setSiderbarVisibility] = useLocalStorage('vndbre:sidebar-visible', true);
+
+  const showSidebar = useCallback(() => setSiderbarVisibility(true), []);
+  const hideSidebar = useCallback(() => setSiderbarVisibility(false), []);
 
   return (
-    <div className={cls.layout}>
+    <Box className={cls.layout}>
       {isSidebarVisible && (
-        <div className={cls.sidebar}>
-          <Sidebar onSiderbarHide={() => serSiderbarVisibility(false)} />
-        </div>
+        <Box className={cls.sidebar}>
+          <Sidebar onSiderbarHide={hideSidebar} />
+        </Box>
       )}
-      <div className={`${cls.container} ${isSidebarVisible ? cls['with-sidebar'] : ''}`}>
-        <Header showLogo={!isSidebarVisible} onSiderbarShow={() => serSiderbarVisibility(true)} />
-        <div className={cls.content}>
+      <Box className={`${cls.container} ${isSidebarVisible ? cls['with-sidebar'] : ''}`}>
+        <Header isLogoVisible={!isSidebarVisible} onSiderbarShow={showSidebar} />
+        <Box className={cls.content}>
           <Outlet />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };

@@ -1,5 +1,5 @@
 import React, { Fragment, VFC } from 'react';
-import { Heading, Link, IconButton, HStack } from '@chakra-ui/react';
+import { Heading, Link, IconButton, HStack, Box } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
 import { data, SidebarElementType } from './data';
@@ -8,7 +8,7 @@ import { Icon } from '../Icon/Icon';
 interface Props {
 
   /** Envoken on sidebar visibility toggle. */
-  onSiderbarHide: () => unknown;
+  onSiderbarHide: () => void;
 }
 
 /**
@@ -19,14 +19,14 @@ export const Sidebar: VFC<Props> = ({ onSiderbarHide }) => (
     <HStack className={cls.logo} justifyContent="space-between" alignItems="center" flexShrink={0} height={16}>
       <Heading as="h2" size="md">vndbre</Heading>
       <IconButton
-        onClick={() => onSiderbarHide()}
+        onClick={onSiderbarHide}
         aria-label="Toggle sidebar"
         variant="ghost"
         colorScheme="gray"
         icon={<Icon name="carbon:close" />}
       />
     </HStack>
-    <div className={cls.navigation}>
+    <Box className={cls.navigation}>
       {data.map(el => {
         switch (el.type) {
           case SidebarElementType.Heading: {
@@ -65,6 +65,6 @@ export const Sidebar: VFC<Props> = ({ onSiderbarHide }) => (
           }
         }
       })}
-    </div>
+    </Box>
   </aside>
 );
