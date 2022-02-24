@@ -63,7 +63,7 @@ export namespace Platform {
   const DEFAULT_PLATFORM_ICON = 'bi:question-square';
   const PLATFORM_ICON_BASE = 'simple-icons:';
 
-  const TO_PLATFORM_INFO_MAP: Record<Platform, PlatformInfo> = {
+  const TO_PLATFORM_INFO_MAP: Readonly<Record<Platform, PlatformInfo>> = {
     [Platform.Windows]: { name: 'Windows', iconSuffix: 'windows' },
     [Platform.Linux]: { name: 'Linux', iconSuffix: 'linux' },
     [Platform.IOS]: { name: 'IOS', iconSuffix: 'ios' },
@@ -134,7 +134,7 @@ export namespace Platform {
    * Gets icon name for platform.
    * @param value Platform.
    */
-  export const getPlatformIcon = (value: Platform): string => {
+  export function getPlatformIcon(value: Platform): string {
     const iconSuffix = TO_PLATFORM_INFO_MAP[value]?.iconSuffix;
 
     if (iconSuffix) {
@@ -142,5 +142,5 @@ export namespace Platform {
     }
 
     return DEFAULT_PLATFORM_ICON;
-  };
+  }
 }

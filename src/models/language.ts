@@ -61,7 +61,7 @@ export namespace Language {
   const DEFAULT_LANGUAGE_ICON = 'twemoji:white-flag';
   const LANGUAGE_ICON_BASE = 'twemoji:flag-for-flag-';
 
-  const TO_LANGUAGE_INFO_MAP: Record<Language, LanguageInfo> = {
+  const TO_LANGUAGE_INFO_MAP: Readonly<Record<Language, LanguageInfo>> = {
     [Language.Russian]: { name: 'Russian', iconSuffix: 'russia' },
     [Language.English]: { name: 'English', iconSuffix: 'united-kingdom' },
     [Language.French]: { name: 'French', iconSuffix: 'france' },

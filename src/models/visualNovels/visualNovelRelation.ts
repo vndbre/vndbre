@@ -23,7 +23,7 @@ export namespace VisualNovelRelation {
     readonly relationType: VisualNovelRelation;
   }
 
-  const TO_READABLE_MAP: Record<VisualNovelRelation, string> = {
+  const TO_READABLE_MAP: Readonly<Record<VisualNovelRelation, string>> = {
     [VisualNovelRelation.Alternative]: 'Alternative version',
     [VisualNovelRelation.SharesCharacters]: 'Shares characters',
     [VisualNovelRelation.SideStory]: 'Side story',

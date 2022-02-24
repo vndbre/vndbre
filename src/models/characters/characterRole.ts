@@ -8,7 +8,7 @@ export enum CharacterRole {
 
 export namespace CharacterRole {
 
-  const TO_READABLE_MAP: Record<CharacterRole, string> = {
+  const TO_READABLE_MAP: Readonly<Record<CharacterRole, string>> = {
     [CharacterRole.Main]: 'Protagonist',
     [CharacterRole.Primary]: 'Main character',
     [CharacterRole.Appears]: 'Appears',

@@ -26,7 +26,7 @@ interface StaffRoleInfo {
 
 export namespace StaffRole {
 
-  const TO_STAFF_ROLE_INFO_MAP: Record<StaffRole, StaffRoleInfo> = {
+  const TO_STAFF_ROLE_INFO_MAP: Readonly<Record<StaffRole, StaffRoleInfo>> = {
     [StaffRole.Director]: { title: 'Director' },
     [StaffRole.Scenario]: { title: 'Scenario' },
     [StaffRole.Artist]: { title: 'Artist' },
