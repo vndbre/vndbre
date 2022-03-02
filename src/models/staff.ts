@@ -1,4 +1,4 @@
-import { StaffLinks } from '../utils/types/staffLinks';
+import { StaffLinks } from './staffLinks';
 
 /**
  * Represents character entry that this staff has voiced.
@@ -8,22 +8,22 @@ export interface StaffCharacterVoiced {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Alias id of this staff entry.
    */
-  aliasId: number;
+  readonly aliasId: number;
 
   /**
    * Character id.
    */
-  characterId: number;
+  readonly characterId: number;
 
   /**
    * Note.
    */
-  note: string | null;
+  readonly note: string | null;
 }
 
 /**
@@ -34,22 +34,22 @@ export interface StaffVisualNovel {
   /**
    * VN id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Alias id of this staff entry.
    */
-  aliasId: number;
+  readonly aliasId: number;
 
   /**
    * Role.
    */
-  role: string;
+  readonly role: string;
 
   /**
    * Note.
    */
-  note: string | null;
+  readonly note: string | null;
 }
 
 /**
@@ -60,17 +60,17 @@ export interface StaffAlias {
   /**
    * Alias id.
    */
-  aliasId: number;
+  readonly aliasId: number;
 
   /**
    * Alias name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Primary original name.
    */
-  originalName: string;
+  readonly originalName: string;
 }
 
 /**
@@ -81,55 +81,55 @@ export interface Staff {
   /**
    * Staff id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Staff name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Primary original name.
    */
-  originalName: string | null;
+  readonly originalName: string | null;
 
   /**
    * Gender.
    */
-  gender: string | null;
+  readonly gender: string | null;
 
   /**
    * Primary language.
    */
-  language: string;
+  readonly language: string;
 
   /**
    * Links to staff's external resources.
    */
-  links?: StaffLinks;
+  readonly links: StaffLinks | null;
 
   /**
    * Description or notes.
    */
-  description?: string | null;
+  readonly description: string | null;
 
   /**
    * Names and aliases.
    */
-  aliases?: StaffAlias[];
+  readonly aliases: readonly StaffAlias[];
 
   /**
    * ID of the alias that is the "primary" name of the entry.
    */
-  mainAlias?: number;
+  readonly mainAlias: number | null;
 
   /**
    * Visual novels that this staff entry has been credited in (excluding character voicing).
    */
-  visualNovels?: StaffVisualNovel[];
+  readonly visualNovels: readonly StaffVisualNovel[];
 
   /**
    * Characters that this staff entry has voiced.
    */
-  voiced?: StaffCharacterVoiced[];
+  readonly voiced: readonly StaffCharacterVoiced[];
 }

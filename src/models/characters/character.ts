@@ -1,104 +1,9 @@
-import { Roles } from '../utils/types/roles';
-import { CharacterGender } from '../utils/types/characterHelperTypes';
-import { SpoilerLevel } from '../utils/types/spoilerLevel';
-import { ImageFlagging } from './imageFlagging';
-
-/**
- * Represents character instance of the character.
- */
-export interface CharacterInstance {
-
-  /**
-   * Character id.
-   */
-  readonly id: number;
-
-  /**
-   * Spoiler level.
-   * 0=none,
-   * 1=minor,
-   * 2=major.
-   */
-  readonly spoiler: SpoilerLevel;
-
-  /**
-   * Character name.
-   */
-  readonly name: string;
-
-  /**
-   * Character name in original.
-   */
-  readonly originalName: string;
-}
-
-/**
- * Represents voiced character.
- */
-export interface CharacterVoiced {
-
-  /**
-   * Character id.
-   */
-  readonly id: number;
-
-  /**
-   * The staff alias id.
-   */
-  readonly aliasId: number;
-
-  /**
-   * VN id.
-   */
-  readonly visualNovelId: number;
-
-  /**
-   * Notes.
-   */
-  readonly note: string;
-}
-
-/**
- * Represents character trait.
- */
-export interface CharacterTrait {
-
-  /**
-   * Trait id.
-   */
-  readonly id: number;
-
-  /**
-   * Between 0-2.
-   */
-  readonly spoilerLevel: SpoilerLevel;
-}
-
-/**
- * Represents Novel linked to the character.
- */
-export interface CharacterNovel {
-
-  /**
-   * VN id.
-   */
-  readonly visualNovelId: number;
-
-  /**
-   * Release id.
-   */
-  readonly releaseId: number;
-
-  /**
-   * Spoiler level (0-2).
-   */
-  readonly spoilerLevel: SpoilerLevel;
-
-  /**
-   * Role.
-   */
-  readonly role: Roles;
-}
+import { CharacterGender } from './characterGender';
+import { ImageFlagging } from '../imageFlagging';
+import { CharacterInstance } from './characterInstance';
+import { CharacterNovel } from './characterNovel';
+import { CharacterTrait } from './characterTrait';
+import { CharacterVoiced } from './characterVoiced';
 
 /**
  * Represents character dto.
@@ -198,12 +103,12 @@ export interface Character {
   /**
    * Traits linked to this character.
    */
-  readonly traits?: readonly CharacterTrait[];
+  readonly traits: readonly CharacterTrait[];
 
   /**
    * VNs linked to this character.
    */
-  readonly visualNovels?: readonly CharacterNovel[];
+  readonly visualNovels: readonly CharacterNovel[];
 
   /**
    * Voice actresses that voiced this character, per VN.
@@ -213,5 +118,5 @@ export interface Character {
   /**
    * Instances of this character.
    */
-  readonly instances?: readonly CharacterInstance[];
+  readonly instances: readonly CharacterInstance[];
 }

@@ -1,4 +1,23 @@
-import { ProducerLinks } from '../../utils/types/producerLinks';
+/**
+ * Links of the producer dto.
+ */
+export interface ProducerLinksDto {
+
+  /**
+   * Name of the related article on the English Wikipedia.
+   */
+  readonly wikipedia: string | null;
+
+  /**
+   * Wikidata identifier.
+   */
+  readonly wikidata: string | null;
+
+  /**
+   * Producer's homepage url.
+   */
+  readonly homepage: string | null;
+}
 
 /**
  * Represents related producer to the producer.
@@ -59,7 +78,7 @@ export interface ProducerDto {
   /**
    * Links to external resources.
    */
-  readonly links: ProducerLinks;
+  readonly links: ProducerLinksDto;
 
   /**
    * Alternative names, separated by a newline.

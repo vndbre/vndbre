@@ -10,7 +10,7 @@ export enum ReleaseAnimationType {
 
 export namespace ReleaseAnimationType {
 
-  const TO_READABLE_MAP: Record<ReleaseAnimationType, string> = {
+  const TO_READABLE_MAP: Readonly<Record<ReleaseAnimationType, string>> = {
     [ReleaseAnimationType.NoAnimation]: 'No animations',
     [ReleaseAnimationType.SimpleAnimation]: 'Simple animations',
     [ReleaseAnimationType.SomeFullyAnimated]: 'Some fully animated scenes',
@@ -21,5 +21,7 @@ export namespace ReleaseAnimationType {
    * Converts a certain release animation type to readable equivalent.
    * @param value Type of animation of release.
    */
-  export const toReadable = (value: ReleaseAnimationType): string => TO_READABLE_MAP[value];
+  export function toReadable(value: ReleaseAnimationType): string {
+    return TO_READABLE_MAP[value];
+  }
 }

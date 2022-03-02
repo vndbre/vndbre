@@ -1,6 +1,12 @@
 import { ImageFlaggingDto } from './imageFlaggingDto';
-import { VisualNovelLinks } from '../../utils/types/visualNovelLinks';
-import { VisualNovelLength } from '../../utils/types/visualNovelLength';
+
+export enum VisualNovelLengthDto {
+  VeryShort = 1,
+  Short,
+  Medium,
+  Long,
+  VeryLong,
+}
 
 /** Represents visual novel relation type. */
 export enum RelationTypeDto {
@@ -13,6 +19,32 @@ export enum RelationTypeDto {
   Sequel = 'seq',
   SameSeries = 'ser',
   ParentStory = 'par',
+}
+
+/**
+ * Visual novel links dto.
+ */
+export interface VisualNovelLinksDto {
+
+  /**
+   * The URL-encoded tag used on encubed.
+   */
+  readonly encubed: string;
+
+  /**
+   * The name part of the url on renai.us.
+   */
+  readonly renai: string;
+
+  /**
+   * Name of the related article on the English Wikipedia.
+   */
+  readonly wikipedia: string | null;
+
+  /**
+   * Wikidata identifier.
+   */
+  readonly wikidata: string | null;
 }
 
 /**
@@ -211,7 +243,7 @@ export interface VisualNovelDto {
   /**
    * Length of the game, 1-5.
    */
-  readonly length: VisualNovelLength | null;
+  readonly length: VisualNovelLengthDto | null;
 
   /**
    * Description of the VN.
@@ -221,7 +253,7 @@ export interface VisualNovelDto {
   /**
    * Links to related data.
    */
-  readonly links: VisualNovelLinks;
+  readonly links: VisualNovelLinksDto;
 
   /**
    * HTTP link to the VN image.

@@ -1,5 +1,5 @@
 import { Tag } from '../../models/tag';
-import { TagClassification } from '../../utils/types/tagClassification';
+import { TagClassification } from '../../models/tagClassification';
 import { TagDto } from '../dtos/tagDto';
 
 /**

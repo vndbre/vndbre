@@ -1,7 +1,6 @@
 import React, { VFC, memo, useState, useEffect } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import { visualNovelTabInfo } from '../../utils/constants';
 import cls from './VisualNovelTabs.module.css';
 
 interface Props {
@@ -13,6 +12,14 @@ interface Props {
 }
 
 const FIRST_INDEX = 0;
+
+const visualNovelTabInfo = [
+  { name: 'Overview', path: '' },
+  { name: 'Releases', path: 'releases' },
+  { name: 'Characters', path: 'characters' },
+  { name: 'Relations', path: 'relations' },
+  { name: 'Media', path: 'media' },
+];
 
 /**
  * Calculates initial index for tabs based on route.

@@ -8,5 +8,5 @@ export interface ProducerLinks extends Links {
   /**
    * Producer's homepage url.
    */
-  homepage: string | null;
+  readonly homepage: string | null;
 }

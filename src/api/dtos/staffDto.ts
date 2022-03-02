@@ -1,4 +1,33 @@
-import { StaffLinks } from '../../utils/types/staffLinks';
+/**
+ * Staff links dto.
+ */
+export interface StaffLinksDto {
+
+  /**
+   * Name of the related article on the English Wikipedia.
+   */
+  readonly wikipedia: string | null;
+
+  /**
+   * Wikidata identifier.
+   */
+  readonly wikidata: string | null;
+
+  /**
+   * Twitter account name.
+   */
+  readonly twitter: string | null;
+
+  /**
+   * AniDB creator id.
+   */
+  readonly anidb: string | null;
+
+  /**
+   * Id of pixiv account.
+   */
+  readonly pixiv: string | null;
+}
 
 /**
  * Represents character entry that this staff has voiced.
@@ -85,7 +114,7 @@ export interface StaffDto {
   /**
    * Links to staff's external resources.
    */
-  readonly links?: StaffLinks;
+  readonly links?: StaffLinksDto;
 
   /**
    * Description or notes.

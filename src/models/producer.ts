@@ -1,4 +1,4 @@
-import { ProducerLinks } from '../utils/types/producerLinks';
+import { ProducerLinks } from './producerLinks';
 
 /**
  * Represents related producer to the producer.

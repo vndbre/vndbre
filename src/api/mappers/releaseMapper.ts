@@ -1,79 +1,96 @@
-import { ReleaseProducerDto, ReleaseDto, ReleaseMediaDto } from '../dtos/releaseDto';
-import { Release, ReleaseAnimation, ReleaseMedia, ReleaseProducer } from '../../models/release';
-import { LanguageService } from '../services/languageService';
-import { PlatformService } from '../services/platformService';
+import { ReleaseDto, ReleaseTypeDto, ReleaseVoiceStatusDto } from '../dtos/releaseDto';
+import { Release } from '../../models/releases/release';
+import { Language } from '../../models/language';
+import { Platform } from '../../models/platform';
+import { ReleaseType } from '../../models/releases/releaseType';
+import { ReleaseVoiceStatus } from '../../models/releases/releaseVoiceStatus';
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-const releaseMediaFromDto = (dto: ReleaseMediaDto): ReleaseMedia => ({
-  medium: dto.medium,
-  quantity: dto.qty,
-});
+/** Release mapper. */
+export namespace ReleaseMapper {
+  const TYPE_FROM_DTO_MAP: Readonly<Record<ReleaseTypeDto, ReleaseType>> = {
+    [ReleaseTypeDto.Complete]: ReleaseType.Complete,
+    [ReleaseTypeDto.Partial]: ReleaseType.Partial,
+    [ReleaseTypeDto.Trial]: ReleaseType.Trial,
+  };
 
-/**
- * Maps release animation array into object.
- * @param data Array of data.
- */
-const releaseAnimationFromArray = (data: [number | null, number | null]): ReleaseAnimation => ({
-  storyAnimation: data[0],
-  eroAnimation: data[1],
-});
+  const VOICED_TYPE_FROM_DTO_MAP: Readonly<Record<ReleaseVoiceStatusDto, ReleaseVoiceStatus>> = {
+    [ReleaseVoiceStatusDto.EroVoiced]: ReleaseVoiceStatus.EroVoiced,
+    [ReleaseVoiceStatusDto.FullyVoiced]: ReleaseVoiceStatus.FullyVoiced,
+    [ReleaseVoiceStatusDto.NotVoiced]: ReleaseVoiceStatus.NotVoiced,
+    [ReleaseVoiceStatusDto.PartiallyVoiced]: ReleaseVoiceStatus.PartiallyVoiced,
+  };
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-const releaseProducerFromDto = (dto: ReleaseProducerDto): ReleaseProducer => ({
-  id: dto.id,
-  isDeveloper: dto.developer,
-  name: dto.name,
-  originalName: dto.original,
-  isPublisher: dto.publisher,
-  type: dto.type,
-});
+  /**
+   * Maps release media from dto.
+   * @param dto Dto.
+   */
+  const mapReleaseMediaFromDto = (dto: ReleaseDto['media']): Release['media'] => dto.map(mediaDto => ({
+    medium: mediaDto.medium,
+    quantity: mediaDto.qty,
+  }));
 
-/**
- * Maps minimum age to age rating.
- * @param minAge Minimum age.
- */
-const mapMinAgeToRating = (minAge: number | null): string => {
-  if (minAge === null) {
-    return '';
-  }
+  /**
+   * Maps release animation from dto.
+   * @param dto Dto.
+   */
+  const mapReleaseAnimationFromArray = (dto: ReleaseDto['animation']): Release['animation'] => ({
+    storyAnimation: dto[0],
+    eroAnimation: dto[1],
+  });
 
-  if (minAge === 0) {
-    return 'All ages';
-  }
+  /**
+   * Maps release producer from dto.
+   * @param dto Dto.
+   */
+  const mapReleaseProducerFromDto = (dto: ReleaseDto['producers']): Release['producers'] => dto.map(producerDto => ({
+    id: producerDto.id,
+    isDeveloper: producerDto.developer,
+    name: producerDto.name,
+    originalName: producerDto.original,
+    isPublisher: producerDto.publisher,
+    type: producerDto.type,
+  }));
 
-  return `${minAge}+`;
-};
+  /**
+   * Maps minimum age to age rating.
+   * @param minAge Minimum age.
+   */
+  const mapMinAgeToRating = (minAge: number | null): string => {
+    if (minAge === null) {
+      return '';
+    }
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-export const releaseFromDto = (dto: ReleaseDto): Release => ({
-  id: dto.id,
-  title: dto.title,
-  originalName: dto.original,
-  releasedDate: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
-  type: dto.type,
-  isPatch: dto.patch,
-  isFreeware: dto.freeware,
-  isDoujin: dto.doujin,
-  languages: dto.languages.map(language => LanguageService.toLanguage(language)),
-  website: dto.website,
-  notes: dto.notes,
-  ageRating: mapMinAgeToRating(dto.minage),
-  gtin: dto.gtin,
-  catalog: dto.catalog,
-  platforms: dto.platforms.map(platform => PlatformService.toPlatform(platform)),
-  media: dto.media.map(mediaDto => releaseMediaFromDto(mediaDto)),
-  resolution: dto.resolution,
-  voiced: dto.voiced,
-  animation: releaseAnimationFromArray(dto.animation),
-  visualNovels: [],
-  producers: dto.producers.map(producerDto => releaseProducerFromDto(producerDto)),
-});
+    if (minAge === 0) {
+      return 'All ages';
+    }
+
+    return `${minAge}+`;
+  };
+
+  /**
+   * Maps release from dto.
+   * @param dto Dto.
+   */
+  export const fromDto = (dto: ReleaseDto): Release => ({
+    id: dto.id,
+    title: dto.title,
+    originalName: dto.original,
+    releasedDate: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
+    type: TYPE_FROM_DTO_MAP[dto.type],
+    isPatch: dto.patch,
+    isFreeware: dto.freeware,
+    isDoujin: dto.doujin,
+    languages: dto.languages.map(language => Language.toLanguage(language)),
+    website: dto.website,
+    notes: dto.notes,
+    ageRating: mapMinAgeToRating(dto.minage),
+    gtin: dto.gtin,
+    catalog: dto.catalog,
+    platforms: dto.platforms.map(platform => Platform.toPlatform(platform)),
+    media: mapReleaseMediaFromDto(dto.media),
+    resolution: dto.resolution,
+    voiced: dto.voiced != null ? VOICED_TYPE_FROM_DTO_MAP[dto.voiced] : null,
+    animation: mapReleaseAnimationFromArray(dto.animation),
+    producers: mapReleaseProducerFromDto(dto.producers),
+  });
+}

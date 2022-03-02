@@ -12,19 +12,16 @@ import {
   Tooltip,
   Heading,
 } from '@chakra-ui/react';
-import {
-  Language,
-  LanguageService,
-} from '../../../../api/services/languageService';
-import { PlatformService } from '../../../../api/services/platformService';
+import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
-import { Release } from '../../../../models/release';
+import { Release } from '../../../../models/releases/release';
 import { useReleasesQuery } from '../../queries';
 import { ContentWrapper } from '../../../../components';
-import { ReleaseType } from '../../../../enums/releaseType';
-import { ReleaseService } from '../../../../api/services/releaseService';
+import { ReleaseType } from '../../../../models/releases/releaseType';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { ReleasesService } from '../../../../api/services/releasesService';
+import { Platform } from '../../../../models/platform';
 
 interface ReleaseGroups {
   [language: string]: Release[];
@@ -68,7 +65,7 @@ export const ReleasesPage: VFC = () => {
    * @param releaseType Release type.
    */
   const getReleaseStatusElement = (releaseType: ReleaseType): ReactElement => {
-    const releaseIcon = ReleaseService.getReleaseStatusIcon(releaseType);
+    const releaseIcon = ReleasesService.getReleaseStatusIcon(releaseType);
 
     return (
       <Tooltip label={releaseIcon.label}>
@@ -88,9 +85,9 @@ export const ReleasesPage: VFC = () => {
         <Heading as="h2">
           <AccordionButton>
             <HStack spacing={3} marginRight={3}>
-              <Icon name={LanguageService.getLanguageIcon(language)} />
+              <Icon name={Language.getLanguageIcon(language)} />
               <Text fontWeight="bold" fontSize="sm">
-                {LanguageService.toReadable(language)}
+                {Language.toReadable(language)}
               </Text>
             </HStack>
             <AccordionIcon />
@@ -112,12 +109,12 @@ export const ReleasesPage: VFC = () => {
               <HStack spacing={2}>
                 {release.ageRating && <Text>{release.ageRating}</Text>}
                 {release.platforms.map(platform => {
-                  const icon = PlatformService.getPlatformIcon(platform);
+                  const icon = Platform.getPlatformIcon(platform);
 
                   return (
                     <Tooltip
                       key={platform + String(release.id)}
-                      label={PlatformService.toReadable(platform)}
+                      label={Platform.toReadable(platform)}
                     >
                       <span>
                         <Icon name={icon} />
@@ -127,7 +124,7 @@ export const ReleasesPage: VFC = () => {
                 })}
               </HStack>
               <HStack spacing={2}>
-                {ReleaseService.getReleaseIcons(release).map(releaseIcon => (
+                {ReleasesService.getReleaseIcons(release).map(releaseIcon => (
                   <Tooltip
                     key={releaseIcon.icon + releaseIcon.label}
                     label={releaseIcon.label}

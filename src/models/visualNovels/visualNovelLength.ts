@@ -7,8 +7,8 @@ export enum VisualNovelLength {
   VeryLong,
 }
 
-/** Represents visual novel length. */
-export enum DisplayVisualNovelLength {
+/** Represents visual novel length in readable format. */
+export enum ReadableVisualNovelLength {
   VeryShort = 'Very Short',
   Short = 'Short',
   Medium = 'Medium',

@@ -1,13 +1,12 @@
 import { PaginationDto } from '../dtos/paginationDto';
 import { VisualNovelDto } from '../dtos/visualNovelDto';
-import { http } from '../index';
-import { VisualNovel } from '../../models/visualNovel';
-import { ApiUrls } from '../../utils/types/apiUrls';
+import { ApiProxyEndpoints, http } from '../index';
+import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { PaginationOptions } from '../../models/paginationOptions';
 import { Tag } from '../../models/tag';
 import { SortOptions } from '../../models/sortOptions';
-import { Platform } from './platformService';
-import { Language } from './languageService';
+import { Platform } from '../../models/platform';
+import { Language } from '../../models/language';
 import { Pagination } from '../../models/pagination';
 import { PaginationMapper } from '../mappers/paginationMapper';
 import { VisualNovelMapper } from '../mappers/visualNovelMapper';
@@ -80,7 +79,7 @@ export namespace VisualNovelsService {
    */
   export async function fetchFullVisualNovel(id: VisualNovel['id']): Promise<VisualNovel> {
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiUrls.Vndb, `${QUERY_BASE} (id = ${id})`,
+      ApiProxyEndpoints.Vndb, `${QUERY_BASE} (id = ${id})`,
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items[0];
@@ -92,7 +91,7 @@ export namespace VisualNovelsService {
    */
   export const fetchVisualNovelByIds = async(ids: VisualNovel['id'][]): Promise<VisualNovel[]> => {
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiUrls.Vndb,
+      ApiProxyEndpoints.Vndb,
       `get vn basic,anime,details,relations,tags,stats,screens,staff (id = [${ids}]) {"results": 25}`,
     );
 
@@ -128,17 +127,17 @@ export namespace VisualNovelsService {
     }
 
     if (options.releasedRange != null) {
-      if (options.releasedRange.startDate) {
+      if (options.releasedRange.startDate != null) {
         visualNovelFilters.push(`released >= "${DateService.toISODate(options.releasedRange.startDate)}"`);
       }
 
-      if (options.releasedRange.endDate) {
+      if (options.releasedRange.endDate != null) {
         visualNovelFilters.push(`released <= "${DateService.toISODate(options.releasedRange.endDate)}"`);
       }
     }
 
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiUrls.Vndb,
+      ApiProxyEndpoints.Vndb,
       `${QUERY_BASE} (${visualNovelFilters.join(' and ')}) {${visualNovelOptions.join(', ')}}`,
     );
 

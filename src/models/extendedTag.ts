@@ -1,5 +1,5 @@
 import { Tag } from './tag';
-import { VisualNovelTag } from './visualNovel';
+import { VisualNovelTag } from './visualNovels/visualNovelTag';
 
 /**
  * Represents vn tag with all possible properties.

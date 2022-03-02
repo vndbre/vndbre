@@ -3,11 +3,11 @@ import { Image, Flex } from '@chakra-ui/react';
 import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';
-import { VisualNovelScreenshot } from '../../../../models/visualNovel';
 import { ContentWrapper } from '../../../../components';
 
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { VisualNovelScreenshot } from '../../../../models/visualNovels/visualNovelScreenshot';
 
 /** Media page tab, contains vn screenshots. */
 export const MediaPage: VFC = () => {

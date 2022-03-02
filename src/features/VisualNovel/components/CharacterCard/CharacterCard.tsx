@@ -1,11 +1,10 @@
 import React, { VFC, memo } from 'react';
 import { Heading, Text, Image } from '@chakra-ui/react';
 import { useParams } from 'react-router';
-import { Character } from '../../../../models/character';
+import { Character } from '../../../../models/characters/character';
 import cls from './CharacterCard.module.css';
-import { Roles } from '../../../../utils/types/roles';
-
 import characterPlaceholder from '../../../../assets/person.svg';
+import { CharacterRole } from '../../../../models/characters/characterRole';
 
 interface CharacterCardProps {
 
@@ -32,7 +31,7 @@ export const CharacterCardComponent: VFC<CharacterCardProps> = ({ character }) =
           </Heading>
         </div>
         {
-          role && <Text fontSize="xs">{Roles.toReadable(role)}</Text>
+          role && <Text fontSize="xs">{CharacterRole.toReadable(role)}</Text>
         }
       </div>
     </div>

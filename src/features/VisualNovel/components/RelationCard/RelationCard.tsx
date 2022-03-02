@@ -2,8 +2,7 @@ import React, { memo, VFC } from 'react';
 import { Box, Flex, Grid, GridItem, Heading, Image, Link, Text } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
-import { VisualNovelRelationService } from '../../../../api/services/visualNovelRelationService';
-import { RelationType } from '../../../../models/visualNovel';
+import { VisualNovelRelation } from '../../../../models/visualNovels/visualNovelRelation';
 
 interface RelationCardProps {
 
@@ -17,7 +16,7 @@ interface RelationCardProps {
   readonly isOfficial: boolean;
 
   /** Relation type to show. Example: `Sequel`. */
-  readonly relationType: RelationType;
+  readonly relationType: VisualNovelRelation;
 
   /** Image url. */
   readonly image: string | null;
@@ -51,7 +50,7 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
             <Heading lineHeight="22px" as="h4" size="xs">{title}</Heading>
           </Link>
         </Box>
-        <Text fontSize="xs">{VisualNovelRelationService.toReadable(relationType)}</Text>
+        <Text fontSize="xs">{VisualNovelRelation.toReadable(relationType)}</Text>
       </Flex>
     </GridItem>
   </Grid>

@@ -1,6 +1,6 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { defaultFetchStrategy, defaultStaleTime } from './config';
-import { VisualNovel } from '../../../models/visualNovel';
+import { VisualNovel } from '../../../models/visualNovels/visualNovel';
 import { VisualNovelPaginationOptions, VisualNovelsService } from '../../../api/services/visualNovelsService';
 import { Pagination } from '../../../models/pagination';
 

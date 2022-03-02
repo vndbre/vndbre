@@ -1,52 +1,58 @@
-import { StaffCharacterVoicedDto, StaffVisualNovelDto, StaffDto } from '../dtos/staffDto';
-import { StaffCharacterVoiced, StaffVisualNovel, StaffAlias, Staff } from '../../models/staff';
+import { StaffDto } from '../dtos/staffDto';
+import { Staff } from '../../models/staff';
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-const staffVisualNovelFromDto = (dto: StaffVisualNovelDto): StaffVisualNovel => ({
-  id: dto.id,
-  aliasId: dto.aid,
-  note: dto.note,
-  role: dto.role,
-});
+/** Staff mapper. */
+export namespace StaffMapper {
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-const staffCharacterVoicedFromDto = (dto: StaffCharacterVoicedDto): StaffCharacterVoiced => ({
-  id: dto.id,
-  aliasId: dto.aid,
-  note: dto.note,
-  characterId: dto.cid,
-});
+  /**
+   * Maps visual novel in which staff worked from dto.
+   * @param dto Dto.
+   */
+  const mapStaffVisualNovelFromDto = (dto: StaffDto['vns']): Staff['visualNovels'] => dto?.map(visualNovelDto => ({
+    id: visualNovelDto.id,
+    aliasId: visualNovelDto.aid,
+    note: visualNovelDto.note,
+    role: visualNovelDto.role,
+  })) ?? [];
 
-/**
- * Maps array of arrays of numbers and string to array of objects.
- * @param data Array of arrays.
- */
-const staffAliasesFromArray = (data: [number, string, string][]): StaffAlias[] => data.map(alias => ({
-  aliasId: alias[0],
-  name: alias[1],
-  originalName: alias[2],
-}));
+  /**
+   * Maps staff who voiced a character from dto.
+   * @param dto Dto.
+   */
+  const mapStaffCharacterVoicedFromDto = (dto: StaffDto['voiced']): Staff['voiced'] => dto?.map(staffCharacterVoicedDto => ({
+    id: staffCharacterVoicedDto.id,
+    aliasId: staffCharacterVoicedDto.aid,
+    note: staffCharacterVoicedDto.note,
+    characterId: staffCharacterVoicedDto.cid,
+  })) ?? [];
 
-/**
- * Maps dto into model.
- * @param dto Dto.
- */
-export const staffFromDto = (dto: StaffDto): Staff => ({
-  id: dto.id,
-  name: dto.name,
-  gender: dto.gender,
-  language: dto.language,
-  links: dto.links,
-  description: dto.description,
-  aliases: dto.aliases ? staffAliasesFromArray(dto.aliases) : undefined,
-  mainAlias: dto.main_alias,
-  visualNovels: dto.vns?.map(staffVnDto => staffVisualNovelFromDto(staffVnDto)),
-  voiced: dto.voiced?.map(voicedDto => staffCharacterVoicedFromDto(voicedDto)),
-  originalName: dto.original,
-});
+  /**
+   * Maps staff aliases from dto.
+   * @param dto Dto.
+   */
+  const mapStaffAliasesFromDto = (dto: StaffDto['aliases']): Staff['aliases'] => dto?.map(aliasDto => ({
+    aliasId: aliasDto[0],
+    name: aliasDto[1],
+    originalName: aliasDto[2],
+  })) ?? [];
+
+  /**
+   * Maps staff into from dto.
+   * @param dto Dto.
+   */
+  export function fromDto(dto: StaffDto): Staff {
+    return {
+      id: dto.id,
+      name: dto.name,
+      gender: dto.gender,
+      language: dto.language,
+      links: dto.links ?? null,
+      description: dto.description,
+      aliases: mapStaffAliasesFromDto(dto.aliases),
+      mainAlias: dto.main_alias ?? null,
+      visualNovels: mapStaffVisualNovelFromDto(dto.vns),
+      voiced: mapStaffCharacterVoicedFromDto(dto.voiced),
+      originalName: dto.original,
+    };
+  }
+}
