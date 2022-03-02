@@ -50,10 +50,10 @@ export enum Language {
 interface LanguageInfo {
 
   /** Language's name. */
-  name: string;
+  readonly name: string;
 
   /** Suffix for language icon. */
-  iconSuffix?: string;
+  readonly iconSuffix?: string;
 }
 
 export namespace Language {

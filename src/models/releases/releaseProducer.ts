@@ -6,30 +6,30 @@ export interface ReleaseProducer {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Is developer.
    */
-  isDeveloper: boolean;
+  readonly isDeveloper: boolean;
 
   /**
    * Is publisher.
    */
-  isPublisher: boolean;
+  readonly isPublisher: boolean;
 
   /**
    * Producer name (romaji).
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  originalName: string | null;
+  readonly originalName: string | null;
 
   /**
    * Producer type.
    */
-  type: string;
+  readonly type: string;
 }

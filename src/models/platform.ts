@@ -52,10 +52,10 @@ export enum Platform {
 interface PlatformInfo {
 
   /** Platform's name. */
-  name: string;
+  readonly name: string;
 
   /** Suffix for platform icon. */
-  iconSuffix?: string;
+  readonly iconSuffix?: string;
 }
 
 export namespace Platform {

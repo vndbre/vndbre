@@ -15,12 +15,12 @@ interface ReleaseIcon {
   /**
    * Label of release icon.
    */
-  label: string;
+  readonly label: string;
 
   /**
    * Name of release icon.
    */
-  icon: string;
+  readonly icon: string;
 }
 
 /**

@@ -8,10 +8,10 @@ export interface ReleaseAnimation {
   /**
    * Story scenes animation.
    */
-  storyAnimation: ReleaseAnimationType | null;
+  readonly storyAnimation: ReleaseAnimationType | null;
 
   /**
    * Ero scenes animation.
    */
-  eroAnimation: ReleaseAnimationType | null;
+  readonly eroAnimation: ReleaseAnimationType | null;
 }

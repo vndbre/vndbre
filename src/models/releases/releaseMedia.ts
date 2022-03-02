@@ -6,10 +6,10 @@ export interface ReleaseMedia {
   /**
    * Medium.
    */
-  medium: string;
+  readonly medium: string;
 
   /**
    * Quantity.
    */
-  quantity: number;
+  readonly quantity: number;
 }
