@@ -1,8 +1,9 @@
-import { Box } from '@chakra-ui/react';
 import React, { useCallback, VFC } from 'react';
+import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { LOCAL_STORAGE_SIDEBAR_VISIBILITY } from '../../utils/constants';
 import { useLocalStorage } from '../../utils/useLocalStorage';
 import cls from './DefaultLayout.module.css';
 
@@ -10,7 +11,7 @@ import cls from './DefaultLayout.module.css';
  * Default layout with sidebar and header.
  */
 export const DefaultLayout: VFC = () => {
-  const [isSidebarVisible, setSiderbarVisibility] = useLocalStorage('vndbre:sidebar-visible', true);
+  const [isSidebarVisible, setSiderbarVisibility] = useLocalStorage(LOCAL_STORAGE_SIDEBAR_VISIBILITY, true);
 
   const showSidebar = useCallback(() => setSiderbarVisibility(true), []);
   const hideSidebar = useCallback(() => setSiderbarVisibility(false), []);
