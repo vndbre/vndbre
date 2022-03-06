@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Heading, Link } from '@chakra-ui/react';
+import { Heading, Link, useMediaQuery } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
@@ -15,8 +15,6 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
-
-const CHARACTERS_TO_DISPLAY = 5 as const;
 
 /**
  * Overview tab page.
@@ -136,8 +134,12 @@ export const OverviewPage: FC = () => {
     />
   );
 
+  const [canFit6] = useMediaQuery('(min-width: 1552px)');
+
+  const charactersCount = canFit6 ? 6 : 4;
+
   const charactersBlock = characters && characters.length > 0 && (
-    characters.slice(0, CHARACTERS_TO_DISPLAY).map(character => (
+    characters.slice(0, charactersCount).map(character => (
       <CharacterCard
         key={character.id}
         character={character}
