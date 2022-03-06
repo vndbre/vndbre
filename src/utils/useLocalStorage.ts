@@ -8,8 +8,8 @@ import { useState } from 'react';
 export function useLocalStorage<T>(key: string, initialValue: T): [T, ((value: T) => void)] {
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(() => {
-    const item = window.localStorage.getItem(key);
-    return item ? (JSON.parse(item) as T) : initialValue;
+    const item = localStorage.getItem(key);
+    return item !== null ? (JSON.parse(item) as T) : initialValue;
   });
 
   /**
@@ -18,7 +18,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): [T, ((value: T
    */
   const setValue = (value: T): void => {
     setStoredValue(value);
-    window.localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   };
   return [storedValue, setValue];
 }
