@@ -6,11 +6,13 @@ import {
   AccordionItem,
   AccordionPanel,
   Badge,
+  Flex,
   Grid,
   GridItem,
   Heading,
   HStack,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import { ContentWrapper } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
@@ -59,6 +61,21 @@ export const CharactersPage: VFC = () => {
     return groupedCharacters;
   };
 
+  const [canFit4OrMore, canFitOnly3, canFitOnly2] = useMediaQuery(
+    ['(min-width: 1564px)', '(min-width: 1280px)', '(min-width: 1024px)'],
+  );
+
+  let columnCount = 4;
+  if (canFit4OrMore) {
+    columnCount = 4;
+  } else if (canFitOnly3) {
+    columnCount = 3;
+  } else if (canFitOnly2) {
+    columnCount = 2;
+  } else {
+    columnCount = 1;
+  }
+
   const groupedCharacterElements = data && (
     Object.entries(groupCharacters()).map(([role, characters]) => (
       <AccordionItem key={role}>
@@ -75,7 +92,7 @@ export const CharactersPage: VFC = () => {
           </AccordionButton>
         </Heading>
         <AccordionPanel>
-          <Grid pt="4" templateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
+          <Grid pt="4" templateColumns={`repeat(${columnCount}, minmax(var(--chakra-sizes-72), 1fr))`} gridGap="4">
             {displayCharacterList(characters)}
           </Grid>
         </AccordionPanel>
