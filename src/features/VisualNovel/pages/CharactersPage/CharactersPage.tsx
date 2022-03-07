@@ -6,7 +6,6 @@ import {
   AccordionItem,
   AccordionPanel,
   Badge,
-  Flex,
   Grid,
   GridItem,
   Heading,
@@ -92,7 +91,7 @@ export const CharactersPage: VFC = () => {
           </AccordionButton>
         </Heading>
         <AccordionPanel>
-          <Grid pt="4" templateColumns={`repeat(${columnCount}, minmax(var(--chakra-sizes-72), 1fr))`} gridGap="4">
+          <Grid templateColumns={`repeat(${columnCount}, minmax(var(--chakra-sizes-72), 1fr))`} gridGap="4">
             {displayCharacterList(characters)}
           </Grid>
         </AccordionPanel>
