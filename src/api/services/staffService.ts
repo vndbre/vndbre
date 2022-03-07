@@ -2,7 +2,7 @@ import { ApiProxyEndpoints, http } from '..';
 import { Staff } from '../../models/staff';
 import { PaginationDto } from '../dtos/paginationDto';
 import { StaffDto } from '../dtos/staffDto';
-import { staffFromDto } from '../mappers/staffMapper';
+import { StaffMapper } from '../mappers/staffMapper';
 
 /**
  * Fetches staff by id.
@@ -15,5 +15,5 @@ export const fetchStaff = async(ids: number[]): Promise<Staff[]> => {
     `get staff basic (aid = [${ids}])`,
   );
 
-  return data.data.items.map(dto => staffFromDto(dto));
+  return data.data.items.map(dto => StaffMapper.fromDto(dto));
 };
