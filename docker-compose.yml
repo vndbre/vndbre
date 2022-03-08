@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   vndbre-proxy:
-    image: ghcr.io/vndbre/vndbre-proxy:7b302414371591c4427e760be5b40a4a436d1385
+    image: ghcr.io/vndbre/vndbre-proxy:781cb6b4b7fce1946b291f3b0846c266e0bd2059
     ports:
      - 7878:443
      - 7879:80
