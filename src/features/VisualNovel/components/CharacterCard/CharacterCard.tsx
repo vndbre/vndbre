@@ -1,6 +1,7 @@
 import React, { VFC, memo } from 'react';
-import { Heading, Text, Image } from '@chakra-ui/react';
+import { Heading, Text, Image, Link } from '@chakra-ui/react';
 import { useParams } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { Character } from '../../../../models/characters/character';
 import cls from './CharacterCard.module.css';
 import characterPlaceholder from '../../../../assets/person.svg';
@@ -26,9 +27,11 @@ export const CharacterCardComponent: VFC<CharacterCardProps> = ({ character }) =
       <Image src={character.image} alt={character.name} fallbackSrc={characterPlaceholder} className={cls.image} />
       <div className={cls.container}>
         <div className={cls.info}>
-          <Heading lineHeight="22px" as="h4" size="sm">
-            {character.name}
-          </Heading>
+          <Link as={NavLink} to={`/character/${character.id}`}>
+            <Heading lineHeight="22px" as="h4" size="sm">
+              {character.name}
+            </Heading>
+          </Link>
         </div>
         {
           role && <Text fontSize="xs">{CharacterRole.toReadable(role)}</Text>
