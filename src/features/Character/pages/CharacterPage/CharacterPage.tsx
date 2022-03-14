@@ -10,9 +10,11 @@ import { CharacterGender } from '../../../../models/characters/characterGender';
 import { useTraitsQuery } from '../../queries/trait';
 import { RootTraitTitle } from '../../../../api/services/traitsService';
 import { Trait } from '../../../../models/trait';
+import { useSettingsContext } from '../../../../providers';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
+  const { isNsfwContentAllowed } = useSettingsContext();
   const { id } = useRouteParams<CharacterRouteParams>();
   const { isLoading, data, error } = useCharacterQuery(Number(id));
   const traitsIds = data?.traits ?? [];
@@ -42,6 +44,11 @@ export const CharacterPage: VFC = () => {
     if (traits) {
       const { traits: childTraits, rootTraits } = traits;
       return rootTraits.reduce((acc, cur) => {
+        const isTraitSexual = cur.name === RootTraitTitle.EngagesInSexual || cur.name === RootTraitTitle.SubjectOfSexual;
+        if (isTraitSexual && isNsfwContentAllowed === false) {
+          return acc;
+        }
+
         const relatedTraits = childTraits.filter(trait => trait.rootId === cur.id);
         return { ...acc, [cur.name]: [...acc[cur.name as RootTraitTitle], ...relatedTraits] };
       }, groupedTraits);
