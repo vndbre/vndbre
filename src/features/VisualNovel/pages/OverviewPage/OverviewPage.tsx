@@ -2,14 +2,13 @@ import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
-import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedTagsQuery } from '../../queries';
 import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
-import { ContentWrapper } from '../../../../components';
+import { ContentWrapper, TagBlock } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
