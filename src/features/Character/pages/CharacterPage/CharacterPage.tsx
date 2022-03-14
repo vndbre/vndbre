@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { Box, Container, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, Error, TagBlock } from '../../../../components';
+import { ContentWrapper, Error } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
@@ -8,13 +8,10 @@ import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { CharacterGender } from '../../../../models/characters/characterGender';
 import { useTraitsQuery } from '../../queries/trait';
-import { RootTraitTitle } from '../../../../api/services/traitsService';
-import { Trait } from '../../../../models/trait';
-import { useSettingsContext } from '../../../../providers';
+import { CharacterTraits } from '../../components';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
-  const { isNsfwContentAllowed } = useSettingsContext();
   const { id } = useRouteParams<CharacterRouteParams>();
   const { isLoading, data, error } = useCharacterQuery(Number(id));
   const traitsIds = data?.traits ?? [];
@@ -25,36 +22,6 @@ export const CharacterPage: VFC = () => {
   if (traitsError) {
     return <Error error={traitsError} />;
   }
-
-  /** Groups traits by its root trait. */
-  const groupTraits = (): Record<RootTraitTitle, Trait[]> => {
-    const groupedTraits: Record<RootTraitTitle, Trait[]> = {
-      [RootTraitTitle.Hair]: [],
-      [RootTraitTitle.Eyes]: [],
-      [RootTraitTitle.Body]: [],
-      [RootTraitTitle.Clothes]: [],
-      [RootTraitTitle.Items]: [],
-      [RootTraitTitle.Personality]: [],
-      [RootTraitTitle.Role]: [],
-      [RootTraitTitle.EngagesIn]: [],
-      [RootTraitTitle.SubjectOf]: [],
-      [RootTraitTitle.SubjectOfSexual]: [],
-      [RootTraitTitle.EngagesInSexual]: [],
-    };
-    if (traits) {
-      const { traits: childTraits, rootTraits } = traits;
-      return rootTraits.reduce((acc, cur) => {
-        const isTraitSexual = cur.name === RootTraitTitle.EngagesInSexual || cur.name === RootTraitTitle.SubjectOfSexual;
-        if (isTraitSexual && isNsfwContentAllowed === false) {
-          return acc;
-        }
-
-        const relatedTraits = childTraits.filter(trait => trait.rootId === cur.id);
-        return { ...acc, [cur.name]: [...acc[cur.name as RootTraitTitle], ...relatedTraits] };
-      }, groupedTraits);
-    }
-    return groupedTraits;
-  };
 
   return (
     <ContentWrapper isLoading={isLoading || isTraitsLoading} error={error}>
@@ -125,20 +92,7 @@ export const CharacterPage: VFC = () => {
                 </Box>
                 {data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>}
               </VStack>
-              <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
-                {traits &&
-                  traits.traits.length > 0 &&
-                  Object.entries(groupTraits()).map(
-                    ([rootTraitTitle, childTraits]) => childTraits.length > 0 && (
-                      <TagBlock
-                        isExpandable
-                        key={rootTraitTitle}
-                        title={rootTraitTitle}
-                        tags={childTraits.map(trait => ({ name: trait.name }))}
-                      />
-                    ),
-                  )}
-              </Grid>
+              {traits && <CharacterTraits traits={traits} />}
             </Box>
           </Grid>
         </Container>
