@@ -5,8 +5,10 @@ import { PaginationDto } from '../dtos/paginationDto';
 import { CharacterDto } from '../dtos/characterDto';
 import { PaginationService } from './paginationService';
 import { CharacterMapper } from '../mappers/characterMapper';
+import { PaginationMapper } from '../mappers/paginationMapper';
 
 /**
+ * TODO: (Maximov T.) Add extendable query for searching like in `visualNovelService`.
  * Characters service.
  */
 export namespace CharactersService {
@@ -31,4 +33,16 @@ export namespace CharactersService {
    */
   export const fetchCharactersByVnId = async(vnId: VisualNovel['id']): Promise<Character[]> =>
     (await PaginationService.fetchAllDataById(vnId, fetchCharactersPaginatedByVnId)).map(dto => CharacterMapper.fromDto(dto));
+
+  /**
+   * Fetches character by its id.
+   * @param id Character id.
+   */
+  export const fetchCharacterById = async(id: Character['id']): Promise<Character> => {
+    const { data } = await http.post<PaginationDto<CharacterDto>>(
+      ApiProxyEndpoints.Vndb,
+      `get character basic,details,meas,voiced,traits,vns (id = ${id})`,
+    );
+    return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto).items[0];
+  };
 }
