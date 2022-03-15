@@ -2,22 +2,30 @@ import React, { VFC, memo, useMemo } from 'react';
 import { Grid } from '@chakra-ui/react';
 import { RootTraitTitle } from '../../../../api/services/traitsService';
 import { TagBlock } from '../../../../components';
-import { Trait } from '../../../../models/trait';
-import { TraitsWithRoot } from '../../../../models/traitsWithRoot';
 import { useSettingsContext } from '../../../../providers';
+import { ExtendedTrait } from '../../../../models/extendedTrait';
+import { ExtendedTraitsWithRoot } from '../../../../models/extendedTraitWithRoot';
 
 interface Props {
 
   /** Character traits with its root traits. */
-  readonly traits: TraitsWithRoot;
+  readonly traits: ExtendedTraitsWithRoot;
 }
 
 /** Character traits. */
 const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
-  const { isNsfwContentAllowed } = useSettingsContext();
+  const { isNsfwContentAllowed, spoilerLevel } = useSettingsContext();
+
+  /**
+   * Filters traits by spoiler level.
+   * @param trait Trait to validate.
+   */
+  function traitsFilterPredicate(trait: ExtendedTrait): boolean {
+    return trait.spoilerLevel <= spoilerLevel;
+  }
 
   const groupedTraits = useMemo(() => {
-    const initialGroupedTraits: Record<RootTraitTitle, Trait[]> = {
+    const initialGroupedTraits: Record<RootTraitTitle, ExtendedTrait[]> = {
       [RootTraitTitle.Hair]: [],
       [RootTraitTitle.Eyes]: [],
       [RootTraitTitle.Body]: [],
@@ -50,7 +58,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
             isExpandable
             key={rootTraitTitle}
             title={rootTraitTitle}
-            tags={childTraits.map(trait => ({ name: trait.name }))}
+            tags={childTraits.filter(traitsFilterPredicate).map(trait => ({ name: trait.name }))}
           />
         ),
       )}

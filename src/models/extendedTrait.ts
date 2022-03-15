@@ -1,7 +1,11 @@
-import { CharacterTrait } from './characters/characterTrait';
+import { SpoilerLevel } from './spoilerLevel';
 import { Trait } from './trait';
 
 /**
  * Represents vn tag with all possible properties.
  */
-export interface ExtendedTrait extends Trait, Readonly<Omit<CharacterTrait, 'id'>> {}
+export interface ExtendedTrait extends Trait {
+
+  /** Trait spoiler level. */
+  readonly spoilerLevel: SpoilerLevel;
+}

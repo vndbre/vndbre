@@ -7,7 +7,7 @@ import { CharacterRouteParams } from '../../utils/characterRouteParams';
 import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { CharacterGender } from '../../../../models/characters/characterGender';
-import { useTraitsQuery } from '../../queries/trait';
+import { useExtendedTraitsQuery } from '../../queries/trait';
 import { CharacterTraits } from '../../components';
 
 /** Character page. */
@@ -15,7 +15,7 @@ export const CharacterPage: VFC = () => {
   const { id } = useRouteParams<CharacterRouteParams>();
   const { isLoading, data, error } = useCharacterQuery(Number(id));
   const traitsIds = data?.traits ?? [];
-  const { isLoading: isTraitsLoading, data: traits, error: traitsError } = useTraitsQuery(id, traitsIds, {
+  const { isLoading: isTraitsLoading, data: traitsWithRoot, error: traitsError } = useExtendedTraitsQuery(id, traitsIds, {
     enabled: traitsIds.length > 0,
   });
 
@@ -92,7 +92,7 @@ export const CharacterPage: VFC = () => {
                 </Box>
                 {data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>}
               </VStack>
-              {traits && <CharacterTraits traits={traits} />}
+              {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
             </Box>
           </Grid>
         </Container>
