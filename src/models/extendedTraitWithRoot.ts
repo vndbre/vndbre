@@ -1,12 +1,13 @@
+import { ExtendedTrait } from './extendedTrait';
 import { Trait } from './trait';
 
 /**
  * Describes shape of object that contains traits and its root traits.
  */
-export interface TraitsWithRoot {
+export interface ExtendedTraitsWithRoot {
 
-  /** List of traits. */
-  readonly traits: readonly Trait[];
+  /** List of extended traits. */
+  readonly traits: readonly ExtendedTrait[];
 
   /** List of root traits. */
   readonly rootTraits: readonly Trait[];

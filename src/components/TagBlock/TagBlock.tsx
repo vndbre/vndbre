@@ -61,7 +61,7 @@ export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, 
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
-          <Tag noOfLines={2} key={tag.name + i}>
+          <Tag noOfLines={2} key={`${tag.name + i}`}>
             <Text display="inline">{tag.name}</Text>
             {tag.note && (
               <Text display="inline" color="gray.500">
