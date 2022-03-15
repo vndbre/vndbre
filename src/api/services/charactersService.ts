@@ -41,7 +41,7 @@ export namespace CharactersService {
   export const fetchCharacterById = async(id: Character['id']): Promise<Character> => {
     const { data } = await http.post<PaginationDto<CharacterDto>>(
       ApiProxyEndpoints.Vndb,
-      `get character basic,details,meas,voiced,traits,vns (id = ${id})`,
+      `get character basic,details,meas,instances,voiced,traits,vns (id = ${id})`,
     );
     return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto).items[0];
   };
