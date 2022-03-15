@@ -1,5 +1,4 @@
 import React, { VFC, memo, useMemo } from 'react';
-import { Grid } from '@chakra-ui/react';
 import { RootTraitTitle } from '../../../../api/services/traitsService';
 import { TagBlock } from '../../../../components';
 import { useSettingsContext } from '../../../../providers';
@@ -51,7 +50,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
   }, [traits]);
 
   return (
-    <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
+    <>
       {Object.entries(groupedTraits).map(
         ([rootTraitTitle, childTraits]) => childTraits.length > 0 && (
           <TagBlock
@@ -62,7 +61,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
           />
         ),
       )}
-    </Grid>
+    </>
   );
 };
 

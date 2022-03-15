@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { Box, Container, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, Error } from '../../../../components';
+import { ContentWrapper, Error, TagBlock } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
@@ -22,6 +22,13 @@ export const CharacterPage: VFC = () => {
   if (traitsError) {
     return <Error error={traitsError} />;
   }
+
+  const characterInstances = data && data.instances.length > 0 && (
+    <TagBlock
+      title="Character instances"
+      tags={data.instances.map(instance => ({ name: instance.name, note: instance.originalName }))}
+    />
+  );
 
   return (
     <ContentWrapper isLoading={isLoading || isTraitsLoading} error={error}>
@@ -92,7 +99,10 @@ export const CharacterPage: VFC = () => {
                 </Box>
                 {data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>}
               </VStack>
-              {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+              <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
+                {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+                {characterInstances}
+              </Grid>
             </Box>
           </Grid>
         </Container>
