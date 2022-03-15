@@ -41,7 +41,7 @@ export namespace TraitsService {
       return data;
     };
     const traits = await fetch(ids);
-    const rootIds = Array.from(new Set(traits.map(trait => trait.root_id)));
+    const rootIds = Array.from(new Set(traits.map(trait => trait.root_id).filter(id => id != null)));
     const rootTraits = await fetch(rootIds);
     return {
       traits: traits.map(TraitMapper.fromDto),
