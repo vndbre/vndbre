@@ -9,18 +9,31 @@ import { BBCode } from '../../../../components/BBCode/BBCode';
 import { CharacterGender } from '../../../../models/characters/characterGender';
 import { useExtendedTraitsQuery } from '../../queries/trait';
 import { CharacterTraits } from '../../components';
+import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
+import { CharacterRole } from '../../../../models/characters/characterRole';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
   const { id } = useRouteParams<CharacterRouteParams>();
   const { isLoading, data, error } = useCharacterQuery(Number(id));
+
   const traitsIds = data?.traits ?? [];
   const { isLoading: isTraitsLoading, data: traitsWithRoot, error: traitsError } = useExtendedTraitsQuery(id, traitsIds, {
     enabled: traitsIds.length > 0,
   });
 
+  const visualNovelIds = data?.visualNovels.map(vn => vn.visualNovelId) ?? [];
+  const {
+    isLoading: isVisualNovelsLoading,
+    data: visualNovels, error: visualNovelsError,
+  } = useRelatedVisualNovelsQuery(Number(id), visualNovelIds, { enabled: visualNovelIds.length > 0 });
+
   if (traitsError) {
     return <Error error={traitsError} />;
+  }
+
+  if (visualNovelsError) {
+    return <Error error={visualNovelsError} />;
   }
 
   const characterInstances = data && data.instances.length > 0 && (
@@ -30,8 +43,20 @@ export const CharacterPage: VFC = () => {
     />
   );
 
+  const relatedVisualNovels = data && data.visualNovels.length > 0 && visualNovels && visualNovels.length > 0 && (
+    <TagBlock
+      title="Visual novels"
+      tags={visualNovels.map(vn => ({
+        name: vn.title,
+        note: CharacterRole.toReadable(
+          data.visualNovels.find(characterVn => characterVn.visualNovelId === vn.id)?.role ?? CharacterRole.Appears,
+        ),
+      }))}
+    />
+  );
+
   return (
-    <ContentWrapper isLoading={isLoading || isTraitsLoading} error={error}>
+    <ContentWrapper isLoading={isLoading || isTraitsLoading || isVisualNovelsLoading} error={error}>
       {data && (
         <Container maxW="1440px">
           <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" gap="8" pt="8" mx="auto">
@@ -102,6 +127,7 @@ export const CharacterPage: VFC = () => {
               <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
                 {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
                 {characterInstances}
+                {relatedVisualNovels}
               </Grid>
             </Box>
           </Grid>
