@@ -49,7 +49,7 @@ export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, 
    */
   const handleExpandButtonClick = useCallback(() => {
     setIsExpanded(!isExpanded);
-  }, [isExpandable]);
+  }, [isExpandable, isExpanded]);
 
   return (
     <div>
