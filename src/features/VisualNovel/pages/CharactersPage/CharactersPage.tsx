@@ -61,25 +61,27 @@ export const CharactersPage: VFC = () => {
 
   const groupedCharacterElements = data && (
     Object.entries(groupCharacters()).map(([role, characters]) => (
-      <AccordionItem key={role}>
-        <Heading as="h2">
-          <AccordionButton>
-            <HStack spacing={2}>
-              <Text fontWeight="bold" fontSize="sm">
-                {CharacterRole.toReadable(role as CharacterRole)}
-              </Text>
-              <Badge>{characters.length}</Badge>
-              <AccordionIcon />
-            </HStack>
+      characters.length > 0 && (
+        <AccordionItem key={role}>
+          <Heading as="h2">
+            <AccordionButton>
+              <HStack spacing={2}>
+                <Text fontWeight="bold" fontSize="sm">
+                  {CharacterRole.toReadable(role as CharacterRole)}
+                </Text>
+                <Badge>{characters.length}</Badge>
+                <AccordionIcon />
+              </HStack>
 
-          </AccordionButton>
-        </Heading>
-        <AccordionPanel>
-          <Grid pt="4" templateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
-            {displayCharacterList(characters)}
-          </Grid>
-        </AccordionPanel>
-      </AccordionItem>
+            </AccordionButton>
+          </Heading>
+          <AccordionPanel>
+            <Grid pt="4" templateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
+              {displayCharacterList(characters)}
+            </Grid>
+          </AccordionPanel>
+        </AccordionItem>
+      )
     ))
   );
 
