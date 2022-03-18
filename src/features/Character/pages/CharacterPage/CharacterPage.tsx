@@ -8,7 +8,7 @@ import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { CharacterGender } from '../../../../models/characters/characterGender';
 import { useExtendedTraitsQuery } from '../../queries/trait';
-import { CharacterTraits } from '../../components';
+import { CharacterDetail, CharacterTraits } from '../../components';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CharacterRole } from '../../../../models/characters/characterRole';
 
@@ -86,43 +86,17 @@ export const CharacterPage: VFC = () => {
                 <Box>
                   <VStack alignItems="initial">
                     {data.aliases && (
-                      <Text>
-                        <Text as="span" fontWeight="bold">
-                          Aliases:
-                          {' '}
-                        </Text>
-                        {data.aliases}
-                      </Text>
+                      <CharacterDetail title="Aliases" detail={data.aliases} />
                     )}
                     {data.gender && (
-                      <Text>
-                        <Text as="span" fontWeight="bold">
-                          Gender:
-                          {' '}
-                        </Text>
-                        {CharacterGender.toReadable(data.gender)}
-                      </Text>
+                      <CharacterDetail title="Gender" detail={CharacterGender.toReadable(data.gender)} />
                     )}
                     <HStack spacing="6">
                       {data.height && (
-                        <Text>
-                          <Text as="span" fontWeight="bold">
-                            Height:
-                            {' '}
-                          </Text>
-                          {data.height}
-                          cm
-                        </Text>
+                        <CharacterDetail title="Height" detail={`${data.height}cm`} />
                       )}
                       {data.weight && (
-                        <Text>
-                          <Text as="span" fontWeight="bold">
-                            Weight:
-                            {' '}
-                          </Text>
-                          {data.weight}
-                          kg
-                        </Text>
+                        <CharacterDetail title="Height" detail={`${data.weight}kg`} />
                       )}
                     </HStack>
                   </VStack>
