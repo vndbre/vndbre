@@ -18,15 +18,22 @@ export const CharacterPage: VFC = () => {
   const { isLoading, data, error } = useCharacterQuery(Number(id));
 
   const traitsIds = data?.traits ?? [];
-  const { isLoading: isTraitsLoading, data: traitsWithRoot, error: traitsError } = useExtendedTraitsQuery(id, traitsIds, {
+  const {
+    isLoading: isTraitsLoading,
+    data: traitsWithRoot,
+    error: traitsError,
+  } = useExtendedTraitsQuery(id, traitsIds, {
     enabled: traitsIds.length > 0,
   });
 
   const visualNovelIds = data?.visualNovels.map(vn => vn.visualNovelId) ?? [];
   const {
     isLoading: isVisualNovelsLoading,
-    data: visualNovels, error: visualNovelsError,
-  } = useRelatedVisualNovelsQuery(Number(id), visualNovelIds, { enabled: visualNovelIds.length > 0 });
+    data: visualNovels,
+    error: visualNovelsError,
+  } = useRelatedVisualNovelsQuery(Number(id), visualNovelIds, {
+    enabled: visualNovelIds.length > 0,
+  });
 
   if (traitsError) {
     return <Error error={traitsError} />;
