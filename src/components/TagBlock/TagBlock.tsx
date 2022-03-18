@@ -1,5 +1,6 @@
 import React, { VFC, memo, ReactNode, useState, useCallback } from 'react';
-import { Heading, HStack, IconButton, Tag, Text } from '@chakra-ui/react';
+import { Heading, HStack, IconButton, Link, Tag, Text } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 import { Icon } from '../Icon/Icon';
 
 import cls from './TagBlock.module.css';
@@ -10,6 +11,9 @@ interface TagBlockProps {
    * Array of tags objects.
    */
   readonly tags: {
+
+    /** Link path to entity. */
+    readonly path?: string;
 
     /**
      * Tag content.
@@ -61,8 +65,13 @@ export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, 
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
-          <Tag noOfLines={2} key={`${tag.name + i}`}>
-            <Text display="inline">{tag.name}</Text>
+          <Tag noOfLines={2} key={tag.name + String(i)}>
+            {tag.path ? (
+              <Link as={NavLink} to={tag.path} variant="no-underline">
+                <Text display="inline">{tag.name}</Text>
+              </Link>
+            ) : <Text display="inline">{tag.name}</Text>}
+
             {tag.note && (
               <Text display="inline" color="gray.500">
                 {' '}

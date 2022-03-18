@@ -39,7 +39,11 @@ export const CharacterPage: VFC = () => {
   const characterInstances = data && data.instances.length > 0 && (
     <TagBlock
       title="Character instances"
-      tags={data.instances.map(instance => ({ name: instance.name, note: instance.originalName }))}
+      tags={data.instances.map(instance => ({
+        name: instance.name,
+        note: instance.originalName,
+        path: `/character/${instance.id}`,
+      }))}
     />
   );
 
@@ -51,6 +55,7 @@ export const CharacterPage: VFC = () => {
         note: CharacterRole.toReadable(
           data.visualNovels.find(characterVn => characterVn.visualNovelId === vn.id)?.role ?? CharacterRole.Appears,
         ),
+        path: `/vn/${vn.id}`,
       }))}
     />
   );
@@ -124,12 +129,12 @@ export const CharacterPage: VFC = () => {
                 </Box>
                 {data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>}
               </VStack>
-              <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
-                {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
-                {characterInstances}
-                {relatedVisualNovels}
-              </Grid>
             </Box>
+          </Grid>
+          <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
+            {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+            {characterInstances}
+            {relatedVisualNovels}
           </Grid>
         </Container>
       )}
