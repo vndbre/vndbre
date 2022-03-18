@@ -19,7 +19,6 @@ export interface TagData {
   readonly note?: string | null;
 }
 
-/** Describes shape of component props. */
 interface Props {
 
   /** Tag object. */
