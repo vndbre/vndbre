@@ -18,7 +18,7 @@ const extendTraits = async(
   const extendedTraits = traits.map(
     trait => ({
       ...trait,
-      spoilerLevel: characterTraits.find(ct => ct.id === trait.id)?.spoilerLevel ?? SpoilerLevel.None,
+      spoilerLevel: characterTraits.find(ct => ct.id === trait.id)?.spoilerLevel ?? SpoilerLevel.Major,
     }),
   );
   return {
@@ -30,7 +30,7 @@ const extendTraits = async(
 /**
  * Hook for fetching character traits with its root traits.
  * @param id Trait id for query key.
- * @param characterTraits Trait ids.
+ * @param characterTraits List of character traits.
  * @param options Query options.
  */
 export const useExtendedTraitsQuery = (

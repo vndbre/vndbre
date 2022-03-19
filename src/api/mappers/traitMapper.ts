@@ -4,8 +4,8 @@ import { TraitDto } from '../dtos/traitDto';
 export namespace TraitMapper {
 
   /**
-   * Maps `TraitDto` into `Trait` model.
-   * @param dto `TraitDto`.
+   * Maps trait from dto.
+   * @param dto Trait dto.
    */
   export function fromDto(dto: TraitDto): Trait {
     return {

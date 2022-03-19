@@ -15,9 +15,13 @@ import { CharacterRole } from '../../../../models/characters/characterRole';
 /** Character page. */
 export const CharacterPage: VFC = () => {
   const { id } = useRouteParams<CharacterRouteParams>();
-  const { isLoading, data, error } = useCharacterQuery(Number(id));
+  const {
+    isLoading: isCharacterLoading,
+    data: character,
+    error: characterError,
+  } = useCharacterQuery(Number(id));
 
-  const traitsIds = data?.traits ?? [];
+  const traitsIds = character?.traits ?? [];
   const {
     isLoading: isTraitsLoading,
     data: traitsWithRoot,
@@ -26,7 +30,7 @@ export const CharacterPage: VFC = () => {
     enabled: traitsIds.length > 0,
   });
 
-  const visualNovelIds = data?.visualNovels.map(vn => vn.visualNovelId) ?? [];
+  const visualNovelIds = character?.visualNovels.map(vn => vn.visualNovelId) ?? [];
   const {
     isLoading: isVisualNovelsLoading,
     data: visualNovels,
@@ -43,10 +47,10 @@ export const CharacterPage: VFC = () => {
     return <Error error={visualNovelsError} />;
   }
 
-  const characterInstances = data && data.instances.length > 0 && (
+  const characterInstances = character && character.instances.length > 0 && (
     <TagBlock
       title="Character instances"
-      tags={data.instances.map(instance => ({
+      tags={character.instances.map(instance => ({
         name: instance.name,
         note: instance.originalName,
         path: `/character/${instance.id}`,
@@ -54,13 +58,13 @@ export const CharacterPage: VFC = () => {
     />
   );
 
-  const relatedVisualNovels = data && data.visualNovels.length > 0 && visualNovels && visualNovels.length > 0 && (
+  const relatedVisualNovels = character && character.visualNovels.length > 0 && visualNovels && visualNovels.length > 0 && (
     <TagBlock
       title="Visual novels"
       tags={visualNovels.map(vn => ({
         name: vn.title,
         note: CharacterRole.toReadable(
-          data.visualNovels.find(characterVn => characterVn.visualNovelId === vn.id)?.role ?? CharacterRole.Appears,
+          character.visualNovels.find(characterVn => characterVn.visualNovelId === vn.id)?.role ?? CharacterRole.Appears,
         ),
         path: `/vn/${vn.id}`,
       }))}
@@ -68,12 +72,12 @@ export const CharacterPage: VFC = () => {
   );
 
   return (
-    <ContentWrapper isLoading={isLoading || isTraitsLoading || isVisualNovelsLoading} error={error}>
-      {data && (
-        <Container maxW="1440px">
-          <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" gap="8" pt="8" mx="auto">
+    <ContentWrapper isLoading={isCharacterLoading || isTraitsLoading || isVisualNovelsLoading} error={characterError}>
+      {character && (
+        <Container maxW="1440px" pt="8">
+          <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" gap="8">
             <Image
-              src={data.image ?? undefined}
+              src={character.image ?? undefined}
               fallbackSrc={characterPlaceholder}
               h="auto"
               maxH="80"
@@ -84,31 +88,31 @@ export const CharacterPage: VFC = () => {
               <VStack alignItems="initial" spacing="6">
                 <Box>
                   <Heading as="h1" size="md">
-                    {data.name}
+                    {character.name}
                   </Heading>
                   <Heading as="h2" size="sm" fontWeight="normal">
-                    {data.originalName}
+                    {character.originalName}
                   </Heading>
                 </Box>
                 <Box>
                   <VStack alignItems="initial">
-                    {data.aliases && (
-                      <CharacterDetail title="Aliases" detail={data.aliases} />
+                    {character.aliases && (
+                      <CharacterDetail title="Aliases" detail={character.aliases} />
                     )}
-                    {data.gender && (
-                      <CharacterDetail title="Gender" detail={CharacterGender.toReadable(data.gender)} />
+                    {character.gender && (
+                      <CharacterDetail title="Gender" detail={CharacterGender.toReadable(character.gender)} />
                     )}
                     <HStack spacing="6">
-                      {data.height && (
-                        <CharacterDetail title="Height" detail={`${data.height}cm`} />
+                      {character.height && (
+                        <CharacterDetail title="Height" detail={`${character.height}cm`} />
                       )}
-                      {data.weight && (
-                        <CharacterDetail title="Height" detail={`${data.weight}kg`} />
+                      {character.weight && (
+                        <CharacterDetail title="Height" detail={`${character.weight}kg`} />
                       )}
                     </HStack>
                   </VStack>
                 </Box>
-                {data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>}
+                {character.description ? <BBCode text={character.description} /> : <Text>No description.</Text>}
               </VStack>
             </Box>
           </Grid>
