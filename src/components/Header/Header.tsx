@@ -8,7 +8,7 @@ interface Props {
   /** Whether logo and sidebar toggle button are visible. */
   isLogoVisible: boolean;
 
-  /** Callback to run when the sidebar shows up. */
+  /** Callback to run when the sidebar should show up. */
   onSidebarShow: () => void;
 }
 
