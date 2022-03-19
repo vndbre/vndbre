@@ -47,7 +47,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
       const relatedTraits = childTraits.filter(trait => trait.rootId === cur.id);
       return { ...acc, [cur.name]: [...acc[cur.name as RootTraitTitle], ...relatedTraits] };
     }, initialGroupedTraits);
-  }, [traits]);
+  }, [traits, isNsfwContentAllowed]);
 
   return (
     <>
