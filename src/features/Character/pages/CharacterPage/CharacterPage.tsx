@@ -1,5 +1,5 @@
 import React, { VFC } from 'react';
-import { Box, Container, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
 import { ContentWrapper, Error, TagBlock } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
@@ -74,8 +74,8 @@ export const CharacterPage: VFC = () => {
   return (
     <ContentWrapper isLoading={isCharacterLoading || isTraitsLoading || isVisualNovelsLoading} error={characterError}>
       {character && (
-        <Container maxW="1440px" pt="8">
-          <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" gap="8">
+        <>
+          <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" pt="8" gap="8">
             <Image
               src={character.image ?? undefined}
               fallbackSrc={characterPlaceholder}
@@ -121,7 +121,7 @@ export const CharacterPage: VFC = () => {
             {characterInstances}
             {relatedVisualNovels}
           </Grid>
-        </Container>
+        </>
       )}
     </ContentWrapper>
   );
