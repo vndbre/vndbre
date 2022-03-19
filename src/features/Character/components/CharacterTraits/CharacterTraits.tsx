@@ -1,9 +1,9 @@
 import React, { VFC, memo, useMemo } from 'react';
-import { RootTraitTitle } from '../../../../api/services/traitsService';
 import { TagList } from '../../../../components';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTrait } from '../../../../models/extendedTrait';
 import { ExtendedTraitsWithRoots } from '../../../../models/extendedTraitWithRoots';
+import { RootTraitName } from '../../../../models/rootTraitName';
 
 interface Props {
 
@@ -24,28 +24,28 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
   }
 
   const groupedTraits = useMemo(() => {
-    const initialGroupedTraits: Record<RootTraitTitle, ExtendedTrait[]> = {
-      [RootTraitTitle.Hair]: [],
-      [RootTraitTitle.Eyes]: [],
-      [RootTraitTitle.Body]: [],
-      [RootTraitTitle.Clothes]: [],
-      [RootTraitTitle.Items]: [],
-      [RootTraitTitle.Personality]: [],
-      [RootTraitTitle.Role]: [],
-      [RootTraitTitle.EngagesIn]: [],
-      [RootTraitTitle.SubjectOf]: [],
-      [RootTraitTitle.SubjectOfSexual]: [],
-      [RootTraitTitle.EngagesInSexual]: [],
+    const initialGroupedTraits: Record<RootTraitName, ExtendedTrait[]> = {
+      [RootTraitName.Hair]: [],
+      [RootTraitName.Eyes]: [],
+      [RootTraitName.Body]: [],
+      [RootTraitName.Clothes]: [],
+      [RootTraitName.Items]: [],
+      [RootTraitName.Personality]: [],
+      [RootTraitName.Role]: [],
+      [RootTraitName.EngagesIn]: [],
+      [RootTraitName.SubjectOf]: [],
+      [RootTraitName.SubjectOfSexual]: [],
+      [RootTraitName.EngagesInSexual]: [],
     };
     const { traits: childTraits, rootTraits } = traits;
     return rootTraits.reduce((acc, cur) => {
-      const isTraitSexual = cur.name === RootTraitTitle.EngagesInSexual || cur.name === RootTraitTitle.SubjectOfSexual;
+      const isTraitSexual = cur.name === RootTraitName.EngagesInSexual || cur.name === RootTraitName.SubjectOfSexual;
       if (isTraitSexual && isNsfwContentAllowed === false) {
         return acc;
       }
 
       const relatedTraits = childTraits.filter(trait => trait.rootId === cur.id);
-      return { ...acc, [cur.name]: [...acc[cur.name as RootTraitTitle], ...relatedTraits] };
+      return { ...acc, [cur.name]: [...acc[cur.name as RootTraitName], ...relatedTraits] };
     }, initialGroupedTraits);
   }, [traits, isNsfwContentAllowed]);
 

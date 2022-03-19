@@ -4,21 +4,6 @@ import { TraitsWithRoots } from '../../models/traitsWithRoots';
 import { TraitDto } from '../dtos/traitDto';
 import { TraitMapper } from '../mappers/traitMapper';
 
-/** Titles of main traits. */
-export enum RootTraitTitle {
-  Eyes = 'Eyes',
-  Hair = 'Hair',
-  Body = 'Body',
-  Clothes = 'Clothes',
-  Items = 'Items',
-  Personality = 'Personality',
-  Role = 'Role',
-  EngagesIn = 'Engages in',
-  SubjectOf = 'Subject of',
-  EngagesInSexual = 'Engages in (Sexual)',
-  SubjectOfSexual = 'Subject of (Sexual)',
-}
-
 /**
  * Traits service.
  */
