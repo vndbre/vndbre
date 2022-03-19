@@ -1,6 +1,7 @@
 import React, { VFC } from 'react';
 import { RouteObject, useRoutes } from 'react-router';
 import { Navigate } from 'react-router-dom';
+import { searchRoutes } from '../features/Search/routes';
 import { visualNovelRoutes } from '../features/VisualNovel/routes';
 import { DefaultLayout } from '../layouts/DefaultLayout/DefaultLayout';
 
@@ -24,6 +25,7 @@ const routes: RouteObject[] = [
         element: <Navigate to="/vn/7/" />,
       },
       ...visualNovelRoutes,
+      ...searchRoutes,
     ],
   },
 ];
