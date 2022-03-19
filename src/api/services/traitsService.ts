@@ -1,6 +1,6 @@
 import { ApiProxyEndpoints, http } from '..';
 import { Trait } from '../../models/trait';
-import { TraitsWithRoot } from '../../models/traitsWithRoot';
+import { TraitsWithRoots } from '../../models/traitsWithRoots';
 import { TraitDto } from '../dtos/traitDto';
 import { TraitMapper } from '../mappers/traitMapper';
 
@@ -28,7 +28,7 @@ export namespace TraitsService {
    * Fetches traits by given array of ids.
    * @param ids List of ids.
    */
-  export async function fetchTraits(ids: readonly Trait['id'][]): Promise<TraitsWithRoot> {
+  export async function fetchTraits(ids: readonly Trait['id'][]): Promise<TraitsWithRoots> {
     /**
      * Fetches traits by its ids.
      * @param traitIds List of traits ids.

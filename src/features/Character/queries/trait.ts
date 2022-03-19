@@ -2,9 +2,9 @@ import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { TraitsService } from '../../../api/services/traitsService';
 import { CharacterTrait } from '../../../models/characters/characterTrait';
-import { TraitsWithRoot } from '../../../models/traitsWithRoot';
+import { TraitsWithRoots } from '../../../models/traitsWithRoots';
 import { SpoilerLevel } from '../../../models/spoilerLevel';
-import { ExtendedTraitsWithRoot } from '../../../models/extendedTraitWithRoot';
+import { ExtendedTraitsWithRoots } from '../../../models/extendedTraitWithRoots';
 
 /**
  * Extends root traits with spoiler level.
@@ -12,11 +12,14 @@ import { ExtendedTraitsWithRoot } from '../../../models/extendedTraitWithRoot';
  */
 const extendTraits = async(
   characterTraits: readonly CharacterTrait[],
-  traitsWithRoot: Promise<TraitsWithRoot>,
-): Promise<ExtendedTraitsWithRoot> => {
+  traitsWithRoot: Promise<TraitsWithRoots>,
+): Promise<ExtendedTraitsWithRoots> => {
   const { traits, rootTraits } = await traitsWithRoot;
   const extendedTraits = traits.map(
-    trait => ({ ...trait, spoilerLevel: characterTraits.find(ct => ct.id === trait.id)?.spoilerLevel ?? SpoilerLevel.None }),
+    trait => ({
+      ...trait,
+      spoilerLevel: characterTraits.find(ct => ct.id === trait.id)?.spoilerLevel ?? SpoilerLevel.None,
+    }),
   );
   return {
     rootTraits,
@@ -33,8 +36,8 @@ const extendTraits = async(
 export const useExtendedTraitsQuery = (
   id: string,
   characterTraits: readonly CharacterTrait[],
-  options?: QueryObserverOptions<ExtendedTraitsWithRoot, Error>,
-): UseQueryResult<ExtendedTraitsWithRoot, Error> =>
+  options?: QueryObserverOptions<ExtendedTraitsWithRoots, Error>,
+): UseQueryResult<ExtendedTraitsWithRoots, Error> =>
   useQuery(
     ['traits', id],
     () => extendTraits(characterTraits, TraitsService.fetchTraits(characterTraits.map(ct => ct.id))),
