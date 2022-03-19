@@ -31,7 +31,7 @@ const PaginatorInputComponent: VFC<Props> = ({ onChange }) => {
 
     event.target.value = '';
     setIsActive(false);
-  }, []);
+  }, [onChange]);
 
   /**
    * Handle key down.
@@ -55,8 +55,8 @@ const PaginatorInputComponent: VFC<Props> = ({ onChange }) => {
     return (
       <Input
         ref={focusOnRender}
-        onBlur={e => handleInputBlur(e)}
-        onKeyDown={e => handleKeyDown(e)}
+        onBlur={handleInputBlur}
+        onKeyDown={handleKeyDown}
         type="number"
         w={16}
         h={12}
@@ -70,7 +70,7 @@ const PaginatorInputComponent: VFC<Props> = ({ onChange }) => {
   }
   return (
     <IconButton
-      onClick={() => handleActiveClick()}
+      onClick={handleActiveClick}
       aria-label="Report"
       icon={<Icon name="carbon:overflow-menu-horizontal" />}
       colorScheme="gray"
