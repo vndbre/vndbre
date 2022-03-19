@@ -1,5 +1,5 @@
 import React, { VFC, memo } from 'react';
-import { Link, Tag, Text } from '@chakra-ui/react';
+import { Link, Tag as ChakraTag, Text } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 
 /** Describes shape of tag to show. */
@@ -25,9 +25,9 @@ interface Props {
   readonly tag: TagData;
 }
 
-/** Custom tag component. */
-const CustomTagComponent: VFC<Props> = ({ tag }) => (
-  <Tag noOfLines={2}>
+/** Tag component based on Chakra UI design. */
+const TagComponent: VFC<Props> = ({ tag }) => (
+  <ChakraTag noOfLines={2}>
     {tag.path ? (
       <Link as={NavLink} to={tag.path} variant="no-underline">
         <Text display="inline">{tag.name}</Text>
@@ -40,7 +40,7 @@ const CustomTagComponent: VFC<Props> = ({ tag }) => (
         {tag.note}
       </Text>
     )}
-  </Tag>
+  </ChakraTag>
 );
 
-export const CustomTag = memo(CustomTagComponent);
+export const Tag = memo(TagComponent);

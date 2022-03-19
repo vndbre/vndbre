@@ -1,6 +1,6 @@
 import React, { VFC, memo, ReactNode, useState, useCallback } from 'react';
 import { Heading, HStack, IconButton, Text } from '@chakra-ui/react';
-import { CustomTag, TagData } from '../CustomTag/CustomTag';
+import { Tag, TagData } from '../Tag/Tag';
 import { Icon } from '../Icon/Icon';
 
 import cls from './TagBlock.module.css';
@@ -51,7 +51,7 @@ export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, 
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
-          <CustomTag key={tag.name + String(i)} tag={tag} />
+          <Tag key={tag.name + String(i)} tag={tag} />
         ))}
         {isExpandable && tags.length > 10 && (
           <IconButton

@@ -3,5 +3,5 @@ export { Loading } from './Loading/Loading';
 export { Error } from './Error/Error';
 export { ContentWrapper } from './ContentWrapper/ContentWrapper';
 export { ImagePreviewDialog } from './ImagePreviewDialog/ImagePreviewDialog';
-export { CustomTag } from './CustomTag/CustomTag';
+export { Tag } from './Tag/Tag';
 export { TagBlock } from './TagBlock/TagBlock';
