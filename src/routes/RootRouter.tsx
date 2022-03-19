@@ -6,8 +6,7 @@ import { visualNovelRoutes } from '../features/VisualNovel/routes';
 import { DefaultLayout } from '../layouts/DefaultLayout/DefaultLayout';
 
 /**
- * Creates root router for app navigation.
- * @param isUserLoggedIn Is current user logged in or not.
+ * Root router for app navigation.
  */
 const routes: RouteObject[] = [
   {

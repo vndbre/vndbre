@@ -6,46 +6,48 @@ import { PaginatorButton } from './PaginatorButton';
 interface Props {
 
   /** Page count. */
-  count: number;
+  readonly count: number;
 
   /** Current page number. */
-  currentPage: number;
+  readonly currentPage: number;
 
   /** Change callback. */
-  onChange: (pageNumber: number) => void;
+  readonly onChange: (pageNumber: number) => void;
 
   /**
    * How many items would be visible from edges when close to edge,
    * and how many items would be visible from sides of middle.
    */
-  edgeCount?: number;
+  readonly edgeCount?: number;
 }
 
 /**
  * Paginator component.
  */
 const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCount = 2 }) => {
-  let leftButtons: number[] = [];
-  let middleButtons: number[] = [];
-  let rightButtons: number[] = [];
+  /** Get three arrays of pages. */
+  const getButtons = (): [number[], number[], number[]] => {
+    if (currentPage <= edgeCount + 2) {
+      const leftEdgePages = Array.from({ length: currentPage + edgeCount }).map((_, i) => i + 1);
 
-  if (currentPage <= edgeCount + 2) {
-    leftButtons = Array.from({ length: currentPage + edgeCount }).map((_, i) => i + 1);
-    rightButtons = [count];
-  } else {
-    leftButtons = [1];
+      return [leftEdgePages, [], [count]];
+    }
+    const leftEdgePages = [1];
 
     if (currentPage >= count - edgeCount - 1) {
-      rightButtons = Array.from({ length: count - currentPage + edgeCount + 1 }).map((_, i) => count - i)
+      const rightEdgePages = Array.from({ length: count - currentPage + edgeCount + 1 }).map((_, i) => count - i)
         .reverse();
-    } else {
-      middleButtons = Array.from({ length: 1 + edgeCount * 2 }).map((_, i) => i + (currentPage - edgeCount));
-      rightButtons = [count];
+      return [leftEdgePages, [], rightEdgePages];
     }
-  }
 
-  const isMiddleButtonsVisible = middleButtons.length > 0;
-  const isRightButtonsVisible = rightButtons.length > 0;
+    const middlePages = Array.from({ length: 1 + edgeCount * 2 }).map((_, i) => i + (currentPage - edgeCount));
+    return [leftEdgePages, middlePages, [count]];
+  };
+
+  const [leftEdgePages, middlePages, rightEdgePages] = getButtons();
+
+  const isMiddlePagesVisible = middlePages.length > 0;
+  const isRightEdgePagesVisible = rightEdgePages.length > 0;
 
   /**
    * Handle page click.
@@ -60,23 +62,23 @@ const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCoun
       display="flex"
       gridGap={2}
     >
-      {leftButtons.map(page => (
+      {leftEdgePages.map(page => (
         <PaginatorButton
           key={page}
-          active={page === currentPage}
+          isActive={page === currentPage}
           onClick={() => handlePageClick(page)}
         >
           {page}
         </PaginatorButton>
       ))}
 
-      {isMiddleButtonsVisible && (
+      {isMiddlePagesVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {middleButtons.map(page => (
+          {middlePages.map(page => (
             <PaginatorButton
               key={page}
-              active={page === currentPage}
+              isActive={page === currentPage}
               onClick={() => handlePageClick(page)}
             >
               {page}
@@ -85,13 +87,13 @@ const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCoun
         </>
       )}
 
-      {isRightButtonsVisible && (
+      {isRightEdgePagesVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {rightButtons.map(page => (
+          {rightEdgePages.map(page => (
             <PaginatorButton
               key={page}
-              active={page === currentPage}
+              isActive={page === currentPage}
               onClick={() => handlePageClick(page)}
             >
               {page}

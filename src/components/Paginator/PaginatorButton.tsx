@@ -7,7 +7,7 @@ interface Props {
   readonly children: ReactNode;
 
   /** Whether button is active. */
-  readonly active?: boolean;
+  readonly isActive?: boolean;
 
   /** Click handler. */
   readonly onClick?: MouseEventHandler;
@@ -16,15 +16,15 @@ interface Props {
 /**
  * Paginator button component.
  */
-const PaginatorButtonComponent: VFC<Props> = ({ children, active = false, onClick }) => (
+const PaginatorButtonComponent: VFC<Props> = ({ children, isActive = false, onClick }) => (
   <Button
     onClick={onClick}
-    disabled={active}
+    disabled={isActive}
     _disabled={{
       opacity: 1,
       cursor: 'default',
     }}
-    colorScheme={active ? 'orange' : 'gray'}
+    colorScheme={isActive ? 'orange' : 'gray'}
     p={3}
     minW={12}
     borderRadius={4}

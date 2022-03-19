@@ -5,7 +5,7 @@ import { Icon } from '../Icon/Icon';
 interface Props {
 
   /** Change callback. */
-  onChange: (pageNumber: number) => void;
+  readonly onChange: (pageNumber: number) => void;
 }
 
 /**
