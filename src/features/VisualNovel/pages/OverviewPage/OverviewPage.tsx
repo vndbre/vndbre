@@ -8,7 +8,7 @@ import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
-import { ContentWrapper, TagBlock } from '../../../../components';
+import { ContentWrapper, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
@@ -90,7 +90,7 @@ export const OverviewPage: FC = () => {
 
   const publishersBlock = visualNovel?.languages.map(key => (
     publishers && publishers[key].length > 0 && (
-      <TagBlock
+      <TagList
         key={key}
         title="Publisher"
         titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
@@ -113,7 +113,7 @@ export const OverviewPage: FC = () => {
 
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
-      <TagBlock
+      <TagList
         key={key}
         title={StaffRole.getStaffRoleInfo(key as StaffRole).title}
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
@@ -128,7 +128,7 @@ export const OverviewPage: FC = () => {
   ));
 
   const tagsBlock = tags && tags.length > 0 && (
-    <TagBlock
+    <TagList
       title="Tags"
       tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
       isExpandable
@@ -150,9 +150,9 @@ export const OverviewPage: FC = () => {
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
           <div className={cls.sidebar}>
             {visualNovel?.length && (
-              <TagBlock title="Game Length" tags={[{ name: visualNovel.length }]} />
+              <TagList title="Game Length" tags={[{ name: visualNovel.length }]} />
             )}
-            <TagBlock
+            <TagList
               title="Developers"
               tags={developers.map(dev => ({ name: dev }))}
             />

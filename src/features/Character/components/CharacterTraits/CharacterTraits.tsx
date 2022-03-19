@@ -1,6 +1,6 @@
 import React, { VFC, memo, useMemo } from 'react';
 import { RootTraitTitle } from '../../../../api/services/traitsService';
-import { TagBlock } from '../../../../components';
+import { TagList } from '../../../../components';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTrait } from '../../../../models/extendedTrait';
 import { ExtendedTraitsWithRoots } from '../../../../models/extendedTraitWithRoots';
@@ -53,7 +53,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
     <>
       {Object.entries(groupedTraits).map(
         ([rootTraitTitle, childTraits]) => childTraits.length > 0 && (
-          <TagBlock
+          <TagList
             isExpandable
             key={rootTraitTitle}
             title={rootTraitTitle}

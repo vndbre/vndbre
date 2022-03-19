@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { Box, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, Error, TagBlock } from '../../../../components';
+import { ContentWrapper, Error, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
@@ -48,7 +48,7 @@ export const CharacterPage: VFC = () => {
   }
 
   const characterInstances = character && character.instances.length > 0 && (
-    <TagBlock
+    <TagList
       title="Character instances"
       tags={character.instances.map(instance => ({
         name: instance.name,
@@ -59,7 +59,7 @@ export const CharacterPage: VFC = () => {
   );
 
   const relatedVisualNovels = character && character.visualNovels.length > 0 && visualNovels && visualNovels.length > 0 && (
-    <TagBlock
+    <TagList
       title="Visual novels"
       tags={visualNovels.map(vn => ({
         name: vn.title,

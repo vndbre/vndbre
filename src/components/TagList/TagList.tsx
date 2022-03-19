@@ -3,9 +3,9 @@ import { Heading, HStack, IconButton, Text } from '@chakra-ui/react';
 import { Tag, TagData } from '../Tag/Tag';
 import { Icon } from '../Icon/Icon';
 
-import cls from './TagBlock.module.css';
+import cls from './TagList.module.css';
 
-interface TagBlockProps {
+interface TagListProps {
 
   /**
    * Array of tags objects.
@@ -29,9 +29,9 @@ interface TagBlockProps {
 }
 
 /**
- * Tag block component for tag data.
+ * Tag list component.
  */
-export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, isExpandable }) => {
+export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, isExpandable }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   /**
@@ -70,4 +70,4 @@ export const TagBlockComponent: VFC<TagBlockProps> = ({ title, titleIcon, tags, 
   );
 };
 
-export const TagBlock = memo(TagBlockComponent);
+export const TagList = memo(TagListComponent);
