@@ -60,20 +60,23 @@ export const CharactersPage: VFC = () => {
     return groupedCharacters;
   };
 
-  const [canFit4OrMore, canFitOnly3, canFitOnly2] = useMediaQuery(
-    ['(min-width: 1564px)', '(min-width: 1280px)', '(min-width: 1024px)'],
-  );
+  /** Calculates character column count. */
+  const getCharactersColumnCount = (): number => {
+    const [canFit4OrMore, canFitOnly3, canFitOnly2] = useMediaQuery(
+      ['(min-width: 1564px)', '(min-width: 1280px)', '(min-width: 1024px)'],
+    );
 
-  let columnCount = 4;
-  if (canFit4OrMore) {
-    columnCount = 4;
-  } else if (canFitOnly3) {
-    columnCount = 3;
-  } else if (canFitOnly2) {
-    columnCount = 2;
-  } else {
-    columnCount = 1;
-  }
+    if (canFit4OrMore) {
+      return 4;
+    }
+    if (canFitOnly3) {
+      return 3;
+    }
+    if (canFitOnly2) {
+      return 2;
+    }
+    return 1;
+  };
 
   const groupedCharacterElements = data && (
     Object.entries(groupCharacters()).map(([role, characters]) => (
@@ -91,7 +94,7 @@ export const CharactersPage: VFC = () => {
           </AccordionButton>
         </Heading>
         <AccordionPanel>
-          <Grid templateColumns={`repeat(${columnCount}, minmax(var(--chakra-sizes-72), 1fr))`} gridGap="4">
+          <Grid templateColumns={`repeat(${getCharactersColumnCount()}, minmax(var(--chakra-sizes-72), 1fr))`} gridGap="4">
             {displayCharacterList(characters)}
           </Grid>
         </AccordionPanel>
