@@ -8,19 +8,19 @@ interface Props {
   /** Whether logo and sidebar toggle button are visible. */
   isLogoVisible: boolean;
 
-  /** Show sidebar. */
-  onSiderbarShow: () => void;
+  /** Callback to run when the sidebar shows up. */
+  onSidebarShow: () => void;
 }
 
 /**
- * TODO: Implement header funtionality.
+ * TODO: Implement header functionality.
  */
-export const Header: VFC<Props> = ({ isLogoVisible, onSiderbarShow }) => (
+export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => (
   <header className={cls.header}>
     {isLogoVisible && (
       <HStack justifyContent="space-between" alignItems="center">
         <IconButton
-          onClick={onSiderbarShow}
+          onClick={onSidebarShow}
           aria-label="Toggle sidebar"
           variant="ghost"
           colorScheme="gray"

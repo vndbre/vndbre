@@ -7,19 +7,19 @@ import { Icon } from '../Icon/Icon';
 
 interface Props {
 
-  /** Envoken on sidebar visibility toggle. */
-  onSiderbarHide: () => void;
+  /** Callback to run when the sidebar hides. */
+  onSidebarHide: () => void;
 }
 
 /**
  * Sidebar.
  */
-export const Sidebar: VFC<Props> = ({ onSiderbarHide }) => (
+export const Sidebar: VFC<Props> = ({ onSidebarHide }) => (
   <aside className={cls.sidebar}>
     <HStack className={cls.logo} justifyContent="space-between" alignItems="center" flexShrink={0} height={16}>
       <Heading as="h2" size="md">vndbre</Heading>
       <IconButton
-        onClick={onSiderbarHide}
+        onClick={onSidebarHide}
         aria-label="Toggle sidebar"
         variant="ghost"
         colorScheme="gray"
