@@ -51,16 +51,16 @@ export interface VisualNovelPaginationOptions extends PaginationOptions {
   };
 
   /** Platforms. */
-  readonly platforms?: Platform[];
+  readonly platforms?: readonly Platform[];
 
   /** Languages. */
-  readonly languages?: Language[];
+  readonly languages?: readonly Language[];
 
   /** Original languages. */
-  readonly originalLanguages?: Language[];
+  readonly originalLanguages?: readonly Language[];
 
   /** Tags. */
-  readonly tags?: Tag['id'][];
+  readonly tags?: readonly Tag['id'][];
 
   /** Sorting field. */
   readonly sort?: SortOptions<VisualNovelSortField>;
