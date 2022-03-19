@@ -11,6 +11,25 @@ interface Props extends FormControlProps, Omit<SelectProps<SelectOption, true, G
   readonly label: string;
 }
 
+const customMultiSelectComponents = {
+
+  /** Removes default dropdown indicator. */
+  DropdownIndicator: () => null,
+
+  /** Removes default indicator separator. */
+  IndicatorSeparator: () => null,
+};
+
+const customMultiSelectChakraStyles = {
+
+  /** Sets styles for tag components inside multi select. */
+  multiValue: (provided: CSSObject) => ({
+    ...provided,
+    background: 'gray.200',
+    borderRadius: 'base',
+  }),
+};
+
 /**
  * Custom multi select based on Select component from `chakra-react-select`.
  */
@@ -24,25 +43,6 @@ const MultiSelectComponent: VFC<Props> = ({ control, name, label, rules, compone
     rules,
   });
 
-  const customComponents = {
-
-    /** Removes default dropdown indicator. */
-    DropdownIndicator: () => null,
-
-    /** Removes default indicator separator. */
-    IndicatorSeparator: () => null,
-  };
-
-  const customChakraStyles = {
-
-    /** Sets styles for tag components inside multi select. */
-    multiValue: (provided: CSSObject) => ({
-      ...provided,
-      background: 'gray.200',
-      borderRadius: 'base',
-    }),
-  };
-
   return (
     <FormControl isInvalid={invalid} id={name}>
       <FormLabel>{label}</FormLabel>
@@ -53,8 +53,8 @@ const MultiSelectComponent: VFC<Props> = ({ control, name, label, rules, compone
         onChange={onChange}
         onBlur={onBlur}
         value={value}
-        components={{ ...customComponents, ...components }}
-        chakraStyles={{ ...customChakraStyles, ...chakraStyles }}
+        components={{ ...customMultiSelectComponents, ...components }}
+        chakraStyles={{ ...customMultiSelectChakraStyles, ...chakraStyles }}
         {...props}
       />
       <FormErrorMessage>{error?.message}</FormErrorMessage>
