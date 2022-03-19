@@ -3,12 +3,12 @@ import { RootTraitTitle } from '../../../../api/services/traitsService';
 import { TagBlock } from '../../../../components';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTrait } from '../../../../models/extendedTrait';
-import { ExtendedTraitsWithRoot } from '../../../../models/extendedTraitWithRoot';
+import { ExtendedTraitsWithRoots } from '../../../../models/extendedTraitWithRoots';
 
 interface Props {
 
   /** Character traits with its root traits. */
-  readonly traits: ExtendedTraitsWithRoot;
+  readonly traits: ExtendedTraitsWithRoots;
 }
 
 /** Character traits. */

@@ -3,7 +3,7 @@ import { Trait } from './trait';
 /**
  * Describes shape of object that contains traits and its root traits.
  */
-export interface TraitsWithRoot {
+export interface TraitsWithRoots {
 
   /** List of traits. */
   readonly traits: readonly Trait[];
