@@ -45,9 +45,9 @@ const languageOptions: SelectOption[] = Language.getSortedLanguages().map(
   }),
 );
 
-const languageSelectCustomComponents = {
+const languageMultiSelectCustomComponents = {
 
-  /** Custom chakra option component for languages. */
+  /** Custom chakra option component for multi select with languages. */
   Option: ({ children, ...props }: OptionProps<SelectOption, true, GroupBase<SelectOption>>) => (
     <chakraComponents.Option {...props}>
       {props.data.icon && <Icon name={props.data.icon} style={{ marginRight: 10 }} />}
@@ -55,7 +55,7 @@ const languageSelectCustomComponents = {
     </chakraComponents.Option>
   ),
 
-  /** Custom chakra multi value container component for languages. */
+  /** Custom chakra tag component for multi select with languages. */
   MultiValueContainer: ({
     children,
     ...props
@@ -121,7 +121,7 @@ export const VisualNovelSearchForm: VFC = () => {
             options={languageOptions}
             placeholder="Any"
             closeMenuOnSelect={false}
-            components={languageSelectCustomComponents}
+            components={languageMultiSelectCustomComponents}
           />
 
           <MultiSelect
@@ -131,7 +131,7 @@ export const VisualNovelSearchForm: VFC = () => {
             options={languageOptions}
             placeholder="Any"
             closeMenuOnSelect={false}
-            components={languageSelectCustomComponents}
+            components={languageMultiSelectCustomComponents}
           />
 
           <MultiSelect
