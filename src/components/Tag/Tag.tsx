@@ -28,13 +28,13 @@ interface Props {
 /** Tag component based on Chakra UI design. */
 const TagComponent: VFC<Props> = ({ tag }) => (
   <ChakraTag noOfLines={2}>
-    {tag.path ? (
+    {tag.path != null ? (
       <Link as={NavLink} to={tag.path} variant="no-underline">
         <Text display="inline">{tag.name}</Text>
       </Link>
     ) : <Text display="inline">{tag.name}</Text>}
 
-    {tag.note && (
+    {tag.note != null && (
       <Text display="inline" color="gray.500">
         {' '}
         {tag.note}

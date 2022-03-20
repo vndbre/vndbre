@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { CharactersService } from '../../../api/services/charactersService';
 import { Character } from '../../../models/characters/character';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
@@ -16,7 +15,5 @@ export const useCharactersQuery = (
   useQuery(['characters', id],
     () => CharactersService.fetchCharactersByVnId(id),
     {
-      staleTime: defaultStaleTime,
-      ...defaultFetchStrategy,
       ...options,
     });

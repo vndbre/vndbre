@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { TraitsService } from '../../../api/services/traitsService';
 import { CharacterTrait } from '../../../models/characters/characterTrait';
 import { TraitsWithRoots } from '../../../models/traitsWithRoots';
@@ -41,5 +40,5 @@ export const useExtendedTraitsQuery = (
   useQuery(
     ['traits', id],
     () => extendTraits(characterTraits, TraitsService.fetchTraits(characterTraits.map(ct => ct.id))),
-    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options },
+    { ...options },
   );

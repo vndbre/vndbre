@@ -1,7 +1,15 @@
 import { QueryClient } from 'react-query';
 import axios, { AxiosInstance } from 'axios';
+import { defaultFetchStrategy, defaultStaleTime } from './globalConfig';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: defaultStaleTime,
+      ...defaultFetchStrategy,
+    },
+  },
+});
 
 /**
  * Configured axios instance.

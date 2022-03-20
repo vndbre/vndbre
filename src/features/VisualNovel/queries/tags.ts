@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { ExtendedTag } from '../../../models/extendedTag';
 import { Tag } from '../../../models/tag';
 import { TagsService } from '../../../api/services/tagsService';
@@ -12,7 +11,7 @@ import { VisualNovelTag } from '../../../models/visualNovels/visualNovelTag';
  * @param options Query options.
  */
 export const useTagsQuery = (id: string, ids: number[], options?: QueryObserverOptions<Tag[], Error>): UseQueryResult<Tag[], Error> =>
-  useQuery(['tags', id], () => TagsService.fetchTags(ids), { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+  useQuery(['tags', id], () => TagsService.fetchTags(ids), { ...options });
 
 /**
  * Maps extended tags from tags and visual novel tags.
@@ -41,5 +40,5 @@ export const useExtendedTagsQuery = (
 ): UseQueryResult<ExtendedTag[], Error> => useQuery(
   ['tags', id],
   () => extendTags(TagsService.fetchTags(vnTags.map(t => t.id)), vnTags),
-  { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options },
+  { ...options },
 );

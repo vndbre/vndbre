@@ -31,7 +31,7 @@ interface TagListProps {
 /**
  * Tag list component.
  */
-export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, isExpandable }) => {
+export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, isExpandable = false }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   /**
@@ -51,7 +51,7 @@ export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, is
       </Heading>
       <div className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
-          <Tag key={tag.name + String(i)} tag={tag} />
+          <Tag key={i} tag={tag} />
         ))}
         {isExpandable && tags.length > 10 && (
           <IconButton

@@ -1,7 +1,6 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { CharactersService } from '../../../api/services/charactersService';
 import { Character } from '../../../models/characters/character';
-import { defaultStaleTime, defaultFetchStrategy } from './config';
 
 /**
  * Gets character by its id.
@@ -13,7 +12,5 @@ export const useCharacterQuery = (
   options?: QueryObserverOptions<Character, Error>,
 ): UseQueryResult<Character, Error> =>
   useQuery(['character', id], () => CharactersService.fetchCharacterById(id), {
-    staleTime: defaultStaleTime,
-    ...defaultFetchStrategy,
     ...options,
   });
