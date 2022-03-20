@@ -16,7 +16,7 @@ export interface TagData {
   /**
    * Additional info for tag.
    */
-  readonly note?: string | null;
+  readonly note?: string;
 }
 
 interface Props {
