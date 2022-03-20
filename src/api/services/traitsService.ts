@@ -1,4 +1,6 @@
 import { ApiProxyEndpoints, http } from '..';
+import { ExtendedTrait } from '../../models/extendedTrait';
+import { RootTraitName } from '../../models/rootTraitName';
 import { Trait } from '../../models/trait';
 import { TraitsWithRoots } from '../../models/traitsWithRoots';
 import { TraitDto } from '../dtos/traitDto';
@@ -32,5 +34,33 @@ export namespace TraitsService {
       traits: traits.map(TraitMapper.fromDto),
       rootTraits: rootTraits.map(TraitMapper.fromDto),
     };
+  }
+
+  /**
+   * Gets grouped traits by root traits.
+   * @param traits List of extended traits.
+   * @param rootTraits List of root traits.
+   */
+  export function getGroupedTraitsByRootTrait(
+    traits: readonly ExtendedTrait[],
+    rootTraits: readonly Trait[],
+  ): Record<RootTraitName, ExtendedTrait[]> {
+    const groupedTraits: Record<RootTraitName, ExtendedTrait[]> = {
+      [RootTraitName.Hair]: [],
+      [RootTraitName.Eyes]: [],
+      [RootTraitName.Body]: [],
+      [RootTraitName.Clothes]: [],
+      [RootTraitName.Items]: [],
+      [RootTraitName.Personality]: [],
+      [RootTraitName.Role]: [],
+      [RootTraitName.EngagesIn]: [],
+      [RootTraitName.SubjectOf]: [],
+      [RootTraitName.SubjectOfSexual]: [],
+      [RootTraitName.EngagesInSexual]: [],
+    };
+    return rootTraits.reduce((acc, cur) => {
+      const relatedTraits = traits.filter(trait => trait.rootId === cur.id);
+      return { ...acc, [cur.name]: [...acc[cur.name as RootTraitName], ...relatedTraits] };
+    }, groupedTraits);
   }
 }
