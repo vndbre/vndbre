@@ -25,7 +25,7 @@ export interface Trait {
   /** Number of characters on which this trait and any child traits is used.  */
   readonly charactersUsed: number;
 
-  /** (Possibly empty) list of alternative names. */
+  /** List of alternative names. */
   readonly aliases: readonly string[];
 
   /**
