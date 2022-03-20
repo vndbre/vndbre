@@ -4,6 +4,9 @@ import { Paginator } from '../../../../components/Paginator/Paginator';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
+  /**
+   * TODO: Remove mock data.
+   */
   const [page, setPage] = useState(11);
 
   return (
