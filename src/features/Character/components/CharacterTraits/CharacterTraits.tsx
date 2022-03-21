@@ -29,7 +29,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
    */
   function groupedTraitsFilterPredicate([rootName, _]: [string, ExtendedTrait[]]): boolean {
     const isTraitSexual = rootName === RootTraitName.EngagesInSexual || rootName === RootTraitName.SubjectOfSexual;
-    return !(isTraitSexual && isNsfwContentAllowed === false);
+    return !isTraitSexual || isNsfwContentAllowed;
   }
 
   return (

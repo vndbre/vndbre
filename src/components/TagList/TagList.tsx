@@ -1,5 +1,5 @@
 import React, { VFC, memo, ReactNode, useState, useCallback } from 'react';
-import { Heading, HStack, IconButton, Text } from '@chakra-ui/react';
+import { Box, Heading, HStack, IconButton, Text } from '@chakra-ui/react';
 import { Tag, TagData } from '../Tag/Tag';
 import { Icon } from '../Icon/Icon';
 
@@ -42,15 +42,16 @@ export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, is
   }, [isExpandable, isExpanded]);
 
   return (
-    <div>
+    <Box>
       <Heading as="h3" size="sm">
         <HStack>
           {titleIcon}
           <Text fontWeight="bold">{title}</Text>
         </HStack>
       </Heading>
-      <div className={cls.tags}>
+      <Box className={cls.tags}>
         {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
+          // eslint-disable-next-line react/no-array-index-key
           <Tag key={i} tag={tag} />
         ))}
         {isExpandable && tags.length > 10 && (
@@ -65,8 +66,8 @@ export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, is
             onClick={handleExpandButtonClick}
           />
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
