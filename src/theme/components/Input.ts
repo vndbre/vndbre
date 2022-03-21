@@ -6,11 +6,10 @@ export const Input: StyleConfig = {
     outline: {
       field: {
         bg: 'gray.100',
+        border: 'none',
         borderRadius: 'base',
-        borderColor: 'transparent',
         fontSize: 'md',
         _focus: {
-          borderColor: 'orange.400',
           boxShadow: shadows.outline,
         },
       },

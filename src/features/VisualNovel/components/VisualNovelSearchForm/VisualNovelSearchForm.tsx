@@ -8,7 +8,6 @@ import {
   InputLeftElement,
   VStack,
 } from '@chakra-ui/react';
-import { chakraComponents, GroupBase, MultiValueGenericProps, OptionProps } from 'chakra-react-select';
 import { useForm } from 'react-hook-form';
 import { Language } from '../../../../models/language';
 import { Platform } from '../../../../models/platform';
@@ -44,28 +43,6 @@ const languageOptions: SelectOption[] = Language.getSortedLanguages().map(
     icon: Language.getLanguageIcon(language),
   }),
 );
-
-const languageMultiSelectCustomComponents = {
-
-  /** Custom chakra option component for multi select with languages. */
-  Option: ({ children, ...props }: OptionProps<SelectOption, true, GroupBase<SelectOption>>) => (
-    <chakraComponents.Option {...props}>
-      {props.data.icon && <Icon name={props.data.icon} style={{ marginRight: 10 }} />}
-      {children}
-    </chakraComponents.Option>
-  ),
-
-  /** Custom chakra tag component for multi select with languages. */
-  MultiValueContainer: ({
-    children,
-    ...props
-  }: MultiValueGenericProps<SelectOption, true, GroupBase<SelectOption>>) => (
-    <chakraComponents.MultiValueContainer {...props}>
-      {props.data.icon && <Icon name={props.data.icon} style={{ marginRight: 4 }} />}
-      {children}
-    </chakraComponents.MultiValueContainer>
-  ),
-};
 
 const platformOptions: SelectOption[] = Platform.getSortedPlatforms().map(
   platform => ({ value: platform, label: Platform.toReadable(platform) }),
@@ -120,8 +97,8 @@ export const VisualNovelSearchForm: VFC = () => {
             label="Language"
             options={languageOptions}
             placeholder="Any"
+            displayLimit={1}
             closeMenuOnSelect={false}
-            components={languageMultiSelectCustomComponents}
           />
 
           <MultiSelect
@@ -130,8 +107,8 @@ export const VisualNovelSearchForm: VFC = () => {
             label="Original language"
             options={languageOptions}
             placeholder="Any"
+            displayLimit={1}
             closeMenuOnSelect={false}
-            components={languageMultiSelectCustomComponents}
           />
 
           <MultiSelect
@@ -140,6 +117,7 @@ export const VisualNovelSearchForm: VFC = () => {
             label="Platform"
             options={platformOptions}
             placeholder="Any"
+            displayLimit={1}
             closeMenuOnSelect={false}
           />
         </HStack>
