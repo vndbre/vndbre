@@ -42,7 +42,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
               isExpandable
               key={rootTraitTitle}
               title={rootTraitTitle}
-              tags={childTraits.filter(traitsFilterPredicate).map(trait => ({ name: trait.name }))}
+              tags={childTraits.filter(traitsFilterPredicate).map(trait => ({ name: trait.name, note: null }))}
             />
           ),
         )}

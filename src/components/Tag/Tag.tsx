@@ -16,7 +16,7 @@ export interface TagData {
   /**
    * Additional info for tag.
    */
-  readonly note?: string;
+  readonly note: string | null;
 }
 
 interface Props {
@@ -34,7 +34,7 @@ const TagComponent: VFC<Props> = ({ tag }) => (
       </Link>
     ) : <Text display="inline">{tag.name}</Text>}
 
-    {tag.note != null && (
+    {tag.note !== null && (
       <Text display="inline" color="gray.500">
         {' '}
         {tag.note}

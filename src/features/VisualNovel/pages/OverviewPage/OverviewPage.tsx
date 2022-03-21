@@ -94,7 +94,7 @@ export const OverviewPage: FC = () => {
         key={key}
         title="Publisher"
         titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
-        tags={publishers[key].map(publisher => ({ name: publisher }))}
+        tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
       />
     )
   ));
@@ -117,9 +117,9 @@ export const OverviewPage: FC = () => {
         key={key}
         title={StaffRole.getStaffRoleInfo(key as StaffRole).title}
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
-          const data = { name: staff.name };
+          const data = { name: staff.name, note: null };
           if (StaffRole.getStaffRoleInfo(key as StaffRole).shouldNoteBeDisplayed) {
-            return { ...data, note: staff.note ?? undefined };
+            return { ...data, note: staff.note };
           }
           return data;
         })}
@@ -130,7 +130,7 @@ export const OverviewPage: FC = () => {
   const tagsBlock = tags && tags.length > 0 && (
     <TagList
       title="Tags"
-      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
+      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name, note: null }))}
       isExpandable
     />
   );
@@ -150,11 +150,11 @@ export const OverviewPage: FC = () => {
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
           <div className={cls.sidebar}>
             {visualNovel?.length && (
-              <TagList title="Game Length" tags={[{ name: visualNovel.length }]} />
+              <TagList title="Game Length" tags={[{ name: visualNovel.length, note: null }]} />
             )}
             <TagList
               title="Developers"
-              tags={developers.map(dev => ({ name: dev }))}
+              tags={developers.map(dev => ({ name: dev, note: null }))}
             />
             {publishersBlock}
             <div>
