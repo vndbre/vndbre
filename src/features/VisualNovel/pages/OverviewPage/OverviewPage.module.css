@@ -41,7 +41,7 @@
 .characters {
   margin-top: var(--chakra-sizes-3);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr));
   grid-template-rows: repeat(2, 1fr);
   gap: var(--chakra-sizes-4);
   overflow: hidden;

@@ -134,12 +134,10 @@ export const OverviewPage: FC = () => {
     />
   );
 
-  const [canFit6] = useMediaQuery('(min-width: 1552px)');
-
-  const charactersCount = canFit6 ? 6 : 4;
+  const CHARACTER_COUNT = 6;
 
   const charactersBlock = characters && characters.length > 0 && (
-    characters.slice(0, charactersCount).map(character => (
+    characters.slice(0, CHARACTER_COUNT).map(character => (
       <CharacterCard
         key={character.id}
         character={character}
