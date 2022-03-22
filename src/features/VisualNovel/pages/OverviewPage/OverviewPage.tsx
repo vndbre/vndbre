@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Heading, Link, useMediaQuery } from '@chakra-ui/react';
+import { Heading, Link } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { TagBlock } from '../../components/TagBlock/TagBlock';
