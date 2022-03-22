@@ -75,7 +75,7 @@ export const CharactersPage: VFC = () => {
           </AccordionButton>
         </Heading>
         <AccordionPanel>
-          <Grid pt="4" templateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
+          <Grid templateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
             {displayCharacterList(characters)}
           </Grid>
         </AccordionPanel>
