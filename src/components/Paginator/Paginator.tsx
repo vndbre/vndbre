@@ -24,7 +24,7 @@ interface Props {
 /**
  * Paginator component.
  */
-const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCount = 2 }) => {
+const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCount = 1 }) => {
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
     if (currentPage <= edgeCount + 2) {
@@ -53,52 +53,39 @@ const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCoun
    * Handle page click.
    * @param page Page number.
    */
-  const handlePageClick = useCallback((page: number): void => {
-    onChange(page);
-  }, [onChange]);
+  const handlePageClick = useCallback((page: number) => onChange(page), [onChange]);
+
+  /**
+   * Get paginator button element.
+   * @param page Page number.
+   */
+  const getPaginatorButton = useCallback((page: number) => (
+    <PaginatorButton
+      page={page}
+      key={page}
+      isActive={page === currentPage}
+      onClick={handlePageClick}
+    />
+  ), [currentPage]);
 
   return (
     <Box
       display="flex"
       gridGap={2}
     >
-      {leftEdgePages.map(page => (
-        <PaginatorButton
-          key={page}
-          isActive={page === currentPage}
-          onClick={() => handlePageClick(page)}
-        >
-          {page}
-        </PaginatorButton>
-      ))}
+      {leftEdgePages.map(getPaginatorButton)}
 
       {isMiddlePagesVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {middlePages.map(page => (
-            <PaginatorButton
-              key={page}
-              isActive={page === currentPage}
-              onClick={() => handlePageClick(page)}
-            >
-              {page}
-            </PaginatorButton>
-          ))}
+          {middlePages.map(getPaginatorButton)}
         </>
       )}
 
       {isRightEdgePagesVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {rightEdgePages.map(page => (
-            <PaginatorButton
-              key={page}
-              isActive={page === currentPage}
-              onClick={() => handlePageClick(page)}
-            >
-              {page}
-            </PaginatorButton>
-          ))}
+          {rightEdgePages.map(getPaginatorButton)}
         </>
       )}
     </Box>
