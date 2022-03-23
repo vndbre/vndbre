@@ -1,3 +1,12 @@
+/*
+ * TODO (Sotnichenko): Adopt scrollbar library
+ * Nearly all sub routes make page scrollable,
+ * so to prevent screen size flicking we add scrollbar for all pages.
+ */
+html {
+  overflow-y: scroll;
+}
+
 .page {
   padding-top: var(--chakra-sizes-8);
   display: flex;
