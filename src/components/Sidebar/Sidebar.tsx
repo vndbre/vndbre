@@ -8,7 +8,7 @@ import { Icon } from '../Icon/Icon';
 interface Props {
 
   /** Callback to run when the sidebar should hide. */
-  onSidebarHide: () => void;
+  readonly onSidebarHide: () => void;
 }
 
 /**

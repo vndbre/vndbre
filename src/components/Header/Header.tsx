@@ -6,10 +6,10 @@ import cls from './Header.module.css';
 interface Props {
 
   /** Whether logo and sidebar toggle button are visible. */
-  isLogoVisible: boolean;
+  readonly isLogoVisible: boolean;
 
   /** Callback to run when the sidebar should show up. */
-  onSidebarShow: () => void;
+  readonly onSidebarShow: () => void;
 }
 
 /**

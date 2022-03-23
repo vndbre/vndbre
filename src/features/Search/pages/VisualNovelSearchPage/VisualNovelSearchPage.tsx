@@ -1,6 +1,7 @@
-import { Box } from '@chakra-ui/react';
 import React, { useState, VFC } from 'react';
+import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
+import { VisualNovelSearchForm } from '../../components';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -11,6 +12,7 @@ export const VisualNovelSearchPage: VFC = () => {
 
   return (
     <Box display="flex" flexDir="column" mt={8}>
+      <VisualNovelSearchForm />
       <Box alignSelf="center">
         <Paginator
           count={111}
