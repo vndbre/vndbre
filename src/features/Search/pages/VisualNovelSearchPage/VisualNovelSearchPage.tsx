@@ -13,6 +13,7 @@ export const VisualNovelSearchPage: VFC = () => {
   return (
     <Box display="flex" flexDir="column" mt={8}>
       <VisualNovelSearchForm />
+
       <Box alignSelf="center">
         <Paginator
           count={111}
