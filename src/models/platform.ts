@@ -1,3 +1,5 @@
+import { enumToArray } from '../utils/enumToArray';
+
 /** Platform. */
 export enum Platform {
   Windows = 'win',
@@ -142,5 +144,11 @@ export namespace Platform {
     }
 
     return DEFAULT_PLATFORM_ICON;
+  }
+
+  /** Obtains alphabetically sorted platforms. */
+  export function getSortedPlatforms(): Platform[] {
+    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
+    return enumToArray(Platform).sort();
   }
 }

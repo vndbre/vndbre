@@ -5,6 +5,8 @@ import { Text } from './Text';
 import { Tag } from './Tag';
 import { Tabs } from './Tabs';
 import { Tooltip } from './Tooltip';
+import { Slider } from './Slider';
+import { Input } from './Input';
 
 export const components = {
   Accordion,
@@ -14,4 +16,6 @@ export const components = {
   Tag,
   Tabs,
   Tooltip,
+  Slider,
+  Input,
 };
