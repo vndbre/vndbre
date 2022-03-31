@@ -57,7 +57,7 @@ const PaginatorComponent: VFC<Props> = ({
   const [leftEdgePages, middlePages, rightEdgePages] = getButtons();
 
   const isMiddlePagesVisible = middlePages.length > 0;
-  const isRightEdgePagesVisible = rightEdgePages.length > 0 && count > 4;
+  const isRightEdgePagesVisible = rightEdgePages.length > 0 && currentPage > edgeCount + 2;
 
   /**
    * Handle page click.
