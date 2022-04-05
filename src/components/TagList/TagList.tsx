@@ -39,7 +39,7 @@ export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, is
    */
   const handleExpandButtonClick = useCallback(() => {
     setIsExpanded(!isExpanded);
-  }, [isExpandable, isExpanded]);
+  }, [isExpanded]);
 
   return (
     <Box>

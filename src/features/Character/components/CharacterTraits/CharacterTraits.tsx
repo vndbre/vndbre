@@ -27,7 +27,7 @@ const CharacterTraitsComponent: VFC<Props> = ({ traits }) => {
   /**
    * Filters grouped traits by root trait name by nsfw content.
    */
-  function groupedTraitsFilterPredicate([rootName, _]: [string, ExtendedTrait[]]): boolean {
+  function groupedTraitsFilterPredicate([rootName]: [string, ExtendedTrait[]]): boolean {
     const isTraitSexual = rootName === RootTraitName.EngagesInSexual || rootName === RootTraitName.SubjectOfSexual;
     return !isTraitSexual || isNsfwContentAllowed;
   }
