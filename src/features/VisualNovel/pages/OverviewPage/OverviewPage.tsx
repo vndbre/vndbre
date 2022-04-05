@@ -117,7 +117,7 @@ export const OverviewPage: FC = () => {
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
           const data = { name: staff.name, note: null };
           if (StaffRole.getStaffRoleInfo(key as StaffRole).shouldNoteBeDisplayed) {
-            return { ...data, note: staff.note };
+            return { ...data, note: staff.note, path: `/staff/${staff.staffId}` };
           }
           return data;
         })}

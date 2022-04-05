@@ -37,34 +37,36 @@ export const StaffPage: VFC = () => {
     <ContentWrapper isLoading={isStaffLoading} error={staffError}>
       {staff && (
         <Box pt="8">
-          <VStack alignItems="initial" spacing="8">
-            <VStack alignItems="initial" spacing="2">
-              <Heading as="h1" size="md">{staff.name}</Heading>
-              <Heading as="h2" size="sm" fontWeight="normal">
-                {staff.originalName}
-              </Heading>
+          <VStack alignItems="initial" spacing="12">
+            <VStack alignItems="initial" spacing="8">
+              <VStack alignItems="initial" spacing="2">
+                <Heading as="h1" size="md">{staff.name}</Heading>
+                <Heading as="h2" size="sm" fontWeight="normal">
+                  {staff.originalName}
+                </Heading>
+              </VStack>
+              <VStack alignItems="initial">
+                {staff.language && <StaffDetail title="Language">{Language.toReadable(staff.language)}</StaffDetail>}
+                {staff.gender && <StaffDetail title="Gender">{staff.gender}</StaffDetail>}
+                {staffAliases.length > 0 && (
+                  <StaffDetail title="Aliases">
+                    {staffAliases}
+                  </StaffDetail>
+                )}
+                {staff.links && (
+                  <StaffDetail title="Links">
+                    <StaffLinks links={staff.links} />
+                  </StaffDetail>
+                )}
+              </VStack>
+              {staff.description ? <BBCode text={staff.description} /> : <Text>No description</Text>}
             </VStack>
-            <VStack alignItems="initial">
-              {staff.language && <StaffDetail title="Language">{Language.toReadable(staff.language)}</StaffDetail>}
-              {staff.gender && <StaffDetail title="Gender">{staff.gender}</StaffDetail>}
-              {staffAliases.length > 0 && (
-                <StaffDetail title="Aliases">
-                  {staffAliases}
-                </StaffDetail>
+            <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
+              {visualNovels && (
+                <StaffVisualNovels visualNovels={visualNovels} staffVisualNovels={staff.visualNovels} />
               )}
-              {staff.links && (
-                <StaffDetail title="Links">
-                  <StaffLinks links={staff.links} />
-                </StaffDetail>
-              )}
-            </VStack>
-            {staff.description ? <BBCode text={staff.description} /> : <Text>No description</Text>}
+            </ContentWrapper>
           </VStack>
-          <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
-            {visualNovels && (
-              <StaffVisualNovels visualNovels={visualNovels} staffVisualNovels={staff.visualNovels} />
-            )}
-          </ContentWrapper>
         </Box>
       )}
     </ContentWrapper>
