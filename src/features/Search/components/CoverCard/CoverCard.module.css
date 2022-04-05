@@ -1,0 +1,12 @@
+.title {
+  font-size: var(--chakra-fontSizes-sm);
+  overflow: hidden;
+  /* stylelint-disable-next-line value-no-vendor-prefix */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.card:hover .title {
+  color: var(--color-link);
+}
