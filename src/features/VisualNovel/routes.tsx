@@ -9,7 +9,7 @@ const RelationsPage = lazy(() => import('./pages').then(module => ({ default: mo
 const CharactersPage = lazy(() => import('./pages').then(module => ({ default: module.CharactersPage })));
 
 /**
- * Creates routes for test module.
+ * Routes for test module.
  */
 export const visualNovelRoutes: RouteObject[] = [
   {

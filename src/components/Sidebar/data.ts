@@ -10,13 +10,13 @@ export enum SidebarElementType {
 export interface SidebarLinkElement {
 
   /** Type. */
-  type: SidebarElementType.Link;
+  readonly type: SidebarElementType.Link;
 
   /** Text. */
-  text: string;
+  readonly text: string;
 
   /** Link. */
-  link: string;
+  readonly link: string;
 }
 
 /**
@@ -25,13 +25,13 @@ export interface SidebarLinkElement {
 export interface SidebarHeadingElement {
 
   /** Type. */
-  type: SidebarElementType.Heading;
+  readonly type: SidebarElementType.Heading;
 
   /** Text. */
-  text: string;
+  readonly text: string;
 
   /** Items. */
-  items: SidebarLinkElement[];
+  readonly items: readonly SidebarLinkElement[];
 }
 
 export type SidebarElement = SidebarHeadingElement | SidebarLinkElement;
@@ -42,8 +42,8 @@ export const data: SidebarElement[] = [
     type: SidebarElementType.Heading,
     text: 'Lists',
     items: [
-      { type: SidebarElementType.Link, text: 'Visual novels', link: '#' },
-      { type: SidebarElementType.Link, text: 'Releases', link: '#' },
+      { type: SidebarElementType.Link, text: 'Visual novels', link: 'search/vn' },
+      { type: SidebarElementType.Link, text: 'Releases', link: 'asd' },
       { type: SidebarElementType.Link, text: 'Producers', link: '#' },
       { type: SidebarElementType.Link, text: 'Staff', link: '#' },
       { type: SidebarElementType.Link, text: 'Characters', link: '#' },

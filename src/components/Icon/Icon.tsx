@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { memo, VFC } from 'react';
 import { Icon as IconifyIcon } from '@iconify/react';
 import { Icon as iconTheme } from '../../theme/components/external/Icon';
 
@@ -43,7 +43,7 @@ function mapToPx(size: Size): number {
 /**
  * Icon.
  */
-export const Icon: FC<Props> = memo(({ name, style, className, size = 'md' }) => {
+export const Icon: VFC<Props> = memo(({ name, style, className, size = 'md' }) => {
   const sizePx = mapToPx(size);
 
   const mappedProps = {

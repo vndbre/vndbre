@@ -1,3 +1,5 @@
+import { enumToArray } from '../utils/enumToArray';
+
 /** Language. */
 export enum Language {
   Russian = 'ru',
@@ -58,7 +60,7 @@ interface LanguageInfo {
 
 export namespace Language {
 
-  const DEFAULT_LANGUAGE_ICON = 'twemoji:white-flag';
+  const DEFAULT_LANGUAGE_ICON = 'noto:white-flag';
   const LANGUAGE_ICON_BASE = 'twemoji:flag-for-flag-';
 
   const TO_LANGUAGE_INFO_MAP: Readonly<Record<Language, LanguageInfo>> = {
@@ -138,5 +140,11 @@ export namespace Language {
     }
 
     return DEFAULT_LANGUAGE_ICON;
+  }
+
+  /** Obtains alphabetically sorted languages. */
+  export function getSortedLanguages(): Language[] {
+    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
+    return enumToArray(Language).sort();
   }
 }

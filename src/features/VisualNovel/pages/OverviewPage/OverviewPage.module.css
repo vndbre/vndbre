@@ -41,14 +41,8 @@
 .characters {
   margin-top: var(--chakra-sizes-3);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr));
   grid-template-rows: repeat(2, 1fr);
   gap: var(--chakra-sizes-4);
-
-  /* grid-auto-rows: 0; */
   overflow: hidden;
-}
-
-.characters > div:nth-child(n+9) {
-  display: none;
 }

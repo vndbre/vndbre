@@ -11,20 +11,20 @@ import cls from './DefaultLayout.module.css';
  * Default layout with sidebar and header.
  */
 export const DefaultLayout: VFC = () => {
-  const [isSidebarVisible, setSiderbarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBILE, true);
+  const [isSidebarVisible, setSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBILE, true);
 
-  const showSidebar = useCallback(() => setSiderbarVisibility(true), []);
-  const hideSidebar = useCallback(() => setSiderbarVisibility(false), []);
+  const showSidebar = useCallback(() => setSidebarVisibility(true), []);
+  const hideSidebar = useCallback(() => setSidebarVisibility(false), []);
 
   return (
     <Box className={cls.layout}>
       {isSidebarVisible && (
         <Box className={cls.sidebar}>
-          <Sidebar onSiderbarHide={hideSidebar} />
+          <Sidebar onSidebarHide={hideSidebar} />
         </Box>
       )}
       <Box className={`${cls.container} ${isSidebarVisible ? cls['with-sidebar'] : ''}`}>
-        <Header isLogoVisible={!isSidebarVisible} onSiderbarShow={showSidebar} />
+        <Header isLogoVisible={!isSidebarVisible} onSidebarShow={showSidebar} />
         <Box className={cls.content}>
           <Outlet />
         </Box>

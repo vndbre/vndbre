@@ -20,8 +20,6 @@ export const VisualNovelPage: FC = () => {
   const { isLoading, error, data } = useVisualNovelQuery(Number(id));
 
   return (
-
-    // TODO: Add height 100vh to route/page.
     <ContentWrapper isLoading={isLoading} error={error}>
       {data && (
         <div className={cls.page}>

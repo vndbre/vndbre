@@ -15,8 +15,6 @@ import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
 
-const CHARACTERS_TO_DISPLAY = 5 as const;
-
 /**
  * Overview tab page.
  */
@@ -135,8 +133,10 @@ export const OverviewPage: FC = () => {
     />
   );
 
+  const CHARACTER_COUNT = 6;
+
   const charactersBlock = characters && characters.length > 0 && (
-    characters.slice(0, CHARACTERS_TO_DISPLAY).map(character => (
+    characters.slice(0, CHARACTER_COUNT).map(character => (
       <CharacterCard
         key={character.id}
         character={character}
