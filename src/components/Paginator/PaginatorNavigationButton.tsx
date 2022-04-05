@@ -1,4 +1,4 @@
-import React, { VFC, memo, MouseEventHandler } from 'react';
+import React, { VFC, memo } from 'react';
 import { IconButton } from '@chakra-ui/react';
 import { Icon } from '../Icon/Icon';
 
@@ -8,7 +8,7 @@ interface Props {
   readonly isDisabled?: boolean;
 
   /** Click handler. */
-  readonly onClick?: MouseEventHandler<HTMLButtonElement>;
+  readonly onClick?: () => void;
 
   /** Direction. */
   readonly direction: 'next' | 'prev';
