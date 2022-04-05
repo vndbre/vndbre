@@ -1,10 +1,6 @@
-/*
- * TODO (Sotnichenko): Adopt scrollbar library
- * Nearly all sub routes make page scrollable,
- * so to prevent screen size flicking we add scrollbar for all pages.
- */
 html {
-  overflow-y: scroll;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
 .page {
