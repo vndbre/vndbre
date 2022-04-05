@@ -1,4 +1,6 @@
+import { Language } from './language';
 import { StaffLinks } from './staffLinks';
+import { StaffRole } from './staffRole';
 
 /**
  * Represents character entry that this staff has voiced.
@@ -44,7 +46,7 @@ export interface StaffVisualNovel {
   /**
    * Role.
    */
-  readonly role: string;
+  readonly role: StaffRole;
 
   /**
    * Note.
@@ -101,7 +103,7 @@ export interface Staff {
   /**
    * Primary language.
    */
-  readonly language: string;
+  readonly language: Language;
 
   /**
    * Links to staff's external resources.
