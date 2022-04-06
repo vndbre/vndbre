@@ -6,11 +6,11 @@ interface Props {
   /** Title. */
   readonly title: string;
 
-  /** Detail content. */
+  /** Title in original language. */
   readonly originalTitle: string | null;
 }
 
-/** Component with staff detail. */
+/** Component with entity title. */
 const EntityTitleComponent: VFC<Props> = ({ title, originalTitle }) => (
   <Box>
     <Heading as="h1" size="md">
