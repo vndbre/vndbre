@@ -40,14 +40,16 @@ export const VisualNovelSearchPage: VFC = () => {
       <VisualNovelSearchForm
         onSubmit={handleSearchSubmit}
       />
-      <Box
-        display="grid"
-        gridGap={4}
-        gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
+      <ContentWrapper
+        isLoading={isLoading}
+        error={error}
       >
-        <ContentWrapper
-          isLoading={isLoading}
-          error={error}
+        <Box
+          display="grid"
+          gridGap={4}
+          gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
+          w="full"
+          h="full"
         >
           {visualNovelsPage?.items.map(vn => (
             <CoverCard
@@ -57,8 +59,8 @@ export const VisualNovelSearchPage: VFC = () => {
               title={vn.title}
             />
           ))}
-        </ContentWrapper>
-      </Box>
+        </Box>
+      </ContentWrapper>
 
       <Box alignSelf="center">
         <Paginator
