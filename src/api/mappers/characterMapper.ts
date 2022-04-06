@@ -1,8 +1,8 @@
 import { Character } from '../../models/characters/character';
-import { CharacterGender } from '../../models/characters/characterGender';
 import { CharacterRole } from '../../models/characters/characterRole';
 import { SpoilerLevel } from '../../models/spoilerLevel';
-import { CharacterDto, CharacterGenderDto, SpoilerLevelDto } from '../dtos/characterDto';
+import { CharacterDto, SpoilerLevelDto } from '../dtos/characterDto';
+import { GenderMapper } from './genderMapper';
 import { ImageFlaggingMapper } from './imageFlaggingMapper';
 
 /** Character mapper. */
@@ -11,12 +11,6 @@ export namespace CharacterMapper {
     [SpoilerLevelDto.Major]: SpoilerLevel.Major,
     [SpoilerLevelDto.Minor]: SpoilerLevel.Minor,
     [SpoilerLevelDto.None]: SpoilerLevel.None,
-  };
-
-  const GENDER_FROM_DTO_MAP: Readonly<Record<CharacterGenderDto, CharacterGender>> = {
-    [CharacterGenderDto.Male]: CharacterGender.Male,
-    [CharacterGenderDto.Female]: CharacterGender.Female,
-    [CharacterGenderDto.Both]: CharacterGender.Both,
   };
 
   /**
@@ -69,7 +63,7 @@ export namespace CharacterMapper {
     id: dto.id,
     name: dto.name,
     originalName: dto.original,
-    gender: dto.gender != null ? GENDER_FROM_DTO_MAP[dto.gender] : null,
+    gender: dto.gender != null ? GenderMapper.GENDER_FROM_DTO_MAP[dto.gender] : null,
     spoilerGender: dto.spoil_gender,
     bloodType: dto.bloodt,
     birthday: `${dto.birthday[0]}-${dto.birthday[1]}`,

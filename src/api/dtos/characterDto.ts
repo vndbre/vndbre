@@ -1,15 +1,10 @@
+import { GenderDto } from './genderDto';
 import { ImageFlaggingDto } from './imageFlaggingDto';
 
 export enum SpoilerLevelDto {
   None = 0,
   Minor,
   Major,
-}
-
-export enum CharacterGenderDto {
-  Male = 'm',
-  Female = 'f',
-  Both = 'b',
 }
 
 /**
@@ -90,7 +85,7 @@ export interface CharacterDto {
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
    */
-  readonly gender: CharacterGenderDto | null;
+  readonly gender: GenderDto | null;
 
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.

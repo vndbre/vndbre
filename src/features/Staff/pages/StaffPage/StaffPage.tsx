@@ -1,13 +1,14 @@
 import React, { useMemo, VFC } from 'react';
-import { Box, Heading, VStack, Text } from '@chakra-ui/react';
-import { ContentWrapper } from '../../../../components';
+import { Box, VStack, Text } from '@chakra-ui/react';
+import { ContentWrapper, EntityDetail, EntityTitle } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
-import { StaffDetail, StaffLinks, StaffVisualNovels } from '../../components';
+import { StaffLinks, StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
 import { StaffRouteParams } from '../../utils/staffRouteParams';
 import { BBCode } from '../../../../components/BBCode/BBCode';
+import { Gender } from '../../../../models/gender';
 
 /** Staff page component. */
 export const StaffPage: VFC = () => {
@@ -39,31 +40,26 @@ export const StaffPage: VFC = () => {
         <Box pt="8">
           <VStack alignItems="initial" spacing="12">
             <VStack alignItems="initial" spacing="8">
-              <VStack alignItems="initial" spacing="2">
-                <Heading as="h1" size="md">{staff.name}</Heading>
-                <Heading as="h2" size="sm" fontWeight="normal">
-                  {staff.originalName}
-                </Heading>
-              </VStack>
+              <EntityTitle title={staff.name} originalTitle={staff.originalName} />
               <VStack alignItems="initial">
-                {staff.language && <StaffDetail title="Language">{Language.toReadable(staff.language)}</StaffDetail>}
-                {staff.gender && <StaffDetail title="Gender">{staff.gender}</StaffDetail>}
+                {staff.language && <EntityDetail title="Language">{Language.toReadable(staff.language)}</EntityDetail>}
+                {staff.gender && <EntityDetail title="Gender">{Gender.toReadable(staff.gender)}</EntityDetail>}
                 {staffAliases.length > 0 && (
-                  <StaffDetail title="Aliases">
+                  <EntityDetail title="Aliases">
                     {staffAliases}
-                  </StaffDetail>
+                  </EntityDetail>
                 )}
                 {staff.links && (
-                  <StaffDetail title="Links">
+                  <EntityDetail title="Links">
                     <StaffLinks links={staff.links} />
-                  </StaffDetail>
+                  </EntityDetail>
                 )}
               </VStack>
               {staff.description ? <BBCode text={staff.description} /> : <Text>No description</Text>}
             </VStack>
             <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
               {visualNovels && (
-                <StaffVisualNovels visualNovels={visualNovels} staffVisualNovels={staff.visualNovels} />
+                <StaffVisualNovelsTable visualNovels={visualNovels} staffVisualNovels={staff.visualNovels} />
               )}
             </ContentWrapper>
           </VStack>

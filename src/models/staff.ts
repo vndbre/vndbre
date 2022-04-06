@@ -1,3 +1,4 @@
+import { Gender } from './gender';
 import { Language } from './language';
 import { StaffLinks } from './staffLinks';
 import { StaffRole } from './staffRole';
@@ -98,7 +99,7 @@ export interface Staff {
   /**
    * Gender.
    */
-  readonly gender: string | null;
+  readonly gender: Gender | null;
 
   /**
    * Primary language.

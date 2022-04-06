@@ -10,8 +10,8 @@ interface Props {
   readonly children: ReactNode;
 }
 
-/** Component with staff detail. */
-const StaffDetailComponent: VFC<Props> = ({ title, children }) => (
+/** Component with entity detail. */
+const EntityDetailComponent: VFC<Props> = ({ title, children }) => (
   <Box>
     <Text as="span" fontWeight="bold">
       {title}
@@ -22,4 +22,4 @@ const StaffDetailComponent: VFC<Props> = ({ title, children }) => (
   </Box>
 );
 
-export const StaffDetail = memo(StaffDetailComponent);
+export const EntityDetail = memo(EntityDetailComponent);
