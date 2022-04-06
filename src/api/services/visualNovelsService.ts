@@ -103,6 +103,7 @@ export namespace VisualNovelsService {
    * @param options Pagination options.
    */
   export async function fetchPaginatedVisualNovels(options: VisualNovelPaginationOptions): Promise<Pagination<VisualNovel>> {
+    console.log('a');
     const visualNovelOptions = [PaginationMapper.mapOptionsToDto(options)];
     const visualNovelFilters = [`search ~ "${options.search ?? ''}"`];
 
