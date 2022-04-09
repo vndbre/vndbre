@@ -2,6 +2,7 @@ import React, { VFC, memo, useCallback } from 'react';
 import { Box } from '@chakra-ui/react';
 import { PaginatorInput } from './PaginatorInput';
 import { PaginatorButton } from './PaginatorButton';
+import { PaginatorNavigationButton } from './PaginatorNavigationButton';
 
 interface Props {
 
@@ -15,45 +16,79 @@ interface Props {
   readonly onChange: (pageNumber: number) => void;
 
   /**
-   * How many items would be visible from edges when close to edge,
-   * and how many items would be visible from sides of middle.
+   * How many additional pages would be visible from side of a page.
    */
-  readonly edgeCount?: number;
+  readonly groupCount?: number;
+
+  /** Whether paginator `next` and `previous` buttons should be hidden or not. */
+  readonly isNavigationHidden?: boolean;
+
+  /**
+   * Pagination offset from 0.
+   * Defaults to 1, so pagination is user friendly.
+   */
+  readonly offset?: number;
+
+  /** Minimum gap between two buttons groups for page number input to appear. */
+  readonly inputMinGap?: number;
 }
 
 /**
  * Paginator component.
  */
-const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCount = 1 }) => {
+const PaginatorComponent: VFC<Props> = ({
+  count,
+  currentPage,
+  onChange,
+  groupCount = 1,
+  isNavigationHidden = false,
+  offset = 1,
+  inputMinGap = 1,
+}) => {
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
-    if (currentPage <= edgeCount + 2) {
-      const leftEdgePages = Array.from({ length: currentPage + edgeCount }).map((_, i) => i + 1);
+    if (currentPage <= groupCount + offset + inputMinGap) {
+      const leftPagesGroup = Array.from({ length: currentPage + groupCount }).map((_, i) => i + offset);
 
-      return [leftEdgePages, [], [count]];
+      return [leftPagesGroup, [], [count]];
     }
-    const leftEdgePages = [1];
+    const leftPagesGroup = [offset];
 
-    if (currentPage >= count - edgeCount - 1) {
-      const rightEdgePages = Array.from({ length: count - currentPage + edgeCount + 1 }).map((_, i) => count - i)
+    if (currentPage >= count - groupCount - inputMinGap) {
+      const rightPagesGroup = Array.from({ length: count - currentPage + groupCount + offset }).map((_, i) => count - i)
         .reverse();
-      return [leftEdgePages, [], rightEdgePages];
+      return [leftPagesGroup, [], rightPagesGroup];
     }
 
-    const middlePages = Array.from({ length: 1 + edgeCount * 2 }).map((_, i) => i + (currentPage - edgeCount));
-    return [leftEdgePages, middlePages, [count]];
+    const middlePages = Array.from({ length: groupCount * 2 + offset }).map((_, i) => i + (currentPage - groupCount));
+    return [leftPagesGroup, middlePages, [count]];
   };
 
-  const [leftEdgePages, middlePages, rightEdgePages] = getButtons();
+  const [leftPagesGroup, middlePages, rightPagesGroup] = getButtons();
 
   const isMiddlePagesVisible = middlePages.length > 0;
-  const isRightEdgePagesVisible = rightEdgePages.length > 0;
+  const isRightPagesGroupVisible = rightPagesGroup.length > 0 && currentPage > groupCount + offset + inputMinGap;
 
   /**
-   * Handle page click.
+   * Handles page click.
    * @param page Page number.
    */
   const handlePageClick = useCallback((page: number) => onChange(page), [onChange]);
+
+  /**
+   * Handles next page click.
+   * @param page Page number.
+   */
+  const handleNextPageClick = useCallback(() => onChange(currentPage + offset), [onChange, currentPage]);
+
+  /**
+   * Handles previous page click.
+   * @param page Page number.
+   */
+  const handlePrevPageClick = useCallback(() => onChange(currentPage - 1), [onChange, currentPage]);
+
+  const isPrevButtonDisabled = currentPage === 1;
+  const isNextButtonDisabled = currentPage === count;
 
   /**
    * Get paginator button element.
@@ -73,7 +108,14 @@ const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCoun
       display="flex"
       gridGap={2}
     >
-      {leftEdgePages.map(getPaginatorButton)}
+      {isNavigationHidden && (
+        <PaginatorNavigationButton
+          isDisabled={isPrevButtonDisabled}
+          direction="prev"
+          onClick={handlePrevPageClick}
+        />
+      ) }
+      {leftPagesGroup.map(getPaginatorButton)}
 
       {isMiddlePagesVisible && (
         <>
@@ -82,12 +124,19 @@ const PaginatorComponent: VFC<Props> = ({ count, currentPage, onChange, edgeCoun
         </>
       )}
 
-      {isRightEdgePagesVisible && (
+      {isRightPagesGroupVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {rightEdgePages.map(getPaginatorButton)}
+          {rightPagesGroup.map(getPaginatorButton)}
         </>
       )}
+      {isNavigationHidden && (
+        <PaginatorNavigationButton
+          direction="next"
+          isDisabled={isNextButtonDisabled}
+          onClick={handleNextPageClick}
+        />
+      ) }
     </Box>
   );
 };
