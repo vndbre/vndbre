@@ -1,11 +1,11 @@
 import React, { memo, ReactNode, VFC } from 'react';
 import { Box, Image, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import cls from './CoverCard.module.css';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
+import { CardInfoBox } from '../CardInfoBox/CardInfoBox';
 
 interface Props {
 
@@ -45,24 +45,13 @@ const CoverCardComponent: VFC<Props> = ({
   platforms,
   languages,
 }) => {
-  const InfoBox = memo(({ name, data }: { name: string; data: string | number; }) => (
+  const ListInfoBox = memo(({ title: listTitle, items }: { title: string; items: ReactNode; }) => (
     <Box
       display="flex"
       flexDirection="column"
       gap={1}
     >
-      <Box fontSize="sm">{name}</Box>
-      <Box fontWeight="semibold" whiteSpace="nowrap">{data}</Box>
-    </Box>
-  ));
-
-  const ListInfoBox = memo(({ name, items }: { name: string; items: ReactNode; }) => (
-    <Box
-      display="flex"
-      flexDirection="column"
-      gap={1}
-    >
-      <Box fontWeight="semibold">{name}</Box>
+      <Box fontWeight="semibold">{listTitle}</Box>
       <Box
         display="flex"
         gap={2}
@@ -82,7 +71,7 @@ const CoverCardComponent: VFC<Props> = ({
     >
       <PopoverTrigger>
         <Box
-          className={cls.card}
+          role="group"
           display="flex"
           gridGap={2}
           flexDirection="column"
@@ -92,24 +81,32 @@ const CoverCardComponent: VFC<Props> = ({
             as={RouterLink}
             variant="no-underline"
             to={`/vn/${id}`}
-            position="relative"
-            style={{ aspectRatio: '5 / 7' }}
           >
             <Image
               src={image ?? undefined}
               borderRadius="sm"
-              position="absolute"
-              h="100%"
+              style={{ aspectRatio: '5 / 7' }}
               w="100%"
               objectFit="cover"
             />
           </Link>
+          {/* TODO(V1.8+): use chakra semantic tokens */}
           <Link
             as={RouterLink}
             variant="no-underline"
             to={`/vn/${id}`}
-            className={cls.title}
+            _groupHover={{
+              color: 'var(--color-link)',
+            }}
+            fontSize="sm"
             fontWeight="medium"
+            overflow="hidden"
+            textOverflow="ellipsis"
+            style={{
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 2,
+            }}
           >
             {title}
           </Link>
@@ -128,20 +125,20 @@ const CoverCardComponent: VFC<Props> = ({
           display="flex"
           gap={12}
         >
-          <InfoBox name="Released" data={released ? released.getFullYear() : 'Unknown'} />
-          <InfoBox name="Rating" data={rating} />
-          <InfoBox name="Length" data={length ?? 'Unknown'} />
+          <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+          <CardInfoBox title="Rating" text={rating} />
+          <CardInfoBox title="Length" text={length ?? 'Unknown'} />
         </Box>
         <Box
           display="flex"
           gap={12}
         >
           <ListInfoBox
-            name="Languages"
+            title="Languages"
             items={languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
           />
           <ListInfoBox
-            name="Platforms"
+            title="Platforms"
             items={platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
           />
         </Box>

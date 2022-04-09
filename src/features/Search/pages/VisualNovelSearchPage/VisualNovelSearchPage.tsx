@@ -5,7 +5,7 @@ import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CoverCard } from '../../components/CoverCard/CoverCard';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
-import { ContentWrapper } from '../../../../components';
+import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -15,7 +15,7 @@ export const VisualNovelSearchPage: VFC = () => {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const { isLoading, error, data: visualNovelsPage } = useVisualNovelsPageQuery({
+  const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery({
     page,
     pageSize: 20,
     search: searchQuery,
@@ -41,35 +41,34 @@ export const VisualNovelSearchPage: VFC = () => {
       <VisualNovelSearchForm
         onSubmit={handleSearchSubmit}
       />
-      <ContentWrapper
-        isLoading={isLoading}
-        error={error}
+      <Box
+        display="grid"
+        gridGap={8}
+        gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
+        w="full"
+        h="full"
       >
-        <Box
-          display="grid"
-          gridGap={8}
-          gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
-          w="full"
-          h="full"
-        >
-          {visualNovelsPage?.items.map(vn => (
-            <CoverCard
-              key={vn.id}
-              id={vn.id}
-              image={vn.image}
-              title={vn.title}
-              released={vn.released}
-              rating={vn.rating}
-              length={vn.length}
-              languages={vn.languages}
-              platforms={vn.platforms}
-            />
-          ))}
-        </Box>
-      </ContentWrapper>
+        {isLoading && Array.from({ length: 15 }).map(() => (
+          <CoverCardSkeleton />
+        ))}
+        {visualNovelsPage?.items.map(vn => (
+          <CoverCard
+            key={vn.id}
+            id={vn.id}
+            image={vn.image}
+            title={vn.title}
+            released={vn.released}
+            rating={vn.rating}
+            length={vn.length}
+            languages={vn.languages}
+            platforms={vn.platforms}
+          />
+        ))}
+      </Box>
 
       <Box alignSelf="center">
         <Paginator
+          isCountLoading={isLoading}
           isNavigationHidden
           count={pageCount}
           currentPage={page}
