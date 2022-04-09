@@ -36,6 +36,7 @@ export const VisualNovelSearchPage: VFC = () => {
       flexDir="column"
       mt={8}
       px={10}
+      gap={8}
     >
       <VisualNovelSearchForm
         onSubmit={handleSearchSubmit}
@@ -46,7 +47,7 @@ export const VisualNovelSearchPage: VFC = () => {
       >
         <Box
           display="grid"
-          gridGap={4}
+          gridGap={8}
           gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
           w="full"
           h="full"
@@ -55,8 +56,13 @@ export const VisualNovelSearchPage: VFC = () => {
             <CoverCard
               key={vn.id}
               id={vn.id}
-              image={vn.image ?? undefined}
+              image={vn.image}
               title={vn.title}
+              released={vn.released}
+              rating={vn.rating}
+              length={vn.length}
+              languages={vn.languages}
+              platforms={vn.platforms}
             />
           ))}
         </Box>

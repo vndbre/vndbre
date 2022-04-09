@@ -15,6 +15,7 @@ import { SelectOption } from '../../../../theme/components/Select';
 import { MultiSelect, RangeSlider } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 
+/** Visual novel search form data. */
 export interface VisualNovelFormData {
 
   /** Visual novel name. */
