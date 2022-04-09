@@ -1,5 +1,4 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
 import { VisualNovelPaginationOptions, VisualNovelsService } from '../../../api/services/visualNovelsService';
 import { Pagination } from '../../../models/pagination';
@@ -14,18 +13,17 @@ export const useVisualNovelQuery = (
 ): UseQueryResult<VisualNovel, Error> =>
   useQuery(['vn', id],
     () => VisualNovelsService.fetchFullVisualNovel(id),
-    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+    { ...options });
 
 /**
  * Hook for fetching page of visual novels.
  * @param paginationOptions Pagination options.
- * TODO (Panov A.): Research how to handle query key with a lot of fetch options.
+ * TODO (Panov A.): Research how to handles query key with a lot of fetch options.
  */
 export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginationOptions): UseQueryResult<Pagination<VisualNovel>> =>
   useQuery(
     ['vnPage', paginationOptions.page],
     () => VisualNovelsService.fetchPaginatedVisualNovels(paginationOptions),
-    { staleTime: defaultStaleTime, ...defaultFetchStrategy },
   );
 
 /**
@@ -41,4 +39,4 @@ export const useRelatedVisualNovelsQuery = (
 ): UseQueryResult<VisualNovel[], Error> =>
   useQuery(['relatedVns', id],
     () => VisualNovelsService.fetchVisualNovelByIds(ids),
-    { staleTime: defaultStaleTime, ...defaultFetchStrategy, ...options });
+    { ...options });

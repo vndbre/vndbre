@@ -1,6 +1,5 @@
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
-import { defaultFetchStrategy, defaultStaleTime } from './config';
 import { Release } from '../../../models/releases/release';
 import { ReleasesService } from '../../../api/services/releasesService';
 
@@ -14,7 +13,5 @@ export const useReleasesQuery = (
   options?: UseQueryOptions<Release[], Error>,
 ): UseQueryResult<Release[], Error> =>
   useQuery(['releases', id], () => ReleasesService.fetchFullReleases(id), {
-    staleTime: defaultStaleTime,
-    ...defaultFetchStrategy,
     ...options,
   });

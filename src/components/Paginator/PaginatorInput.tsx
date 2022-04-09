@@ -14,13 +14,13 @@ interface Props {
 const PaginatorInputComponent: VFC<Props> = ({ onChange }) => {
   const [isActive, setIsActive] = useState(false);
 
-  /** Handle activate. */
+  /** Handles activate. */
   const handleActiveClick = useCallback((): void => {
     setIsActive(true);
   }, []);
 
   /**
-   * Handle input blur.
+   * Handles input blur.
    * @param event Event,.
    */
   const handleInputBlur = useCallback((event: FocusEvent<HTMLInputElement>): void => {
@@ -34,7 +34,7 @@ const PaginatorInputComponent: VFC<Props> = ({ onChange }) => {
   }, [onChange]);
 
   /**
-   * Handle key down.
+   * Handles key down.
    * @param event Keyboard event.
    */
   const handleKeyDown = useCallback((event: KeyboardEvent): void => {

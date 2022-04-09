@@ -1,3 +1,8 @@
+html {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
 /* stylelint-disable-next-line no-empty-source */
 .js-focus-visible :focus:not([data-focus-visible-added]) {
   outline: none;

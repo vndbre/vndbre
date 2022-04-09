@@ -2,14 +2,13 @@ import React, { FC } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
-import { TagBlock } from '../../components/TagBlock/TagBlock';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
 import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedTagsQuery } from '../../queries';
 import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
-import { ContentWrapper } from '../../../../components';
+import { ContentWrapper, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
@@ -89,11 +88,11 @@ export const OverviewPage: FC = () => {
 
   const publishersBlock = visualNovel?.languages.map(key => (
     publishers && publishers[key].length > 0 && (
-      <TagBlock
+      <TagList
         key={key}
         title="Publisher"
         titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
-        tags={publishers[key].map(publisher => ({ name: publisher }))}
+        tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
       />
     )
   ));
@@ -112,11 +111,11 @@ export const OverviewPage: FC = () => {
 
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
-      <TagBlock
+      <TagList
         key={key}
         title={StaffRole.getStaffRoleInfo(key as StaffRole).title}
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
-          const data = { name: staff.name };
+          const data = { name: staff.name, note: null };
           if (StaffRole.getStaffRoleInfo(key as StaffRole).shouldNoteBeDisplayed) {
             return { ...data, note: staff.note };
           }
@@ -127,9 +126,9 @@ export const OverviewPage: FC = () => {
   ));
 
   const tagsBlock = tags && tags.length > 0 && (
-    <TagBlock
+    <TagList
       title="Tags"
-      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name }))}
+      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name, note: null }))}
       isExpandable
     />
   );
@@ -151,11 +150,11 @@ export const OverviewPage: FC = () => {
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
           <div className={cls.sidebar}>
             {visualNovel?.length && (
-              <TagBlock title="Game Length" tags={[{ name: visualNovel.length }]} />
+              <TagList title="Game Length" tags={[{ name: visualNovel.length, note: null }]} />
             )}
-            <TagBlock
+            <TagList
               title="Developers"
-              tags={developers.map(dev => ({ name: dev }))}
+              tags={developers.map(dev => ({ name: dev, note: null }))}
             />
             {publishersBlock}
             <div>
