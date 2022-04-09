@@ -16,10 +16,9 @@ interface Props {
   readonly onChange: (pageNumber: number) => void;
 
   /**
-   * How many items would be visible from edges when close to edge,
-   * and how many items would be visible from sides of middle.
+   * How many additional pages would be visible from side of a page.
    */
-  readonly edgeCount?: number;
+  readonly groupCount?: number;
 
   /** Whether paginator `next` and `previous` buttons should be hidden or not. */
   readonly isNavigationHidden?: boolean;
@@ -30,7 +29,7 @@ interface Props {
    */
   readonly offset?: number;
 
-  /** Minimum gap between two edge buttons groups for input button(ellipsis) to appear. */
+  /** Minimum gap between two buttons groups for page number input to appear. */
   readonly inputMinGap?: number;
 }
 
@@ -41,34 +40,34 @@ const PaginatorComponent: VFC<Props> = ({
   count,
   currentPage,
   onChange,
-  edgeCount = 1,
+  groupCount = 1,
   isNavigationHidden = false,
   offset = 1,
   inputMinGap = 1,
 }) => {
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
-    if (currentPage <= edgeCount + offset + inputMinGap) {
-      const leftEdgePages = Array.from({ length: currentPage + edgeCount }).map((_, i) => i + offset);
+    if (currentPage <= groupCount + offset + inputMinGap) {
+      const leftPagesGroup = Array.from({ length: currentPage + groupCount }).map((_, i) => i + offset);
 
-      return [leftEdgePages, [], [count]];
+      return [leftPagesGroup, [], [count]];
     }
-    const leftEdgePages = [offset];
+    const leftPagesGroup = [offset];
 
-    if (currentPage >= count - edgeCount - inputMinGap) {
-      const rightEdgePages = Array.from({ length: count - currentPage + edgeCount + offset }).map((_, i) => count - i)
+    if (currentPage >= count - groupCount - inputMinGap) {
+      const rightPagesGroup = Array.from({ length: count - currentPage + groupCount + offset }).map((_, i) => count - i)
         .reverse();
-      return [leftEdgePages, [], rightEdgePages];
+      return [leftPagesGroup, [], rightPagesGroup];
     }
 
-    const middlePages = Array.from({ length: edgeCount * 2 + offset }).map((_, i) => i + (currentPage - edgeCount));
-    return [leftEdgePages, middlePages, [count]];
+    const middlePages = Array.from({ length: groupCount * 2 + offset }).map((_, i) => i + (currentPage - groupCount));
+    return [leftPagesGroup, middlePages, [count]];
   };
 
-  const [leftEdgePages, middlePages, rightEdgePages] = getButtons();
+  const [leftPagesGroup, middlePages, rightPagesGroup] = getButtons();
 
   const isMiddlePagesVisible = middlePages.length > 0;
-  const isRightEdgePagesVisible = rightEdgePages.length > 0 && currentPage > edgeCount + offset + inputMinGap;
+  const isRightPagesGroupVisible = rightPagesGroup.length > 0 && currentPage > groupCount + offset + inputMinGap;
 
   /**
    * Handles page click.
@@ -77,13 +76,13 @@ const PaginatorComponent: VFC<Props> = ({
   const handlePageClick = useCallback((page: number) => onChange(page), [onChange]);
 
   /**
-   * Handle next page click.
+   * Handles next page click.
    * @param page Page number.
    */
   const handleNextPageClick = useCallback(() => onChange(currentPage + offset), [onChange, currentPage]);
 
   /**
-   * Handle previous page click.
+   * Handles previous page click.
    * @param page Page number.
    */
   const handlePrevPageClick = useCallback(() => onChange(currentPage - 1), [onChange, currentPage]);
@@ -116,7 +115,7 @@ const PaginatorComponent: VFC<Props> = ({
           onClick={handlePrevPageClick}
         />
       ) }
-      {leftEdgePages.map(getPaginatorButton)}
+      {leftPagesGroup.map(getPaginatorButton)}
 
       {isMiddlePagesVisible && (
         <>
@@ -125,10 +124,10 @@ const PaginatorComponent: VFC<Props> = ({
         </>
       )}
 
-      {isRightEdgePagesVisible && (
+      {isRightPagesGroupVisible && (
         <>
           <PaginatorInput onChange={onChange} />
-          {rightEdgePages.map(getPaginatorButton)}
+          {rightPagesGroup.map(getPaginatorButton)}
         </>
       )}
       {isNavigationHidden && (

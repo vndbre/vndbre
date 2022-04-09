@@ -19,7 +19,7 @@ export const useVisualNovelQuery = (
 /**
  * Hook for fetching page of visual novels.
  * @param paginationOptions Pagination options.
- * TODO (Panov A.): Research how to handle query key with a lot of fetch options.
+ * TODO (Panov A.): Research how to handles query key with a lot of fetch options.
  */
 export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginationOptions): UseQueryResult<Pagination<VisualNovel>> =>
   useQuery(
