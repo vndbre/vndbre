@@ -83,7 +83,7 @@ export interface CharacterDto {
   readonly original: string | null;
 
   /**
-   * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
+   * Character's gender.
    */
   readonly gender: GenderDto | null;
 
