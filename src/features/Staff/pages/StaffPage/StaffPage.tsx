@@ -24,12 +24,12 @@ export const StaffPage: VFC = () => {
 
   const staffAliases = useMemo(() => {
     if (staff) {
-      return staff.aliases.reduce((acc, cur) => {
+      return staff.aliases.reduce<string[]>((acc, cur) => {
         if (cur.originalName) {
           return [...acc, cur.name, cur.originalName];
         }
         return [...acc, cur.name];
-      }, [] as string[]).join(', ');
+      }, []).join(', ');
     }
     return [];
   }, [staff]);

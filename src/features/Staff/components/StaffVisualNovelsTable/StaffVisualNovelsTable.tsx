@@ -19,13 +19,13 @@ interface ExtendedVisualNovel extends VisualNovel, StaffVisualNovel {}
 
 /** Staff visual novels components. */
 const StaffVisualNovelsTableComponent: VFC<Props> = ({ visualNovels, staffVisualNovels }) => {
-  const groupedVisualNovels = useMemo(() => staffVisualNovels.reduce((acc, cur) => {
+  const groupedVisualNovels = useMemo(() => staffVisualNovels.reduce<ExtendedVisualNovel[]>((acc, cur) => {
     const novel = visualNovels.find(vn => vn.id === cur.id);
     if (novel) {
       return [...acc, { ...novel, ...cur }];
     }
     return acc;
-  }, [] as ExtendedVisualNovel[]), [visualNovels, staffVisualNovels]);
+  }, []), [visualNovels, staffVisualNovels]);
 
   return (
     <TableContainer>
@@ -41,7 +41,7 @@ const StaffVisualNovelsTableComponent: VFC<Props> = ({ visualNovels, staffVisual
         <Tbody>
           {groupedVisualNovels.map(vn => (
             <Tr key={`${vn.id + vn.aliasId}${vn.note}`}>
-              <Td><Link as={NavLink} to={`/vn/${vn.id}`}>{vn.title}</Link></Td>
+              <Td whiteSpace="pre-wrap"><Link as={NavLink} to={`/vn/${vn.id}`}>{vn.title}</Link></Td>
               <Td>{vn.released ? DateService.toISODate(vn.released) : 'No info'}</Td>
               <Td>{StaffRole.toReadable(vn.role)}</Td>
               <Td whiteSpace="pre-wrap">{vn.note}</Td>
