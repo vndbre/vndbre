@@ -1,11 +1,46 @@
 import React, { useCallback, useMemo, useState, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CoverCard } from '../../components/CoverCard/CoverCard';
-import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
 import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
+import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
+
+// import { VisualNovelPaginationOptions } from '../../../../api/services/visualNovelsService';
+
+// interface VisualNovelSearchParams {
+//   readonly page: string;
+//   readonly pageSize: string;
+//   readonly search: string;
+//   readonly startDate: string;
+//   readonly endDate: string;
+//   readonly platforms: readonly string[];
+//   readonly languages: readonly string[];
+//   readonly originalLanguages: readonly string[];
+// }
+
+// /**
+//  *
+//  * @param options
+//  */
+// const mapOptionsToSearchParams = (options: VisualNovelPaginationOptions): VisualNovelSearchParams => ({
+//   page: String(options.page),
+//   pageSize: String(options.pageSize),
+//   search: options.search ?? '',
+//   startDate: options.releasedRange?.startDate?.toISOString() ?? '',
+//   endDate: options.releasedRange?.endDate?.toISOString() ?? '',
+//   platforms: options.platforms ?? [],
+//   languages: options.languages ?? [],
+//   originalLanguages: options.originalLanguages ?? [],
+// });
+
+// const PREVIEW_PAGINATION_DEFAULTS: VisualNovelPaginationOptions = {
+//   page: 0,
+//   pageSize: 20,
+//   search: '',
+// };
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -14,6 +49,9 @@ export const VisualNovelSearchPage: VFC = () => {
    */
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // console.log(searchParams.toString());
 
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery({
     page,
@@ -26,6 +64,7 @@ export const VisualNovelSearchPage: VFC = () => {
   const handlePaginatorChange = useCallback(setPage, []);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
+    // console.log(data);
     setPage(1);
     setSearchQuery(data.title);
   }, []);
@@ -38,9 +77,8 @@ export const VisualNovelSearchPage: VFC = () => {
       px={10}
       gap={8}
     >
-      <VisualNovelSearchForm
-        onSubmit={handleSearchSubmit}
-      />
+      <VisualNovelSearchForm onSubmit={handleSearchSubmit} />
+
       <Box
         display="grid"
         gridGap={8}

@@ -3,9 +3,6 @@ import { RouteObject } from 'react-router';
 
 const VisualNovelSearchPage = lazy(() => import('./pages').then(module => ({ default: module.VisualNovelSearchPage })));
 
-/**
- * Routes for search module.
- */
 export const searchRoutes: RouteObject[] = [
   {
     path: 'search',
