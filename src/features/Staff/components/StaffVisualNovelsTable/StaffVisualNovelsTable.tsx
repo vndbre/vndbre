@@ -20,14 +20,14 @@ interface Props {
 const StaffVisualNovelsTableComponent: VFC<Props> = ({ visualNovels, staffVisualNovels }) => {
   const groupedVisualNovels = staffVisualNovels.reduce<StaffExtendedVisualNovel[]>((acc, cur) => {
     const novel = visualNovels.find(vn => vn.id === cur.id);
-    if (novel) {
+    if (novel != null) {
       return [...acc, { ...novel, ...cur }];
     }
     return acc;
-  }, []);
+  }, []).sort((a, b) => DateService.sortDatesAscending(a.released, b.released));
 
-  const tableRow = groupedVisualNovels.map(vn => (
-    <Tr key={`${vn.id + vn.aliasId}${vn.note}`}>
+  const tableRow = groupedVisualNovels.map((vn, index) => (
+    <Tr key={`${vn.id + vn.aliasId}${vn.note ?? index}`}>
       <Td whiteSpace="pre-wrap"><Link as={NavLink} to={`/vn/${vn.id}`}>{vn.title}</Link></Td>
       <Td>{vn.released ? DateService.toISODate(vn.released) : 'No info'}</Td>
       <Td>{StaffRole.toReadable(vn.role)}</Td>

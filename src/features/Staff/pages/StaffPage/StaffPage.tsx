@@ -23,7 +23,7 @@ export const StaffPage: VFC = () => {
   );
 
   const staffAliases = useMemo(() => {
-    if (staff) {
+    if (staff != null) {
       return staff.aliases.reduce<string[]>((acc, cur) => {
         if (cur.originalName) {
           return [...acc, cur.name, cur.originalName];
@@ -36,29 +36,29 @@ export const StaffPage: VFC = () => {
 
   return (
     <ContentWrapper isLoading={isStaffLoading} error={staffError}>
-      {staff && (
+      {staff != null && (
         <Box pt="8">
           <VStack alignItems="initial" spacing="12">
             <VStack alignItems="initial" spacing="8">
               <EntityTitle title={staff.name} originalTitle={staff.originalName} />
               <VStack alignItems="initial">
-                {staff.language && <EntityDetail title="Language">{Language.toReadable(staff.language)}</EntityDetail>}
-                {staff.gender && <EntityDetail title="Gender">{Gender.toReadable(staff.gender)}</EntityDetail>}
+                {staff.language != null && <EntityDetail title="Language">{Language.toReadable(staff.language)}</EntityDetail>}
+                {staff.gender != null && <EntityDetail title="Gender">{Gender.toReadable(staff.gender)}</EntityDetail>}
                 {staffAliases.length > 0 && (
                   <EntityDetail title="Aliases">
                     {staffAliases}
                   </EntityDetail>
                 )}
-                {staff.links && (
+                {staff.links != null && (
                   <EntityDetail title="Links">
                     <StaffLinks links={staff.links} />
                   </EntityDetail>
                 )}
               </VStack>
-              {staff.description ? <BBCode text={staff.description} /> : <Text>No description</Text>}
+              {staff.description != null ? <BBCode text={staff.description} /> : <Text>No description</Text>}
             </VStack>
             <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
-              {visualNovels && (
+              {visualNovels != null && (
                 <StaffVisualNovelsTable visualNovels={visualNovels} staffVisualNovels={staff.visualNovels} />
               )}
             </ContentWrapper>
