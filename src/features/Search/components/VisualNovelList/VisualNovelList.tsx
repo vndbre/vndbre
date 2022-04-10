@@ -5,11 +5,14 @@ import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
 import { CoverCard } from '../CoverCard/CoverCard';
 import { VNTable } from '../VNTable/VNTable';
 import { VNTableSkeleton } from '../VNTable/VNTableSkeleton';
+import { WideCard } from '../WideCard/WideCard';
+
+export type VisualNovelListVariant = 'table' | 'cards' | 'wide-cards' | 'extended-cards';
 
 interface Props {
 
   /** Variant of list. */
-  readonly variant: 'table' | 'card';
+  readonly variant: VisualNovelListVariant;
 
   /** Whether loading. */
   readonly isLoading: boolean;
@@ -22,7 +25,34 @@ interface Props {
  * Visual novels list.
  */
 const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }) => {
-  if (variant === 'card') {
+  if (variant === 'wide-cards') {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={4}
+      >
+        {/* {isLoading && Array.from({ length: 15 }).map(() => (
+          <CoverCardSkeleton />
+        ))} */}
+        {items.map(vn => (
+          <WideCard
+            key={vn.id}
+            id={vn.id}
+            image={vn.image}
+            title={vn.title}
+            released={vn.released}
+            rating={vn.rating}
+            length={vn.length}
+            languages={vn.languages}
+            platforms={vn.platforms}
+          />
+        ))}
+      </Box>
+    );
+  }
+
+  if (variant === 'cards') {
     return (
       <Box
         display="grid"

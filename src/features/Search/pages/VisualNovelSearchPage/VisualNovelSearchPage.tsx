@@ -3,10 +3,9 @@ import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
-import { CoverCard } from '../../components/CoverCard/CoverCard';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
-import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
-import { VisualNovelList } from '../../components/VisualNovelList/VisualNovelList';
+import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
+import { ListOptions } from '../../components/ListOptions/ListOptions';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -31,6 +30,8 @@ export const VisualNovelSearchPage: VFC = () => {
     setSearchQuery(data.title);
   }, []);
 
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('table');
+
   return (
     <Box
       display="flex"
@@ -43,8 +44,9 @@ export const VisualNovelSearchPage: VFC = () => {
         onSubmit={handleSearchSubmit}
       />
 
+      <ListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
       <VisualNovelList
-        variant="table"
+        variant={tableVariant}
         isLoading={isLoading}
         items={visualNovelsPage?.items}
       />

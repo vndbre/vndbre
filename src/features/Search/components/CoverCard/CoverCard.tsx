@@ -6,6 +6,7 @@ import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardInfoBox } from '../CardInfoBox/CardInfoBox';
+import { CardListInfoBox } from '../CardListInfoBox/CardListInfoBox';
 
 interface Props {
 
@@ -44,109 +45,90 @@ const CoverCardComponent: VFC<Props> = ({
   length,
   platforms,
   languages,
-}) => {
-  const ListInfoBox = memo(({ title: listTitle, items }: { title: string; items: ReactNode; }) => (
-    <Box
+}) => (
+  <Popover
+    trigger="hover"
+    placement="right-start"
+    openDelay={0}
+    closeDelay={0}
+    isLazy
+    lazyBehavior="keepMounted"
+  >
+    <PopoverTrigger>
+      <Box
+        role="group"
+        display="flex"
+        gridGap={2}
+        flexDirection="column"
+        w="100%"
+      >
+        <Link
+          as={RouterLink}
+          variant="no-underline"
+          to={`/vn/${id}`}
+        >
+          <Image
+            src={image ?? undefined}
+            borderRadius="sm"
+            style={{ aspectRatio: '5 / 7' }}
+            w="100%"
+            objectFit="cover"
+          />
+        </Link>
+        {/* TODO(V1.8+): use chakra semantic tokens */}
+        <Link
+          as={RouterLink}
+          variant="no-underline"
+          to={`/vn/${id}`}
+          _groupHover={{
+            color: 'var(--color-link)',
+          }}
+          fontSize="sm"
+          fontWeight="medium"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          style={{
+            display: '-webkit-box',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 2,
+          }}
+        >
+          {title}
+        </Link>
+      </Box>
+    </PopoverTrigger>
+    <PopoverContent
+      py={4}
+      px={4}
       display="flex"
       flexDirection="column"
-      gap={1}
+      gap={8}
+      width="min-content"
+      pointerEvents="none"
     >
-      <Box fontWeight="semibold">{listTitle}</Box>
       <Box
         display="flex"
-        gap={2}
-        flexWrap="wrap"
+        gap={12}
       >
-        {items}
+        <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+        <CardInfoBox title="Rating" text={rating} />
+        <CardInfoBox title="Length" text={length ?? 'Unknown'} />
       </Box>
-    </Box>
-  ));
-
-  return (
-    <Popover
-      trigger="hover"
-      placement="right-start"
-      openDelay={0}
-      closeDelay={0}
-      isLazy
-      lazyBehavior="keepMounted"
-    >
-      <PopoverTrigger>
-        <Box
-          role="group"
-          display="flex"
-          gridGap={2}
-          flexDirection="column"
-          w="100%"
-        >
-          <Link
-            as={RouterLink}
-            variant="no-underline"
-            to={`/vn/${id}`}
-          >
-            <Image
-              src={image ?? undefined}
-              borderRadius="sm"
-              style={{ aspectRatio: '5 / 7' }}
-              w="100%"
-              objectFit="cover"
-            />
-          </Link>
-          {/* TODO(V1.8+): use chakra semantic tokens */}
-          <Link
-            as={RouterLink}
-            variant="no-underline"
-            to={`/vn/${id}`}
-            _groupHover={{
-              color: 'var(--color-link)',
-            }}
-            fontSize="sm"
-            fontWeight="medium"
-            overflow="hidden"
-            textOverflow="ellipsis"
-            style={{
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 2,
-            }}
-          >
-            {title}
-          </Link>
-        </Box>
-      </PopoverTrigger>
-      <PopoverContent
-        py={4}
-        px={4}
+      <Box
         display="flex"
-        flexDirection="column"
-        gap={8}
-        width="min-content"
-        pointerEvents="none"
+        gap={12}
       >
-        <Box
-          display="flex"
-          gap={12}
-        >
-          <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
-          <CardInfoBox title="Rating" text={rating} />
-          <CardInfoBox title="Length" text={length ?? 'Unknown'} />
-        </Box>
-        <Box
-          display="flex"
-          gap={12}
-        >
-          <ListInfoBox
-            title="Languages"
-            items={languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
-          />
-          <ListInfoBox
-            title="Platforms"
-            items={platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
-          />
-        </Box>
-      </PopoverContent>
-    </Popover>
-  );
-};
+        <CardListInfoBox
+          title="Languages"
+          items={languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
+        />
+        <CardListInfoBox
+          title="Platforms"
+          items={platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
+        />
+      </Box>
+    </PopoverContent>
+  </Popover>
+);
 
 export const CoverCard = memo(CoverCardComponent);
