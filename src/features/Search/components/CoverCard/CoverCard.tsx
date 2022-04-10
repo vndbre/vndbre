@@ -67,7 +67,9 @@ const CoverCardComponent: VFC<Props> = ({
       trigger="hover"
       placement="right-start"
       openDelay={0}
-      closeDelay={50}
+      closeDelay={0}
+      isLazy
+      lazyBehavior="keepMounted"
     >
       <PopoverTrigger>
         <Box

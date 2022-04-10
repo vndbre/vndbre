@@ -6,6 +6,7 @@ import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNov
 import { CoverCard } from '../../components/CoverCard/CoverCard';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
 import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
+import { VisualNovelList } from '../../components/VisualNovelList/VisualNovelList';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -41,30 +42,12 @@ export const VisualNovelSearchPage: VFC = () => {
       <VisualNovelSearchForm
         onSubmit={handleSearchSubmit}
       />
-      <Box
-        display="grid"
-        gridGap={8}
-        gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
-        w="full"
-        h="full"
-      >
-        {isLoading && Array.from({ length: 15 }).map(() => (
-          <CoverCardSkeleton />
-        ))}
-        {visualNovelsPage?.items.map(vn => (
-          <CoverCard
-            key={vn.id}
-            id={vn.id}
-            image={vn.image}
-            title={vn.title}
-            released={vn.released}
-            rating={vn.rating}
-            length={vn.length}
-            languages={vn.languages}
-            platforms={vn.platforms}
-          />
-        ))}
-      </Box>
+
+      <VisualNovelList
+        variant="table"
+        isLoading={isLoading}
+        items={visualNovelsPage?.items}
+      />
 
       <Box alignSelf="center">
         <Paginator
