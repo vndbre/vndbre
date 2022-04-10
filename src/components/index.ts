@@ -7,3 +7,4 @@ export { Tag } from './Tag/Tag';
 export { TagList } from './TagList/TagList';
 export { RangeSlider } from './RangeSlider/RangeSlider';
 export { MultiSelect } from './MultiSelect/MultiSelect';
+export { TextInput } from './TextInput/TextInput';
