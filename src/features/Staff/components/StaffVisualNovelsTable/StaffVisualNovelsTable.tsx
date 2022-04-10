@@ -24,7 +24,7 @@ const StaffVisualNovelsTableComponent: VFC<Props> = ({ visualNovels, staffVisual
       return [...acc, { ...novel, ...cur }];
     }
     return acc;
-  }, []).sort((a, b) => DateService.sortDatesAscending(a.released, b.released));
+  }, []).sort((a, b) => DateService.compareDates(a.released, b.released));
 
   const tableRow = groupedVisualNovels.map((vn, index) => (
     <Tr key={`${vn.id + vn.aliasId}${vn.note ?? index}`}>

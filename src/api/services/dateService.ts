@@ -24,7 +24,7 @@ export namespace DateService {
   };
 
   /**
-   * Sort dates by ascending order.
+   * Compare dates by ascending order.
    * @example
    * ```ts
    *  const dates = [new Date(), new Date('2000-12-12'), null, new Date('2001-12-12'), null];
@@ -33,7 +33,7 @@ export namespace DateService {
    * @param date1 Date.
    * @param date2 Date.
    */
-  export const sortDatesAscending = (date1: Date | null, date2: Date | null): number => {
+  export const compareDates = (date1: Date | null, date2: Date | null): number => {
     if (date1 !== null && date2 !== null) {
       return date1 > date2 ? 1 : -1;
     }
