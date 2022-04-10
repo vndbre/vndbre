@@ -1,5 +1,5 @@
-import React, { memo, ReactNode, VFC } from 'react';
-import { Box, Image, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
+import React, { memo, VFC } from 'react';
+import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -45,7 +45,10 @@ const WideCardComponent: VFC<Props> = ({
   platforms,
   languages,
 }) => (
-  <Box
+  <Link
+    as={RouterLink}
+    variant="no-underline"
+    to={`/vn/${id}`}
     backgroundColor="gray.100"
     borderRadius="md"
     overflow="hidden"
@@ -77,49 +80,7 @@ const WideCardComponent: VFC<Props> = ({
       <CardInfoBox title="Rating" text={rating} />
       <CardInfoBox title="Length" text={length ?? 'Unknown'} />
     </Box>
-  </Box>
-
-  // <Box
-  //   role="group"
-  //   display="flex"
-  //   gridGap={2}
-  //   flexDirection="column"
-  //   w="100%"
-  // >
-  //   <Link
-  //     as={RouterLink}
-  //     variant="no-underline"
-  //     to={`/vn/${id}`}
-  //   >
-  //     <Image
-  //       src={image ?? undefined}
-  //       borderRadius="sm"
-  //       style={{ aspectRatio: '5 / 7' }}
-  //       w="100%"
-  //       objectFit="cover"
-  //     />
-  //   </Link>
-  //   {/* TODO(V1.8+): use chakra semantic tokens */}
-  //   <Link
-  //     as={RouterLink}
-  //     variant="no-underline"
-  //     to={`/vn/${id}`}
-  //     _groupHover={{
-  //       color: 'var(--color-link)',
-  //     }}
-  //     fontSize="sm"
-  //     fontWeight="medium"
-  //     overflow="hidden"
-  //     textOverflow="ellipsis"
-  //     style={{
-  //       display: '-webkit-box',
-  //       WebkitBoxOrient: 'vertical',
-  //       WebkitLineClamp: 2,
-  //     }}
-  //   >
-  //     {title}
-  //   </Link>
-  // </Box>
+  </Link>
 );
 
 export const WideCard = memo(WideCardComponent);

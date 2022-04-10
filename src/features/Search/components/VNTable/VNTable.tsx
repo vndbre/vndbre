@@ -1,5 +1,6 @@
 import React, { memo, VFC } from 'react';
-import { Box, Table, TableContainer, Tbody, Td, Th, Thead, Tooltip, Tr } from '@chakra-ui/react';
+import { Box, Link, Table, TableContainer, Tbody, Td, Th, Thead, Tooltip, Tr } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Icon } from '../../../../components/Icon/Icon';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -25,7 +26,6 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
           <Th>Platforms</Th>
           <Th>Released</Th>
           <Th>Rating</Th>
-          {/* <Th>Length</Th> */}
         </Tr>
       </Thead>
       <Tbody>
@@ -36,7 +36,15 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
               backgroundColor: 'gray.100',
             }}
           >
-            <Td>{vn.title}</Td>
+            <Td>
+              <Link
+                as={RouterLink}
+                variant="no-underline"
+                to={`/vn/${vn.id}`}
+              >
+                {vn.title}
+              </Link>
+            </Td>
             <Td>
               <Box
                 display="flex"

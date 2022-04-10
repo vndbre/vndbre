@@ -1,4 +1,4 @@
-import React, { memo, ReactNode, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import { Box, Image, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
