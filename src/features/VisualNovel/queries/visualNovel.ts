@@ -20,9 +20,9 @@ export const useVisualNovelQuery = (
  * @param paginationOptions Pagination options.
  * TODO (Panov A.): Research how to handle query key with a lot of fetch options.
  */
-export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginationOptions): UseQueryResult<Pagination<VisualNovel>> =>
+export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginationOptions): UseQueryResult<Pagination<VisualNovel>, Error> =>
   useQuery(
-    ['vnPage', paginationOptions.page],
+    ['vnPage', paginationOptions],
     () => VisualNovelsService.fetchPaginatedVisualNovels(paginationOptions),
   );
 

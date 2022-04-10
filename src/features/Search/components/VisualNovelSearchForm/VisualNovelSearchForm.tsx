@@ -15,7 +15,8 @@ import { SelectOption } from '../../../../theme/components/Select';
 import { MultiSelect, RangeSlider } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 
-interface VisualNovelFormData {
+/** Visual novel search form data. */
+export interface VisualNovelFormData {
 
   /** Visual novel name. */
   readonly title: string;
@@ -59,10 +60,16 @@ const visualNovelFormInitialValues: VisualNovelFormData = {
   platforms: [],
 };
 
+interface Props {
+
+  /** Submit handler. */
+  readonly onSubmit: (data: VisualNovelFormData) => void;
+}
+
 /**
  * Visual novel search form.
  */
-export const VisualNovelSearchForm: VFC = () => {
+export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit }) => {
   const {
     handleSubmit,
     register,
@@ -76,6 +83,7 @@ export const VisualNovelSearchForm: VFC = () => {
   function handleVisualNovelFormSubmit(data: VisualNovelFormData): void {
     /** TODO (Panov A.): Remove console.log. */
     console.log(data);
+    onSubmit(data);
   }
 
   return (

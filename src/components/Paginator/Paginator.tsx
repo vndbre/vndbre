@@ -1,5 +1,5 @@
 import React, { VFC, memo, useCallback } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, IconButton, Spinner } from '@chakra-ui/react';
 import { PaginatorInput } from './PaginatorInput';
 import { PaginatorButton } from './PaginatorButton';
 import { PaginatorNavigationButton } from './PaginatorNavigationButton';
@@ -31,6 +31,9 @@ interface Props {
 
   /** Minimum gap between two buttons groups for page number input to appear. */
   readonly inputMinGap?: number;
+
+  /** Whether to show loader right to the active page. */
+  readonly isCountLoading?: boolean;
 }
 
 /**
@@ -44,23 +47,27 @@ const PaginatorComponent: VFC<Props> = ({
   isNavigationHidden = false,
   offset = 1,
   inputMinGap = 1,
+  isCountLoading = false,
 }) => {
+  /** If value is bigger than count returns count. */
+  const parseCount = (value: number): number => (value > count ? count : value);
+
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
     if (currentPage <= groupCount + offset + inputMinGap) {
-      const leftPagesGroup = Array.from({ length: currentPage + groupCount }).map((_, i) => i + offset);
+      const leftPagesGroup = Array.from({ length: parseCount(currentPage + groupCount) }).map((_, i) => i + offset);
 
       return [leftPagesGroup, [], [count]];
     }
     const leftPagesGroup = [offset];
 
     if (currentPage >= count - groupCount - inputMinGap) {
-      const rightPagesGroup = Array.from({ length: count - currentPage + groupCount + offset }).map((_, i) => count - i)
+      const rightPagesGroup = Array.from({ length: parseCount(count - currentPage + groupCount + offset) }).map((_, i) => count - i)
         .reverse();
       return [leftPagesGroup, [], rightPagesGroup];
     }
 
-    const middlePages = Array.from({ length: groupCount * 2 + offset }).map((_, i) => i + (currentPage - groupCount));
+    const middlePages = Array.from({ length: parseCount(groupCount * 2 + offset) }).map((_, i) => i + (currentPage - groupCount));
     return [leftPagesGroup, middlePages, [count]];
   };
 
@@ -129,6 +136,14 @@ const PaginatorComponent: VFC<Props> = ({
           <PaginatorInput onChange={onChange} />
           {rightPagesGroup.map(getPaginatorButton)}
         </>
+      )}
+      {isCountLoading && (
+        <IconButton
+          colorScheme="gray"
+          aria-label="Loading page count"
+          icon={<Spinner size="lg" />}
+          isDisabled
+        />
       )}
       {isNavigationHidden && (
         <PaginatorNavigationButton
