@@ -28,7 +28,7 @@ export namespace DateService {
    * @example
    * ```ts
    *  const dates = [new Date(), new Date('2000-12-12'), null, new Date('2001-12-12'), null];
-   *  dates.sort(sortDates); // ["2000-12-12T00:00:00.000Z", "2001-12-12T00:00:00.000Z", "2022-04-10T16:38:12.731Z", null, null]
+   *  dates.sort(compareDates); // ["2000-12-12T00:00:00.000Z", "2001-12-12T00:00:00.000Z", "2022-04-10T16:38:12.731Z", null, null]
    * ```
    * @param date1 Date.
    * @param date2 Date.
