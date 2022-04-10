@@ -48,8 +48,9 @@ export const VisualNovelSearchPage: VFC = () => {
         w="full"
         h="full"
       >
-        {isLoading && Array.from({ length: 15 }).map(() => (
-          <CoverCardSkeleton />
+        {isLoading && Array.from({ length: 15 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <CoverCardSkeleton key={index} />
         ))}
         {visualNovelsPage?.items.map(vn => (
           <CoverCard

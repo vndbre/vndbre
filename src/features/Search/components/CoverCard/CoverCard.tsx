@@ -135,11 +135,11 @@ const CoverCardComponent: VFC<Props> = ({
         >
           <ListInfoBox
             title="Languages"
-            items={languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
+            items={languages.map(language => <Icon key={language} name={Language.getLanguageIcon(language)} />)}
           />
           <ListInfoBox
             title="Platforms"
-            items={platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
+            items={platforms.map(platform => <Icon key={platform} name={Platform.getPlatformIcon(platform)} />)}
           />
         </Box>
       </PopoverContent>

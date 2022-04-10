@@ -15,6 +15,7 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx'] }],
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-no-useless-fragment': ['error', { allowExpressions: true }],
+    'react/jsx-key': 'error',
     'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'off',
