@@ -8,9 +8,6 @@ const MediaPage = lazy(() => import('./pages').then(module => ({ default: module
 const RelationsPage = lazy(() => import('./pages').then(module => ({ default: module.RelationsPage })));
 const CharactersPage = lazy(() => import('./pages').then(module => ({ default: module.CharactersPage })));
 
-/**
- * Routes for test module.
- */
 export const visualNovelRoutes: RouteObject[] = [
   {
     path: 'vn/:id',
