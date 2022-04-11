@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box, Image, Link } from '@chakra-ui/react';
+import { Box, Image, Link, Tooltip } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -34,7 +34,7 @@ interface Props {
   readonly languages: VisualNovel['languages'];
 }
 
-/** Cover card. */
+/** Wide card. */
 const WideCardComponent: VFC<Props> = ({
   id,
   image,
@@ -47,7 +47,7 @@ const WideCardComponent: VFC<Props> = ({
 }) => (
   <Link
     as={RouterLink}
-    variant="no-underline"
+    variant="unstyled"
     to={`/vn/${id}`}
     backgroundColor="gray.100"
     borderRadius="md"
@@ -71,10 +71,24 @@ const WideCardComponent: VFC<Props> = ({
     >
       <Box fontWeight="medium" mr="auto">{title}</Box>
       <Box display="flex" flexWrap="wrap" gap={1} justifyContent="flex-end">
-        {languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
+        {languages.map((language, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Tooltip key={String(id) + language + String(index)} label={Language.toReadable(language)}>
+            <span>
+              <Icon name={Language.getLanguageIcon(language)} />
+            </span>
+          </Tooltip>
+        ))}
       </Box>
       <Box display="flex" flexWrap="wrap" gap={1}>
-        {platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
+        {platforms.map((platform, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+          <Tooltip key={String(id) + platform + String(index)} label={Platform.toReadable(platform)}>
+            <span>
+              <Icon name={Platform.getPlatformIcon(platform)} />
+            </span>
+          </Tooltip>
+        ))}
       </Box>
       <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
       <CardInfoBox title="Rating" text={rating} />

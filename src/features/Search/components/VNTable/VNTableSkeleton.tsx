@@ -7,8 +7,8 @@ const VNTableSkeletonComponent: VFC = () => {
   const randomWidth = (min = 25, max = 100): string => `${Math.floor((Math.random() * (max - min)) + min)}%`;
 
   /** Get table row. */
-  const randomRow = (): ReactNode => (
-    <Tr h={10}>
+  const randomRow = (key: number): ReactNode => (
+    <Tr key={key} h={10}>
       <Th><SkeletonText w={randomWidth()} noOfLines={1} /></Th>
       <Th><SkeletonText w={randomWidth()} noOfLines={1} ml="auto" /></Th>
       <Th><SkeletonText w={randomWidth()} noOfLines={1} /></Th>
@@ -32,7 +32,7 @@ const VNTableSkeletonComponent: VFC = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {Array.from({ length: 20 }).map(randomRow)}
+          {Array.from({ length: 20 }).map((_, index) => randomRow(index))}
         </Tbody>
       </Table>
     </TableContainer>

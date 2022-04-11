@@ -6,6 +6,8 @@ import { CoverCard } from '../CoverCard/CoverCard';
 import { VNTable } from '../VNTable/VNTable';
 import { VNTableSkeleton } from '../VNTable/VNTableSkeleton';
 import { WideCard } from '../WideCard/WideCard';
+import { WideCardSkeleton } from '../WideCard/WideCardSkeleton';
+import { ExtendedCard } from '../ExtendedCard/ExtendedCard';
 
 export type VisualNovelListVariant = 'table' | 'cards' | 'wide-cards' | 'extended-cards';
 
@@ -32,9 +34,10 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
         flexDirection="column"
         gap={4}
       >
-        {/* {isLoading && Array.from({ length: 15 }).map(() => (
-          <CoverCardSkeleton />
-        ))} */}
+        {isLoading && Array.from({ length: 15 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <WideCardSkeleton key={index} />
+        ))}
         {items.map(vn => (
           <WideCard
             key={vn.id}
@@ -61,8 +64,9 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
         w="full"
         h="full"
       >
-        {isLoading && Array.from({ length: 15 }).map(() => (
-          <CoverCardSkeleton />
+        {isLoading && Array.from({ length: 15 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <CoverCardSkeleton key={index} />
         ))}
         {items.map(vn => (
           <CoverCard
@@ -75,6 +79,28 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
             length={vn.length}
             languages={vn.languages}
             platforms={vn.platforms}
+          />
+        ))}
+      </Box>
+    );
+  }
+  if (variant === 'extended-cards') {
+    return (
+      <Box
+        display="grid"
+        gridGap={8}
+        gridTemplateColumns="repeat(auto-fill, minmax(560px, 1fr))"
+        w="full"
+        h="full"
+      >
+        {/* {isLoading && Array.from({ length: 15 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <CoverCardSkeleton key={index} />
+        ))} */}
+        {items.map(vn => (
+          <ExtendedCard
+            key={vn.id}
+            vn={vn}
           />
         ))}
       </Box>

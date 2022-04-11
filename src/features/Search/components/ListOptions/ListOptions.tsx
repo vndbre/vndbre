@@ -45,6 +45,7 @@ const ListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) =>
     <Box>
       {buttonOptions.map(({ icon, variant, label }) => (
         <IconButton
+          key={variant}
           onClick={useCallback(() => onVariantChange(variant), [onVariantChange])}
           aria-label={label}
           icon={<Icon name={icon} />}

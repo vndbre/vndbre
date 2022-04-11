@@ -17,7 +17,7 @@ export const VisualNovelSearchPage: VFC = () => {
 
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery({
     page,
-    pageSize: 20,
+    pageSize: 18,
     search: searchQuery,
   });
 
@@ -30,7 +30,7 @@ export const VisualNovelSearchPage: VFC = () => {
     setSearchQuery(data.title);
   }, []);
 
-  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('table');
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('extended-cards');
 
   return (
     <Box

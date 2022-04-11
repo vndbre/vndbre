@@ -15,5 +15,11 @@ export const Link: StyleConfig = {
     'no-underline': {
       borderBottom: 'none',
     },
+    'unstyled': {
+      borderBottom: 'none',
+      _hover: {
+        color: 'inherit',
+      },
+    },
   },
 };

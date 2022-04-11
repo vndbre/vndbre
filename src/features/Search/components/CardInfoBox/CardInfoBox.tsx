@@ -10,7 +10,7 @@ interface Props {
   readonly text: string | number;
 }
 
-/** Card info box. */
+/** Card list info box. */
 const CardInfoBoxComponent: VFC<Props> = ({ title, text }) => (
   <Box
     display="flex"
