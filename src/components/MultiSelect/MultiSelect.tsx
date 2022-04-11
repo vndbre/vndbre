@@ -9,9 +9,9 @@ import {
   MultiValueGenericProps,
 } from 'chakra-react-select';
 import { useController } from 'react-hook-form';
-import { SelectOption } from '../../theme/components/Select';
 import { FormControlProps } from '../../utils/formControl';
 import { Icon } from '../Icon/Icon';
+import { SelectOption } from '../../utils/selectOption';
 
 interface Props extends FormControlProps, Omit<SelectProps<SelectOption, true, GroupBase<SelectOption>>, 'name'> {
 

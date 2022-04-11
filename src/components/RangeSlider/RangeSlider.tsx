@@ -1,4 +1,4 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useMemo, VFC } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -24,12 +24,23 @@ interface Props extends FormControlProps {
 
   /** The maximum possible value of the slider. Must not be less than min. */
   readonly max: number;
+
+  /** Function for generating custom label based on range slider value.  */
+  readonly labelRenderer?: (sliderValue: number) => string;
 }
 
 /**
  * Custom range slider based on Chakra UI RangeSlider component.
  */
-const RangeSliderComponent: VFC<Props> = ({ control, name, label, rules, min, max }) => {
+const RangeSliderComponent: VFC<Props> = ({
+  control,
+  name,
+  label,
+  rules,
+  min,
+  max,
+  labelRenderer,
+}) => {
   const {
     field: { onChange, value, ref },
     fieldState: { invalid, error },
@@ -39,14 +50,17 @@ const RangeSliderComponent: VFC<Props> = ({ control, name, label, rules, min, ma
     rules,
   });
 
+  const minValueLabel = useMemo(() => (labelRenderer != null ? labelRenderer(value[0]) : value[0]), [value[0]]);
+  const maxValueLabel = useMemo(() => (labelRenderer != null ? labelRenderer(value[1]) : value[1]), [value[1]]);
+
   return (
     <FormControl isInvalid={invalid} id={name}>
       <HStack justifyContent="space-between">
         <FormLabel>{label}</FormLabel>
         <Text color="gray.500" fontSize="sm">
-          {value[0]}
+          {minValueLabel}
           -
-          {value[1]}
+          {maxValueLabel}
         </Text>
       </HStack>
       <ChakraRangeSlider
@@ -62,10 +76,10 @@ const RangeSliderComponent: VFC<Props> = ({ control, name, label, rules, min, ma
         <RangeSliderTrack boxSize={3} borderRadius={5}>
           <RangeSliderFilledTrack />
         </RangeSliderTrack>
-        <Tooltip label={value[0]}>
+        <Tooltip label={minValueLabel}>
           <RangeSliderThumb boxSize={4} index={0} />
         </Tooltip>
-        <Tooltip label={value[1]}>
+        <Tooltip label={maxValueLabel}>
           <RangeSliderThumb boxSize={4} index={1} />
         </Tooltip>
       </ChakraRangeSlider>

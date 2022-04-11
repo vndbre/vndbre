@@ -12,19 +12,16 @@ import {
 import { useForm } from 'react-hook-form';
 import { Language } from '../../../../models/language';
 import { Platform } from '../../../../models/platform';
-import { SelectOption } from '../../../../theme/components/Select';
 import { MultiSelect, RangeSlider, TextInput } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { debounce } from '../../../../utils/debounce';
+import { mapLanguageToSelectOption, mapPlatformToSelectOption, SelectOption } from '../../../../utils/selectOption';
 
 /** Visual novel search form data. */
 export interface VisualNovelFormData {
 
   /** Visual novel name. */
   readonly title: string;
-
-  /** Length range. */
-  readonly lengthRange: readonly [number, number];
 
   /** Release year range. */
   readonly releaseYearRange: readonly [number, number];
@@ -39,24 +36,15 @@ export interface VisualNovelFormData {
   readonly platforms: readonly SelectOption<Platform>[];
 }
 
-const languageOptions: SelectOption<Language>[] = Language.getSortedLanguages().map(
-  language => ({
-    value: language,
-    label: Language.toReadable(language),
-    icon: Language.getLanguageIcon(language),
-  }),
-);
-
-const platformOptions: SelectOption<Platform>[] = Platform.getSortedPlatforms().map(
-  platform => ({ value: platform, label: Platform.toReadable(platform) }),
-);
+const languageOptions: SelectOption<Language>[] = Language.getSortedLanguages().map(mapLanguageToSelectOption);
+const platformOptions: SelectOption<Platform>[] = Platform.getSortedPlatforms().map(mapPlatformToSelectOption);
 
 const currentYear = new Date().getFullYear();
+const MIN_RELEASE_YEAR = 1970;
 
 const visualNovelFormInitialValues: VisualNovelFormData = {
   title: '',
-  lengthRange: [0, 50],
-  releaseYearRange: [1970, currentYear],
+  releaseYearRange: [MIN_RELEASE_YEAR, currentYear],
   languages: [],
   originalLanguages: [],
   platforms: [],
@@ -66,18 +54,20 @@ interface Props {
 
   /** Form submit handler. */
   readonly onSubmit: (data: VisualNovelFormData) => void;
+
+  /** Default values of the form. */
+  readonly defaultFormValues?: Partial<VisualNovelFormData>;
 }
 
 /**
  * Visual novel search form.
  */
-export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit }) => {
+export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues }) => {
   const {
     handleSubmit,
     watch,
     control,
-  } = useForm({ defaultValues: visualNovelFormInitialValues });
-
+  } = useForm({ defaultValues: { ...visualNovelFormInitialValues, ...defaultFormValues } });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   /**
@@ -85,7 +75,6 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit }) => {
    * @param data Form data.
    */
   const handleVisualNovelFormSubmit = (data: VisualNovelFormData): void => {
-    console.log(data);
     onSubmit(data);
   };
 
@@ -113,16 +102,6 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit }) => {
           control={control}
           name="languages"
           label="Language"
-          options={languageOptions}
-          placeholder="Any"
-          displayLimit={1}
-          closeMenuOnSelect={false}
-        />
-
-        <MultiSelect
-          control={control}
-          name="originalLanguages"
-          label="Original language"
           options={languageOptions}
           placeholder="Any"
           displayLimit={1}
@@ -197,19 +176,12 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit }) => {
                 />
               </HStack>
 
-              <HStack width="full" gap={6}>
-                <RangeSlider
-                  control={control}
-                  name="lengthRange"
-                  label="Length"
-                  min={0}
-                  max={50}
-                />
+              <HStack width="full">
                 <RangeSlider
                   control={control}
                   name="releaseYearRange"
                   label="Release date"
-                  min={1970}
+                  min={MIN_RELEASE_YEAR}
                   max={currentYear}
                 />
               </HStack>

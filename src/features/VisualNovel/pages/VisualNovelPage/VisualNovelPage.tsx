@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC, Suspense, useCallback } from 'react';
 import { Button, ButtonGroup, Heading, IconButton, Image, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
