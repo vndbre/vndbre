@@ -72,8 +72,8 @@ export const VisualNovelSearchPage: VFC = () => {
     }));
   }, []);
 
-  const { page } = searchOptions;
-  const pageCount = visualNovelsPage?.hasMore ? page + 1 : page;
+  const page = useMemo(() => searchOptions.page, [searchOptions.page]);
+  const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const formDefaultValue = useMemo(() => mapOptionsToFormData(PREVIEW_PAGINATION_DEFAULTS), []);
 
   return (
