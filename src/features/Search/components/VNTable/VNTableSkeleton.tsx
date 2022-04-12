@@ -1,12 +1,9 @@
 import React, { memo, ReactNode, VFC } from 'react';
 import { Skeleton, SkeletonText, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import { randomBetween } from '../../../../utils/randomBetween';
+import { randomWidth } from '../../../../utils/randomWidth';
 
 /** Visual novel table. */
 const VNTableSkeletonComponent: VFC = () => {
-  /** Get random width. */
-  const randomWidth = (min = 25, max = 100): string => `${randomBetween(min, max)}%`;
-
   /** Get table row. */
   const randomRow = (key: number): ReactNode => (
     <Tr key={key} h={10}>
