@@ -9,3 +9,6 @@ export { RangeSlider } from './RangeSlider/RangeSlider';
 export { MultiSelect } from './MultiSelect/MultiSelect';
 export { EntityDetail } from './EntityDetail/EntityDetail';
 export { EntityTitle } from './EntityTitle/EntityTitle';
+export { Popover } from './Popover/Popover';
+export { ViewSettings } from './ViewSettings/ViewSettings';
+export { SafeImage } from './SafeImage/SafeImage';

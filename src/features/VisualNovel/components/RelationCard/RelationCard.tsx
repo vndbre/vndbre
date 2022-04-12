@@ -1,8 +1,9 @@
 import React, { memo, VFC } from 'react';
-import { Box, Flex, Grid, GridItem, Heading, Image, Link, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, GridItem, Heading, Link, Text } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { VisualNovelRelation } from '../../../../models/visualNovels/visualNovelRelation';
+import { SafeImage } from '../../../../components';
 
 interface RelationCardProps {
 
@@ -20,6 +21,9 @@ interface RelationCardProps {
 
   /** Image url. */
   readonly image: string | null;
+
+  /** Whether the related has nsfw image. */
+  readonly isImageNsfw: boolean;
 }
 
 /**
@@ -31,6 +35,7 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
   isOfficial,
   relationType,
   image,
+  isImageNsfw,
 }) => (
   <Grid
     gridTemplateColumns="var(--chakra-sizes-20) 1fr"
@@ -41,7 +46,15 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
     bg="gray.100"
     gridTemplateRows="100%"
   >
-    <Image src={image ?? undefined} fallbackSrc={vnPosterPlaceholder} borderRadius="lg" h="full" w="full" objectFit="cover" />
+    <SafeImage
+      src={image ?? undefined}
+      fallbackSrc={vnPosterPlaceholder}
+      borderRadius="lg"
+      h="full"
+      w="full"
+      isImageNsfw={isImageNsfw}
+      objectFit="cover"
+    />
     <GridItem p="3">
       <Flex direction="column" justify="space-between" h="full">
         <Box>
