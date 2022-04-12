@@ -13,7 +13,7 @@ interface Props {
 }
 
 /** Visual novel list options. */
-const ListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) => {
+const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) => {
   const buttonOptions: {
     icon: string;
     variant: VisualNovelListVariant;
@@ -25,14 +25,14 @@ const ListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) =>
       label: 'Table',
     },
     {
-      icon: 'carbon:show-data-cards',
-      variant: 'wide-cards',
-      label: 'Wide cards',
-    },
-    {
       icon: 'carbon:grid',
       variant: 'cards',
       label: 'Cards',
+    },
+    {
+      icon: 'carbon:show-data-cards',
+      variant: 'wide-cards',
+      label: 'Wide cards',
     },
     {
       icon: 'carbon:horizontal-view',
@@ -68,4 +68,4 @@ const ListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) =>
   );
 };
 
-export const ListOptions = memo(ListOptionsComponent);
+export const VisualNovelListOptions = memo(VisualNovelListOptionsComponent);

@@ -4,24 +4,28 @@ import { Box } from '@chakra-ui/react';
 interface Props {
 
   /** Title.  */
-  readonly title: string;
+  readonly title?: string;
 
   /** Items. */
   readonly items: ReactNode;
+
+  /** Items justify  direction. */
+  readonly justify?: 'start' | 'end';
 }
 
-/** Card info box. */
-const CardListInfoBoxComponent: VFC<Props> = ({ title, items }) => (
+/** Card list info box. */
+const CardListInfoBoxComponent: VFC<Props> = ({ title, items, justify = 'start' }) => (
   <Box
     display="flex"
     flexDirection="column"
     gap={1}
   >
-    <Box fontWeight="semibold">{title}</Box>
+    {title && <Box fontWeight="semibold">{title}</Box>}
     <Box
       display="flex"
       gap={2}
       flexWrap="wrap"
+      justifyContent={justify}
     >
       {items}
     </Box>

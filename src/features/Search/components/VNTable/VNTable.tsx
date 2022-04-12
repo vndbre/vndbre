@@ -52,9 +52,8 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
                 justifyContent="flex-end"
                 gap={1}
               >
-                {vn.languages.map((language, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Tooltip key={String(vn.id) + language + String(index)} label={Language.toReadable(language)}>
+                {vn.languages.map(language => (
+                  <Tooltip key={language} label={Language.toReadable(language)}>
                     <span>
                       <Icon name={Language.getLanguageIcon(language)} />
                     </span>
@@ -68,9 +67,8 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
                 flexWrap="wrap"
                 gap={1}
               >
-                {vn.platforms.map((platform, index) => (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Tooltip key={String(vn.id) + platform + String(index)} label={Platform.toReadable(platform)}>
+                {vn.platforms.map(platform => (
+                  <Tooltip key={platform} label={Platform.toReadable(platform)}>
                     <span>
                       <Icon name={Platform.getPlatformIcon(platform)} />
                     </span>

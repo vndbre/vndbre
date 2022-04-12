@@ -8,6 +8,7 @@ import { VNTableSkeleton } from '../VNTable/VNTableSkeleton';
 import { WideCard } from '../WideCard/WideCard';
 import { WideCardSkeleton } from '../WideCard/WideCardSkeleton';
 import { ExtendedCard } from '../ExtendedCard/ExtendedCard';
+import { ExtendedCardSkeleton } from '../ExtendedCard/ExtendedCardSkeleton';
 
 export type VisualNovelListVariant = 'table' | 'cards' | 'wide-cards' | 'extended-cards';
 
@@ -27,31 +28,12 @@ interface Props {
  * Visual novels list.
  */
 const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }) => {
-  if (variant === 'wide-cards') {
+  if (variant === 'table') {
     return (
-      <Box
-        display="flex"
-        flexDirection="column"
-        gap={4}
-      >
-        {isLoading && Array.from({ length: 15 }).map((_, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <WideCardSkeleton key={index} />
-        ))}
-        {items.map(vn => (
-          <WideCard
-            key={vn.id}
-            id={vn.id}
-            image={vn.image}
-            title={vn.title}
-            released={vn.released}
-            rating={vn.rating}
-            length={vn.length}
-            languages={vn.languages}
-            platforms={vn.platforms}
-          />
-        ))}
-      </Box>
+      <>
+        {isLoading && <VNTableSkeleton />}
+        {items.length > 0 && <VNTable items={items} />}
+      </>
     );
   }
 
@@ -60,59 +42,46 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
       <Box
         display="grid"
         gridGap={8}
-        gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
-        w="full"
-        h="full"
+        gridTemplateColumns="repeat(auto-fill, minmax(200px, 1fr))"
       >
-        {isLoading && Array.from({ length: 15 }).map((_, index) => (
+        {isLoading && Array.from({ length: 10 }).map((_, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <CoverCardSkeleton key={index} />
         ))}
-        {items.map(vn => (
-          <CoverCard
-            key={vn.id}
-            id={vn.id}
-            image={vn.image}
-            title={vn.title}
-            released={vn.released}
-            rating={vn.rating}
-            length={vn.length}
-            languages={vn.languages}
-            platforms={vn.platforms}
-          />
-        ))}
+        {items.map(vn => <CoverCard key={vn.id} vn={vn} />)}
       </Box>
     );
   }
+
+  if (variant === 'wide-cards') {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={4}
+      >
+        {isLoading && Array.from({ length: 5 }).map((_, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <WideCardSkeleton key={index} />
+        ))}
+        {items.map(vn => <WideCard key={vn.id} vn={vn} />)}
+      </Box>
+    );
+  }
+
   if (variant === 'extended-cards') {
     return (
       <Box
         display="grid"
         gridGap={8}
         gridTemplateColumns="repeat(auto-fill, minmax(560px, 1fr))"
-        w="full"
-        h="full"
       >
-        {/* {isLoading && Array.from({ length: 15 }).map((_, index) => (
+        {isLoading && Array.from({ length: 15 }).map((_, index) => (
           // eslint-disable-next-line react/no-array-index-key
-          <CoverCardSkeleton key={index} />
-        ))} */}
-        {items.map(vn => (
-          <ExtendedCard
-            key={vn.id}
-            vn={vn}
-          />
+          <ExtendedCardSkeleton key={index} />
         ))}
+        {items.map(vn => <ExtendedCard key={vn.id} vn={vn} />)}
       </Box>
-    );
-  }
-
-  if (variant === 'table') {
-    return (
-      <>
-        {isLoading && <VNTableSkeleton />}
-        <VNTable items={items} />
-      </>
     );
   }
 

@@ -6,44 +6,26 @@ import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardInfoBox } from '../CardInfoBox/CardInfoBox';
+import { CardListInfoBox } from '../CardListInfoBox/CardListInfoBox';
 
 interface Props {
 
-  /** Id. */
-  readonly id: VisualNovel['id'];
-
-  /** Image. */
-  readonly image: VisualNovel['image'];
-
-  /** Title. */
-  readonly title: VisualNovel['title'];
-
-  /** Release date. */
-  readonly released: VisualNovel['released'];
-
-  /** Rating. */
-  readonly rating: VisualNovel['rating'];
-
-  /** Length. */
-  readonly length: VisualNovel['length'];
-
-  /** Platforms. */
-  readonly platforms: VisualNovel['platforms'];
-
-  /** Languages. */
-  readonly languages: VisualNovel['languages'];
+  /** Visual novel data. */
+  readonly vn: VisualNovel;
 }
 
 /** Wide card. */
 const WideCardComponent: VFC<Props> = ({
-  id,
-  image,
-  title,
-  released,
-  rating,
-  length,
-  platforms,
-  languages,
+  vn: {
+    id,
+    image,
+    title,
+    released,
+    rating,
+    length,
+    platforms,
+    languages,
+  },
 }) => (
   <Link
     as={RouterLink}
@@ -69,8 +51,29 @@ const WideCardComponent: VFC<Props> = ({
       gridTemplateColumns="2fr minmax(calc((24px + 4px)*8), 1fr) minmax(calc((24px + 4px)*8), 1fr) 80px 80px 120px"
       gap={8}
     >
-      <Box fontWeight="medium" mr="auto">{title}</Box>
-      <Box display="flex" flexWrap="wrap" gap={1} justifyContent="flex-end">
+      <Box
+        fontWeight="medium"
+        mr="auto"
+        noOfLines={2}
+      >
+        {title}
+      </Box>
+      <CardListInfoBox
+        justify="end"
+        items={languages.map(language => (
+          <Tooltip key={language} label={Language.toReadable(language)}>
+            <span>
+              <Icon name={Language.getLanguageIcon(language)} />
+            </span>
+          </Tooltip>
+        ))}
+      />
+      {/* <Box
+        display="flex"
+        flexWrap="wrap"
+        gap={1}
+        justifyContent="flex-end"
+      >
         {languages.map((language, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <Tooltip key={String(id) + language + String(index)} label={Language.toReadable(language)}>
@@ -79,7 +82,7 @@ const WideCardComponent: VFC<Props> = ({
             </span>
           </Tooltip>
         ))}
-      </Box>
+      </Box> */}
       <Box display="flex" flexWrap="wrap" gap={1}>
         {platforms.map((platform, index) => (
         // eslint-disable-next-line react/no-array-index-key

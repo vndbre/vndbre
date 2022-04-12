@@ -5,7 +5,7 @@ import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
 import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
-import { ListOptions } from '../../components/ListOptions/ListOptions';
+import { VisualNovelListOptions } from '../../components/VisualNovelListOptions/VisualNovelListOptions';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
@@ -44,7 +44,7 @@ export const VisualNovelSearchPage: VFC = () => {
         onSubmit={handleSearchSubmit}
       />
 
-      <ListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+      <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
       <VisualNovelList
         variant={tableVariant}
         isLoading={isLoading}

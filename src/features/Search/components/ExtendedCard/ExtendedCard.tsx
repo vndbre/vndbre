@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box, Image, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
+import { Box, Heading, Image, Link, Tooltip } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -18,7 +18,6 @@ interface Props {
 const ExtendedCardComponent: VFC<Props> = ({
   vn: {
     id,
-    description,
     title,
     image,
     released,
@@ -33,7 +32,6 @@ const ExtendedCardComponent: VFC<Props> = ({
     borderRadius="lg"
     overflow="hidden"
     backgroundColor="gray.100"
-    h="full"
     maxH="320px"
   >
     <Link
@@ -42,6 +40,7 @@ const ExtendedCardComponent: VFC<Props> = ({
       to={`/vn/${id}`}
       h="full"
       style={{ aspectRatio: '5 / 7' }}
+      data-peer
     >
       <Image
         src={image ?? undefined}
@@ -60,7 +59,19 @@ const ExtendedCardComponent: VFC<Props> = ({
       gap={8}
       overflowY="auto"
     >
-      <Box fontWeight="semibold">{title}</Box>
+      <Link
+        as={RouterLink}
+        variant="no-underline"
+        to={`/vn/${id}`}
+      >
+        <Heading
+          as="h2"
+          fontSize="md"
+          fontWeight="medium"
+        >
+          {title}
+        </Heading>
+      </Link>
       <Box
         display="flex"
         gap={12}
@@ -75,11 +86,23 @@ const ExtendedCardComponent: VFC<Props> = ({
       >
         <CardListInfoBox
           title="Languages"
-          items={languages.map(language => <Icon name={Language.getLanguageIcon(language)} />)}
+          items={languages.map(language => (
+            <Tooltip key={language} label={Language.toReadable(language)}>
+              <span>
+                <Icon name={Language.getLanguageIcon(language)} />
+              </span>
+            </Tooltip>
+          ))}
         />
         <CardListInfoBox
           title="Platforms"
-          items={platforms.map(platform => <Icon name={Platform.getPlatformIcon(platform)} />)}
+          items={platforms.map(platform => (
+            <Tooltip key={platform} label={Platform.toReadable(platform)}>
+              <span>
+                <Icon name={Platform.getPlatformIcon(platform)} />
+              </span>
+            </Tooltip>
+          ))}
         />
       </Box>
     </Box>
