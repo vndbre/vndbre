@@ -41,6 +41,7 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
                 as={RouterLink}
                 variant="no-underline"
                 to={`/vn/${vn.id}`}
+                whiteSpace="break-spaces"
               >
                 {vn.title}
               </Link>

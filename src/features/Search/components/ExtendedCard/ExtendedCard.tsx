@@ -52,8 +52,7 @@ const ExtendedCardComponent: VFC<Props> = ({
       />
     </Link>
     <Box
-      py={4}
-      px={4}
+      p={4}
       display="flex"
       flexDirection="column"
       gap={8}

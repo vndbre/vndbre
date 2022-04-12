@@ -68,31 +68,16 @@ const WideCardComponent: VFC<Props> = ({
           </Tooltip>
         ))}
       />
-      {/* <Box
-        display="flex"
-        flexWrap="wrap"
-        gap={1}
-        justifyContent="flex-end"
-      >
-        {languages.map((language, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Tooltip key={String(id) + language + String(index)} label={Language.toReadable(language)}>
-            <span>
-              <Icon name={Language.getLanguageIcon(language)} />
-            </span>
-          </Tooltip>
-        ))}
-      </Box> */}
-      <Box display="flex" flexWrap="wrap" gap={1}>
-        {platforms.map((platform, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-          <Tooltip key={String(id) + platform + String(index)} label={Platform.toReadable(platform)}>
+      <CardDetailList
+        justify="end"
+        items={platforms.map(platform => (
+          <Tooltip key={platform} label={Platform.toReadable(platform)}>
             <span>
               <Icon name={Platform.getPlatformIcon(platform)} />
             </span>
           </Tooltip>
         ))}
-      </Box>
+      />
       <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
       <CardDetail title="Rating" text={rating} />
       <CardDetail title="Length" text={length ?? 'Unknown'} />

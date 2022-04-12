@@ -1,15 +1,15 @@
 import React, { memo, ReactNode, VFC } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 interface Props {
 
-  /** Title.  */
+  /** Title. */
   readonly title?: string;
 
   /** Items. */
   readonly items: ReactNode;
 
-  /** Items justify  direction. */
+  /** Items justify direction. */
   readonly justify?: 'start' | 'end';
 }
 
@@ -20,7 +20,7 @@ const CardDetailListComponent: VFC<Props> = ({ title, items, justify = 'start' }
     flexDirection="column"
     gap={1}
   >
-    {title && <Box fontWeight="semibold">{title}</Box>}
+    {title && <Text fontWeight="semibold">{title}</Text>}
     <Box
       display="flex"
       gap={2}

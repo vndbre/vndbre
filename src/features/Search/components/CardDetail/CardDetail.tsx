@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 interface Props {
 
@@ -17,8 +17,8 @@ const CardDetailComponent: VFC<Props> = ({ title, text }) => (
     flexDirection="column"
     gap={1}
   >
-    <Box fontSize="sm">{title}</Box>
-    <Box fontWeight="semibold" whiteSpace="nowrap">{text}</Box>
+    <Text fontSize="sm">{title}</Text>
+    <Text fontWeight="semibold" whiteSpace="nowrap">{text}</Text>
   </Box>
 );
 

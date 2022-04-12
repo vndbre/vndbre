@@ -57,6 +57,10 @@ const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantC
           _last={{
             borderRightRadius: 'md',
           }}
+          isDisabled={variant === activeVariant}
+          _disabled={{
+            opacity: '1',
+          }}
           sx={variant === activeVariant ? {
             pointerEvents: 'none',
             color: 'white',
