@@ -90,7 +90,7 @@ export namespace VisualNovelMapper {
     name: staffDto.name,
     originalName: staffDto.original,
     note: staffDto.note,
-    role: staffDto.role as StaffRole,
+    role: StaffRole.toStaffRole(staffDto.role),
   }));
 
   /**
