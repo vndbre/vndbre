@@ -3,14 +3,14 @@ import { StyleConfig } from './types';
 export const Button: StyleConfig = {
   sizes: {
     xs: {
-      h: '24px',
-      minW: '24px',
+      h: '32px',
+      minW: '32px',
       fontWeight: 'normal',
       fontSize: '16px',
     },
     sm: {
-      h: '32px',
-      minW: '32px',
+      h: '40px',
+      minW: '40px',
       fontWeight: 'normal',
       fontSize: '18px',
     },

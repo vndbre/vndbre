@@ -123,7 +123,7 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
           onClick={onOpen}
           icon={<Icon name="carbon:settings-adjust" />}
           colorScheme="gray"
-          height={10}
+          size="sm"
         />
       </HStack>
       <Modal
