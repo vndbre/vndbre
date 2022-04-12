@@ -11,7 +11,7 @@ interface Props {
 }
 
 /** Card info box. */
-const CardListInfoBoxSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, justify = 'start' }) => (
+const CardDetailListSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, justify = 'start' }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -30,4 +30,4 @@ const CardListInfoBoxSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, j
   </Box>
 );
 
-export const CardListInfoBoxSkeleton = memo(CardListInfoBoxSkeletonComponent);
+export const CardDetailListSkeleton = memo(CardDetailListSkeletonComponent);

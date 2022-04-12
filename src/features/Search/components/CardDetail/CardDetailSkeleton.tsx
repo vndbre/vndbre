@@ -3,7 +3,7 @@ import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
 import { randomWidth } from '../../../../utils/randomWidth';
 
 /** Card list info box skeleton. */
-const CardInfoBoxSkeletonComponent: VFC = () => (
+const CardDetailSkeletonComponent: VFC = () => (
   <Box
     display="flex"
     flexDirection="column"
@@ -16,4 +16,4 @@ const CardInfoBoxSkeletonComponent: VFC = () => (
   </Box>
 );
 
-export const CardInfoBoxSkeleton = memo(CardInfoBoxSkeletonComponent);
+export const CardDetailSkeleton = memo(CardDetailSkeletonComponent);

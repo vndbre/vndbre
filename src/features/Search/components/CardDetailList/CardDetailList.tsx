@@ -14,7 +14,7 @@ interface Props {
 }
 
 /** Card list info box. */
-const CardListInfoBoxComponent: VFC<Props> = ({ title, items, justify = 'start' }) => (
+const CardDetailListComponent: VFC<Props> = ({ title, items, justify = 'start' }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -32,4 +32,4 @@ const CardListInfoBoxComponent: VFC<Props> = ({ title, items, justify = 'start' 
   </Box>
 );
 
-export const CardListInfoBox = memo(CardListInfoBoxComponent);
+export const CardDetailList = memo(CardDetailListComponent);

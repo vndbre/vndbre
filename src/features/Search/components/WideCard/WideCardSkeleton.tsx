@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
-import { CardInfoBoxSkeleton } from '../CardInfoBox/CardInfoBoxSkeleton';
-import { CardListInfoBoxSkeleton } from '../CardListInfoBox/CardListInfoBoxSkeleton';
+import { CardDetailSkeleton } from '../CardDetail/CardDetailSkeleton';
+import { CardDetailListSkeleton } from '../CardDetailList/CardDetailListSkeleton';
 
 /** Wide card skeleton. */
 const WideCardSkeletonComponent: VFC = () => (
@@ -22,11 +22,11 @@ const WideCardSkeletonComponent: VFC = () => (
       gap={8}
     >
       <SkeletonText spacing={4} mt={1} noOfLines={2} />
-      <CardListInfoBoxSkeleton isTitleHidden justify="end" />
-      <CardListInfoBoxSkeleton isTitleHidden />
-      <CardInfoBoxSkeleton />
-      <CardInfoBoxSkeleton />
-      <CardInfoBoxSkeleton />
+      <CardDetailListSkeleton isTitleHidden justify="end" />
+      <CardDetailListSkeleton isTitleHidden />
+      <CardDetailSkeleton />
+      <CardDetailSkeleton />
+      <CardDetailSkeleton />
     </Box>
   </Box>
 );

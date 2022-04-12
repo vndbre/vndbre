@@ -10,8 +10,8 @@ interface Props {
   readonly text: string | number;
 }
 
-/** Card list info box. */
-const CardInfoBoxComponent: VFC<Props> = ({ title, text }) => (
+/** Card detail. */
+const CardDetailComponent: VFC<Props> = ({ title, text }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -22,4 +22,4 @@ const CardInfoBoxComponent: VFC<Props> = ({ title, text }) => (
   </Box>
 );
 
-export const CardInfoBox = memo(CardInfoBoxComponent);
+export const CardDetail = memo(CardDetailComponent);

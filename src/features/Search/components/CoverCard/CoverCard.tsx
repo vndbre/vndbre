@@ -5,8 +5,8 @@ import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { CardInfoBox } from '../CardInfoBox/CardInfoBox';
-import { CardListInfoBox } from '../CardListInfoBox/CardListInfoBox';
+import { CardDetail } from '../CardDetail/CardDetail';
+import { CardDetailList } from '../CardDetailList/CardDetailList';
 
 interface Props {
 
@@ -87,19 +87,19 @@ const CoverCardComponent: VFC<Props> = ({
         display="flex"
         gap={12}
       >
-        <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
-        <CardInfoBox title="Rating" text={rating} />
-        <CardInfoBox title="Length" text={length ?? 'Unknown'} />
+        <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+        <CardDetail title="Rating" text={rating} />
+        <CardDetail title="Length" text={length ?? 'Unknown'} />
       </Box>
       <Box
         display="flex"
         gap={12}
       >
-        <CardListInfoBox
+        <CardDetailList
           title="Languages"
           items={languages.map(language => <Icon key={language} name={Language.getLanguageIcon(language)} />)}
         />
-        <CardListInfoBox
+        <CardDetailList
           title="Platforms"
           items={platforms.map(platform => <Icon key={platform} name={Platform.getPlatformIcon(platform)} />)}
         />

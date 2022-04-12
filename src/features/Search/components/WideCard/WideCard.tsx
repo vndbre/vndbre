@@ -5,8 +5,8 @@ import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { CardInfoBox } from '../CardInfoBox/CardInfoBox';
-import { CardListInfoBox } from '../CardListInfoBox/CardListInfoBox';
+import { CardDetail } from '../CardDetail/CardDetail';
+import { CardDetailList } from '../CardDetailList/CardDetailList';
 
 interface Props {
 
@@ -58,7 +58,7 @@ const WideCardComponent: VFC<Props> = ({
       >
         {title}
       </Box>
-      <CardListInfoBox
+      <CardDetailList
         justify="end"
         items={languages.map(language => (
           <Tooltip key={language} label={Language.toReadable(language)}>
@@ -93,9 +93,9 @@ const WideCardComponent: VFC<Props> = ({
           </Tooltip>
         ))}
       </Box>
-      <CardInfoBox title="Released" text={released ? released.getFullYear() : 'Unknown'} />
-      <CardInfoBox title="Rating" text={rating} />
-      <CardInfoBox title="Length" text={length ?? 'Unknown'} />
+      <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+      <CardDetail title="Rating" text={rating} />
+      <CardDetail title="Length" text={length ?? 'Unknown'} />
     </Box>
   </Link>
 );
