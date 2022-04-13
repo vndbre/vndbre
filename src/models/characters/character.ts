@@ -1,9 +1,9 @@
-import { CharacterGender } from './characterGender';
 import { ImageFlagging } from '../imageFlagging';
 import { CharacterInstance } from './characterInstance';
 import { CharacterNovel } from './characterNovel';
 import { CharacterTrait } from './characterTrait';
 import { CharacterVoiced } from './characterVoiced';
+import { Gender } from '../gender';
 
 /**
  * Represents character dto.
@@ -28,7 +28,7 @@ export interface Character {
   /**
    * Character's sex (not gender); "m" (male), "f" (female) or "b" (both).
    */
-  readonly gender: CharacterGender | null;
+  readonly gender: Gender | null;
 
   /**
    * Actual sex, if this is a spoiler. Can also be "unknown" if their actual sex is not known but different from their apparent sex.

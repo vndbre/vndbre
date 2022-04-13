@@ -3,6 +3,7 @@ import { RouteObject, useRoutes } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { characterRoutes } from '../features/Character/routes';
 import { searchRoutes } from '../features/Search/routes';
+import { staffRoutes } from '../features/Staff/routes';
 import { visualNovelRoutes } from '../features/VisualNovel/routes';
 import { DefaultLayout } from '../layouts/DefaultLayout/DefaultLayout';
 
@@ -27,6 +28,7 @@ const routes: RouteObject[] = [
       ...visualNovelRoutes,
       ...characterRoutes,
       ...searchRoutes,
+      ...staffRoutes,
     ],
   },
 ];

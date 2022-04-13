@@ -1,16 +1,16 @@
 import React, { VFC } from 'react';
-import { Box, Grid, Heading, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, Error, TagList } from '../../../../components';
+import { Box, Grid, HStack, Image, Text, VStack } from '@chakra-ui/react';
+import { ContentWrapper, EntityDetail, EntityTitle, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
 import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { CharacterGender } from '../../../../models/characters/characterGender';
 import { useExtendedTraitsQuery } from '../../queries/trait';
-import { CharacterDetail, CharacterTraits } from '../../components';
+import { CharacterTraits } from '../../components';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CharacterRole } from '../../../../models/characters/characterRole';
+import { Gender } from '../../../../models/gender';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
@@ -39,14 +39,6 @@ export const CharacterPage: VFC = () => {
     enabled: visualNovelIds.length > 0,
   });
 
-  if (traitsError) {
-    return <Error error={traitsError} />;
-  }
-
-  if (visualNovelsError) {
-    return <Error error={visualNovelsError} />;
-  }
-
   const characterInstances = character && character.instances.length > 0 && (
     <TagList
       title="Character instances"
@@ -72,7 +64,7 @@ export const CharacterPage: VFC = () => {
   );
 
   return (
-    <ContentWrapper isLoading={isCharacterLoading || isTraitsLoading || isVisualNovelsLoading} error={characterError}>
+    <ContentWrapper isLoading={isCharacterLoading} error={characterError}>
       {character && (
         <>
           <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" pt="8" gap="8">
@@ -86,28 +78,21 @@ export const CharacterPage: VFC = () => {
             />
             <Box>
               <VStack alignItems="initial" spacing="6">
-                <Box>
-                  <Heading as="h1" size="md">
-                    {character.name}
-                  </Heading>
-                  <Heading as="h2" size="sm" fontWeight="normal">
-                    {character.originalName}
-                  </Heading>
-                </Box>
+                <EntityTitle title={character.name} originalTitle={character.originalName} />
                 <Box>
                   <VStack alignItems="initial">
                     {character.aliases && (
-                      <CharacterDetail title="Aliases" detail={character.aliases} />
+                      <EntityDetail title="Aliases">{character.aliases}</EntityDetail>
                     )}
                     {character.gender && (
-                      <CharacterDetail title="Gender" detail={CharacterGender.toReadable(character.gender)} />
+                      <EntityDetail title="Gender">{Gender.toReadable(character.gender)}</EntityDetail>
                     )}
                     <HStack spacing="6">
                       {character.height && (
-                        <CharacterDetail title="Height" detail={`${character.height}cm`} />
+                        <EntityDetail title="Height">{`${character.height}cm`}</EntityDetail>
                       )}
                       {character.weight && (
-                        <CharacterDetail title="Height" detail={`${character.weight}kg`} />
+                        <EntityDetail title="Height">{`${character.weight}kg`}</EntityDetail>
                       )}
                     </HStack>
                   </VStack>
@@ -117,9 +102,13 @@ export const CharacterPage: VFC = () => {
             </Box>
           </Grid>
           <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
-            {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+            <ContentWrapper isLoading={isTraitsLoading} error={traitsError}>
+              {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+            </ContentWrapper>
             {characterInstances}
-            {relatedVisualNovels}
+            <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
+              {relatedVisualNovels}
+            </ContentWrapper>
           </Grid>
         </>
       )}

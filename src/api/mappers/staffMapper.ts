@@ -1,5 +1,8 @@
 import { StaffDto } from '../dtos/staffDto';
 import { Staff } from '../../models/staff';
+import { Language } from '../../models/language';
+import { StaffRole } from '../../models/staffRole';
+import { GenderMapper } from './genderMapper';
 
 /** Staff mapper. */
 export namespace StaffMapper {
@@ -12,7 +15,7 @@ export namespace StaffMapper {
     id: visualNovelDto.id,
     aliasId: visualNovelDto.aid,
     note: visualNovelDto.note,
-    role: visualNovelDto.role,
+    role: StaffRole.toStaffRole(visualNovelDto.role),
   })) ?? [];
 
   /**
@@ -44,8 +47,8 @@ export namespace StaffMapper {
     return {
       id: dto.id,
       name: dto.name,
-      gender: dto.gender,
-      language: dto.language,
+      gender: dto.gender != null ? GenderMapper.GENDER_FROM_DTO_MAP[dto.gender] : null,
+      language: Language.toLanguage(dto.language),
       links: dto.links ?? null,
       description: dto.description,
       aliases: mapStaffAliasesFromDto(dto.aliases),
