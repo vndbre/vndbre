@@ -32,7 +32,7 @@ interface Props {
   /** Minimum gap between two buttons groups for page number input to appear. */
   readonly inputMinGap?: number;
 
-  /** Whether to show loader right to the active page. */
+  /** Whether to show loader to the right of the active page. */
   readonly isCountLoading?: boolean;
 }
 

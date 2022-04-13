@@ -3,9 +3,9 @@ import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
-import { CoverCard } from '../../components/CoverCard/CoverCard';
-import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
+import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
+import { VisualNovelListOptions } from '../../components/VisualNovelListOptions/VisualNovelListOptions';
 
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
@@ -31,7 +31,7 @@ const mapFormDataToOptions = (formData: VisualNovelFormData): VisualNovelFormDat
  * Maps visual novel search options to form data representation.
  * @param options Options.
  */
-const mapOptionsToFormData = (options: VisualNovelFormDataOptions): Partial<VisualNovelFormData> => ({
+const mapOptionsToFormData = (options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> => ({
   ...(options.search == null ? null : { title: options.search }),
   ...(options.releasedRange == null ? null : {
     releaseYearRange: options.releasedRange.startDate == null || options.releasedRange.endDate == null ?
@@ -75,6 +75,7 @@ export const VisualNovelSearchPage: VFC = () => {
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const formDefaultValue = useMemo(() => mapOptionsToFormData(PREVIEW_PAGINATION_DEFAULTS), []);
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('extended-cards');
 
   return (
     <Box
@@ -89,31 +90,13 @@ export const VisualNovelSearchPage: VFC = () => {
         onSubmit={handleSearchSubmit}
       />
 
-      <Box
-        display="grid"
-        gridGap={8}
-        gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-48), 1fr))"
-        w="full"
-        h="full"
-      >
-        {isLoading && Array.from({ length: 15 }).map((_, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <CoverCardSkeleton key={index} />
-        ))}
-        {visualNovelsPage?.items.map(vn => (
-          <CoverCard
-            key={vn.id}
-            id={vn.id}
-            image={vn.image}
-            title={vn.title}
-            released={vn.released}
-            rating={vn.rating}
-            length={vn.length}
-            languages={vn.languages}
-            platforms={vn.platforms}
-          />
-        ))}
-      </Box>
+      <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+
+      <VisualNovelList
+        variant={tableVariant}
+        isLoading={isLoading}
+        items={visualNovelsPage?.items}
+      />
 
       <Box alignSelf="center">
         <Paginator
