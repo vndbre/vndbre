@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
 import { Pagination } from '../../../models/pagination';
-import { VisualNovelSearchOptions } from '../../../api/services/visualNovelsService';
+import { VisualNovelSearchOptions, VisualNovelsService } from '../../../api/services/visualNovelsService';
 
 /**
  * Hook for fetching visual novel by id.
