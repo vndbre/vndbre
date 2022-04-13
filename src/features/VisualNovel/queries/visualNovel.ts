@@ -1,7 +1,7 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
-import { VisualNovelPaginationOptions, VisualNovelsService } from '../../../api/services/visualNovelsService';
 import { Pagination } from '../../../models/pagination';
+import { VisualNovelSearchOptions } from '../../../api/services/visualNovelsService';
 
 /**
  * Hook for fetching visual novel by id.
@@ -17,13 +17,13 @@ export const useVisualNovelQuery = (
 
 /**
  * Hook for fetching page of visual novels.
- * @param paginationOptions Pagination options.
+ * @param searchOptions Search options.
  * TODO (Panov A.): Research how to handle query key with a lot of fetch options.
  */
-export const useVisualNovelsPageQuery = (paginationOptions: VisualNovelPaginationOptions): UseQueryResult<Pagination<VisualNovel>, Error> =>
+export const useVisualNovelsPageQuery = (searchOptions: VisualNovelSearchOptions): UseQueryResult<Pagination<VisualNovel>, Error> =>
   useQuery(
-    ['vnPage', paginationOptions],
-    () => VisualNovelsService.fetchPaginatedVisualNovels(paginationOptions),
+    ['vnPage', searchOptions],
+    () => VisualNovelsService.fetchPaginatedVisualNovels(searchOptions),
   );
 
 /**

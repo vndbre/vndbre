@@ -7,16 +7,16 @@ import { CoverCard } from '../../components/CoverCard/CoverCard';
 import { CoverCardSkeleton } from '../../components/CoverCard/CoverCardSkeleton';
 import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
 
-import { VisualNovelPaginationOptions } from '../../../../api/services/visualNovelsService';
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
+import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
 
-type VisualNovelFormDataOptions = Omit<VisualNovelPaginationOptions, 'page' | 'pageSize'>;
+type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
 /**
  * Maps visual novel form data to search options.
  * @param formData Form data.
  */
-const mapFormDataToOptions = (formData: VisualNovelFormData): VisualNovelFormDataOptions => ({
+const mapFormDataToOptions = (formData: VisualNovelFormData): VisualNovelFormDataSearchOptions => ({
   search: formData.title,
   releasedRange: {
     startDate: new Date(String(formData.releaseYearRange[0])),
@@ -43,7 +43,7 @@ const mapOptionsToFormData = (options: VisualNovelFormDataOptions): Partial<Visu
   ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
 });
 
-const PREVIEW_PAGINATION_DEFAULTS: VisualNovelPaginationOptions = {
+const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
   page: 1,
   pageSize: 20,
   releasedRange: {
@@ -54,7 +54,7 @@ const PREVIEW_PAGINATION_DEFAULTS: VisualNovelPaginationOptions = {
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
-  const [searchOptions, setSearchOptions] = useState<VisualNovelPaginationOptions>(PREVIEW_PAGINATION_DEFAULTS);
+  const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(PREVIEW_PAGINATION_DEFAULTS);
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery(searchOptions);
 
   const handlePaginatorChange = useCallback((newPage: number) => {
