@@ -54,6 +54,9 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
       w="full"
       isImageNsfw={isImageNsfw}
       objectFit="cover"
+      containerProps={{
+        borderRadius: 'lg',
+      }}
     />
     <GridItem p="3">
       <Flex direction="column" justify="space-between" h="full">
