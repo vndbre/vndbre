@@ -22,7 +22,6 @@ const SafeImageComponent: VFC<Props> = ({ isImageNsfw = false, containerProps, .
       <Image
         filter={isNsfwContentAllowed || !isImageNsfw ? 'none' : 'blur(6px)'}
         {...rest}
-        loading="eager"
       />
     </Box>
   );
