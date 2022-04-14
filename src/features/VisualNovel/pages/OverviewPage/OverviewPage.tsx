@@ -90,7 +90,7 @@ export const OverviewPage: FC = () => {
     publishers && publishers[key].length > 0 && (
       <TagList
         key={key}
-        title="Publisher"
+        title={Language.toReadable(Language.toLanguage(key))}
         titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
         tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
       />
@@ -175,14 +175,16 @@ export const OverviewPage: FC = () => {
             {staffBlock}
           </div>
           <ContentWrapper isLoading={isCharactersLoading} error={charactersError}>
-            <div>
-              <Heading as="h3" size="sm">
-                Characters
-              </Heading>
-              <div className={cls.characters}>
-                {charactersBlock}
+            {characters != null && characters.length > 0 && (
+              <div>
+                <Heading as="h3" size="sm">
+                  Characters
+                </Heading>
+                <div className={cls.characters}>
+                  {charactersBlock}
+                </div>
               </div>
-            </div>
+            )}
           </ContentWrapper>
         </div>
       </div>

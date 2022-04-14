@@ -100,6 +100,7 @@ export const ReleasesPage: VFC = () => {
               templateColumns="120px 2.5fr 1fr 1fr 24px"
               key={release.id}
               marginBottom={4}
+              alignItems="center"
             >
               <Text>{release.releasedDate}</Text>
               <HStack spacing={1}>

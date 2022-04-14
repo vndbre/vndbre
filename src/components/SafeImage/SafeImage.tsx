@@ -14,7 +14,7 @@ interface SafeImageProps {
 interface Props extends SafeImageProps, ImageProps {}
 
 /** Safe image. */
-const SafeImageComponent: VFC<Props> = ({ isImageNsfw = true, containerProps, ...rest }) => {
+const SafeImageComponent: VFC<Props> = ({ isImageNsfw = false, containerProps, ...rest }) => {
   const { isNsfwContentAllowed } = useSettingsContext();
 
   return (
