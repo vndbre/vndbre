@@ -9,12 +9,12 @@ interface Props {
   /** Items. */
   readonly items: ReactNode;
 
-  /** Items justify direction. */
-  readonly justify?: 'start' | 'end';
+  /** Items position alignment. */
+  readonly alignment?: 'start' | 'end';
 }
 
 /** Card list info box. */
-const CardDetailListComponent: VFC<Props> = ({ title, items, justify = 'start' }) => (
+const CardDetailListComponent: VFC<Props> = ({ title, items, alignment = 'start' }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -25,7 +25,7 @@ const CardDetailListComponent: VFC<Props> = ({ title, items, justify = 'start' }
       display="flex"
       gap={2}
       flexWrap="wrap"
-      justifyContent={justify}
+      justifyContent={alignment}
     >
       {items}
     </Box>

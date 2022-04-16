@@ -1,4 +1,4 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, ReactText, VFC } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   readonly title: string;
 
   /** Text. */
-  readonly text: string | number;
+  readonly text: ReactText;
 }
 
 /** Card detail. */

@@ -7,6 +7,7 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { DETAIL_DATA_NULL } from '../../utils/constants';
 
 interface Props {
 
@@ -75,9 +76,9 @@ const ExtendedCardComponent: VFC<Props> = ({
         display="flex"
         gap={12}
       >
-        <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+        <CardDetail title="Released" text={released ? released.getFullYear() : DETAIL_DATA_NULL} />
         <CardDetail title="Rating" text={rating} />
-        <CardDetail title="Length" text={length ?? 'Unknown'} />
+        <CardDetail title="Length" text={length ?? DETAIL_DATA_NULL} />
       </Box>
       <Box
         display="flex"

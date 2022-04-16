@@ -3,8 +3,8 @@ import { Box } from '@chakra-ui/react';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
 import { CoverCard } from '../CoverCard/CoverCard';
-import { VNTable } from '../VisualNovelTable/VNTable';
-import { VNTableSkeleton } from '../VisualNovelTable/VisualNovelTableSkeleton';
+import { VisualNovelTable } from '../VisualNovelTable/VisualNovelTable';
+import { VisualNovelTableSkeleton } from '../VisualNovelTable/VisualNovelTableSkeleton';
 import { WideCard } from '../WideCard/WideCard';
 import { WideCardSkeleton } from '../WideCard/WideCardSkeleton';
 import { ExtendedCard } from '../ExtendedCard/ExtendedCard';
@@ -31,8 +31,8 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
   if (variant === 'table') {
     return (
       <>
-        {isLoading && <VNTableSkeleton />}
-        {items.length > 0 && <VNTable items={items} />}
+        {isLoading && <VisualNovelTableSkeleton />}
+        {items.length > 0 && <VisualNovelTable items={items} />}
       </>
     );
   }

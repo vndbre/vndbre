@@ -22,7 +22,7 @@ const WideCardSkeletonComponent: VFC = () => (
       gap={8}
     >
       <SkeletonText spacing={4} mt={1} noOfLines={2} />
-      <CardDetailListSkeleton isTitleHidden justify="end" />
+      <CardDetailListSkeleton isTitleHidden alignment="end" />
       <CardDetailListSkeleton isTitleHidden />
       <CardDetailSkeleton />
       <CardDetailSkeleton />

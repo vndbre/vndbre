@@ -5,6 +5,7 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
+import { DETAIL_DATA_NULL } from '../../utils/constants';
 
 interface Props {
 
@@ -13,7 +14,7 @@ interface Props {
 }
 
 /** Visual novel table. */
-const VNTableComponent: VFC<Props> = ({ items }) => (
+const VisualNovelTableComponent: VFC<Props> = ({ items }) => (
   <TableContainer>
     <Table
       size="sm"
@@ -77,7 +78,7 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
                 ))}
               </Box>
             </Td>
-            <Td>{vn.released ? vn.released.getFullYear() : 'Unknown'}</Td>
+            <Td>{vn.released ? vn.released.getFullYear() : DETAIL_DATA_NULL}</Td>
             <Td>{vn.rating}</Td>
           </Tr>
         ))}
@@ -86,4 +87,4 @@ const VNTableComponent: VFC<Props> = ({ items }) => (
   </TableContainer>
 );
 
-export const VNTable = memo(VNTableComponent);
+export const VisualNovelTable = memo(VisualNovelTableComponent);

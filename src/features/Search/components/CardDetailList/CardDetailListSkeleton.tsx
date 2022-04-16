@@ -6,12 +6,12 @@ interface Props {
   /** Whether title is hidden. */
   readonly isTitleHidden?: boolean;
 
-  /** Items justify  direction. */
-  readonly justify?: 'start' | 'end';
+  /** Items position alignment. */
+  readonly alignment?: 'start' | 'end';
 }
 
 /** Card info box. */
-const CardDetailListSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, justify = 'start' }) => (
+const CardDetailListSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, alignment = 'start' }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -19,11 +19,11 @@ const CardDetailListSkeletonComponent: VFC<Props> = ({ isTitleHidden = false, ju
     w="full"
     mt={1}
   >
-    {!isTitleHidden && <Skeleton ml={justify === 'end' ? 'auto' : 0} w="69%" h={4} />}
+    {!isTitleHidden && <Skeleton ml={alignment === 'end' ? 'auto' : 0} w="69%" h={4} />}
     <SkeletonText
       display="flex"
       flexDirection="column"
-      alignItems={justify}
+      alignItems={alignment}
       noOfLines={2}
       gap={2}
     />

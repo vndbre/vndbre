@@ -7,6 +7,7 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { DETAIL_DATA_NULL } from '../../utils/constants';
 
 interface Props {
 
@@ -59,7 +60,7 @@ const WideCardComponent: VFC<Props> = ({
         {title}
       </Box>
       <CardDetailList
-        justify="end"
+        alignment="end"
         items={languages.map(language => (
           <Tooltip key={language} label={Language.toReadable(language)}>
             <span>
@@ -69,7 +70,6 @@ const WideCardComponent: VFC<Props> = ({
         ))}
       />
       <CardDetailList
-        justify="end"
         items={platforms.map(platform => (
           <Tooltip key={platform} label={Platform.toReadable(platform)}>
             <span>
@@ -78,9 +78,9 @@ const WideCardComponent: VFC<Props> = ({
           </Tooltip>
         ))}
       />
-      <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+      <CardDetail title="Released" text={released ? released.getFullYear() : DETAIL_DATA_NULL} />
       <CardDetail title="Rating" text={rating} />
-      <CardDetail title="Length" text={length ?? 'Unknown'} />
+      <CardDetail title="Length" text={length ?? DETAIL_DATA_NULL} />
     </Box>
   </Link>
 );

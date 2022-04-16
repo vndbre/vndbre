@@ -3,7 +3,7 @@ import { Skeleton, SkeletonText, Table, TableContainer, Tbody, Th, Thead, Tr } f
 import { getRandomWidth } from '../../../../utils/randomWidth';
 
 /** Visual novel table. */
-const VNTableSkeletonComponent: VFC = () => {
+const VisualNovelTableSkeletonComponent: VFC = () => {
   /** Gets table row. */
   const getRandomRow = (key: number): ReactNode => (
     <Tr key={key} h={10}>
@@ -37,4 +37,4 @@ const VNTableSkeletonComponent: VFC = () => {
   );
 };
 
-export const VNTableSkeleton = memo(VNTableSkeletonComponent);
+export const VisualNovelTableSkeleton = memo(VisualNovelTableSkeletonComponent);
