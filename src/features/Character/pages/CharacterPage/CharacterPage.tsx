@@ -73,6 +73,9 @@ export const CharacterPage: VFC = () => {
               fallbackSrc={characterPlaceholder}
               h="auto"
               maxH="80"
+              containerProps={{
+                borderRadius: 'lg',
+              }}
               objectFit="cover"
               borderRadius="lg"
             />
