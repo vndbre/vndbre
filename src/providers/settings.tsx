@@ -1,49 +1,30 @@
-import React, { createContext, FC, useContext, useMemo } from 'react';
-import { useLocalStorage } from '../hooks';
+import React, { createContext, FC, useCallback, useContext, useMemo, useState } from 'react';
 import { SpoilerLevel } from '../models/spoilerLevel';
 import { TagClassification } from '../models/tagClassification';
-import {
-  KEY_ARE_CONTENT_TAGS_VISIBLE,
-  KEY_ARE_ERO_TAGS_VISIBLE,
-  KEY_ARE_TECHNICAL_TAGS_VISIBLE,
-  KEY_IS_NSFW_CONTENT_VISIBLE,
-  KEY_SPOILER_LEVEL,
-} from '../utils/localStorageKeys';
+import { KEY_VIEW_SETTINGS } from '../utils/localStorageKeys';
 
 interface Settings {
 
   /**
    * What tags categories to show.
    */
-  showTags: Record<TagClassification, boolean>;
+  readonly showTags: Record<TagClassification, boolean>;
 
   /**
    * Spoiler level for tags.
    */
-  spoilerLevel: SpoilerLevel;
+  readonly spoilerLevel: SpoilerLevel;
 
   /**
    * Whether nsfw content allowed or not.
    */
-  isNsfwContentAllowed: boolean;
+  readonly isNsfwContentAllowed: boolean;
 }
 
 interface SettingsSetters {
 
-  /** Toggles tags with content classification. */
-  toggleTagContent: () => void;
-
-  /** Toggles tags with ero classification. */
-  toggleTagEro: () => void;
-
-  /** Toggles tags with technical classification. */
-  toggleTagTechnical: () => void;
-
-  /** Sets spoiler level. */
-  setSpoilerLevel: (spoilerLevel: SpoilerLevel) => void;
-
-  /** Toggles nsfw content for images(in media). */
-  toggleNsfwContent: () => void;
+  /** Updates settings. */
+  readonly updateSettings: (newSettings: Settings) => void;
 }
 
 const defaultSettings: Settings = {
@@ -62,41 +43,21 @@ export const SettingsContext = createContext<Settings & SettingsSetters>({} as S
  * Settings Provider.
  */
 export const SettingsProvider: FC = ({ children }) => {
-  const [isTagContent, setIsTagContent] = useLocalStorage(KEY_ARE_CONTENT_TAGS_VISIBLE, defaultSettings.showTags.cont);
-  const [isTagEro, setIsTagEro] = useLocalStorage(KEY_ARE_ERO_TAGS_VISIBLE, defaultSettings.showTags.ero);
-  const [isTagTechnical, setIsTagTechnical] = useLocalStorage(KEY_ARE_TECHNICAL_TAGS_VISIBLE, defaultSettings.showTags.tech);
-  const [spoilerLevel, setSpoilerLevel] = useLocalStorage(KEY_SPOILER_LEVEL, defaultSettings.spoilerLevel);
-  const [
-    isNsfwContentAllowed,
-    setIsNsfwContentAllowed,
-  ] = useLocalStorage(KEY_IS_NSFW_CONTENT_VISIBLE, defaultSettings.isNsfwContentAllowed);
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
 
-  const settings: Settings & SettingsSetters = useMemo(() => ({
-    /** Toggles NSFW content. */
-    toggleNsfwContent: () => setIsNsfwContentAllowed(!isNsfwContentAllowed),
+  const updateSettings = useCallback((newSettings: Settings) => {
+    setSettings(newSettings);
+  }, []);
 
-    /** Toggles ero tags. */
-    toggleTagEro: () => setIsTagEro(!isTagEro),
-
-    /** Toggles content tags. */
-    toggleTagContent: () => setIsTagContent(!isTagContent),
-
-    /** Toggles technical tags. */
-    toggleTagTechnical: () => setIsTagTechnical(!isTagTechnical),
-
-    /** Sets spoiler level. */
-    setSpoilerLevel,
-    showTags: {
-      [TagClassification.Content]: isTagContent,
-      [TagClassification.Ero]: isTagEro,
-      [TagClassification.Technical]: isTagTechnical,
-    },
-    spoilerLevel,
-    isNsfwContentAllowed,
-  }), [isTagContent, isTagEro, isTagTechnical, isNsfwContentAllowed, spoilerLevel]);
+  const value: Settings & SettingsSetters = useMemo(() => ({
+    updateSettings,
+    showTags: settings.showTags,
+    spoilerLevel: settings.spoilerLevel,
+    isNsfwContentAllowed: settings.isNsfwContentAllowed,
+  }), [settings]);
 
   return (
-    <SettingsContext.Provider value={settings}>
+    <SettingsContext.Provider value={value}>
       {children}
     </SettingsContext.Provider>
   );

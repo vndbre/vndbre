@@ -1,8 +1,8 @@
-import { Box, Heading, HStack, IconButton, useDisclosure } from '@chakra-ui/react';
 import React, { VFC } from 'react';
+import { Box, Heading, HStack, IconButton, useDisclosure } from '@chakra-ui/react';
 import { Icon } from '../Icon/Icon';
 import { Popover } from '../Popover/Popover';
-import { ViewSettings } from '../ViewSettings/ViewSettings';
+import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
 import cls from './Header.module.css';
 
 interface Props {
@@ -53,7 +53,7 @@ export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
         <span>Profile</span>
       </Box>
       <Popover isOpen={isOpen} onClose={onClose} popoverTrigger={settingsButton}>
-        <ViewSettings />
+        <ViewSettingsForm />
       </Popover>
       <Icon name="carbon:notification" size={32} />
       <Icon name="carbon:add" size={36} />
