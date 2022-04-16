@@ -1,17 +1,17 @@
 import React, { memo, ReactNode, VFC } from 'react';
 import { Skeleton, SkeletonText, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import { randomWidth } from '../../../../utils/randomWidth';
+import { getRandomWidth } from '../../../../utils/randomWidth';
 
 /** Visual novel table. */
 const VNTableSkeletonComponent: VFC = () => {
-  /** Get table row. */
-  const randomRow = (key: number): ReactNode => (
+  /** Gets table row. */
+  const getRandomRow = (key: number): ReactNode => (
     <Tr key={key} h={10}>
-      <Th><SkeletonText w={randomWidth()} noOfLines={1} /></Th>
-      <Th><SkeletonText w={randomWidth()} noOfLines={1} ml="auto" /></Th>
-      <Th><SkeletonText w={randomWidth()} noOfLines={1} /></Th>
-      <Th><SkeletonText w={randomWidth(75)} noOfLines={1} /></Th>
-      <Th><SkeletonText w={randomWidth(75)} noOfLines={1} /></Th>
+      <Th><SkeletonText w={getRandomWidth()} noOfLines={1} /></Th>
+      <Th><SkeletonText w={getRandomWidth()} noOfLines={1} ml="auto" /></Th>
+      <Th><SkeletonText w={getRandomWidth()} noOfLines={1} /></Th>
+      <Th><SkeletonText w={getRandomWidth(75)} noOfLines={1} /></Th>
+      <Th><SkeletonText w={getRandomWidth(75)} noOfLines={1} /></Th>
     </Tr>
   );
   return (
@@ -30,7 +30,7 @@ const VNTableSkeletonComponent: VFC = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {Array.from({ length: 18 }).map((_, index) => randomRow(index))}
+          {Array.from({ length: 18 }).map((_, index) => getRandomRow(index))}
         </Tbody>
       </Table>
     </TableContainer>

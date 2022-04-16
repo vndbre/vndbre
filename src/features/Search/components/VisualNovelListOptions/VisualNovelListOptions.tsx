@@ -15,9 +15,9 @@ interface Props {
 /** Visual novel list options. */
 const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) => {
   const buttonOptions: {
-    icon: string;
-    variant: VisualNovelListVariant;
-    label: string;
+    readonly icon: string;
+    readonly variant: VisualNovelListVariant;
+    readonly label: string;
   }[] = [
     {
       icon: 'carbon:menu',
@@ -41,12 +41,14 @@ const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantC
     },
   ];
 
+  const handleIconClick = useCallback((variant: VisualNovelListVariant) => () => onVariantChange(variant), [onVariantChange]);
+
   return (
     <Box>
       {buttonOptions.map(({ icon, variant, label }) => (
         <IconButton
           key={variant}
-          onClick={useCallback(() => onVariantChange(variant), [onVariantChange])}
+          onClick={handleIconClick(variant)}
           aria-label={label}
           icon={<Icon name={icon} />}
           borderRadius="none"
