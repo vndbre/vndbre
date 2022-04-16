@@ -1,7 +1,6 @@
 import React, { memo, VFC } from 'react';
-import { Box, Link, Table, TableContainer, Tbody, Td, Th, Thead, Tooltip, Tr } from '@chakra-ui/react';
+import { Link, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Icon } from '../../../../components/Icon/Icon';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
