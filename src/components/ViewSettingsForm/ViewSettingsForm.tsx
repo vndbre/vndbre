@@ -23,7 +23,7 @@ export const ViewSettingsForm: VFC = () => {
   return (
     <form onSubmit={handleSubmit(updateSettings)}>
       <VStack align="start" spacing="4" p="6">
-        <VStack align="start">
+        <VStack align="start" spacing="3">
           <FormControl>
             <Checkbox colorScheme="orange" {...register('isNsfwContentAllowed')}>NSFW</Checkbox>
           </FormControl>
@@ -44,7 +44,7 @@ export const ViewSettingsForm: VFC = () => {
             name="spoilerLevel"
             render={({ field: { onChange, value } }) => (
               <RadioGroup colorScheme="orange" value={value} onChange={val => onChange(Number(val))}>
-                <VStack align="start">
+                <VStack align="start" spacing="3">
                   <Radio name="spoilerLevel" value={SpoilerLevel.None}>Hide spoilers</Radio>
                   <Radio value={SpoilerLevel.Minor}>Show minor spoilers</Radio>
                   <Radio value={SpoilerLevel.Major}>Show major spoilers</Radio>

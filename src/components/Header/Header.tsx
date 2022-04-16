@@ -20,10 +20,10 @@ interface Props {
 export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const settingsButton = (
+  const viewSettingsButton = (
     <IconButton
       aria-label="Toggle sidebar"
-      icon={<Icon name="carbon:settings" size={32} />}
+      icon={<Icon name="carbon:view" size={32} />}
       onClick={onOpen}
       colorScheme="gray"
       variant="ghost"
@@ -48,13 +48,13 @@ export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
         <Icon name="carbon:search" />
         <span>Search</span>
       </Box>
+      <Popover isOpen={isOpen} onClose={onClose} popoverTrigger={viewSettingsButton}>
+        <ViewSettingsForm />
+      </Popover>
       <Box className={cls.profile}>
         <Icon name="carbon:user-avatar" size={32} />
         <span>Profile</span>
       </Box>
-      <Popover isOpen={isOpen} onClose={onClose} popoverTrigger={settingsButton}>
-        <ViewSettingsForm />
-      </Popover>
       <Icon name="carbon:notification" size={32} />
       <Icon name="carbon:add" size={36} />
     </header>

@@ -15,12 +15,13 @@ const PopoverComponent: VFC<Props> = ({ children, popoverTrigger, ...rest }) => 
     {...rest}
     placement="bottom"
     matchWidth
+    gutter={36}
     isLazy
   >
     <PopoverTrigger>
       {popoverTrigger}
     </PopoverTrigger>
-    <PopoverContent w="max-content">
+    <PopoverContent w="max-content" borderRadius="lg">
       {children}
     </PopoverContent>
   </ChakraPopover>
