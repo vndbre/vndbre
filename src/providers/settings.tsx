@@ -1,4 +1,5 @@
-import React, { createContext, FC, useCallback, useContext, useMemo, useState } from 'react';
+import React, { createContext, FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { LocalStorageService } from '../api/services/localStorageService';
 import { SpoilerLevel } from '../models/spoilerLevel';
 import { TagClassification } from '../models/tagClassification';
 import { KEY_VIEW_SETTINGS } from '../utils/localStorageKeys';
@@ -33,7 +34,7 @@ const defaultSettings: Settings = {
     [TagClassification.Ero]: false,
     [TagClassification.Technical]: true,
   },
-  spoilerLevel: SpoilerLevel.Major,
+  spoilerLevel: SpoilerLevel.None,
   isNsfwContentAllowed: false,
 };
 
@@ -45,8 +46,17 @@ export const SettingsContext = createContext<Settings & SettingsSetters>({} as S
 export const SettingsProvider: FC = ({ children }) => {
   const [settings, setSettings] = useState<Settings>(defaultSettings);
 
+  useEffect(() => {
+    const data = LocalStorageService.get<Settings>(KEY_VIEW_SETTINGS);
+    if (data !== null) {
+      setSettings(data);
+    }
+  }, []);
+
+  /** Updates application view settings. */
   const updateSettings = useCallback((newSettings: Settings) => {
     setSettings(newSettings);
+    LocalStorageService.save(KEY_VIEW_SETTINGS, newSettings);
   }, []);
 
   const value: Settings & SettingsSetters = useMemo(() => ({
