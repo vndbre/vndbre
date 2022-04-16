@@ -61,22 +61,16 @@ const WideCardComponent: VFC<Props> = ({
       </Box>
       <CardDetailList
         alignment="end"
-        items={languages.map(language => (
-          <Tooltip key={language} label={Language.toReadable(language)}>
-            <span>
-              <Icon name={Language.getLanguageIcon(language)} />
-            </span>
-          </Tooltip>
-        ))}
+        title="Languages"
+        items={languages}
+        readableMapper={Language.toReadable}
+        iconMapper={Language.getIcon}
       />
       <CardDetailList
-        items={platforms.map(platform => (
-          <Tooltip key={platform} label={Platform.toReadable(platform)}>
-            <span>
-              <Icon name={Platform.getPlatformIcon(platform)} />
-            </span>
-          </Tooltip>
-        ))}
+        title="Platforms"
+        items={platforms}
+        readableMapper={Platform.toReadable}
+        iconMapper={Platform.getIcon}
       />
       <CardDetail title="Released" text={released ? released.getFullYear() : DETAIL_DATA_NULL} />
       <CardDetail title="Rating" text={rating} />

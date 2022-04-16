@@ -1,20 +1,27 @@
-import React, { memo, ReactNode, VFC } from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React, { memo, VFC } from 'react';
+import { Box, Text, Tooltip } from '@chakra-ui/react';
+import { Icon } from '../../../../components/Icon/Icon';
 
-interface Props {
+interface Props<T = string> {
 
   /** Title. */
   readonly title?: string;
 
-  /** Items. */
-  readonly items: ReactNode;
-
   /** Items position alignment. */
   readonly alignment?: 'start' | 'end';
+
+  /** Items. */
+  readonly items: readonly T[];
+
+  /** Readable mapper. */
+  readonly readableMapper: (value: T) => string;
+
+  /** Icon mapper. */
+  readonly iconMapper: (value: T) => string;
 }
 
 /** Card list info box. */
-const CardDetailListComponent: VFC<Props> = ({ title, items, alignment = 'start' }) => (
+const CardDetailListComponent: VFC<Props> = ({ title, alignment = 'start', items, readableMapper, iconMapper }) => (
   <Box
     display="flex"
     flexDirection="column"
@@ -27,9 +34,16 @@ const CardDetailListComponent: VFC<Props> = ({ title, items, alignment = 'start'
       flexWrap="wrap"
       justifyContent={alignment}
     >
-      {items}
+      {items.map((item, index) => (
+        <Tooltip key={item + String(index)} label={readableMapper(item)}>
+          <span>
+            <Icon name={iconMapper(item)} />
+          </span>
+        </Tooltip>
+      ))}
     </Box>
   </Box>
 );
 
-export const CardDetailList = memo(CardDetailListComponent);
+export const CardDetailList = memo(CardDetailListComponent) as
+<T extends string>(props: Props<T>) => ReturnType<VFC<Props>>;

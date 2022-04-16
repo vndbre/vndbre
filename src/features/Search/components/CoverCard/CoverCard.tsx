@@ -98,11 +98,15 @@ const CoverCardComponent: VFC<Props> = ({
       >
         <CardDetailList
           title="Languages"
-          items={languages.map(language => <Icon key={language} name={Language.getLanguageIcon(language)} />)}
+          items={languages}
+          readableMapper={Language.toReadable}
+          iconMapper={Language.getIcon}
         />
         <CardDetailList
           title="Platforms"
-          items={platforms.map(platform => <Icon key={platform} name={Platform.getPlatformIcon(platform)} />)}
+          items={platforms}
+          readableMapper={Platform.toReadable}
+          iconMapper={Platform.getIcon}
         />
       </Box>
     </PopoverContent>

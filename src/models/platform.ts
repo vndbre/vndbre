@@ -136,7 +136,7 @@ export namespace Platform {
    * Gets icon name for platform.
    * @param value Platform.
    */
-  export function getPlatformIcon(value: Platform): string {
+  export function getIcon(value: Platform): string {
     const iconSuffix = TO_PLATFORM_INFO_MAP[value]?.iconSuffix;
 
     if (iconSuffix) {
@@ -147,7 +147,7 @@ export namespace Platform {
   }
 
   /** Obtains alphabetically sorted platforms. */
-  export function getSortedPlatforms(): Platform[] {
+  export function getSorted(): Platform[] {
     // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     return enumToArray(Platform).sort();
   }

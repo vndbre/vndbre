@@ -37,15 +37,15 @@ export interface VisualNovelFormData {
   readonly platforms: readonly Platform[];
 }
 
-const languageOptions: SelectOption[] = Language.getSortedLanguages().map(
+const languageOptions: SelectOption[] = Language.getSorted().map(
   language => ({
     value: language,
     label: Language.toReadable(language),
-    icon: Language.getLanguageIcon(language),
+    icon: Language.getIcon(language),
   }),
 );
 
-const platformOptions: SelectOption[] = Platform.getSortedPlatforms().map(
+const platformOptions: SelectOption[] = Platform.getSorted().map(
   platform => ({ value: platform, label: Platform.toReadable(platform) }),
 );
 

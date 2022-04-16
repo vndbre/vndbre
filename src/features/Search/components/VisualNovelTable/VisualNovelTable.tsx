@@ -6,6 +6,7 @@ import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
+import { CardDetailList } from '../CardDetailList/CardDetailList';
 
 interface Props {
 
@@ -48,35 +49,21 @@ const VisualNovelTableComponent: VFC<Props> = ({ items }) => (
               </Link>
             </Td>
             <Td>
-              <Box
-                display="flex"
-                flexWrap="wrap"
-                justifyContent="flex-end"
-                gap={1}
-              >
-                {vn.languages.map(language => (
-                  <Tooltip key={language} label={Language.toReadable(language)}>
-                    <span>
-                      <Icon name={Language.getLanguageIcon(language)} />
-                    </span>
-                  </Tooltip>
-                ))}
-              </Box>
+              <CardDetailList
+                alignment="end"
+                items={vn.languages}
+                readableMapper={Language.toReadable}
+                iconMapper={Language.getIcon}
+              />
+
             </Td>
             <Td>
-              <Box
-                display="flex"
-                flexWrap="wrap"
-                gap={1}
-              >
-                {vn.platforms.map(platform => (
-                  <Tooltip key={platform} label={Platform.toReadable(platform)}>
-                    <span>
-                      <Icon name={Platform.getPlatformIcon(platform)} />
-                    </span>
-                  </Tooltip>
-                ))}
-              </Box>
+              <CardDetailList
+                title="Platforms"
+                items={vn.platforms}
+                readableMapper={Platform.toReadable}
+                iconMapper={Platform.getIcon}
+              />
             </Td>
             <Td>{vn.released ? vn.released.getFullYear() : DETAIL_DATA_NULL}</Td>
             <Td>{vn.rating}</Td>

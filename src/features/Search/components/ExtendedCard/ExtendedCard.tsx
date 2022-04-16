@@ -86,23 +86,15 @@ const ExtendedCardComponent: VFC<Props> = ({
       >
         <CardDetailList
           title="Languages"
-          items={languages.map(language => (
-            <Tooltip key={language} label={Language.toReadable(language)}>
-              <span>
-                <Icon name={Language.getLanguageIcon(language)} />
-              </span>
-            </Tooltip>
-          ))}
+          items={languages}
+          readableMapper={Language.toReadable}
+          iconMapper={Language.getIcon}
         />
         <CardDetailList
           title="Platforms"
-          items={platforms.map(platform => (
-            <Tooltip key={platform} label={Platform.toReadable(platform)}>
-              <span>
-                <Icon name={Platform.getPlatformIcon(platform)} />
-              </span>
-            </Tooltip>
-          ))}
+          items={platforms}
+          readableMapper={Platform.toReadable}
+          iconMapper={Platform.getIcon}
         />
       </Box>
     </Box>
