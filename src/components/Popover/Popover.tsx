@@ -20,7 +20,7 @@ const PopoverComponent: VFC<Props> = ({ children, popoverTrigger, ...rest }) => 
     <PopoverTrigger>
       {popoverTrigger}
     </PopoverTrigger>
-    <PopoverContent>
+    <PopoverContent w="max-content">
       {children}
     </PopoverContent>
   </ChakraPopover>
