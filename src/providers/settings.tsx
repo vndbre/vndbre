@@ -12,7 +12,7 @@ interface Settings {
   readonly tagsVisibility: Readonly<Record<TagClassification, boolean>>;
 
   /**
-   * Spoiler level for tags.
+   * Spoiler level for content.
    */
   readonly spoilerLevel: SpoilerLevel;
 
