@@ -2,7 +2,7 @@ import React, { memo, VFC } from 'react';
 import { Box, BoxProps, Image, ImageProps } from '@chakra-ui/react';
 import { useSettingsContext } from '../../providers';
 
-interface SafeImageProps {
+interface SafeImageProps extends Omit<ImageProps, 'src'> {
 
   /** Whether the image is nsfw. */
   readonly isNsfw?: boolean;
@@ -14,10 +14,8 @@ interface SafeImageProps {
   readonly src: string | null;
 }
 
-interface Props extends SafeImageProps, Omit<ImageProps, 'src'> {}
-
 /** Safe image. */
-const SafeImageComponent: VFC<Props> = ({ isNsfw = false, src, containerProps, ...rest }) => {
+const SafeImageComponent: VFC<SafeImageProps> = ({ isNsfw = false, src, containerProps, ...rest }) => {
   const { isNsfwContentAllowed } = useSettingsContext();
 
   return (

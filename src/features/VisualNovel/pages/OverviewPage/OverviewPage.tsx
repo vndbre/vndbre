@@ -76,14 +76,13 @@ export const OverviewPage: FC = () => {
   });
 
   const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
-
-  const settingsContext = useSettingsContext();
+  const { tagsVisibility, spoilerLevel } = useSettingsContext();
 
   /**
    * Filter tags by category and spoiler level.
    */
   function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
+    return tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel;
   }
 
   const publishersBlock = visualNovel?.languages.map(key => (

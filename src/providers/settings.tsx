@@ -9,7 +9,7 @@ interface Settings {
   /**
    * What tags categories to show.
    */
-  readonly showTags: Readonly<Record<TagClassification, boolean>>;
+  readonly tagsVisibility: Readonly<Record<TagClassification, boolean>>;
 
   /**
    * Spoiler level for tags.
@@ -29,7 +29,7 @@ interface SettingsSetters {
 }
 
 const defaultSettings: Settings = {
-  showTags: {
+  tagsVisibility: {
     [TagClassification.Content]: true,
     [TagClassification.Ero]: false,
     [TagClassification.Technical]: true,
@@ -61,7 +61,7 @@ export const SettingsProvider: FC = ({ children }) => {
 
   const value: Settings & SettingsSetters = useMemo(() => ({
     updateSettings,
-    showTags: settings.showTags,
+    tagsVisibility: settings.tagsVisibility,
     spoilerLevel: settings.spoilerLevel,
     isNsfwContentAllowed: settings.isNsfwContentAllowed,
   }), [settings]);
