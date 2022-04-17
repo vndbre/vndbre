@@ -47,12 +47,12 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
     gridTemplateRows="100%"
   >
     <SafeImage
-      src={image ?? undefined}
+      src={image}
       fallbackSrc={vnPosterPlaceholder}
       borderRadius="lg"
       h="full"
       w="full"
-      isImageNsfw={isImageNsfw}
+      isNsfw={isImageNsfw}
       objectFit="cover"
       containerProps={{
         borderRadius: 'lg',

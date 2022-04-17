@@ -28,15 +28,16 @@ export const VisualNovelPage: FC = () => {
               <SafeImage
                 containerProps={{
                   borderRadius: 'lg',
+                  h: 'max-content',
                 }}
-                maxH="80"
                 objectFit="cover"
                 height="auto"
-                src={data.image ?? undefined}
+                maxH="80"
+                src={data.image}
                 fallbackSrc={vnPosterPlaceholder}
                 alt={data.title}
                 borderRadius="lg"
-                isImageNsfw={data.isImageNsfw}
+                isNsfw={data.isImageNsfw}
               />
               <div className={cls.info}>
                 <div className={cls.heading}>

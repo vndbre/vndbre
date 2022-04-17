@@ -69,7 +69,7 @@ export const CharacterPage: VFC = () => {
         <>
           <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" pt="8" gap="8">
             <SafeImage
-              src={character.image ?? undefined}
+              src={character.image}
               fallbackSrc={characterPlaceholder}
               h="auto"
               maxH="80"
