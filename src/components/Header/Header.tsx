@@ -1,7 +1,6 @@
 import React, { VFC } from 'react';
-import { Box, Heading, HStack, IconButton, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@chakra-ui/react';
 import { Icon } from '../Icon/Icon';
-import { Popover } from '../Popover/Popover';
 import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
 import cls from './Header.module.css';
 
@@ -19,16 +18,6 @@ interface Props {
  */
 export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-
-  const viewSettingsButton = (
-    <IconButton
-      aria-label="Toggle sidebar"
-      icon={<Icon name="carbon:view" size={32} />}
-      onClick={onOpen}
-      colorScheme="gray"
-      variant="ghost"
-    />
-  );
 
   return (
     <header className={cls.header}>
@@ -48,8 +37,26 @@ export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
         <Icon name="carbon:search" />
         <span>Search</span>
       </Box>
-      <Popover isOpen={isOpen} onClose={onClose} popoverTrigger={viewSettingsButton}>
-        <ViewSettingsForm />
+      <Popover
+        placement="bottom"
+        matchWidth
+        gutter={36}
+        isOpen={isOpen}
+        onClose={onClose}
+        isLazy
+      >
+        <PopoverTrigger>
+          <IconButton
+            aria-label="Toggle view settings"
+            icon={<Icon name="carbon:view" size={32} />}
+            onClick={onOpen}
+            colorScheme="gray"
+            variant="ghost"
+          />
+        </PopoverTrigger>
+        <PopoverContent w="max-content" borderRadius="lg">
+          <ViewSettingsForm />
+        </PopoverContent>
       </Popover>
       <Box className={cls.profile}>
         <Icon name="carbon:user-avatar" size={32} />
