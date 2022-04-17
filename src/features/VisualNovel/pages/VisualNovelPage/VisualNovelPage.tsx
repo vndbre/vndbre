@@ -36,7 +36,6 @@ export const VisualNovelPage: FC = () => {
                 src={data.image}
                 fallbackSrc={vnPosterPlaceholder}
                 alt={data.title}
-                borderRadius="lg"
                 isNsfw={data.isImageNsfw}
               />
               <div className={cls.info}>

@@ -49,7 +49,6 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
     <SafeImage
       src={image}
       fallbackSrc={vnPosterPlaceholder}
-      borderRadius="lg"
       h="full"
       w="full"
       isNsfw={isImageNsfw}

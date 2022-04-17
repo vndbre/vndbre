@@ -1,7 +1,7 @@
 export namespace LocalStorageService {
 
   /**
-   * Save data to storage.
+   * Saves data to storage.
    * @param key Key.
    * @param data Data for save.
    */

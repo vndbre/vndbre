@@ -9,7 +9,7 @@ interface Settings {
   /**
    * What tags categories to show.
    */
-  readonly showTags: Record<TagClassification, boolean>;
+  readonly showTags: Readonly<Record<TagClassification, boolean>>;
 
   /**
    * Spoiler level for tags.
