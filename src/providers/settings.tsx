@@ -2,6 +2,7 @@ import React, { createContext, FC, useCallback, useContext, useEffect, useMemo, 
 import { LocalStorageService } from '../api/services/localStorageService';
 import { SpoilerLevel } from '../models/spoilerLevel';
 import { TagClassification } from '../models/tagClassification';
+import { assertNonNull } from '../utils/assertNonNull';
 import { KEY_VIEW_SETTINGS } from '../utils/localStorageKeys';
 
 interface Settings {
@@ -22,10 +23,13 @@ interface Settings {
   readonly isNsfwContentAllowed: boolean;
 }
 
-interface SettingsSetters {
+interface SettingsContext {
+
+  /** View settings. */
+  readonly settings: Settings;
 
   /** Updates settings. */
-  readonly updateSettings: (newSettings: Settings) => void;
+  readonly updateSettings?: (newSettings: Settings) => void;
 }
 
 const defaultSettings: Settings = {
@@ -38,7 +42,7 @@ const defaultSettings: Settings = {
   isNsfwContentAllowed: false,
 };
 
-export const SettingsContext = createContext<Settings & SettingsSetters>({} as Settings & SettingsSetters);
+export const settingsContext = createContext<SettingsContext>({ settings: defaultSettings });
 
 /**
  * Settings Provider.
@@ -59,21 +63,31 @@ export const SettingsProvider: FC = ({ children }) => {
     LocalStorageService.save(KEY_VIEW_SETTINGS, newSettings);
   }, []);
 
-  const value: Settings & SettingsSetters = useMemo(() => ({
+  const value: SettingsContext = useMemo(() => ({
     updateSettings,
-    tagsVisibility: settings.tagsVisibility,
-    spoilerLevel: settings.spoilerLevel,
-    isNsfwContentAllowed: settings.isNsfwContentAllowed,
+    settings: {
+      tagsVisibility: settings.tagsVisibility,
+      spoilerLevel: settings.spoilerLevel,
+      isNsfwContentAllowed: settings.isNsfwContentAllowed,
+    },
   }), [settings]);
 
   return (
-    <SettingsContext.Provider value={value}>
+    <settingsContext.Provider value={value}>
       {children}
-    </SettingsContext.Provider>
+    </settingsContext.Provider>
   );
 };
 
 /**
  * Settings context hook.
  */
-export const useSettingsContext = (): Settings & SettingsSetters => useContext(SettingsContext);
+export const useSettingsContext = (): Settings & { readonly updateSettings: (newSettings: Settings) => void; } => {
+  const { settings, updateSettings } = useContext(settingsContext);
+  assertNonNull(updateSettings);
+
+  return {
+    ...settings,
+    updateSettings,
+  };
+};
