@@ -1,11 +1,11 @@
 import React, { VFC, memo, ReactNode, useCallback } from 'react';
-import { FormControl, FormErrorMessage, RadioGroup as ChakraRadioGroup, VStack } from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, RadioGroup as ChakraRadioGroup } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
 import { FormControlProps } from '../../utils/formControl';
 
 interface Props extends FormControlProps {
 
-  /** Radio button props. */
+  /** Radio group content (radio buttons). */
   readonly children: ReactNode;
 }
 
@@ -23,7 +23,7 @@ const RadioGroupComponent: VFC<Props> = ({ children, control, name, rules }) => 
     } else {
       onChange(newValue);
     }
-  }, [onChange, value]);
+  }, [onChange]);
 
   return (
     <FormControl isInvalid={invalid} id={name}>
@@ -33,9 +33,7 @@ const RadioGroupComponent: VFC<Props> = ({ children, control, name, rules }) => 
         value={value}
         onChange={handleChange}
       >
-        <VStack align="start" spacing="3">
-          {children}
-        </VStack>
+        {children}
       </ChakraRadioGroup>
       <FormErrorMessage>{error?.message}</FormErrorMessage>
     </FormControl>

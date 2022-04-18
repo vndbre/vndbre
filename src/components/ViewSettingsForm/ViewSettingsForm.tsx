@@ -42,7 +42,7 @@ export const ViewSettingsForm: VFC = () => {
         <Box w="full" mt="4">
           <RadioGroup control={control} name="spoilerLevel">
             <VStack align="start" spacing="3">
-              <Radio name="spoilerLevel" value={SpoilerLevel.None}>Hide spoilers</Radio>
+              <Radio value={SpoilerLevel.None}>Hide spoilers</Radio>
               <Radio value={SpoilerLevel.Minor}>Show minor spoilers</Radio>
               <Radio value={SpoilerLevel.Major}>Show major spoilers</Radio>
             </VStack>
