@@ -27,7 +27,7 @@ const CardDetailListComponent: VFC<Props> = ({ title, alignment = 'start', items
     flexDirection="column"
     gap={1}
   >
-    {title && <Text fontWeight="semibold">{title}</Text>}
+    {title != null && <Text fontWeight="semibold">{title}</Text>}
     <Box
       display="flex"
       gap={2}
@@ -36,9 +36,9 @@ const CardDetailListComponent: VFC<Props> = ({ title, alignment = 'start', items
     >
       {items.map((item, index) => (
         <Tooltip key={item + String(index)} label={readableMapper(item)}>
-          <span>
+          <Text>
             <Icon name={iconMapper(item)} />
-          </span>
+          </Text>
         </Tooltip>
       ))}
     </Box>
@@ -46,4 +46,4 @@ const CardDetailListComponent: VFC<Props> = ({ title, alignment = 'start', items
 );
 
 export const CardDetailList = memo(CardDetailListComponent) as
-<T extends string>(props: Props<T>) => ReturnType<VFC<Props>>;
+  <T extends string>(props: Props<T>) => ReturnType<VFC<Props>>;

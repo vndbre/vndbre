@@ -60,13 +60,11 @@ const WideCardComponent: VFC<Props> = ({
       </Box>
       <CardDetailList
         alignment="end"
-        title="Languages"
         items={languages}
         readableMapper={Language.toReadable}
         iconMapper={Language.getIcon}
       />
       <CardDetailList
-        title="Platforms"
         items={platforms}
         readableMapper={Platform.toReadable}
         iconMapper={Platform.getIcon}

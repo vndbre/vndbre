@@ -58,7 +58,6 @@ const VisualNovelTableComponent: VFC<Props> = ({ items }) => (
             </Td>
             <Td>
               <CardDetailList
-                title="Platforms"
                 items={vn.platforms}
                 readableMapper={Platform.toReadable}
                 iconMapper={Platform.getIcon}

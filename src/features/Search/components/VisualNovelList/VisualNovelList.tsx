@@ -17,7 +17,7 @@ interface Props {
   /** Variant of list. */
   readonly variant: VisualNovelListVariant;
 
-  /** Whether loading. */
+  /** Whether the list is loading or not. */
   readonly isLoading: boolean;
 
   /** Visual novels. */
