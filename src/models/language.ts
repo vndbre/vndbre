@@ -132,7 +132,7 @@ export namespace Language {
    * Gets name of icon for language.
    * @param value Language.
    */
-  export function getLanguageIcon(value: Language): string {
+  export function getIcon(value: Language): string {
     const suffix = TO_LANGUAGE_INFO_MAP[value]?.iconSuffix;
 
     if (suffix) {
@@ -143,7 +143,7 @@ export namespace Language {
   }
 
   /** Obtains alphabetically sorted languages. */
-  export function getSortedLanguages(): Language[] {
+  export function getSorted(): Language[] {
     // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     return enumToArray(Language).sort();
   }

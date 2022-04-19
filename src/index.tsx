@@ -12,6 +12,7 @@ import { theme } from './theme';
 import 'focus-visible/dist/focus-visible';
 import './theme/css/base.css';
 import './theme/css/utilities.css';
+import './theme/css/variables.css';
 
 ReactDOM.render(
   <StrictMode>

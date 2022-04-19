@@ -1,35 +1,62 @@
-import React, { useCallback, useState, VFC } from 'react';
+import React, { useCallback, useMemo, useState, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
+import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
+import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
+import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
+import { VisualNovelListOptions } from '../../components/VisualNovelListOptions/VisualNovelListOptions';
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
   /**
    * TODO: Remove mock data.
    */
-  const UNKNOWN_PAGE_COUNT = 11;
+  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const [pageCount, setPageCount] = useState(2);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery({
+    page,
+    pageSize: 18,
+    search: searchQuery,
+  });
 
-  const handlePaginatorChange = useCallback((page: number) => {
-    // Imagine { hasNext: false } check here.
-    if (page + 1 <= UNKNOWN_PAGE_COUNT) {
-      setPageCount(page + 1);
-    }
-    setCurrentPage(page);
-  }, [setPageCount, setCurrentPage]);
+  const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [visualNovelsPage, page]);
+
+  const handlePaginatorChange = useCallback(setPage, []);
+
+  const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
+    setPage(1);
+    setSearchQuery(data.title);
+  }, []);
+
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('extended-cards');
 
   return (
-    <Box display="flex" flexDir="column" mt={8}>
-      <VisualNovelSearchForm />
+    <Box
+      display="flex"
+      flexDir="column"
+      mt={8}
+      px={10}
+      gap={8}
+    >
+      <VisualNovelSearchForm
+        onSubmit={handleSearchSubmit}
+      />
+
+      <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+      <VisualNovelList
+        variant={tableVariant}
+        isLoading={isLoading}
+        items={visualNovelsPage?.items}
+      />
 
       <Box alignSelf="center">
         <Paginator
+          isCountLoading={isLoading}
           isNavigationHidden
           count={pageCount}
-          currentPage={currentPage}
+          currentPage={page}
           onChange={handlePaginatorChange}
         />
       </Box>
