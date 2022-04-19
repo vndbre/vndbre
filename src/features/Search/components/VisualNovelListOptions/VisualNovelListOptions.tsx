@@ -30,7 +30,7 @@ interface ButtonOption {
   readonly label: string;
 }
 
-export const buttonOptions: ButtonOption[] = [
+export const buttonOptions: readonly ButtonOption[] = [
   {
     icon: 'carbon:menu',
     variant: 'table',

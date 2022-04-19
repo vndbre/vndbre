@@ -1,11 +1,7 @@
 import React, { memo, VFC } from 'react';
-import { Link, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom';
-import { Platform } from '../../../../models/platform';
-import { Language } from '../../../../models/language';
+import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { DETAIL_DATA_NULL } from '../../utils/constants';
-import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { VisualNovelTableRow } from './VisualNovelTableRow';
 
 interface Props {
 
@@ -30,43 +26,7 @@ const VisualNovelTableComponent: VFC<Props> = ({ items }) => (
         </Tr>
       </Thead>
       <Tbody>
-        {items.map(vn => (
-          <Tr
-            key={vn.id}
-            _hover={{
-              backgroundColor: 'gray.100',
-            }}
-          >
-            <Td>
-              <Link
-                as={RouterLink}
-                variant="no-underline"
-                to={`/vn/${vn.id}`}
-                whiteSpace="break-spaces"
-              >
-                {vn.title}
-              </Link>
-            </Td>
-            <Td>
-              <CardDetailList
-                alignment="end"
-                items={vn.languages}
-                readableMapper={Language.toReadable}
-                iconMapper={Language.getIcon}
-              />
-
-            </Td>
-            <Td>
-              <CardDetailList
-                items={vn.platforms}
-                readableMapper={Platform.toReadable}
-                iconMapper={Platform.getIcon}
-              />
-            </Td>
-            <Td>{vn.released ? vn.released.getFullYear() : DETAIL_DATA_NULL}</Td>
-            <Td>{vn.rating}</Td>
-          </Tr>
-        ))}
+        {items.map(vn => <VisualNovelTableRow vn={vn} />)}
       </Tbody>
     </Table>
   </TableContainer>
