@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box, Heading, Image, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
+import { Box, Heading, Link, Popover, PopoverContent, PopoverTrigger } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -7,6 +7,7 @@ import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
+import { SafeImage } from '../../../../components';
 
 interface Props {
 
@@ -25,6 +26,7 @@ const CoverCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
+    isImageNsfw,
   },
 }) => (
   <Popover
@@ -47,9 +49,12 @@ const CoverCardComponent: VFC<Props> = ({
           variant="no-underline"
           to={`/vn/${id}`}
         >
-          <Image
-            src={image ?? undefined}
-            borderRadius="sm"
+          <SafeImage
+            src={image}
+            containerProps={{
+              borderRadius: 'sm',
+            }}
+            isNsfw={isImageNsfw}
             style={{ aspectRatio: '5 / 7' }}
             w="full"
             objectFit="cover"

@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box, Heading, Image, Link } from '@chakra-ui/react';
+import { Box, Heading, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -7,6 +7,7 @@ import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
+import { SafeImage } from '../../../../components';
 
 interface Props {
 
@@ -25,6 +26,7 @@ const ExtendedCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
+    isImageNsfw,
   },
 }) => (
   <Box
@@ -42,13 +44,17 @@ const ExtendedCardComponent: VFC<Props> = ({
       style={{ aspectRatio: '5 / 7' }}
       data-peer
     >
-      <Image
-        src={image ?? undefined}
+      <SafeImage
+        src={image}
+        containerProps={{
+          h: 'full',
+          borderRadius: 'lg',
+        }}
         objectFit="cover"
         h="full"
         maxW="unset"
         style={{ aspectRatio: '5 / 7' }}
-        borderRadius="lg"
+        isNsfw={isImageNsfw}
       />
     </Link>
     <Box

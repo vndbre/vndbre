@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { Box, Image, Link } from '@chakra-ui/react';
+import { Box, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
@@ -7,6 +7,7 @@ import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
+import { SafeImage } from '../../../../components';
 
 interface Props {
 
@@ -25,6 +26,7 @@ const WideCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
+    isImageNsfw,
   },
 }) => (
   <Link
@@ -36,13 +38,16 @@ const WideCardComponent: VFC<Props> = ({
     overflow="hidden"
     display="flex"
   >
-    <Image
-      src={image ?? undefined}
-      borderRadius="sm"
+    <SafeImage
+      src={image}
       style={{ aspectRatio: '5 / 7' }}
       h={20}
       w="auto"
+      containerProps={{
+        borderRadius: 'sm',
+      }}
       objectFit="cover"
+      isNsfw={isImageNsfw}
     />
     <Box
       w="full"
