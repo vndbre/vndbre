@@ -115,7 +115,7 @@ export const OverviewPage: FC = () => {
         key={key}
         title={StaffRole.getStaffRoleInfo(key as StaffRole).title}
         tags={visualNovel.staff.filter(staff => staff.role === key).map(staff => {
-          const data = { name: staff.name, note: null };
+          const data = { name: staff.name, note: null, path: `/staff/${staff.staffId}` };
           if (StaffRole.getStaffRoleInfo(key as StaffRole).shouldNoteBeDisplayed) {
             return { ...data, note: staff.note };
           }

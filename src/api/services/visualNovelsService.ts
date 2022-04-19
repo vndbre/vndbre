@@ -34,8 +34,8 @@ const SORT_FIELD_MAP: Readonly<Record<VisualNovelSortField, VisualNovelSortField
   [VisualNovelSortField.VoteCount]: 'votecount',
 };
 
-/** Pagination options for visual novels. */
-export interface VisualNovelPaginationOptions extends PaginationOptions {
+/** Search options for visual novels. */
+export interface VisualNovelSearchOptions extends PaginationOptions {
 
   /** Search string. */
   readonly search?: string;
@@ -100,9 +100,9 @@ export namespace VisualNovelsService {
 
   /**
    * Get a page of visual novels.
-   * @param options Pagination options.
+   * @param options Search options.
    */
-  export async function fetchPaginatedVisualNovels(options: VisualNovelPaginationOptions): Promise<Pagination<VisualNovel>> {
+  export async function fetchPaginatedVisualNovels(options: VisualNovelSearchOptions): Promise<Pagination<VisualNovel>> {
     const visualNovelOptions = [PaginationMapper.mapOptionsToDto(options)];
     const visualNovelFilters = [`search ~ "${options.search ?? ''}"`];
 

@@ -26,7 +26,7 @@ const VisualNovelTableComponent: VFC<Props> = ({ items }) => (
         </Tr>
       </Thead>
       <Tbody>
-        {items.map(vn => <VisualNovelTableRow vn={vn} />)}
+        {items.map(vn => <VisualNovelTableRow key={vn.id} vn={vn} />)}
       </Tbody>
     </Table>
   </TableContainer>

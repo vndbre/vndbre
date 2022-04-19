@@ -44,6 +44,23 @@ export namespace StaffRole {
   }
 
   /**
+   * Convert string value to value of Staff type.
+   * @param value Value.
+   */
+  export function toStaffRole(value: string): StaffRole {
+    const staffRole = value as StaffRole;
+    return TO_STAFF_ROLE_INFO_MAP[staffRole] ? staffRole : StaffRole.Staff;
+  }
+
+  /**
+   * Converts a certain staff role to readable equivalent.
+   * @param value Staff role.
+   */
+  export function toReadable(value: StaffRole): string {
+    return TO_STAFF_ROLE_INFO_MAP[value].title;
+  }
+
+  /**
    * Obtains information about a specific staff role.
    * @param staffRole Staff role.
    */

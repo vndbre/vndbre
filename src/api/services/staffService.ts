@@ -2,18 +2,21 @@ import { ApiProxyEndpoints, http } from '..';
 import { Staff } from '../../models/staff';
 import { PaginationDto } from '../dtos/paginationDto';
 import { StaffDto } from '../dtos/staffDto';
+import { PaginationMapper } from '../mappers/paginationMapper';
 import { StaffMapper } from '../mappers/staffMapper';
 
-/**
- * Fetches staff by id.
- * @param ids Staff ids.
- * TODO: Add support for fetching more.
- */
-export const fetchStaff = async(ids: number[]): Promise<Staff[]> => {
-  const { data } = await http.post<PaginationDto<StaffDto>>(
-    ApiProxyEndpoints.Vndb,
-    `get staff basic (aid = [${ids}])`,
-  );
+export namespace StaffService {
 
-  return data.data.items.map(dto => StaffMapper.fromDto(dto));
-};
+  /**
+   * Fetches staff by id.
+   * @param id Staff id.
+   */
+  export const fetchStaffById = async(id: Staff['id']): Promise<Staff> => {
+    const { data } = await http.post<PaginationDto<StaffDto>>(
+      ApiProxyEndpoints.Vndb,
+      `get staff basic,details,vns,aliases,voiced (id = ${id})`,
+    );
+
+    return PaginationMapper.mapPaginationFromDto(data, StaffMapper.fromDto).items[0];
+  };
+}

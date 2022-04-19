@@ -55,14 +55,14 @@ export const buttonOptions: readonly ButtonOption[] = [
 
 /** Visual novel list options. */
 const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) => {
-  const handleIconClick = useCallback((variant: VisualNovelListVariant) => () => onVariantChange(variant), [onVariantChange]);
+  const handleIconButtonClick = useCallback((variant: VisualNovelListVariant) => () => onVariantChange(variant), [onVariantChange]);
 
   return (
     <Box>
       {buttonOptions.map(({ icon, variant, label }) => (
         <IconButton
           key={variant}
-          onClick={handleIconClick(variant)}
+          onClick={handleIconButtonClick(variant)}
           aria-label={label}
           icon={<Icon name={icon} />}
           borderRadius="none"

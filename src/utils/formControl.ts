@@ -12,7 +12,7 @@ export interface FormControlProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   readonly control: Control<any>;
 
-  /** Name of the control. Must be unique within the form scope. */
+  /** Name of the control. */
   readonly name: string;
 
   /** Validation rules. */

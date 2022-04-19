@@ -1,5 +1,5 @@
 import React, { FC, Suspense } from 'react';
-import { Button, ButtonGroup, Heading, IconButton, Image, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, IconButton, Image, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
 import { Icon } from '../../../../components/Icon/Icon';
@@ -8,7 +8,7 @@ import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, Loading } from '../../../../components';
+import { ContentWrapper, EntityTitle, Loading } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
@@ -34,14 +34,7 @@ export const VisualNovelPage: FC = () => {
               />
               <div className={cls.info}>
                 <div className={cls.heading}>
-                  <div className={cls.title}>
-                    <Heading as="h1" size="md">
-                      {data.title}
-                    </Heading>
-                    <Heading as="h2" size="sm" fontWeight="normal">
-                      {data.originalName}
-                    </Heading>
-                  </div>
+                  <EntityTitle title={data.title} originalTitle={data.originalName} />
                 </div>
                 <div className={cls.controls}>
                   <ButtonGroup isAttached>

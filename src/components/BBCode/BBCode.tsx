@@ -24,7 +24,7 @@ const mapAstToElements = (parsedText: ast): ReactElement[] => {
       case 'Strikethrough': return <Text key={itemKey} as="s">{mapAstToElements(astItem.value.children)}</Text>;
       case 'Link': return <Link key={itemKey} href={astItem.value.url} isExternal />;
       case 'LinkNamed':
-        // TODO (https://github.com/vndbre/vndbre/issues/75): Handles vndb-relative url (like "/v3126").
+        // TODO (https://github.com/vndbre/vndbre/issues/75): Handle vndb-relative url (like "/v3126").
         return <Link key={itemKey} href={astItem.value.url} isExternal>{mapAstToElements(astItem.value.children)}</Link>;
       case 'Spoiler':
         // TODO (https://github.com/vndbre/vndbre/issues/77): Make custom component for spoiler.

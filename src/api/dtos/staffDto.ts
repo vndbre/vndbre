@@ -1,3 +1,5 @@
+import { GenderDto } from './genderDto';
+
 /**
  * Staff links dto.
  */
@@ -104,7 +106,7 @@ export interface StaffDto {
   /**
    * Gender.
    */
-  readonly gender: string | null;
+  readonly gender: GenderDto | null;
 
   /**
    * Primary language.
