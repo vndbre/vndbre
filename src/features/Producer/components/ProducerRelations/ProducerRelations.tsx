@@ -25,18 +25,14 @@ const ProducerRelationsComponent: VFC<Props> = ({ producer, relatedProducers }) 
       [ProducerRelationType.Unknown]: [],
     };
 
-    if (producer != null && relatedProducers != null) {
-      return producer.relations.reduce<Record<ProducerRelationType, ExtendedProducer[]>>((acc, cur) => {
-        const relatedProducer = relatedProducers.find(prod => cur.id === prod.id);
-        if (relatedProducer == null) {
-          return acc;
-        }
+    return producer.relations.reduce<Record<ProducerRelationType, ExtendedProducer[]>>((acc, cur) => {
+      const relatedProducer = relatedProducers.find(prod => cur.id === prod.id);
+      if (relatedProducer == null) {
+        return acc;
+      }
 
-        return { ...acc, [cur.relation]: [...acc[cur.relation], { ...relatedProducer, relation: cur.relation }] };
-      }, initialValue);
-    }
-
-    return initialValue;
+      return { ...acc, [cur.relation]: [...acc[cur.relation], { ...relatedProducer, relation: cur.relation }] };
+    }, initialValue);
   };
 
   return (
