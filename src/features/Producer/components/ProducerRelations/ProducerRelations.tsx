@@ -12,7 +12,7 @@ interface Props {
   readonly producer: Producer;
 
   /** Related producers. */
-  readonly relatedProducers: Producer[];
+  readonly relatedProducers: readonly Producer[];
 }
 
 /** Producer relations component. */
@@ -24,17 +24,21 @@ const ProducerRelationsComponent: VFC<Props> = ({ producer, relatedProducers }) 
       [ProducerRelationType.Parent]: [],
       [ProducerRelationType.Unknown]: [],
     };
+
     if (producer != null && relatedProducers != null) {
       return producer.relations.reduce<Record<ProducerRelationType, ExtendedProducer[]>>((acc, cur) => {
         const relatedProducer = relatedProducers.find(prod => cur.id === prod.id);
         if (relatedProducer == null) {
           return acc;
         }
+
         return { ...acc, [cur.relation]: [...acc[cur.relation], { ...relatedProducer, relation: cur.relation }] };
       }, initialValue);
     }
+
     return initialValue;
   };
+
   return (
     <>
       {Object.entries(getGroupedExtendedProducers()).map(([key, value]) => value.length > 0 && (
