@@ -31,9 +31,6 @@ interface Props {
 
   /** Text on the hide content button. */
   readonly hideLabel?: string;
-
-  /** Whether the content should be hidden by default or not. */
-  readonly shouldBeHidden?: boolean;
 }
 
 /**
@@ -44,28 +41,26 @@ const HideContentComponent: VFC<Props> = ({
   transitionDuration = 300,
   showLabel = 'Show more',
   hideLabel = 'Hide',
-  shouldBeHidden = true,
   children,
 }) => {
-  const [isHidden, setIsHidden] = useState(shouldBeHidden);
+  const [isHidden, setIsHidden] = useState(true);
   const [shouldButtonsBeRendered, setShouldButtonsBeRendered] = useState(true);
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     assertNonNull(contentContainerRef.current);
-
-    if (contentContainerRef.current.clientHeight < maxHeight) {
-      setShouldButtonsBeRendered(false);
-    }
-  }, []);
+    setShouldButtonsBeRendered(contentContainerRef.current.clientHeight >= maxHeight);
+  }, [maxHeight, children]);
 
   const contentContainerMaxHeight = useMemo(
     () => {
-      assertNonNull(contentContainerRef.current);
+      if (contentContainerRef.current == null) {
+        return `${maxHeight}px`;
+      }
 
       return isHidden ? `${maxHeight}px` : `${contentContainerRef.current.clientHeight}px`;
     },
-    [isHidden, maxHeight],
+    [isHidden, maxHeight, contentContainerRef.current],
   );
 
   const handleShowContentButtonClick = useCallback(() => setIsHidden(false), []);
