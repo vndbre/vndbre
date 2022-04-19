@@ -12,35 +12,49 @@ interface Props {
   readonly onVariantChange: (variant: VisualNovelListVariant) => void;
 }
 
+interface ButtonOption {
+
+  /**
+   * Icon name.
+   */
+  readonly icon: string;
+
+  /**
+   * List variant.
+   */
+  readonly variant: VisualNovelListVariant;
+
+  /**
+   * Icon button label.
+   */
+  readonly label: string;
+}
+
+export const buttonOptions: readonly ButtonOption[] = [
+  {
+    icon: 'carbon:menu',
+    variant: 'table',
+    label: 'Table',
+  },
+  {
+    icon: 'carbon:grid',
+    variant: 'cards',
+    label: 'Cards',
+  },
+  {
+    icon: 'carbon:show-data-cards',
+    variant: 'wide-cards',
+    label: 'Wide cards',
+  },
+  {
+    icon: 'carbon:horizontal-view',
+    variant: 'extended-cards',
+    label: 'Extended Cards',
+  },
+];
+
 /** Visual novel list options. */
 const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantChange }) => {
-  const buttonOptions: {
-    icon: string;
-    variant: VisualNovelListVariant;
-    label: string;
-  }[] = [
-    {
-      icon: 'carbon:menu',
-      variant: 'table',
-      label: 'Table',
-    },
-    {
-      icon: 'carbon:grid',
-      variant: 'cards',
-      label: 'Cards',
-    },
-    {
-      icon: 'carbon:show-data-cards',
-      variant: 'wide-cards',
-      label: 'Wide cards',
-    },
-    {
-      icon: 'carbon:horizontal-view',
-      variant: 'extended-cards',
-      label: 'Extended Cards',
-    },
-  ];
-
   const handleIconButtonClick = useCallback((variant: VisualNovelListVariant) => () => onVariantChange(variant), [onVariantChange]);
 
   return (

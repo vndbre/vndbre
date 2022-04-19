@@ -36,8 +36,8 @@ export interface VisualNovelFormData {
   readonly platforms: readonly SelectOption<Platform>[];
 }
 
-const languageOptions: SelectOption<Language>[] = Language.getSortedLanguages().map(mapLanguageToSelectOption);
-const platformOptions: SelectOption<Platform>[] = Platform.getSortedPlatforms().map(mapPlatformToSelectOption);
+const languageOptions = Language.getSorted().map(mapLanguageToSelectOption);
+const platformOptions = Platform.getSorted().map(mapPlatformToSelectOption);
 
 const currentYear = new Date().getFullYear();
 const MIN_RELEASE_YEAR = 1970;

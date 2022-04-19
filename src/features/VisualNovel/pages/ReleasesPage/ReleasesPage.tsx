@@ -85,7 +85,7 @@ export const ReleasesPage: VFC = () => {
         <Heading as="h2">
           <AccordionButton>
             <HStack spacing={3} marginRight={3}>
-              <Icon name={Language.getLanguageIcon(language)} />
+              <Icon name={Language.getIcon(language)} />
               <Text fontWeight="bold" fontSize="sm">
                 {Language.toReadable(language)}
               </Text>
@@ -108,20 +108,16 @@ export const ReleasesPage: VFC = () => {
               </HStack>
               <HStack spacing={2}>
                 {release.ageRating && <Text>{release.ageRating}</Text>}
-                {release.platforms.map(platform => {
-                  const icon = Platform.getPlatformIcon(platform);
-
-                  return (
-                    <Tooltip
-                      key={platform + String(release.id)}
-                      label={Platform.toReadable(platform)}
-                    >
-                      <span>
-                        <Icon name={icon} />
-                      </span>
-                    </Tooltip>
-                  );
-                })}
+                {release.platforms.map(platform => (
+                  <Tooltip
+                    key={platform + String(release.id)}
+                    label={Platform.toReadable(platform)}
+                  >
+                    <span>
+                      <Icon name={Platform.getIcon(platform)} />
+                    </span>
+                  </Tooltip>
+                ))}
               </HStack>
               <HStack spacing={2}>
                 {ReleasesService.getReleaseIcons(release).map(releaseIcon => (

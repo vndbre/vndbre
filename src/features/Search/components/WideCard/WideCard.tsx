@@ -1,12 +1,12 @@
 import React, { memo, VFC } from 'react';
-import { Box, Image, Link, Tooltip } from '@chakra-ui/react';
+import { Box, Image, Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
-import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { DETAIL_DATA_NULL } from '../../utils/constants';
 
 interface Props {
 
@@ -59,28 +59,19 @@ const WideCardComponent: VFC<Props> = ({
         {title}
       </Box>
       <CardDetailList
-        justify="end"
-        items={languages.map(language => (
-          <Tooltip key={language} label={Language.toReadable(language)}>
-            <span>
-              <Icon name={Language.getLanguageIcon(language)} />
-            </span>
-          </Tooltip>
-        ))}
+        alignment="end"
+        items={languages}
+        readableMapper={Language.toReadable}
+        iconMapper={Language.getIcon}
       />
       <CardDetailList
-        justify="end"
-        items={platforms.map(platform => (
-          <Tooltip key={platform} label={Platform.toReadable(platform)}>
-            <span>
-              <Icon name={Platform.getPlatformIcon(platform)} />
-            </span>
-          </Tooltip>
-        ))}
+        items={platforms}
+        readableMapper={Platform.toReadable}
+        iconMapper={Platform.getIcon}
       />
-      <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+      <CardDetail title="Released" text={released ? released.getFullYear() : DETAIL_DATA_NULL} />
       <CardDetail title="Rating" text={rating} />
-      <CardDetail title="Length" text={length ?? 'Unknown'} />
+      <CardDetail title="Length" text={length ?? DETAIL_DATA_NULL} />
     </Box>
   </Link>
 );

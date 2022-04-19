@@ -3,10 +3,10 @@ import { Box, Heading, Image, Link, Popover, PopoverContent, PopoverTrigger } fr
 import { Link as RouterLink } from 'react-router-dom';
 import { Platform } from '../../../../models/platform';
 import { Language } from '../../../../models/language';
-import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { DETAIL_DATA_NULL } from '../../utils/constants';
 
 interface Props {
 
@@ -87,9 +87,9 @@ const CoverCardComponent: VFC<Props> = ({
         display="flex"
         gap={12}
       >
-        <CardDetail title="Released" text={released ? released.getFullYear() : 'Unknown'} />
+        <CardDetail title="Released" text={released ? released.getFullYear() : DETAIL_DATA_NULL} />
         <CardDetail title="Rating" text={rating} />
-        <CardDetail title="Length" text={length ?? 'Unknown'} />
+        <CardDetail title="Length" text={length ?? DETAIL_DATA_NULL} />
       </Box>
       <Box
         display="flex"
@@ -97,11 +97,15 @@ const CoverCardComponent: VFC<Props> = ({
       >
         <CardDetailList
           title="Languages"
-          items={languages.map(language => <Icon key={language} name={Language.getLanguageIcon(language)} />)}
+          items={languages}
+          readableMapper={Language.toReadable}
+          iconMapper={Language.getIcon}
         />
         <CardDetailList
           title="Platforms"
-          items={platforms.map(platform => <Icon key={platform} name={Platform.getPlatformIcon(platform)} />)}
+          items={platforms}
+          readableMapper={Platform.toReadable}
+          iconMapper={Platform.getIcon}
         />
       </Box>
     </PopoverContent>

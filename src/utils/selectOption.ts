@@ -23,7 +23,7 @@ export function mapLanguageToSelectOption(language: Language): SelectOption<Lang
   return {
     value: language,
     label: Language.toReadable(language),
-    icon: Language.getLanguageIcon(language),
+    icon: Language.getIcon(language),
   };
 }
 

@@ -3,8 +3,8 @@ import { Box } from '@chakra-ui/react';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
 import { CoverCard } from '../CoverCard/CoverCard';
-import { VNTable } from '../VNTable/VNTable';
-import { VNTableSkeleton } from '../VNTable/VNTableSkeleton';
+import { VisualNovelTable } from '../VisualNovelTable/VisualNovelTable';
+import { VisualNovelTableSkeleton } from '../VisualNovelTable/VisualNovelTableSkeleton';
 import { WideCard } from '../WideCard/WideCard';
 import { WideCardSkeleton } from '../WideCard/WideCardSkeleton';
 import { ExtendedCard } from '../ExtendedCard/ExtendedCard';
@@ -17,7 +17,7 @@ interface Props {
   /** Variant of list. */
   readonly variant: VisualNovelListVariant;
 
-  /** Whether loading. */
+  /** Whether the list is loading or not. */
   readonly isLoading: boolean;
 
   /** Visual novels. */
@@ -31,8 +31,8 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
   if (variant === 'table') {
     return (
       <>
-        {isLoading && <VNTableSkeleton />}
-        {items.length > 0 && <VNTable items={items} />}
+        {isLoading && <VisualNovelTableSkeleton />}
+        {items.length > 0 && <VisualNovelTable items={items} />}
       </>
     );
   }

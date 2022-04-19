@@ -91,7 +91,7 @@ export const OverviewPage: FC = () => {
       <TagList
         key={key}
         title="Publisher"
-        titleIcon={<Icon name={Language.getLanguageIcon(Language.toLanguage(key))} />}
+        titleIcon={<Icon name={Language.getIcon(Language.toLanguage(key))} />}
         tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
       />
     )
