@@ -76,21 +76,20 @@ export const OverviewPage: FC = () => {
   });
 
   const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
-
-  const settingsContext = useSettingsContext();
+  const { tagsVisibility, spoilerLevel } = useSettingsContext();
 
   /**
    * Filter tags by category and spoiler level.
    */
   function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return settingsContext.showTags[tag.cat] && tag.spoilerLevel <= settingsContext.spoilerLevel;
+    return tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel;
   }
 
   const publishersBlock = visualNovel?.languages.map(key => (
     publishers && publishers[key].length > 0 && (
       <TagList
         key={key}
-        title="Publisher"
+        title={Language.toReadable(Language.toLanguage(key))}
         titleIcon={<Icon name={Language.getIcon(Language.toLanguage(key))} />}
         tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
       />
@@ -175,14 +174,16 @@ export const OverviewPage: FC = () => {
             {staffBlock}
           </div>
           <ContentWrapper isLoading={isCharactersLoading} error={charactersError}>
-            <div>
-              <Heading as="h3" size="sm">
-                Characters
-              </Heading>
-              <div className={cls.characters}>
-                {charactersBlock}
+            {characters != null && characters.length > 0 && (
+              <div>
+                <Heading as="h3" size="sm">
+                  Characters
+                </Heading>
+                <div className={cls.characters}>
+                  {charactersBlock}
+                </div>
               </div>
-            </div>
+            )}
           </ContentWrapper>
         </div>
       </div>

@@ -42,32 +42,36 @@ export const TagListComponent: VFC<TagListProps> = ({ title, titleIcon, tags, is
   }, [isExpanded]);
 
   return (
-    <Box>
-      <Heading as="h3" size="sm">
-        <HStack>
-          {titleIcon}
-          <Text fontWeight="bold">{title}</Text>
-        </HStack>
-      </Heading>
-      <Box className={cls.tags}>
-        {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <Tag key={i} tag={tag} />
-        ))}
-        {isExpandable && tags.length > 10 && (
-          <IconButton
-            aria-label="Expand"
-            size="30px"
-            paddingX={2}
-            borderRadius="sm"
-            icon={<Icon name="carbon:overflow-menu-horizontal" />}
-            variant="solid"
-            colorScheme="gray"
-            onClick={handleExpandButtonClick}
-          />
-        )}
-      </Box>
-    </Box>
+    <>
+      {tags.length > 0 && (
+        <Box>
+          <Heading as="h3" size="sm">
+            <HStack>
+              {titleIcon}
+              <Text fontWeight="bold">{title}</Text>
+            </HStack>
+          </Heading>
+          <Box className={cls.tags}>
+            {tags.slice(0, isExpanded ? -1 : 10).map((tag, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Tag key={i} tag={tag} />
+            ))}
+            {isExpandable && tags.length > 10 && (
+              <IconButton
+                aria-label="Expand"
+                size="30px"
+                paddingX={2}
+                borderRadius="sm"
+                icon={<Icon name="carbon:overflow-menu-horizontal" />}
+                variant="solid"
+                colorScheme="gray"
+                onClick={handleExpandButtonClick}
+              />
+            )}
+          </Box>
+        </Box>
+      )}
+    </>
   );
 };
 
