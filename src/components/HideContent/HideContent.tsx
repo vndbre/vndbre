@@ -2,7 +2,7 @@ import React, {
   memo,
   ReactNode,
   useCallback,
-  useLayoutEffect,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -47,7 +47,7 @@ const HideContentComponent: VFC<Props> = ({
   const [shouldButtonsBeRendered, setShouldButtonsBeRendered] = useState(true);
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     assertNonNull(contentContainerRef.current);
     setShouldButtonsBeRendered(contentContainerRef.current.clientHeight >= maxHeight);
   }, [maxHeight, children]);
