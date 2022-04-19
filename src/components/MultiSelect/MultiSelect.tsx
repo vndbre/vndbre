@@ -37,7 +37,7 @@ const customMultiSelectChakraStyles = {
 };
 
 /**
- * Custom multi select based on Select component from `chakra-react-select`.
+ * Custom multi select based on `Select` component from `chakra-react-select`.
  */
 const MultiSelectComponent: VFC<Props> = ({
   control,

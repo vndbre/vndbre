@@ -30,7 +30,7 @@ interface Props extends FormControlProps {
 }
 
 /**
- * Custom range slider based on Chakra UI RangeSlider component.
+ * Custom range slider based on Chakra UI `RangeSlider` component.
  */
 const RangeSliderComponent: VFC<Props> = ({
   control,
