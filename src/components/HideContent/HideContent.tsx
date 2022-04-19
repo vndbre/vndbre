@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { Box, HStack } from '@chakra-ui/react';
 import { TextButton } from '../TextButton/TextButton';
+import { assertNonNull } from '../../utils/assertNonNull';
 
 interface Props {
 
@@ -51,15 +52,19 @@ const HideContentComponent: VFC<Props> = ({
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (contentContainerRef.current!.clientHeight < maxHeight) {
+    assertNonNull(contentContainerRef.current);
+
+    if (contentContainerRef.current.clientHeight < maxHeight) {
       setShouldButtonsBeRendered(false);
     }
   }, []);
 
   const contentContainerMaxHeight = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    () => (isHidden ? `${maxHeight}px` : `${contentContainerRef.current!.clientHeight}px`),
+    () => {
+      assertNonNull(contentContainerRef.current);
+
+      return isHidden ? `${maxHeight}px` : `${contentContainerRef.current.clientHeight}px`;
+    },
     [isHidden, maxHeight],
   );
 
