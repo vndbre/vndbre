@@ -41,6 +41,7 @@ export const RelationsPage: VFC = () => {
           title={relatedNovel.title}
           isOfficial={isOfficial}
           image={relatedNovel.image}
+          isImageNsfw={relatedNovel.isImageNsfw}
         />
       );
     });

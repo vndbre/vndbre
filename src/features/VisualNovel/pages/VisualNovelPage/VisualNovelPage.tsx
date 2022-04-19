@@ -1,5 +1,5 @@
 import React, { FC, Suspense, useMemo } from 'react';
-import { Button, ButtonGroup, IconButton, Image, Text } from '@chakra-ui/react';
+import { Button, ButtonGroup, IconButton, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
 import { Icon } from '../../../../components/Icon/Icon';
@@ -8,7 +8,7 @@ import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
 import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, EntityTitle, HideContent, Loading } from '../../../../components';
+import { ContentWrapper, EntityTitle, HideContent, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
@@ -36,12 +36,18 @@ export const VisualNovelPage: FC = () => {
         <div className={cls.page}>
           <header className={cls.header}>
             <div className={cls.overview}>
-              <Image
-                src={data.image ?? undefined}
+              <SafeImage
+                containerProps={{
+                  borderRadius: 'lg',
+                  h: 'max-content',
+                }}
+                objectFit="cover"
+                height="auto"
+                maxH="80"
+                src={data.image}
                 fallbackSrc={vnPosterPlaceholder}
-                loading="eager"
                 alt={data.title}
-                className={cls.image}
+                isNsfw={data.isImageNsfw}
               />
               <div className={cls.info}>
                 <div className={cls.heading}>

@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
-import { Box, Grid, HStack, Image, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityTitle, TagList } from '../../../../components';
+import { Box, Grid, HStack, Text, VStack } from '@chakra-ui/react';
+import { ContentWrapper, EntityDetail, EntityTitle, SafeImage, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
@@ -68,11 +68,14 @@ export const CharacterPage: VFC = () => {
       {character && (
         <>
           <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" pt="8" gap="8">
-            <Image
-              src={character.image ?? undefined}
+            <SafeImage
+              src={character.image}
               fallbackSrc={characterPlaceholder}
               h="auto"
               maxH="80"
+              containerProps={{
+                borderRadius: 'lg',
+              }}
               objectFit="cover"
               borderRadius="lg"
             />
