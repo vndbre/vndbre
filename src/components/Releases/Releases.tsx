@@ -68,72 +68,70 @@ const ReleasesComponent: VFC<Props> = ({ releasesData }) => {
     );
   };
 
-  const releasesElement =
-   releasesData &&
-   (
-     Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
-   ).map(([language, releases]) => (
-     <AccordionItem key={language}>
-       <Heading as="h2">
-         <AccordionButton>
-           <HStack spacing={3} marginRight={3}>
-             <Icon name={Language.getIcon(language)} />
-             <Text fontWeight="bold" fontSize="sm">
-               {Language.toReadable(language)}
-             </Text>
-           </HStack>
-           <AccordionIcon />
-         </AccordionButton>
-       </Heading>
-       <AccordionPanel>
-         {releases.map((release, i) => (
-           <Grid
-             gap={4}
-             templateColumns="120px 2.5fr 1fr 1fr 24px"
-             key={String(release.id) + release.releasedDate + String(i)}
-             marginBottom={4}
-             alignItems="center"
-           >
-             <Text>{release.releasedDate}</Text>
-             <HStack spacing={1}>
-               {getReleaseStatusElement(release.type)}
-               <Text fontWeight="semibold">{release.title}</Text>
-             </HStack>
-             <HStack spacing={2}>
-               {release.ageRating && <Text>{release.ageRating}</Text>}
-               {release.platforms.map(platform => (
-                 <Tooltip
-                   key={platform + String(release.id)}
-                   label={Platform.toReadable(platform)}
-                 >
-                   <span>
-                     <Icon name={Platform.getIcon(platform)} />
-                   </span>
-                 </Tooltip>
-               ))}
-             </HStack>
-             <HStack spacing={2}>
-               {ReleasesService.getReleaseIcons(release).map(releaseIcon => (
-                 <Tooltip
-                   key={releaseIcon.icon + releaseIcon.label}
-                   label={releaseIcon.label}
-                 >
-                   <span>
-                     <Icon name={releaseIcon.icon} />
-                   </span>
-                 </Tooltip>
-               ))}
-             </HStack>
-             {release.website && (
-               <Link variant="no-underline" href={release.website} isExternal>
-                 <Icon name="ri:external-link-line" />
-               </Link>
-             )}
-           </Grid>
-         ))}
-       </AccordionPanel>
-     </AccordionItem>
-   ));
+  const releasesElement = (
+    Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
+  ).map(([language, releases]) => (
+    <AccordionItem key={language}>
+      <Heading as="h2">
+        <AccordionButton>
+          <HStack spacing={3} marginRight={3}>
+            <Icon name={Language.getIcon(language)} />
+            <Text fontWeight="bold" fontSize="sm">
+              {Language.toReadable(language)}
+            </Text>
+          </HStack>
+          <AccordionIcon />
+        </AccordionButton>
+      </Heading>
+      <AccordionPanel>
+        {releases.map((release, i) => (
+          <Grid
+            gap={4}
+            templateColumns="120px 2.5fr 1fr 1fr 24px"
+            key={String(release.id) + release.releasedDate + String(i)}
+            marginBottom={4}
+            alignItems="center"
+          >
+            <Text>{release.releasedDate}</Text>
+            <HStack spacing={1}>
+              {getReleaseStatusElement(release.type)}
+              <Text fontWeight="semibold">{release.title}</Text>
+            </HStack>
+            <HStack spacing={2}>
+              {release.ageRating && <Text>{release.ageRating}</Text>}
+              {release.platforms.map(platform => (
+                <Tooltip
+                  key={platform + String(release.id)}
+                  label={Platform.toReadable(platform)}
+                >
+                  <span>
+                    <Icon name={Platform.getIcon(platform)} />
+                  </span>
+                </Tooltip>
+              ))}
+            </HStack>
+            <HStack spacing={2}>
+              {ReleasesService.getReleaseIcons(release).map(releaseIcon => (
+                <Tooltip
+                  key={releaseIcon.icon + releaseIcon.label}
+                  label={releaseIcon.label}
+                >
+                  <span>
+                    <Icon name={releaseIcon.icon} />
+                  </span>
+                </Tooltip>
+              ))}
+            </HStack>
+            {release.website && (
+              <Link variant="no-underline" href={release.website} isExternal>
+                <Icon name="ri:external-link-line" />
+              </Link>
+            )}
+          </Grid>
+        ))}
+      </AccordionPanel>
+    </AccordionItem>
+  ));
 
   return (
     <Accordion defaultIndex={[0]} allowMultiple paddingBottom={1}>
