@@ -1,15 +1,13 @@
-import React, { Suspense, VFC } from 'react';
+import React, { VFC } from 'react';
 import { Box, VStack, Text } from '@chakra-ui/react';
-import { Outlet } from 'react-router-dom';
-import { ContentWrapper, EntityDetail, EntityTabs, EntityTitle, Loading } from '../../../../components';
+import { ContentWrapper, EntityDetail, EntityTitle, Releases } from '../../../../components';
 import { useRouteParams } from '../../../../hooks';
-import { useProducerQuery, useRelatedProducersQuery } from '../../queries';
+import { useProducerQuery, useRelatedProducersQuery, useReleasesQuery } from '../../queries';
 import { ProducerRouteParams } from '../../utils/producerRouteParams';
 import { Language } from '../../../../models/language';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ProducerType } from '../../../../models/producerType';
 import { ProducerRelations } from '../../components';
-import { PRODUCER_ROUTES_INFO } from '../../utils/producerRoutesInfo';
 
 /** Producer page component. */
 export const ProducerPage: VFC = () => {
@@ -26,6 +24,12 @@ export const ProducerPage: VFC = () => {
   } = useRelatedProducersQuery(Number(id), relatedProducersIds, {
     enabled: relatedProducersIds.length > 0,
   });
+
+  const {
+    isLoading: isReleasesLoading,
+    data: releasesData,
+    error: releasesError,
+  } = useReleasesQuery(Number(id));
 
   return (
     <ContentWrapper isLoading={isProducerLoading} error={producerError}>
@@ -44,13 +48,10 @@ export const ProducerPage: VFC = () => {
           </VStack>
         </Box>
       )}
-      <Box my="4">
-        <EntityTabs id={id} tabsInfo={PRODUCER_ROUTES_INFO} entityRootPath="producer" />
-      </Box>
-      <Box px="10">
-        <Suspense fallback={<Loading isLoading />}>
-          <Outlet />
-        </Suspense>
+      <Box mt="10">
+        <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
+          {releasesData != null && <Releases releasesData={releasesData} />}
+        </ContentWrapper>
       </Box>
     </ContentWrapper>
   );

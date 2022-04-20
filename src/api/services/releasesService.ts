@@ -56,8 +56,8 @@ export namespace ReleasesService {
   };
 
   /**
-   * Fetches full releases.
-   * @param vnId Visual novel id.
+   * Fetches producer's releases.
+   * @param producerId Producer id.
    */
   export const fetchProducerReleases = async(producerId: Producer['id']): Promise<Release[]> =>
     (await PaginationService.fetchAllDataById(producerId, fetchReleasesPaginatedByProducerId)).map(dto => ReleaseMapper.fromDto(dto));
