@@ -13,3 +13,4 @@ export { EntityTitle } from './EntityTitle/EntityTitle';
 export { ViewSettingsForm } from './ViewSettingsForm/ViewSettingsForm';
 export { SafeImage } from './SafeImage/SafeImage';
 export { RadioGroup } from './RadioGroup/RadioGroup';
+export { EntityTabs } from './EntityTabs/EntityTabs';

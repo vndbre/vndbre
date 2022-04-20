@@ -6,11 +6,11 @@ import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
-import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, EntityTitle, Loading, SafeImage } from '../../../../components';
+import { ContentWrapper, EntityTabs, EntityTitle, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { VISUAL_NOVELS_ROUTES_INFO } from '../../utils/visualNovelRoutesInfo';
 
 /**
  * Visual novel page.
@@ -54,7 +54,7 @@ export const VisualNovelPage: FC = () => {
                 {(data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>)}
               </div>
             </div>
-            <VisualNovelTabs id={id} />
+            <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
           </header>
           <div className={cls.tabContent}>
             <Suspense fallback={<Loading isLoading />}>
