@@ -27,7 +27,7 @@ export const DefaultLayout: VFC = () => {
       <Box className={`${cls.container} ${isSidebarVisible ? cls['with-sidebar'] : ''}`}>
         <Header isLogoVisible={!isSidebarVisible} onSidebarShow={showSidebar} />
         <Box className={cls.content}>
-          <Suspense fallback={<Loading isLoading />}>
+          <Suspense fallback={<Loading fullHeight isLoading />}>
             <Outlet />
           </Suspense>
         </Box>
