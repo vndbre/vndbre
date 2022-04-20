@@ -58,7 +58,7 @@ const HideContentComponent: VFC<Props> = ({
         return `${maxHeight}px`;
       }
 
-      return isHidden ? `${maxHeight}px` : `${contentContainerRef.current.clientHeight}px`;
+      return `${isHidden ? maxHeight : contentContainerRef.current.clientHeight}px`;
     },
     [isHidden, maxHeight, contentContainerRef.current],
   );
