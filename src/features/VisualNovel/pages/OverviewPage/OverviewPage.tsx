@@ -91,7 +91,12 @@ export const OverviewPage: FC = () => {
         key={key}
         title={Language.toReadable(Language.toLanguage(key))}
         titleIcon={<Icon name={Language.getIcon(Language.toLanguage(key))} />}
-        tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
+        tags={publishers[key].map(publisher => ({
+          name: publisher,
+          note: null,
+          path: `/producer/${releases?.map(r => r.producers).flat()
+            .find(p => p.name === publisher)?.id}`,
+        }))}
       />
     )
   ));
@@ -153,7 +158,12 @@ export const OverviewPage: FC = () => {
             )}
             <TagList
               title="Developers"
-              tags={developers.map(dev => ({ name: dev, note: null }))}
+              tags={developers.map(dev => ({
+                name: dev,
+                note: null,
+                path: `/producer/${releases?.map(r => r.producers).flat()
+                  .find(p => p.name === dev)?.id}`,
+              }))}
             />
             {publishersBlock}
             <div>
