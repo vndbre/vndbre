@@ -10,6 +10,8 @@ export { MultiSelect } from './MultiSelect/MultiSelect';
 export { TextInput } from './TextInput/TextInput';
 export { EntityDetail } from './EntityDetail/EntityDetail';
 export { EntityTitle } from './EntityTitle/EntityTitle';
+export { HideContent } from './HideContent/HideContent';
+export { TextButton } from './TextButton/TextButton';
 export { ViewSettingsForm } from './ViewSettingsForm/ViewSettingsForm';
 export { SafeImage } from './SafeImage/SafeImage';
 export { RadioGroup } from './RadioGroup/RadioGroup';
