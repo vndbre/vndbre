@@ -9,6 +9,7 @@ import { PaginationService } from './paginationService';
 import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { ReleaseAnimation } from '../../models/releases/releaseAnimation';
 import { ReleaseMapper } from '../mappers/releaseMapper';
+import { Producer } from '../../models/producer';
 
 interface ReleaseIcon {
 
@@ -40,6 +41,26 @@ export namespace ReleasesService {
     );
     return data;
   };
+
+  /**
+   * Fetches paginated releases by producer id with given query page.
+   * @param producerId Producer id.
+   * @param page Query page.
+   */
+  export const fetchReleasesPaginatedByProducerId = async(producerId: Producer['id'], page: number): Promise<PaginationDto<ReleaseDto>> => {
+    const { data } = await http.post<PaginationDto<ReleaseDto>>(
+      ApiProxyEndpoints.Vndb,
+      `get release basic,details,producers (producer = ${producerId}) {"results": 25, "page": ${page}, "sort": "released"}`,
+    );
+    return data;
+  };
+
+  /**
+   * Fetches full releases.
+   * @param vnId Visual novel id.
+   */
+  export const fetchProducerReleases = async(producerId: Producer['id']): Promise<Release[]> =>
+    (await PaginationService.fetchAllDataById(producerId, fetchReleasesPaginatedByProducerId)).map(dto => ReleaseMapper.fromDto(dto));
 
   /**
    * Fetches full releases.

@@ -1,15 +1,15 @@
 import React, { VFC } from 'react';
-import { useReleasesQuery } from '../../queries';
-import { ContentWrapper, Releases } from '../../../../components';
+import { ContentWrapper } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
-import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { ProducerRouteParams } from '../../utils/producerRouteParams';
+import { useReleasesQuery } from '../../queries';
+import { Releases } from '../../../../components/Releases/Releases';
 
 /**
  * Releases page.
  */
 export const ReleasesPage: VFC = () => {
-  const { id } = useRouteParams<VisualNovelRouteParams>();
-
+  const { id } = useRouteParams<ProducerRouteParams>();
   const {
     isLoading: isReleasesLoading,
     data: releasesData,
@@ -18,7 +18,7 @@ export const ReleasesPage: VFC = () => {
 
   return (
     <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-      {releasesData && <Releases releasesData={releasesData} />}
+      {releasesData != null && <Releases releasesData={releasesData} />}
     </ContentWrapper>
   );
 };
