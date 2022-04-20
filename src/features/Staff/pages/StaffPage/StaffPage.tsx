@@ -1,14 +1,15 @@
 import React, { useMemo, VFC } from 'react';
 import { Box, VStack, Text } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityTitle } from '../../../../components';
+import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
-import { StaffLinks, StaffVisualNovelsTable } from '../../components';
+import { StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
 import { StaffRouteParams } from '../../utils/staffRouteParams';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { Gender } from '../../../../models/gender';
+import { Links } from '../../../../models/links';
 
 /** Staff page component. */
 export const StaffPage: VFC = () => {
@@ -49,9 +50,9 @@ export const StaffPage: VFC = () => {
                     {staffAliases}
                   </EntityDetail>
                 )}
-                {staff.links != null && (
+                {staff.links != null && Links.checkLinksAreEmpty(staff.links) === false && (
                   <EntityDetail title="Links">
-                    <StaffLinks links={staff.links} />
+                    <EntityLinks links={staff.links} />
                   </EntityDetail>
                 )}
               </VStack>

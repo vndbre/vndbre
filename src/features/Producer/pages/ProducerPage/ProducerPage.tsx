@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 import { Box, VStack, Text } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityTitle, Releases } from '../../../../components';
+import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle, Releases } from '../../../../components';
 import { useRouteParams } from '../../../../hooks';
 import { useProducerQuery, useRelatedProducersQuery, useReleasesQuery } from '../../queries';
 import { ProducerRouteParams } from '../../utils/producerRouteParams';
@@ -8,6 +8,7 @@ import { Language } from '../../../../models/language';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ProducerType } from '../../../../models/producerType';
 import { ProducerRelations } from '../../components';
+import { Links } from '../../../../models/links';
 
 /** Producer page component. */
 export const ProducerPage: VFC = () => {
@@ -40,6 +41,11 @@ export const ProducerPage: VFC = () => {
             <VStack align="initial" spacing="2">
               <EntityDetail title="Primary language">{Language.toReadable(producer.language)}</EntityDetail>
               <EntityDetail title="Producer type">{ProducerType.toReadable(producer.type)}</EntityDetail>
+              {Links.checkLinksAreEmpty(producer.links) === false && (
+                <EntityDetail title="Links">
+                  <EntityLinks links={producer.links} />
+                </EntityDetail>
+              )}
               <ContentWrapper isLoading={isRelatedProducersLoading} error={relatedProducersError}>
                 {relatedProducers != null && <ProducerRelations producer={producer} relatedProducers={relatedProducers} />}
               </ContentWrapper>

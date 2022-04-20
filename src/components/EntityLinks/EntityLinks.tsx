@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
 import { HStack, Link } from '@chakra-ui/react';
-import { StaffLinks as Links } from '../../../../models/staffLinks';
+import { Links } from '../../models/links';
 
 interface Props {
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 /** Staff links component. */
-const StaffLinksComponent: VFC<Props> = ({ links }) => {
+const EntityLinksComponent: VFC<Props> = ({ links }) => {
   const linksList = Object.entries(links).map(([key, path]) => path && <Link key={key} href={path}>{key}</Link>);
 
   return (
@@ -17,4 +17,4 @@ const StaffLinksComponent: VFC<Props> = ({ links }) => {
   );
 };
 
-export const StaffLinks = memo(StaffLinksComponent);
+export const EntityLinks = memo(EntityLinksComponent);

@@ -15,3 +15,4 @@ export { SafeImage } from './SafeImage/SafeImage';
 export { RadioGroup } from './RadioGroup/RadioGroup';
 export { EntityTabs } from './EntityTabs/EntityTabs';
 export { Releases } from './Releases/Releases';
+export { EntityLinks } from './EntityLinks/EntityLinks';

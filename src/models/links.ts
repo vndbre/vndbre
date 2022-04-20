@@ -13,3 +13,13 @@ export interface Links {
    */
   readonly wikidata: string | null;
 }
+
+export namespace Links {
+
+  /**
+   * Checks if every link is empty.
+   * @param links Links object.
+   * @returns
+   */
+  export const checkLinksAreEmpty = (links: Links): boolean => Object.entries(links).every(([_, value]) => value === null);
+}
