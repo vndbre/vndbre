@@ -94,8 +94,7 @@ export const OverviewPage: FC = () => {
         tags={publishers[key].map(publisher => ({
           name: publisher,
           note: null,
-          path: `/producer/${releases?.map(r => r.producers).flat()
-            .find(p => p.name === publisher)?.id}`,
+          path: `/producer/${releases?.flatMap(r => r.producers).find(p => p.name === publisher)?.id}`,
         }))}
       />
     )
@@ -161,8 +160,7 @@ export const OverviewPage: FC = () => {
               tags={developers.map(dev => ({
                 name: dev,
                 note: null,
-                path: `/producer/${releases?.map(r => r.producers).flat()
-                  .find(p => p.name === dev)?.id}`,
+                path: `/producer/${releases?.flatMap(r => r.producers).find(p => p.name === dev)?.id}`,
               }))}
             />
             {publishersBlock}
