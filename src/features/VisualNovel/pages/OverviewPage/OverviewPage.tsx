@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Heading, Link } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
@@ -8,12 +8,13 @@ import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
-import { ContentWrapper, TagList } from '../../../../components';
+import { ContentWrapper, EntityLinks, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
+import { Links } from '../../../../models/links';
 
 /**
  * Overview tab page.
@@ -100,16 +101,8 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const linksBlock = visualNovel && (
-    Object.entries(visualNovel.links).map(([key, value]) => (
-      <Link
-        key={key}
-        className={cls.link}
-        href={value ?? '#'}
-      >
-        {key}
-      </Link>
-    ))
+  const linksBlock = visualNovel && Links.checkLinksAreEmpty(visualNovel.links) === false && (
+    <EntityLinks links={visualNovel.links} />
   );
 
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
