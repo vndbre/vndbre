@@ -1,4 +1,4 @@
-import React, { useCallback, VFC } from 'react';
+import React, { Suspense, useCallback, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
@@ -6,6 +6,7 @@ import { Sidebar } from '../../components/Sidebar/Sidebar';
 import { KEY_IS_SIDEBAR_VISIBLE } from '../../utils/localStorageKeys';
 import { useLocalStorage } from '../../hooks';
 import cls from './DefaultLayout.module.css';
+import { Loading } from '../../components';
 
 /**
  * Default layout with sidebar and header.
@@ -26,7 +27,9 @@ export const DefaultLayout: VFC = () => {
       <Box className={`${cls.container} ${isSidebarVisible ? cls['with-sidebar'] : ''}`}>
         <Header isLogoVisible={!isSidebarVisible} onSidebarShow={showSidebar} />
         <Box className={cls.content}>
-          <Outlet />
+          <Suspense fallback={<Loading isLoading />}>
+            <Outlet />
+          </Suspense>
         </Box>
       </Box>
     </Box>

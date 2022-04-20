@@ -56,7 +56,7 @@ export const VisualNovelPage: FC = () => {
             </div>
             <VisualNovelTabs id={id} />
           </header>
-          <div className={cls.tabContent}>
+          <div>
             <Suspense fallback={<Loading isLoading />}>
               <Outlet />
             </Suspense>
