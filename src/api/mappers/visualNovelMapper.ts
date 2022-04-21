@@ -10,6 +10,7 @@ import {
   RelationTypeDto,
   VisualNovelLengthDto,
 } from '../dtos/visualNovelDto';
+import { ExternalLinksMapper } from './externalLinksMapper';
 import { ImageFlaggingMapper } from './imageFlaggingMapper';
 
 /** Visual novel mapper. */
@@ -132,7 +133,7 @@ export namespace VisualNovelMapper {
     aliases: dto.aliases,
     length: dto.length ? mapVisualNovelLengthFromDto(dto.length) : null,
     description: dto.description,
-    links: dto.links,
+    links: ExternalLinksMapper.fromDto(dto.links),
     image: dto.image,
     imageFlagging: dto.image_flagging ? ImageFlaggingMapper.fromDto(dto.image_flagging) : null,
     anime: mapVisualNovelRelatedAnimeFromDto(dto.anime),
