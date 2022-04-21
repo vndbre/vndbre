@@ -5,40 +5,46 @@ import { StaffRole } from '../../models/staffRole';
 import { GenderMapper } from './genderMapper';
 import { ExternalLinksMapper } from './externalLinksMapper';
 
-/** Staff mapper. */
-export namespace StaffMapper {
-
-  /**
-   * Maps visual novel in which staff worked from dto.
-   * @param dto Dto.
-   */
-  const mapStaffVisualNovelFromDto = (dto: StaffDto['vns']): Staff['visualNovels'] => dto?.map(visualNovelDto => ({
+/**
+ * Maps visual novel in which staff worked from dto.
+ * @param dto Dto.
+ */
+function mapStaffVisualNovelFromDto(dto: StaffDto['vns']): Staff['visualNovels'] {
+  return dto?.map(visualNovelDto => ({
     id: visualNovelDto.id,
     aliasId: visualNovelDto.aid,
     note: visualNovelDto.note,
     role: StaffRole.toStaffRole(visualNovelDto.role),
   })) ?? [];
+}
 
-  /**
-   * Maps staff who voiced a character from dto.
-   * @param dto Dto.
-   */
-  const mapStaffCharacterVoicedFromDto = (dto: StaffDto['voiced']): Staff['voiced'] => dto?.map(staffCharacterVoicedDto => ({
+/**
+ * Maps staff who voiced a character from dto.
+ * @param dto Dto.
+ */
+function mapStaffCharacterVoicedFromDto(dto: StaffDto['voiced']): Staff['voiced'] {
+  return dto?.map(staffCharacterVoicedDto => ({
     id: staffCharacterVoicedDto.id,
     aliasId: staffCharacterVoicedDto.aid,
     note: staffCharacterVoicedDto.note,
     characterId: staffCharacterVoicedDto.cid,
   })) ?? [];
+}
 
-  /**
-   * Maps staff aliases from dto.
-   * @param dto Dto.
-   */
-  const mapStaffAliasesFromDto = (dto: StaffDto['aliases']): Staff['aliases'] => dto?.map(aliasDto => ({
+/**
+ * Maps staff aliases from dto.
+ * @param dto Dto.
+ */
+function mapStaffAliasesFromDto(dto: StaffDto['aliases']): Staff['aliases'] {
+  return dto?.map(aliasDto => ({
     aliasId: aliasDto[0],
     name: aliasDto[1],
     originalName: aliasDto[2],
   })) ?? [];
+}
+
+/** Staff mapper. */
+export namespace StaffMapper {
 
   /**
    * Maps staff into from dto.
@@ -50,7 +56,7 @@ export namespace StaffMapper {
       name: dto.name,
       gender: dto.gender != null ? GenderMapper.GENDER_FROM_DTO_MAP[dto.gender] : null,
       language: Language.toLanguage(dto.language),
-      links: dto.links != null ? ExternalLinksMapper.fromDto(dto.links) : [],
+      links: ExternalLinksMapper.fromDto(dto.links),
       description: dto.description,
       aliases: mapStaffAliasesFromDto(dto.aliases),
       mainAlias: dto.main_alias ?? null,

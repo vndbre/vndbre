@@ -86,7 +86,7 @@ export interface StaffDto {
   /**
    * Links to staff's external resources.
    */
-  readonly links?: ExternalLinksDto;
+  readonly links: ExternalLinksDto;
 
   /**
    * Description or notes.

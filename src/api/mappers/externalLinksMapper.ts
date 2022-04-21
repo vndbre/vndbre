@@ -19,11 +19,11 @@ const HREF_FACTORY: Readonly<Record<keyof ExternalLinksDto, (value: string) => s
  * @param key The name of the external link.
  * @param value The value of the external link.
  */
-const mapExternalLinkFromDto = (key: keyof ExternalLinksDto, value: string): ExternalLink => {
+function mapExternalLinkFromDto(key: keyof ExternalLinksDto, value: string): ExternalLink {
   const createHref = HREF_FACTORY[key];
   assertNonNull(createHref);
   return ({ label: key, href: createHref(value) });
-};
+}
 
 /** External links mapper. */
 export namespace ExternalLinksMapper {

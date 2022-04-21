@@ -45,7 +45,7 @@ export const StaffPage: VFC = () => {
     return [];
   }, [staff]);
 
-  const links = staff != null ? staff.links.map(link => (
+  const links = (staff != null ? staff.links : []).map(link => (
     <Link
       key={link.href}
       href={link.href}
@@ -53,7 +53,7 @@ export const StaffPage: VFC = () => {
     >
       {link.label}
     </Link>
-  )) : [];
+  ));
 
   return (
     <ContentWrapper isLoading={isStaffLoading} error={staffError}>
