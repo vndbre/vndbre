@@ -6,10 +6,10 @@ import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
-import { StaffRouteParams } from '../../utils/staffRouteParams';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { Gender } from '../../../../models/gender';
 import { Links } from '../../../../models/links';
+import { StaffRouteParams } from '../../utils/staffRouteParams';
 
 /** Staff page component. */
 export const StaffPage: VFC = () => {

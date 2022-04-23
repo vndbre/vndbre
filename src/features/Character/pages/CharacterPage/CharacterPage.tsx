@@ -3,7 +3,6 @@ import { Box, Grid, HStack, Text, VStack } from '@chakra-ui/react';
 import { ContentWrapper, EntityDetail, EntityTitle, SafeImage, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
-import { CharacterRouteParams } from '../../utils/characterRouteParams';
 import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { useExtendedTraitsQuery } from '../../queries/trait';
@@ -11,6 +10,7 @@ import { CharacterTraits } from '../../components';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CharacterRole } from '../../../../models/characters/characterRole';
 import { Gender } from '../../../../models/gender';
+import { CharacterRouteParams } from '../../utils/characterRouteParams';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {

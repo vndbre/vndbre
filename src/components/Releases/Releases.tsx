@@ -1,4 +1,4 @@
-import React, { memo, ReactElement, VFC } from 'react';
+import React, { memo, ReactNode, VFC } from 'react';
 import {
   Accordion,
   AccordionButton,
@@ -20,22 +20,22 @@ import { Platform } from '../../models/platform';
 import { Language } from '../../models/language';
 
 interface ReleaseGroups {
-  [language: string]: Release[];
+  readonly [language: string]: readonly Release[];
 }
 
 interface Props {
 
   /** List of releases. */
-  readonly releasesData: Release[];
+  readonly data: readonly Release[];
 }
 
 /** Releases component. */
-const ReleasesComponent: VFC<Props> = ({ releasesData }) => {
+const ReleasesComponent: VFC<Props> = ({ data }) => {
   /**
    * Groups releases by language.
    * @param releases Releases.
    */
-  const groupReleases = (releases: Release[]): ReleaseGroups =>
+  const groupReleases = (releases: readonly Release[]): ReleaseGroups =>
     releases.reduce<ReleaseGroups>((accumulatedReleases, currentRelease) => {
       const release = currentRelease.languages.reduce<ReleaseGroups>(
         (accumulatedMultiLanguageRelease, currentLanguage) => {
@@ -56,7 +56,7 @@ const ReleasesComponent: VFC<Props> = ({ releasesData }) => {
    * Gets element with icon for release status.
    * @param releaseType Release type.
    */
-  const getReleaseStatusElement = (releaseType: ReleaseType): ReactElement => {
+  const getReleaseStatusElement = (releaseType: ReleaseType): ReactNode => {
     const releaseIcon = ReleasesService.getReleaseStatusIcon(releaseType);
 
     return (
@@ -69,7 +69,7 @@ const ReleasesComponent: VFC<Props> = ({ releasesData }) => {
   };
 
   const releasesElement = (
-    Object.entries(groupReleases(releasesData)) as [Language, Release[]][]
+    Object.entries(groupReleases(data)) as [Language, Release[]][]
   ).map(([language, releases]) => (
     <AccordionItem key={language}>
       <Heading as="h2">

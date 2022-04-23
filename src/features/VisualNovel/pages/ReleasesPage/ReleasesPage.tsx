@@ -18,7 +18,7 @@ export const ReleasesPage: VFC = () => {
 
   return (
     <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-      {releasesData && <Releases releasesData={releasesData} />}
+      {releasesData && <Releases data={releasesData} />}
     </ContentWrapper>
   );
 };

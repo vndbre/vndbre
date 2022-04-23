@@ -3,12 +3,12 @@ import { Box, VStack, Text } from '@chakra-ui/react';
 import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle, Releases } from '../../../../components';
 import { useRouteParams } from '../../../../hooks';
 import { useProducerQuery, useRelatedProducersQuery, useReleasesQuery } from '../../queries';
-import { ProducerRouteParams } from '../../utils/producerRouteParams';
 import { Language } from '../../../../models/language';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ProducerType } from '../../../../models/producerType';
 import { ProducerRelations } from '../../components';
 import { Links } from '../../../../models/links';
+import { ProducerRouteParams } from '../../utils/producerRouteParams';
 
 /** Producer page component. */
 export const ProducerPage: VFC = () => {
@@ -56,7 +56,7 @@ export const ProducerPage: VFC = () => {
       )}
       <Box mt="10">
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-          {releasesData != null && <Releases releasesData={releasesData} />}
+          {releasesData != null && <Releases data={releasesData} />}
         </ContentWrapper>
       </Box>
     </ContentWrapper>

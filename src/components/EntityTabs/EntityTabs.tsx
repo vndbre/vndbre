@@ -9,7 +9,7 @@ interface Props {
   readonly id: string;
 
   /** List of tabs. */
-  readonly tabsInfo: RouteInfo[];
+  readonly tabsInfo: readonly RouteInfo[];
 
   /** Entity root path. Example: `vn`. */
   readonly entityRootPath: string;
@@ -18,40 +18,40 @@ interface Props {
 const FIRST_INDEX = 0;
 
 /**
+ * Calculates initial index for tabs based on route.
+ * @param pathname URL pathname.
+ */
+const getInitialTabIndex = (pathname: string, tabsInfo: readonly RouteInfo[]): number => {
+  const splitPath = pathname.split('/');
+  const activeRoute = splitPath[splitPath.length - 1];
+  const tabIndex = tabsInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
+  return tabIndex >= FIRST_INDEX ? tabIndex : FIRST_INDEX;
+};
+
+/**
  * Component for navigation on entity page page.
  */
 export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }) => {
   const location = useLocation();
-  const [tabIndex, setTabIndex] = useState(FIRST_INDEX);
-
-  /**
-   * Calculates initial index for tabs based on route.
-   * @param pathname URL pathname.
-   */
-  const getInitialTabIndex = (pathname: string): number => {
-    const splitPath = pathname.split('/');
-    const activeRoute = splitPath[splitPath.length - 1];
-    const tabIndx = tabsInfo.findIndex(tabInfo => tabInfo.path === activeRoute);
-    return tabIndx >= FIRST_INDEX ? tabIndx : FIRST_INDEX;
-  };
+  const [currentTabIndex, setCurrentTabIndex] = useState(FIRST_INDEX);
 
   useEffect(() => {
-    setTabIndex(getInitialTabIndex(location.pathname));
+    setCurrentTabIndex(getInitialTabIndex(location.pathname, tabsInfo));
   }, [id]);
 
   /**
    * Handles click on tab.
    * @param index Tab index.
    */
-  const onTabClick = (index: number): () => void => () => setTabIndex(index);
+  const handleTabClick = (index: number): () => void => () => setCurrentTabIndex(index);
 
   /**
    * Handles key press on tab.
    * @param index Tab index.
    */
-  const onTabPress = (index: number): (event: React.KeyboardEvent) => void => (event: React.KeyboardEvent) => {
+  const handleTabPress = (index: number): (event: React.KeyboardEvent) => void => (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      setTabIndex(index);
+      setCurrentTabIndex(index);
     }
   };
 
@@ -60,8 +60,8 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
       as={Link}
       key={tabInfo.name}
       to={`/${entityRootPath}/${id}/${tabInfo.path}`}
-      onClick={onTabClick(index)}
-      onKeyPress={onTabPress(index)}
+      onClick={handleTabClick(index)}
+      onKeyPress={handleTabPress(index)}
     >
       {tabInfo.name}
     </Tab>
@@ -69,8 +69,8 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
 
   return (
     <nav>
-      <Tabs index={tabIndex} colorScheme="orange">
-        <TabList px="10">
+      <Tabs index={currentTabIndex} colorScheme="orange">
+        <TabList>
           {tabs}
         </TabList>
       </Tabs>

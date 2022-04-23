@@ -10,11 +10,11 @@ import { useSettingsContext } from '../../../../providers';
 import { ExtendedTag } from '../../../../models/extendedTag';
 import { ContentWrapper, EntityLinks, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
-import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
 import { Links } from '../../../../models/links';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
 /**
  * Overview tab page.

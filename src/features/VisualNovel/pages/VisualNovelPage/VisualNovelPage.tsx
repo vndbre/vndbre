@@ -9,8 +9,16 @@ import { useVisualNovelQuery } from '../../queries';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ContentWrapper, EntityTabs, EntityTitle, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { RouteInfo } from '../../../../routes/utils/RouteInfo';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
-import { VISUAL_NOVELS_ROUTES_INFO } from '../../utils/visualNovelRoutesInfo';
+
+export const VISUAL_NOVELS_ROUTES_INFO: readonly RouteInfo[] = [
+  { name: 'Overview', path: '' },
+  { name: 'Releases', path: 'releases' },
+  { name: 'Characters', path: 'characters' },
+  { name: 'Relations', path: 'relations' },
+  { name: 'Media', path: 'media' },
+];
 
 /**
  * Visual novel page.
