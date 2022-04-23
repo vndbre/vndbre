@@ -12,7 +12,7 @@ import { PaginationOptions } from '../../models/paginationOptions';
 /** Search options for characters. */
 export interface CharacterSearchOptions extends PaginationOptions {
 
-  /** Search string. */
+  /** Search query. */
   readonly search?: string;
 }
 
@@ -21,8 +21,6 @@ export interface CharacterSearchOptions extends PaginationOptions {
  * Characters service.
  */
 export namespace CharactersService {
-
-  const QUERY_BASE = 'get character basic,details,meas,voiced,traits,vns';
 
   /**
    * Fetches vn characters with given id and page.
@@ -67,7 +65,7 @@ export namespace CharactersService {
 
     const { data } = await http.post<PaginationDto<CharacterDto>>(
       ApiProxyEndpoints.Vndb,
-      `${QUERY_BASE} (${characterFilters.join('and ')}) {${characterOptions.join(', ')}}`,
+      `get character basic,details (${characterFilters.join('and ')}) {${characterOptions.join(', ')}}`,
     );
 
     return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto);

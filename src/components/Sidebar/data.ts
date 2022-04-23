@@ -43,10 +43,10 @@ export const data: SidebarElement[] = [
     text: 'Lists',
     items: [
       { type: SidebarElementType.Link, text: 'Visual novels', link: 'search/vn' },
-      { type: SidebarElementType.Link, text: 'Releases', link: 'asd' },
+      { type: SidebarElementType.Link, text: 'Releases', link: '#' },
       { type: SidebarElementType.Link, text: 'Producers', link: '#' },
       { type: SidebarElementType.Link, text: 'Staff', link: '#' },
-      { type: SidebarElementType.Link, text: 'Characters', link: '#' },
+      { type: SidebarElementType.Link, text: 'Characters', link: 'search/character' },
       { type: SidebarElementType.Link, text: 'Tags', link: '#' },
       { type: SidebarElementType.Link, text: 'Traits', link: '#' },
     ],
