@@ -3,6 +3,7 @@ import { Box } from '@chakra-ui/react';
 import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
 import { CharacterCoverCard } from '../CharacterCoverCard/CharacterCoverCard';
 import { Character } from '../../../../models/characters/character';
+import { checkImageNsfw } from '../../../../utils/checkImageNsfw';
 
 export type CharacterListVariant = 'cards';
 
@@ -35,7 +36,7 @@ const CharacterListComponent: VFC<Props> = ({ variant, isLoading, items = [] }) 
         ))}
         {items.map(character => (
           <CharacterCoverCard
-            isImageNsfw={false}
+            isImageNsfw={checkImageNsfw(character)}
             key={character.id}
             character={character}
           />
