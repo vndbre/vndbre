@@ -82,7 +82,6 @@ export const VisualNovelSearchPage: VFC = () => {
       display="flex"
       flexDir="column"
       mt={8}
-      px={10}
       gap={8}
     >
       <VisualNovelSearchForm

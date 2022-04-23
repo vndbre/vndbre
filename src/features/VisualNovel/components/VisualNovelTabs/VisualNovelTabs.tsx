@@ -1,7 +1,6 @@
 import React, { VFC, memo, useState, useEffect } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import cls from './VisualNovelTabs.module.css';
 
 interface Props {
 
@@ -74,7 +73,7 @@ export const VisualNovelTabs: VFC<Props> = memo(({ id }) => {
   return (
     <nav>
       <Tabs index={tabIndex} colorScheme="orange">
-        <TabList className={cls.tabList}>
+        <TabList>
           {tabs}
         </TabList>
       </Tabs>

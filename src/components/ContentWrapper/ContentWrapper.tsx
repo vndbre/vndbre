@@ -24,7 +24,7 @@ const ContentWrapperComponent: VFC<Props> = ({ isLoading, error = null, children
     return <Error error={error} />;
   }
 
-  return <Loading isLoading={isLoading}>{children}</Loading>;
+  return <Loading hasFullHeight isLoading={isLoading}>{children}</Loading>;
 };
 
 export const ContentWrapper = memo(ContentWrapperComponent);
