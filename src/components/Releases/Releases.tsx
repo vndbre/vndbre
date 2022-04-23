@@ -29,29 +29,29 @@ interface Props {
   readonly data: readonly Release[];
 }
 
+/**
+ * Groups releases by language.
+ * @param releases Releases.
+ */
+const groupReleases = (releases: readonly Release[]): ReleaseGroups =>
+  releases.reduce<ReleaseGroups>((accumulatedReleases, currentRelease) => {
+    const release = currentRelease.languages.reduce<ReleaseGroups>(
+      (accumulatedMultiLanguageRelease, currentLanguage) => {
+        const languageReleases = accumulatedReleases[currentLanguage] ?
+          [...accumulatedReleases[currentLanguage], currentRelease] :
+          [currentRelease];
+        return {
+          ...accumulatedMultiLanguageRelease,
+          [currentLanguage]: languageReleases,
+        };
+      },
+      {},
+    );
+    return { ...accumulatedReleases, ...release };
+  }, {});
+
 /** Releases component. */
 const ReleasesComponent: VFC<Props> = ({ data }) => {
-  /**
-   * Groups releases by language.
-   * @param releases Releases.
-   */
-  const groupReleases = (releases: readonly Release[]): ReleaseGroups =>
-    releases.reduce<ReleaseGroups>((accumulatedReleases, currentRelease) => {
-      const release = currentRelease.languages.reduce<ReleaseGroups>(
-        (accumulatedMultiLanguageRelease, currentLanguage) => {
-          const languageReleases = accumulatedReleases[currentLanguage] ?
-            [...accumulatedReleases[currentLanguage], currentRelease] :
-            [currentRelease];
-          return {
-            ...accumulatedMultiLanguageRelease,
-            [currentLanguage]: languageReleases,
-          };
-        },
-        {},
-      );
-      return { ...accumulatedReleases, ...release };
-    }, {});
-
   /**
    * Gets element with icon for release status.
    * @param releaseType Release type.
