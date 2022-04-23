@@ -1,6 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { CoverCard } from '../CoverCard/CoverCard';
 import { Character } from '../../../../models/characters/character';
+import imagePlaceholder from '../../../../assets/person.svg';
 
 interface Props {
 
@@ -27,6 +28,7 @@ const CharacterCoverCardComponent: VFC<Props> = ({
     title={name}
     image={image}
     isImageNsfw={isImageNsfw}
+    imagePlaceholder={imagePlaceholder}
   />
 );
 

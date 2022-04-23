@@ -8,11 +8,15 @@ import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
 import { SafeImage } from '../../../../components';
+import imagePlaceholder from '../../../../assets/star.svg';
 
 interface Props {
 
   /** Visual novel data. */
   readonly vn: VisualNovel;
+
+  /** Whether image is nsfw. */
+  readonly isImageNsfw: boolean;
 }
 
 /** Wide card. */
@@ -26,8 +30,8 @@ const WideCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
-    isImageNsfw,
   },
+  isImageNsfw,
 }) => (
   <Link
     as={RouterLink}
@@ -39,6 +43,7 @@ const WideCardComponent: VFC<Props> = ({
     display="flex"
   >
     <SafeImage
+      fallbackSrc={imagePlaceholder}
       src={image}
       style={{ aspectRatio: '5 / 7' }}
       h={20}

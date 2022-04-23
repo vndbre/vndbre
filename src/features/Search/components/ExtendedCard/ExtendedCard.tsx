@@ -8,11 +8,15 @@ import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
 import { SafeImage } from '../../../../components';
+import imagePlaceholder from '../../../../assets/star.svg';
 
 interface Props {
 
   /** Visual novel. */
   readonly vn: VisualNovel;
+
+  /** Whether image is nsfw. */
+  readonly isImageNsfw: boolean;
 }
 
 /** Cover card. */
@@ -26,8 +30,8 @@ const ExtendedCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
-    isImageNsfw,
   },
+  isImageNsfw,
 }) => (
   <Box
     display="flex"
@@ -46,6 +50,7 @@ const ExtendedCardComponent: VFC<Props> = ({
     >
       <SafeImage
         src={image}
+        fallbackSrc={imagePlaceholder}
         containerProps={{
           h: 'full',
           borderRadius: 'lg',

@@ -17,6 +17,9 @@ interface Props {
   /** Whether image is nsfw. */
   readonly isImageNsfw: boolean;
 
+  /** Image placeholder. */
+  readonly imagePlaceholder?: string;
+
   /** Children. */
   readonly children?: ReactNode;
 }
@@ -27,6 +30,7 @@ const CoverCardComponent: VFC<Props> = ({
   title,
   isImageNsfw,
   link,
+  imagePlaceholder,
   children,
 }) => {
   const cardBox = (
@@ -44,6 +48,7 @@ const CoverCardComponent: VFC<Props> = ({
       >
         <SafeImage
           src={image}
+          fallbackSrc={imagePlaceholder}
           containerProps={{
             borderRadius: 'sm',
           }}

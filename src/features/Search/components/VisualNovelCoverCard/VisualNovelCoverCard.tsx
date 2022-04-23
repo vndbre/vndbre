@@ -7,6 +7,7 @@ import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { Language } from '../../../../models/language';
 import { Platform } from '../../../../models/platform';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
+import imagePlaceholder from '../../../../assets/star.svg';
 
 interface Props {
 
@@ -38,6 +39,7 @@ const VisualNovelCoverCardComponent: VFC<Props> = ({
     title={title}
     image={image}
     isImageNsfw={isImageNsfw}
+    imagePlaceholder={imagePlaceholder}
   >
     <Box
       display="flex"
