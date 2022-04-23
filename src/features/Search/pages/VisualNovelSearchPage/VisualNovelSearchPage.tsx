@@ -45,7 +45,7 @@ const mapOptionsToFormData = (options: VisualNovelFormDataSearchOptions): Partia
 
 const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
   page: 1,
-  pageSize: 20,
+  pageSize: 18,
   releasedRange: {
     startDate: new Date('1990'),
     endDate: new Date(),
@@ -75,7 +75,7 @@ export const VisualNovelSearchPage: VFC = () => {
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const formDefaultValue = useMemo(() => mapOptionsToFormData(PREVIEW_PAGINATION_DEFAULTS), []);
-  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('extended-cards');
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
 
   return (
     <Box

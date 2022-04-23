@@ -1,6 +1,7 @@
 import { QueryObserverOptions, useQuery, UseQueryResult } from 'react-query';
-import { CharactersService } from '../../../api/services/charactersService';
+import { CharacterSearchOptions, CharactersService } from '../../../api/services/charactersService';
 import { Character } from '../../../models/characters/character';
+import { Pagination } from '../../../models/pagination';
 import { VisualNovel } from '../../../models/visualNovels/visualNovel';
 
 /**
@@ -17,3 +18,13 @@ export const useCharactersQuery = (
     {
       ...options,
     });
+
+/**
+ * Hook for fetching page of characters.
+ * @param searchOptions Search options.
+ */
+export const useCharactersPageQuery = (searchOptions: CharacterSearchOptions): UseQueryResult<Pagination<Character>, Error> =>
+  useQuery(
+    ['charactersPage', searchOptions],
+    () => CharactersService.fetchPaginatedCharacters(searchOptions),
+  );

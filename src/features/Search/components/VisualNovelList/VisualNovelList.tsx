@@ -2,7 +2,7 @@ import React, { memo, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
-import { CoverCard } from '../CoverCard/CoverCard';
+import { VisualNovelCoverCard } from '../VisualNovelCoverCard/VisualNovelCoverCard';
 import { VisualNovelTable } from '../VisualNovelTable/VisualNovelTable';
 import { VisualNovelTableSkeleton } from '../VisualNovelTable/VisualNovelTableSkeleton';
 import { WideCard } from '../WideCard/WideCard';
@@ -48,7 +48,7 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
           // eslint-disable-next-line react/no-array-index-key
           <CoverCardSkeleton key={index} />
         ))}
-        {items.map(vn => <CoverCard key={vn.id} vn={vn} />)}
+        {items.map(vn => <VisualNovelCoverCard key={vn.id} vn={vn} isImageNsfw={vn.isImageNsfw} />)}
       </Box>
     );
   }
