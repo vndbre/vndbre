@@ -58,14 +58,14 @@ export namespace VNDBService {
     }
 
     const filters = config.filters.map(mapFilterToString).join(' and ');
-    const filtersInQueryFormat = filters.length > 0 ? `(${filters})` : '';
+    const filtersArgument = filters.length > 0 ? `(${filters})` : '';
 
     const paginationOption = config.pagination != null ? PaginationMapper.mapOptionsToDto(config.pagination) : '';
     const sortOption = config.sort ?? '';
     const options = [paginationOption, sortOption].filter(option => option.length > 0);
-    const optionsInQueryFormat = options.length > 0 ? `{${options.join(', ')}}` : '';
+    const optionsArgument = options.length > 0 ? `{${options.join(', ')}}` : '';
 
-    const queryArguments = [config.type, flags, filtersInQueryFormat, optionsInQueryFormat]
+    const queryArguments = [config.type, flags, filtersArgument, optionsArgument]
       .filter(queryArgument => queryArgument.length > 0)
       .join(' ');
 
