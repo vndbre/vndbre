@@ -5,7 +5,7 @@ import { SafeImage } from '../../../../components';
 
 interface Props {
 
-  /** Link.*/
+  /** Link. */
   readonly link: string;
 
   /** Title. */

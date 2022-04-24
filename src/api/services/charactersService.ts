@@ -17,7 +17,6 @@ export interface CharacterSearchOptions extends PaginationOptions {
 }
 
 /**
- * TODO: (Maximov T.) Add extendable query for searching like in `visualNovelService`.
  * Characters service.
  */
 export namespace CharactersService {
@@ -57,6 +56,7 @@ export namespace CharactersService {
 
   /**
    * Gets a page of characters.
+   * @param options Options.
    */
   export async function fetchPaginatedCharacters(options: CharacterSearchOptions): Promise<Pagination<Character>> {
     const characterOptions = [PaginationMapper.mapOptionsToDto(options)];
@@ -65,7 +65,7 @@ export namespace CharactersService {
 
     const { data } = await http.post<PaginationDto<CharacterDto>>(
       ApiProxyEndpoints.Vndb,
-      `get character basic,details (${characterFilters.join('and ')}) {${characterOptions.join(', ')}}`,
+      `get character basic,details (${characterFilters.join(' and ')}) {${characterOptions.join(', ')}}`,
     );
 
     return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto);

@@ -9,7 +9,7 @@ interface Options {
   imageFlagging?: ImageFlagging | null;
 }
 
-// Sexual content rated higher than 0.1 can contain massive boobas.
+// Sexual content rated higher than 0.1 may contain massive boobas.
 const MIN_SEXUAL_AVG = 0.1;
 
 // Content under 1 is limited to bandages and small blood stains.
@@ -27,7 +27,6 @@ export function checkImageNsfw({ isImageNsfw, imageFlagging }: Options): boolean
 
   if (
     imageFlagging != null &&
-
     (imageFlagging.sexualAvg != null && imageFlagging.sexualAvg <= MIN_SEXUAL_AVG) &&
     (imageFlagging.violenceAvg != null && imageFlagging.violenceAvg <= MIN_VIOLENCE_AVG)
   ) {
