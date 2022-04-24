@@ -12,7 +12,7 @@ export const useVisualNovelQuery = (
   id: VisualNovel['id'], options?: QueryObserverOptions<VisualNovel, Error>,
 ): UseQueryResult<VisualNovel, Error> =>
   useQuery(['vn', id],
-    () => VisualNovelsService.fetchFullVisualNovel(id),
+    () => VisualNovelsService.fetchVisualNovel(id),
     { ...options });
 
 /**

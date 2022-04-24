@@ -35,7 +35,7 @@ export namespace ReleasesService {
    */
   export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<ReleaseDto>> => {
     const { data } = await http.post<PaginationDto<ReleaseDto>>(
-      ApiProxyEndpoints.Vndb,
+      ApiProxyEndpoints.VNDB,
       `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
     );
     return data;

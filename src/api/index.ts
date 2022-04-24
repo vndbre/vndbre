@@ -22,7 +22,7 @@ export const http: AxiosInstance = axios.create({
  * Api proxy endpoints.
  */
 export enum ApiProxyEndpoints {
-  Vndb = 'vndb',
+  VNDB = 'vndb',
   Tags = 'tags',
   Traits = 'traits',
 }

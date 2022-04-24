@@ -13,7 +13,7 @@ export namespace StaffService {
    */
   export const fetchStaffById = async(id: Staff['id']): Promise<Staff> => {
     const { data } = await http.post<PaginationDto<StaffDto>>(
-      ApiProxyEndpoints.Vndb,
+      ApiProxyEndpoints.VNDB,
       `get staff basic,details,vns,aliases,voiced (id = ${id})`,
     );
 

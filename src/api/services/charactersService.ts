@@ -21,7 +21,7 @@ export namespace CharactersService {
    */
   const fetchCharactersPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<CharacterDto>> => {
     const { data } = await http.post<PaginationDto<CharacterDto>>(
-      ApiProxyEndpoints.Vndb,
+      ApiProxyEndpoints.VNDB,
       `get character basic,details,meas,voiced,traits,vns (vn = ${vnId}) {"results": 25, "page": ${page}}`,
     );
     return data;
@@ -40,7 +40,7 @@ export namespace CharactersService {
    */
   export const fetchCharacterById = async(id: Character['id']): Promise<Character> => {
     const { data } = await http.post<PaginationDto<CharacterDto>>(
-      ApiProxyEndpoints.Vndb,
+      ApiProxyEndpoints.VNDB,
       `get character basic,details,meas,instances,voiced,traits,vns (id = ${id})`,
     );
     return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto).items[0];

@@ -12,6 +12,12 @@ import { PaginationMapper } from '../mappers/paginationMapper';
 import { VisualNovelMapper } from '../mappers/visualNovelMapper';
 import { SortMapper } from '../mappers/sortMapper';
 import { DateService } from './dateService';
+import {
+  VisualNovelFilter,
+  VisualNovelFlag,
+  VisualNovelSortField as VisualNovelSortFieldDto,
+  VNDBService,
+} from './vndbService';
 
 /** Fields available for sorting visual novels. */
 export enum VisualNovelSortField {
@@ -22,8 +28,6 @@ export enum VisualNovelSortField {
   Rating,
   VoteCount,
 }
-
-type VisualNovelSortFieldDto = keyof Pick<VisualNovelDto, 'id' | 'title' | 'released' | 'popularity' | 'rating' | 'votecount'>;
 
 const SORT_FIELD_MAP: Readonly<Record<VisualNovelSortField, VisualNovelSortFieldDto>> = {
   [VisualNovelSortField.Id]: 'id',
@@ -66,79 +70,92 @@ export interface VisualNovelSearchOptions extends PaginationOptions {
   readonly sort?: SortOptions<VisualNovelSortField>;
 }
 
+const DEFAULT_VISUAL_NOVEL_FLAGS: VisualNovelFlag[] = ['basic', 'anime', 'details', 'relations', 'tags', 'stats', 'screens', 'staff'];
+
 /**
  * Visual novel service.
  */
 export namespace VisualNovelsService {
 
-  const QUERY_BASE = 'get vn basic,anime,details,relations,tags,stats,screens,staff';
-
   /**
-   * Fetches visual novel with detailed information.
+   * Fetches visual novel.
    * @param id Visual novel id.
    */
-  export async function fetchFullVisualNovel(id: VisualNovel['id']): Promise<VisualNovel> {
+  export async function fetchVisualNovel(id: VisualNovel['id']): Promise<VisualNovel> {
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiProxyEndpoints.Vndb, `${QUERY_BASE} (id = ${id})`,
+      ApiProxyEndpoints.VNDB,
+      VNDBService.createVNDBGetQuery({
+        type: 'vn',
+        flags: DEFAULT_VISUAL_NOVEL_FLAGS,
+        filters: [{ field: 'id', operator: '=', value: id }],
+      }),
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items[0];
   }
 
   /**
-   * Fetches visual novels by vnIds.
-   * @param ids Array of vn ids.
+   * Fetches visual novels with given ids.
+   * @param ids Array of visual novel ids.
    */
-  export const fetchVisualNovelByIds = async(ids: VisualNovel['id'][]): Promise<VisualNovel[]> => {
+  export async function fetchVisualNovelByIds(ids: VisualNovel['id'][]): Promise<VisualNovel[]> {
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiProxyEndpoints.Vndb,
-      `get vn basic,anime,details,relations,tags,stats,screens,staff (id = [${ids}]) {"results": 25}`,
+      ApiProxyEndpoints.VNDB,
+      VNDBService.createVNDBGetQuery({
+        type: 'vn',
+        flags: DEFAULT_VISUAL_NOVEL_FLAGS,
+        filters: [{ field: 'id', operator: '=', value: ids }],
+        pagination: { page: 1, pageSize: 25 },
+      }),
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto).items as VisualNovel[];
-  };
+  }
 
   /**
    * Get a page of visual novels.
    * @param options Search options.
    */
   export async function fetchPaginatedVisualNovels(options: VisualNovelSearchOptions): Promise<Pagination<VisualNovel>> {
-    const visualNovelOptions = [PaginationMapper.mapOptionsToDto(options)];
-    const visualNovelFilters = [`search ~ "${options.search ?? ''}"`];
-
-    if (options.sort != null) {
-      visualNovelOptions.push(SortMapper.toDto(options.sort, SORT_FIELD_MAP));
-    }
+    const visualNovelFilters: VisualNovelFilter[] = [{ field: 'search', operator: '~', value: options.search ?? '' }];
 
     if (options.platforms != null && options.platforms.length > 0) {
-      visualNovelFilters.push(`platforms = [${options.platforms.map(platform => `"${platform}"`).join(', ')}]`);
+      visualNovelFilters.push({ field: 'platforms', operator: '=', value: options.platforms });
     }
 
     if (options.languages != null && options.languages.length > 0) {
-      visualNovelFilters.push(`languages = [${options.languages.map(language => `"${language}"`).join(', ')}]`);
+      visualNovelFilters.push({ field: 'languages', operator: '=', value: options.languages });
     }
 
     if (options.originalLanguages != null && options.originalLanguages.length > 0) {
-      visualNovelFilters.push(`orig_lang = [${options.originalLanguages.map(originalLanguage => `"${originalLanguage}"`).join(', ')}]`);
+      visualNovelFilters.push({ field: 'orig_lang', operator: '=', value: options.originalLanguages });
     }
 
     if (options.tags != null && options.tags.length > 0) {
-      visualNovelFilters.push(`tags = [${options.tags.map(tag => `${tag}`).join(', ')}]`);
+      visualNovelFilters.push({ field: 'tags', operator: '=', value: options.tags });
     }
 
     if (options.releasedRange != null) {
       if (options.releasedRange.startDate != null) {
-        visualNovelFilters.push(`released >= "${DateService.toISODate(options.releasedRange.startDate)}"`);
+        visualNovelFilters.push({ field: 'released', operator: '>=', value: DateService.toISODate(options.releasedRange.startDate) });
       }
 
       if (options.releasedRange.endDate != null) {
-        visualNovelFilters.push(`released <= "${DateService.toISODate(options.releasedRange.endDate)}"`);
+        visualNovelFilters.push({ field: 'released', operator: '<=', value: DateService.toISODate(options.releasedRange.endDate) });
       }
     }
 
     const { data } = await http.post<PaginationDto<VisualNovelDto>>(
-      ApiProxyEndpoints.Vndb,
-      `${QUERY_BASE} (${visualNovelFilters.join(' and ')}) {${visualNovelOptions.join(', ')}}`,
+      ApiProxyEndpoints.VNDB,
+      VNDBService.createVNDBGetQuery(
+        {
+          type: 'vn',
+          flags: DEFAULT_VISUAL_NOVEL_FLAGS,
+          filters: visualNovelFilters,
+          pagination: options,
+          sort: options.sort != null ? SortMapper.toDto(options.sort, SORT_FIELD_MAP) : undefined,
+        },
+      ),
     );
 
     return PaginationMapper.mapPaginationFromDto(data, VisualNovelMapper.fromDto);
