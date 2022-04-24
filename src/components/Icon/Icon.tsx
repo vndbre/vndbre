@@ -4,31 +4,24 @@ import { Icon as iconTheme } from '../../theme/components/external/Icon';
 
 interface Props {
 
-  /**
-   * Name of icon in format provider:icon-name.
-   */
+  /** Name of icon in format provider:icon-name. */
   readonly name: string;
 
-  /**
-   * Style object.
-   */
+  /** Style object. */
   readonly style?: React.CSSProperties;
 
-  /**
-   * Class name.
-   */
+  /** Class name. */
   readonly className?: string;
 
-  /**
-   * Size in string format or pixels.
-   */
+  /** Size in string format or pixels. */
   readonly size?: Size;
 }
 
 type Size = number | keyof typeof iconTheme.sizes;
 
 /**
- * Map Size to number of pixels.
+ * Maps size to number of pixels.
+ * @param size Size.
  */
 function mapToPx(size: Size): number {
   if (typeof size === 'number') {
@@ -43,7 +36,7 @@ function mapToPx(size: Size): number {
 /**
  * Icon.
  */
-export const Icon: VFC<Props> = memo(({ name, style, className, size = 'md' }) => {
+const IconComponent: VFC<Props> = ({ name, style, className, size = 'md' }) => {
   const sizePx = mapToPx(size);
 
   const mappedProps = {
@@ -55,4 +48,6 @@ export const Icon: VFC<Props> = memo(({ name, style, className, size = 'md' }) =
   };
 
   return <IconifyIcon {...mappedProps} />;
-});
+};
+
+export const Icon = memo(IconComponent);

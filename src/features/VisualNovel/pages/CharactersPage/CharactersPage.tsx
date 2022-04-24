@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { ReactNode, VFC } from 'react';
 import {
   Accordion,
   AccordionButton,
@@ -23,19 +23,22 @@ import { CharacterRole } from '../../../../models/characters/characterRole';
 /** Describes shape of grouped characters. */
 type GroupedCharacters = Record<CharacterRole, Character[]>;
 
+/**
+ * Obtains list of characters.
+ * @param characters Characters.
+ */
+function getCharacterList(characters: Character[]): ReactNode[] {
+  return (characters.map(character => (
+    <GridItem key={character.id}>
+      <CharacterCard character={character} />
+    </GridItem>
+  )));
+}
+
 /** Character page component. */
 export const CharactersPage: VFC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
   const { data, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
-
-  /** Displays list of characters. */
-  const displayCharacterList = (characters: Character[]): JSX.Element[] => (
-    characters.map(character => (
-      <GridItem key={character.id}>
-        <CharacterCard character={character} />
-      </GridItem>
-    ))
-  );
 
   /** Returns grouped characters by role. */
   const groupCharacters = (): GroupedCharacters => {
@@ -77,7 +80,7 @@ export const CharactersPage: VFC = () => {
           </Heading>
           <AccordionPanel>
             <Grid pt="4" templateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
-              {displayCharacterList(characters)}
+              {getCharacterList(characters)}
             </Grid>
           </AccordionPanel>
         </AccordionItem>

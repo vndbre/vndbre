@@ -22,7 +22,7 @@ interface Props extends FormControlProps {
 }
 
 /**
- * Custom text input based on Chakra UI `Input` component.
+ * Text input.
  */
 const TextInputComponent: VFC<Props> = ({
   control,

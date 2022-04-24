@@ -26,7 +26,7 @@ export const CharacterPage: VFC = () => {
     isLoading: isTraitsLoading,
     data: traitsWithRoot,
     error: traitsError,
-  } = useExtendedTraitsQuery(id, traitsIds, {
+  } = useExtendedTraitsQuery(Number(id), traitsIds, {
     enabled: traitsIds.length > 0,
   });
 

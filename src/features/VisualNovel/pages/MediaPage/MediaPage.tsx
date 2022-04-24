@@ -7,7 +7,6 @@ import { ContentWrapper } from '../../../../components';
 
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
-import { VisualNovelScreenshot } from '../../../../models/visualNovels/visualNovelScreenshot';
 
 /** Media page tab, contains vn screenshots. */
 export const MediaPage: VFC = () => {
@@ -18,21 +17,18 @@ export const MediaPage: VFC = () => {
 
   const settingsContext = useSettingsContext();
 
-  /** Filter screenshots by nsfw flag. */
-  const filterPredicate = (screen: VisualNovelScreenshot): boolean => (settingsContext.isNsfwContentAllowed ? true : !screen.isNsfw);
-
   const filteredScreens = useMemo(() => {
     if (data) {
-      return data.screens.filter(filterPredicate);
+      return data.screens.filter(screen => (settingsContext.isNsfwContentAllowed ? true : !screen.isNsfw));
     }
     return [];
-  }, [data, filterPredicate]);
+  }, [data, settingsContext.isNsfwContentAllowed]);
 
   /**
-   * Handles clicking image.
+   * Handles click on an image.
    * @param index Image clicked index.
    */
-  const handleClickOnImage = useCallback((index: number) => {
+  const handleImageClick = useCallback((index: number) => {
     setImageActiveIndex(index);
     setIsVisible(true);
   }, []);
@@ -46,7 +42,7 @@ export const MediaPage: VFC = () => {
     <Flex gridGap="5" flexWrap="wrap">
       {filteredScreens.map((screen, idx) => (
         <Image
-          onClick={() => handleClickOnImage(idx)}
+          onClick={() => handleImageClick(idx)}
           key={screen.image}
           src={screen.image}
           width="80"

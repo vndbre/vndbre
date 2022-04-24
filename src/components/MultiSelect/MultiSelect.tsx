@@ -28,7 +28,10 @@ interface Props extends FormControlProps, Omit<SelectProps<SelectOption, true, G
 
 const customMultiSelectChakraStyles = {
 
-  /** Sets styles for tag components inside multi select. */
+  /**
+   * Sets styles for tag components inside multi select.
+   * @param provided Styles object.
+   */
   multiValue: (provided: CSSObject) => ({
     ...provided,
     background: 'gray.200',
@@ -37,7 +40,7 @@ const customMultiSelectChakraStyles = {
 };
 
 /**
- * Custom multi select based on `Select` component from `chakra-react-select`.
+ * Multi select.
  */
 const MultiSelectComponent: VFC<Props> = ({
   control,

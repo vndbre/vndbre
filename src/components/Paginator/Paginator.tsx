@@ -15,9 +15,7 @@ interface Props {
   /** Change callback. */
   readonly onChange: (pageNumber: number) => void;
 
-  /**
-   * How many additional pages would be visible from side of a page.
-   */
+  /** How many additional pages would be visible from side of a page. */
   readonly groupCount?: number;
 
   /** Whether paginator `next` and `previous` buttons should be hidden or not. */
@@ -50,7 +48,7 @@ const PaginatorComponent: VFC<Props> = ({
   isCountLoading = false,
 }) => {
   /** If value is bigger than count returns count. */
-  const parseCount = (value: number): number => (value > count ? count : value);
+  const parseCount = useCallback((value: number): number => (value > count ? count : value), []);
 
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
