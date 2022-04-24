@@ -1,4 +1,4 @@
-import React, { VFC, memo, useState, useEffect } from 'react';
+import React, { VFC, memo, useState, useEffect, useCallback } from 'react';
 import { Tabs, TabList, Tab } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { RouteInfo } from '../../routes/utils/RouteInfo';
@@ -43,17 +43,17 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
    * Handles click on tab.
    * @param index Tab index.
    */
-  const handleTabClick = (index: number): () => void => () => setCurrentTabIndex(index);
+  const handleTabClick = useCallback((index: number) => () => setCurrentTabIndex(index), []);
 
   /**
    * Handles key press on tab.
    * @param index Tab index.
    */
-  const handleTabPress = (index: number): (event: React.KeyboardEvent) => void => (event: React.KeyboardEvent) => {
+  const handleTabPress = useCallback((index: number) => (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       setCurrentTabIndex(index);
     }
-  };
+  }, []);
 
   const tabs = tabsInfo.map((tabInfo, index) => (
     <Tab
