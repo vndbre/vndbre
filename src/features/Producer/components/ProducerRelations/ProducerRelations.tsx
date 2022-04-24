@@ -24,7 +24,7 @@ const getGroupedExtendedProducers = (
   producer: Producer,
   relatedProducers: readonly Producer[],
 ): Record<ProducerRelationType, ExtendedProducer[]> => {
-  const initialValue: Record<ProducerRelationType, ExtendedProducer[]> = {
+  const initialValue: Readonly<Record<ProducerRelationType, ExtendedProducer[]>> = {
     [ProducerRelationType.Subsidiary]: [],
     [ProducerRelationType.Parent]: [],
     [ProducerRelationType.Unknown]: [],
