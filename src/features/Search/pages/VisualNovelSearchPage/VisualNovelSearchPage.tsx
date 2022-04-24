@@ -3,9 +3,9 @@ import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
-import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
-import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
-import { VisualNovelListOptions } from '../../components/VisualNovelListOptions/VisualNovelListOptions';
+import { VisualNovelFormData } from './components/VisualNovelSearchForm/VisualNovelSearchForm';
+import { VisualNovelList, VisualNovelListVariant } from './components/VisualNovelList/VisualNovelList';
+import { VisualNovelListOptions } from './components/VisualNovelListOptions/VisualNovelListOptions';
 
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';

@@ -1,1 +1,1 @@
-export { VisualNovelSearchForm } from './VisualNovelSearchForm/VisualNovelSearchForm';
+export { VisualNovelSearchForm } from '../pages/VisualNovelSearchPage/components/VisualNovelSearchForm/VisualNovelSearchForm';

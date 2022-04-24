@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, VFC } from 'react';
 import { HStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { TextInput } from '../../../../components';
-import { Icon } from '../../../../components/Icon/Icon';
-import { debounce } from '../../../../utils/debounce';
+import { TextInput } from '../../../../../../components';
+import { Icon } from '../../../../../../components/Icon/Icon';
+import { debounce } from '../../../../../../utils/debounce';
 
 /** Character search form data. */
 export interface CharacterFormData {

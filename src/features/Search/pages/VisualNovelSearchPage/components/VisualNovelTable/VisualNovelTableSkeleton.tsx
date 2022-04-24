@@ -1,6 +1,6 @@
 import React, { memo, ReactNode, VFC } from 'react';
 import { Skeleton, SkeletonText, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import { getRandomWidth } from '../../../../utils/randomWidth';
+import { getRandomWidth } from '../../../../../../utils/randomWidth';
 
 /** Visual novel table. */
 const VisualNovelTableSkeletonComponent: VFC = () => {

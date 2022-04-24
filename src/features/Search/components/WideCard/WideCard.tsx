@@ -8,7 +8,6 @@ import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
 import { SafeImage } from '../../../../components';
-import imagePlaceholder from '../../../../assets/star.svg';
 
 interface Props {
 
@@ -43,7 +42,6 @@ const WideCardComponent: VFC<Props> = ({
     display="flex"
   >
     <SafeImage
-      fallbackSrc={imagePlaceholder}
       src={image}
       style={{ aspectRatio: '5 / 7' }}
       h={20}

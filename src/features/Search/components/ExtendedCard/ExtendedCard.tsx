@@ -8,7 +8,6 @@ import { CardDetail } from '../CardDetail/CardDetail';
 import { CardDetailList } from '../CardDetailList/CardDetailList';
 import { DETAIL_DATA_NULL } from '../../utils/constants';
 import { SafeImage } from '../../../../components';
-import imagePlaceholder from '../../../../assets/star.svg';
 
 interface Props {
 
@@ -50,7 +49,6 @@ const ExtendedCardComponent: VFC<Props> = ({
     >
       <SafeImage
         src={image}
-        fallbackSrc={imagePlaceholder}
         containerProps={{
           h: 'full',
           borderRadius: 'lg',

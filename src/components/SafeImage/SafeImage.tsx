@@ -21,6 +21,7 @@ const SafeImageComponent: VFC<Props> = ({ isNsfw = false, src, containerProps, .
   return (
     <Box overflow="hidden" {...containerProps}>
       <Image
+        bg="gray.100"
         src={src ?? undefined}
         filter={isNsfwContentAllowed || !isNsfw ? 'none' : 'blur(12px)'}
         {...rest}

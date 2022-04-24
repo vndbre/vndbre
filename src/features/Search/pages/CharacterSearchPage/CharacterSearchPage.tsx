@@ -3,8 +3,8 @@ import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { useCharactersPageQuery } from '../../../VisualNovel/queries/characters';
 import { CharacterSearchOptions } from '../../../../api/services/charactersService';
-import { CharacterList } from '../../components/CharacterList/CharacterList';
-import { CharacterFormData, CharacterSearchForm } from '../../components/CharacterSearchForm/CharacterSearchForm';
+import { CharacterList } from './components/CharacterList/CharacterList';
+import { CharacterFormData, CharacterSearchForm } from './components/CharacterSearchForm/CharacterSearchForm';
 
 const PREVIEW_PAGINATION_DEFAULTS: CharacterSearchOptions = {
   page: 1,

@@ -1,13 +1,12 @@
 import React, { memo, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { CardDetail } from '../CardDetail/CardDetail';
-import { CoverCard } from '../CoverCard/CoverCard';
-import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { CardDetailList } from '../CardDetailList/CardDetailList';
-import { Language } from '../../../../models/language';
-import { Platform } from '../../../../models/platform';
-import { DETAIL_DATA_NULL } from '../../utils/constants';
-import imagePlaceholder from '../../../../assets/star.svg';
+import { CardDetail } from '../../../../components/CardDetail/CardDetail';
+import { CoverCard } from '../../../../components/CoverCard/CoverCard';
+import { VisualNovel } from '../../../../../../models/visualNovels/visualNovel';
+import { CardDetailList } from '../../../../components/CardDetailList/CardDetailList';
+import { Language } from '../../../../../../models/language';
+import { Platform } from '../../../../../../models/platform';
+import { DETAIL_DATA_NULL } from '../../../../utils/constants';
 
 interface Props {
 
@@ -39,7 +38,6 @@ const VisualNovelCoverCardComponent: VFC<Props> = ({
     title={title}
     image={image}
     isImageNsfw={isImageNsfw}
-    imagePlaceholder={imagePlaceholder}
   >
     <Box
       display="flex"

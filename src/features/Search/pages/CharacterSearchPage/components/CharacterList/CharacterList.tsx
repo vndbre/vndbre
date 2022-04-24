@@ -1,9 +1,9 @@
 import React, { memo, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
 import { CharacterCoverCard } from '../CharacterCoverCard/CharacterCoverCard';
-import { Character } from '../../../../models/characters/character';
-import { checkImageNsfw } from '../../../../utils/checkImageNsfw';
+import { Character } from '../../../../../../models/characters/character';
+import { checkImageNsfw } from '../../../../../../utils/checkImageNsfw';
+import { CoverCardSkeleton } from '../../../../components/CoverCard/CoverCardSkeleton';
 
 export type CharacterListVariant = 'cards';
 

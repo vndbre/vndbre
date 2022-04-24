@@ -1,11 +1,11 @@
 import { Link, Td, Tr } from '@chakra-ui/react';
 import React, { memo, VFC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Language } from '../../../../models/language';
-import { Platform } from '../../../../models/platform';
-import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { DETAIL_DATA_NULL } from '../../utils/constants';
-import { CardDetailList } from '../CardDetailList/CardDetailList';
+import { Language } from '../../../../../../models/language';
+import { Platform } from '../../../../../../models/platform';
+import { VisualNovel } from '../../../../../../models/visualNovels/visualNovel';
+import { DETAIL_DATA_NULL } from '../../../../utils/constants';
+import { CardDetailList } from '../../../../components/CardDetailList/CardDetailList';
 
 interface Props {
 
