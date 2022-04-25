@@ -35,6 +35,15 @@ interface Props {
 }
 
 /**
+ * Calculates page amount.
+ * @param currentPageNumber Current page number.
+ * @param pageAmount Maximum number of pages.
+ */
+function calculatePageAmount(currentPageNumber: number, pageAmount: number): number {
+  return currentPageNumber > pageAmount ? pageAmount : currentPageNumber;
+}
+
+/**
  * Paginator component.
  */
 const PaginatorComponent: VFC<Props> = ({
@@ -47,25 +56,26 @@ const PaginatorComponent: VFC<Props> = ({
   inputMinGap = 1,
   isCountLoading = false,
 }) => {
-  /** If value is bigger than count returns count. */
-  const parseCount = useCallback((value: number): number => (value > count ? count : value), []);
-
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
     if (currentPage <= groupCount + offset + inputMinGap) {
-      const leftPagesGroup = Array.from({ length: parseCount(currentPage + groupCount) }).map((_, i) => i + offset);
+      const leftPagesGroup = Array.from({ length: calculatePageAmount(currentPage + groupCount, count) }).map((_, i) => i + offset);
 
       return [leftPagesGroup, [], [count]];
     }
     const leftPagesGroup = [offset];
 
     if (currentPage >= count - groupCount - inputMinGap) {
-      const rightPagesGroup = Array.from({ length: parseCount(count - currentPage + groupCount + offset) }).map((_, i) => count - i)
+      const rightPagesGroup = Array
+        .from({ length: calculatePageAmount(count - currentPage + groupCount + offset, count) })
+        .map((_, i) => count - i)
         .reverse();
       return [leftPagesGroup, [], rightPagesGroup];
     }
 
-    const middlePages = Array.from({ length: parseCount(groupCount * 2 + offset) }).map((_, i) => i + (currentPage - groupCount));
+    const middlePages = Array
+      .from({ length: calculatePageAmount(groupCount * 2 + offset, count) })
+      .map((_, i) => i + (currentPage - groupCount));
     return [leftPagesGroup, middlePages, [count]];
   };
 
