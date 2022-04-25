@@ -3,20 +3,20 @@ import { PaginationMapper } from '../mappers/paginationMapper';
 
 export type VisualNovelFlag = 'basic' | 'anime' | 'details' | 'relations' | 'tags' | 'stats' | 'screens' | 'staff';
 export type VisualNovelFilter =
-  { readonly field: 'search'; readonly operator: '~'; readonly value: string; } |
-  { readonly field: 'id'; readonly operator: '=' | '!=' | '>' | '>=' | '<' | '<='; readonly value: number; } |
-  { readonly field: 'id'; readonly operator: '=' | '!='; readonly value: number[]; } |
-  { readonly field: 'platforms'; readonly operator: '=' | '!='; value: readonly string[]; } |
-  { readonly field: 'languages'; readonly operator: '=' | '!='; value: readonly string[]; } |
-  { readonly field: 'orig_lang'; readonly operator: '=' | '!='; value: readonly string[]; } |
-  { readonly field: 'tags'; readonly operator: '=' | '!='; readonly value: readonly number[]; } |
-  { readonly field: 'released'; readonly operator: '=' | '!=' | '>' | '>=' | '<' | '<='; readonly value: string; };
+  readonly ['search', '~', string] |
+  readonly ['id', '=' | '!=' | '>' | '>=' | '<' | '<=', number] |
+  readonly ['id', '=' | '!=', readonly number[]] |
+  readonly ['platforms', '=' | '!=', readonly string[]] |
+  readonly ['languages', '=' | '!=', readonly string[]] |
+  readonly ['orig_lang', '=' | '!=', readonly string[]] |
+  readonly ['tags', '=' | '!=', readonly number[]] |
+  readonly ['released', '=' | '!=' | '>' | '>=' | '<' | '<=', string];
 export type VisualNovelSortField = 'id' | 'title' | 'released' | 'popularity' | 'rating' | 'votecount';
 
 export type CharacterFlag = 'character' | 'basic' | 'details' | 'meas' | 'voiced' | 'traits' | 'vns';
 export type CharacterFilter =
-  { readonly field: 'search'; readonly operator: '~'; readonly value: string; } |
-  { readonly field: 'traits'; readonly operator: '=' | '!='; readonly value: readonly string[]; };
+  readonly ['search', '~', string] |
+  readonly ['traits', '=' | '!=', readonly string[]];
 export type CharacterSortField = 'id' | 'name';
 
 type GetQueryConfigBase =
@@ -35,13 +35,18 @@ type Filter = VisualNovelFilter | CharacterFilter;
  * @param filter Filter.
  */
 function mapFilterToString(filter: Filter): string {
-  if (filter.value instanceof Array) {
-    const values = filter.value.map(value => `"${value}"`).join(', ');
+  const FIELD_INDEX = 0;
+  const OPERATOR_INDEX = 1;
+  const VALUE_INDEX = 2;
+  const filterValue = filter[VALUE_INDEX];
 
-    return `${filter.field} ${filter.operator} [${values}]`;
+  if (filterValue instanceof Array) {
+    const values = filterValue.map(value => `"${value}"`).join(', ');
+
+    return `${filter[FIELD_INDEX]} ${filter[OPERATOR_INDEX]} [${values}]`;
   }
 
-  return `${filter.field} ${filter.operator} "${filter.value}"`;
+  return `${filter[FIELD_INDEX]} ${filter[OPERATOR_INDEX]} "${filterValue}"`;
 }
 
 export namespace VNDBService {

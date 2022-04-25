@@ -87,7 +87,7 @@ export namespace VisualNovelsService {
       VNDBService.createVNDBGetQuery({
         type: 'vn',
         flags: DEFAULT_VISUAL_NOVEL_FLAGS,
-        filters: [{ field: 'id', operator: '=', value: id }],
+        filters: [['id', '=', id]],
       }),
     );
 
@@ -104,7 +104,7 @@ export namespace VisualNovelsService {
       VNDBService.createVNDBGetQuery({
         type: 'vn',
         flags: DEFAULT_VISUAL_NOVEL_FLAGS,
-        filters: [{ field: 'id', operator: '=', value: ids }],
+        filters: [['id', '=', ids]],
         pagination: { page: 1, pageSize: 25 },
       }),
     );
@@ -117,31 +117,31 @@ export namespace VisualNovelsService {
    * @param options Search options.
    */
   export async function fetchPaginatedVisualNovels(options: VisualNovelSearchOptions): Promise<Pagination<VisualNovel>> {
-    const visualNovelFilters: VisualNovelFilter[] = [{ field: 'search', operator: '~', value: options.search ?? '' }];
+    const visualNovelFilters: VisualNovelFilter[] = [['search', '~', options.search ?? '']];
 
     if (options.platforms != null && options.platforms.length > 0) {
-      visualNovelFilters.push({ field: 'platforms', operator: '=', value: options.platforms });
+      visualNovelFilters.push(['platforms', '=', options.platforms]);
     }
 
     if (options.languages != null && options.languages.length > 0) {
-      visualNovelFilters.push({ field: 'languages', operator: '=', value: options.languages });
+      visualNovelFilters.push(['languages', '=', options.languages]);
     }
 
     if (options.originalLanguages != null && options.originalLanguages.length > 0) {
-      visualNovelFilters.push({ field: 'orig_lang', operator: '=', value: options.originalLanguages });
+      visualNovelFilters.push(['orig_lang', '=', options.originalLanguages]);
     }
 
     if (options.tags != null && options.tags.length > 0) {
-      visualNovelFilters.push({ field: 'tags', operator: '=', value: options.tags });
+      visualNovelFilters.push(['tags', '=', options.tags]);
     }
 
     if (options.releasedRange != null) {
       if (options.releasedRange.startDate != null) {
-        visualNovelFilters.push({ field: 'released', operator: '>=', value: DateService.toISODate(options.releasedRange.startDate) });
+        visualNovelFilters.push(['released', '>=', DateService.toISODate(options.releasedRange.startDate)]);
       }
 
       if (options.releasedRange.endDate != null) {
-        visualNovelFilters.push({ field: 'released', operator: '<=', value: DateService.toISODate(options.releasedRange.endDate) });
+        visualNovelFilters.push(['released', '<=', DateService.toISODate(options.releasedRange.endDate)]);
       }
     }
 
