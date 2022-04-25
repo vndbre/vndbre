@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Heading, Link } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
@@ -7,13 +7,14 @@ import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedT
 import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
-import { ExtendedTag } from '../../../../models/extendedTag';
 import { ContentWrapper, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
+
+const MAX_CHARACTER_AMOUNT = 6;
 
 /**
  * Overview tab page.
@@ -78,13 +79,6 @@ export const OverviewPage: FC = () => {
   const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
   const { tagsVisibility, spoilerLevel } = useSettingsContext();
 
-  /**
-   * Filter tags by category and spoiler level.
-   */
-  function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel;
-  }
-
   const publishersBlock = visualNovel?.languages.map(key => (
     publishers && publishers[key].length > 0 && (
       <TagList
@@ -122,18 +116,24 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const tagsBlock = tags && tags.length > 0 && (
-    <TagList
-      title="Tags"
-      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name, note: null }))}
-      isExpandable
-    />
-  );
+  const tagsBlock = useMemo(() => {
+    if (tags != null && tags.length > 0) {
+      return (
+        <TagList
+          title="Tags"
+          tags={tags
+            .filter(tag => tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel)
+            .map(tag => ({ name: tag.name, note: null }))}
+          isExpandable
+        />
+      );
+    }
 
-  const CHARACTER_COUNT = 6;
+    return null;
+  }, [tags, tagsVisibility, spoilerLevel]);
 
   const charactersBlock = characters && characters.length > 0 && (
-    characters.slice(0, CHARACTER_COUNT).map(character => (
+    characters.slice(0, MAX_CHARACTER_AMOUNT).map(character => (
       <CharacterCard
         key={character.id}
         character={character}
