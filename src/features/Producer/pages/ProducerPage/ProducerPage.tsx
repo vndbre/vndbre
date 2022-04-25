@@ -7,7 +7,6 @@ import { Language } from '../../../../models/language';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { ProducerType } from '../../../../models/producerType';
 import { ProducerRelations } from '../../components';
-import { Links } from '../../../../models/links';
 import { ProducerRouteParams } from '../../utils/producerRouteParams';
 
 /** Producer page component. */
@@ -41,7 +40,7 @@ export const ProducerPage: VFC = () => {
             <VStack align="initial" spacing="2">
               <EntityDetail title="Primary language">{Language.toReadable(producer.language)}</EntityDetail>
               <EntityDetail title="Producer type">{ProducerType.toReadable(producer.type)}</EntityDetail>
-              {Links.checkLinksAreEmpty(producer.links) === false && (
+              {producer.links != null && producer.links.length > 0 && (
                 <EntityDetail title="Links">
                   <EntityLinks links={producer.links} />
                 </EntityDetail>

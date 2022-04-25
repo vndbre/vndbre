@@ -1,7 +1,7 @@
 import { Language } from './language';
-import { ProducerLinks } from './producerLinks';
 import { ProducerRelationType } from './producerRelationType';
 import { ProducerType } from './producerType';
+import { ExternalLink } from './externalLink';
 
 /**
  * Represents related producer to the producer.
@@ -57,7 +57,7 @@ export interface Producer {
   /**
    * Links to external resources.
    */
-  readonly links: ProducerLinks;
+  links: readonly ExternalLink[];
 
   /**
    * Alternative names, separated by a newline.

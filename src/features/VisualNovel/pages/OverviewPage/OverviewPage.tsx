@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Heading } from '@chakra-ui/react';
+import { Heading, VStack } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
@@ -13,7 +13,6 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
-import { Links } from '../../../../models/links';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
 /**
@@ -101,10 +100,6 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const linksBlock = visualNovel && Links.checkLinksAreEmpty(visualNovel.links) === false && (
-    <EntityLinks links={visualNovel.links} />
-  );
-
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
       <TagList
@@ -144,7 +139,7 @@ export const OverviewPage: FC = () => {
     <ContentWrapper isLoading={isLoading} error={error}>
       <div className={cls.page}>
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-          <div className={cls.sidebar}>
+          <VStack align="initial" spacing="6">
             {visualNovel?.length && (
               <TagList title="Game Length" tags={[{ name: visualNovel.length, note: null }]} />
             )}
@@ -157,15 +152,17 @@ export const OverviewPage: FC = () => {
               }))}
             />
             {publishersBlock}
-            <div>
-              <Heading as="h3" size="sm">
-                Links
-              </Heading>
-              <div className={cls.items}>
-                {linksBlock}
+            {visualNovel?.links != null && visualNovel.links.length > 0 && (
+              <div>
+                <Heading as="h3" size="sm">
+                  Links
+                </Heading>
+                <div className={cls.items}>
+                  <EntityLinks links={visualNovel.links} />
+                </div>
               </div>
-            </div>
-          </div>
+            )}
+          </VStack>
         </ContentWrapper>
         <div>
           <ContentWrapper isLoading={isTagsLoading} error={tagsError}>

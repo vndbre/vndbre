@@ -3,6 +3,7 @@ import { Producer, ProducerRelated } from '../../models/producer';
 import { ProducerRelationType } from '../../models/producerRelationType';
 import { ProducerType } from '../../models/producerType';
 import { ProducerDto, ProducerRelatedDto } from '../dtos/producerDto';
+import { ExternalLinksMapper } from './externalLinksMapper';
 
 export namespace ProducerMapper {
 
@@ -26,7 +27,7 @@ export namespace ProducerMapper {
     name: dto.name,
     originalName: dto.original,
     type: ProducerType.toProducerType(dto.type),
-    links: dto.links,
+    links: ExternalLinksMapper.fromDto(dto.links),
     aliases: dto.aliases,
     description: dto.description,
     relations: dto.relations.map(relatedDto => producerRelatedFromDto(relatedDto)),

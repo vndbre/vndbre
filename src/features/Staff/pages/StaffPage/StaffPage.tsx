@@ -1,6 +1,6 @@
 import React, { useMemo, VFC } from 'react';
 import { Box, VStack, Text } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle } from '../../../../components';
+import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle, HideContent } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
@@ -8,7 +8,6 @@ import { StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { Gender } from '../../../../models/gender';
-import { Links } from '../../../../models/links';
 import { StaffRouteParams } from '../../utils/staffRouteParams';
 
 /** Staff page component. */
@@ -22,6 +21,17 @@ export const StaffPage: VFC = () => {
       enabled: visualNovelIds.length > 0,
     },
   );
+
+  const description = useMemo(() => {
+    if (staff?.description != null) {
+      return (
+        <HideContent maxHeight={350}>
+          <BBCode text={staff.description} />
+        </HideContent>
+      );
+    }
+    return <Text>No description</Text>;
+  }, [staff?.description]);
 
   const staffAliases = useMemo(() => {
     if (staff != null) {
@@ -50,13 +60,13 @@ export const StaffPage: VFC = () => {
                     {staffAliases}
                   </EntityDetail>
                 )}
-                {staff.links != null && Links.checkLinksAreEmpty(staff.links) === false && (
+                {staff.links != null && (
                   <EntityDetail title="Links">
                     <EntityLinks links={staff.links} />
                   </EntityDetail>
                 )}
               </VStack>
-              {staff.description != null ? <BBCode text={staff.description} /> : <Text>No description</Text>}
+              {description}
             </VStack>
             <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
               {visualNovels != null && (
