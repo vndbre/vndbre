@@ -1,10 +1,10 @@
 import React, { useMemo, VFC } from 'react';
-import { Box, VStack, Text } from '@chakra-ui/react';
+import { Box, VStack, Text, Link, HStack } from '@chakra-ui/react';
 import { ContentWrapper, EntityDetail, EntityTitle, HideContent } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
-import { StaffLinks, StaffVisualNovelsTable } from '../../components';
+import { StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
 import { StaffRouteParams } from '../../utils/staffRouteParams';
 import { BBCode } from '../../../../components/BBCode/BBCode';
@@ -45,6 +45,16 @@ export const StaffPage: VFC = () => {
     return [];
   }, [staff]);
 
+  const links = (staff != null ? staff.links : []).map(link => (
+    <Link
+      key={link.href}
+      href={link.href}
+      textTransform="capitalize"
+    >
+      {link.label}
+    </Link>
+  ));
+
   return (
     <ContentWrapper isLoading={isStaffLoading} error={staffError}>
       {staff != null && (
@@ -62,7 +72,9 @@ export const StaffPage: VFC = () => {
                 )}
                 {staff.links != null && (
                   <EntityDetail title="Links">
-                    <StaffLinks links={staff.links} />
+                    <HStack display="inline">
+                      {links}
+                    </HStack>
                   </EntityDetail>
                 )}
               </VStack>
