@@ -90,17 +90,15 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const linksBlock = visualNovel && (
-    Object.entries(visualNovel.links).map(([key, value]) => (
-      <Link
-        key={key}
-        className={cls.link}
-        href={value ?? '#'}
-      >
-        {key}
-      </Link>
-    ))
-  );
+  const links = visualNovel != null ? visualNovel.links.map(link => (
+    <Link
+      key={link.href}
+      className={cls.link}
+      href={link.href}
+    >
+      {link.label}
+    </Link>
+  )) : [];
 
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
@@ -161,7 +159,7 @@ export const OverviewPage: FC = () => {
                 Links
               </Heading>
               <div className={cls.items}>
-                {linksBlock}
+                {links}
               </div>
             </div>
           </div>

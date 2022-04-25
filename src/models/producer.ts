@@ -1,4 +1,4 @@
-import { ProducerLinks } from './producerLinks';
+import { ExternalLink } from './externalLink';
 
 /**
  * Represents related producer to the producer.
@@ -54,7 +54,7 @@ export interface Producer {
   /**
    * Links to external resources.
    */
-  links: ProducerLinks;
+  links: readonly ExternalLink[];
 
   /**
    * Alternative names, separated by a newline.
