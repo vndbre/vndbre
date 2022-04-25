@@ -28,7 +28,7 @@ export const MediaPage: VFC = () => {
    * Handles click on an image.
    * @param index Image clicked index.
    */
-  const handleImageClick = useCallback((index: number) => {
+  const handleImageClick = useCallback((index: number) => () => {
     setImageActiveIndex(index);
     setIsVisible(true);
   }, []);
@@ -42,7 +42,7 @@ export const MediaPage: VFC = () => {
     <Flex gridGap="5" flexWrap="wrap">
       {filteredScreens.map((screen, idx) => (
         <Image
-          onClick={() => handleImageClick(idx)}
+          onClick={handleImageClick(idx)}
           key={screen.image}
           src={screen.image}
           width="80"
