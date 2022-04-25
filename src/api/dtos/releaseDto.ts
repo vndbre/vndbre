@@ -81,15 +81,15 @@ export interface ReleaseNovelDto {
   readonly title: string;
 }
 
-/**
- * Represents release.
- */
-export interface ReleaseDto {
+export interface ReleaseIdDto {
 
   /**
    * Visual novel ID.
    */
   readonly id: number;
+
+}
+export interface ReleaseBasicDto {
 
   /**
    * Main title.
@@ -112,11 +112,6 @@ export interface ReleaseDto {
   readonly languages: readonly string[];
 
   /**
-   * Platform where visual novel was released.
-   */
-  readonly platforms: readonly string[];
-
-  /**
    * Release type.
    */
   readonly type: ReleaseTypeDto;
@@ -135,6 +130,14 @@ export interface ReleaseDto {
    * Doujin flag.
    */
   readonly doujin: boolean;
+}
+
+export interface ReleaseDetailsDto {
+
+  /**
+   * Platform where visual novel was released.
+   */
+  readonly platforms: readonly string[];
 
   /**
    * Official website url.
@@ -192,14 +195,25 @@ export interface ReleaseDto {
    * 4 = All scenes fully animated.
    */
   readonly animation: [number | null, number | null];
+}
+
+export interface ReleaseVnDto {
 
   /**
    * Visual novels linked to this release.
    */
   readonly vn?: readonly ReleaseNovelDto[];
+}
+
+export interface ReleaseProducersDto {
 
   /**
    * Producers involved into release.
    */
   readonly producers: readonly ReleaseProducerDto[];
 }
+
+/**
+ * Represents release.
+ */
+export type ReleaseDto = ReleaseIdDto & ReleaseBasicDto & ReleaseDetailsDto & ReleaseVnDto & ReleaseProducersDto;

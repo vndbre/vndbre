@@ -1,5 +1,5 @@
-import { ReleaseDto, ReleaseTypeDto, ReleaseVoiceStatusDto } from '../dtos/releaseDto';
-import { Release } from '../../models/releases/release';
+import { ReleaseBasicDto, ReleaseDetailsDto, ReleaseDto, ReleaseIdDto, ReleaseProducersDto, ReleaseTypeDto, ReleaseVoiceStatusDto } from '../dtos/releaseDto';
+import { Release, ReleaseBasic, ReleaseDetails, ReleaseId, ReleaseProducers } from '../../models/releases/release';
 import { Language } from '../../models/language';
 import { Platform } from '../../models/platform';
 import { ReleaseType } from '../../models/releases/releaseType';
@@ -67,12 +67,11 @@ export namespace ReleaseMapper {
     return `${minAge}+`;
   };
 
-  /**
-   * Maps release from dto.
-   * @param dto Dto.
-   */
-  export const fromDto = (dto: ReleaseDto): Release => ({
-    id: dto.id,
+  /** Maps release id from dto. */
+  export const mapId = (dto: ReleaseIdDto): ReleaseId => ({ id: dto.id });
+
+  /** Maps release basic from dto. */
+  export const mapBasic = (dto: ReleaseBasicDto): ReleaseBasic => ({
     title: dto.title,
     originalName: dto.original,
     releasedDate: dto.released && dto.released !== 'tba' ? dto.released : 'TBA',
@@ -81,6 +80,10 @@ export namespace ReleaseMapper {
     isFreeware: dto.freeware,
     isDoujin: dto.doujin,
     languages: dto.languages.map(language => Language.toLanguage(language)),
+  });
+
+  /** Maps release details from dto. */
+  export const mapDetails = (dto: ReleaseDetailsDto): ReleaseDetails => ({
     website: dto.website,
     notes: dto.notes,
     ageRating: mapMinAgeToRating(dto.minage),
@@ -91,6 +94,21 @@ export namespace ReleaseMapper {
     resolution: dto.resolution,
     voiced: dto.voiced != null ? VOICED_TYPE_FROM_DTO_MAP[dto.voiced] : null,
     animation: mapReleaseAnimationFromArray(dto.animation),
+  });
+
+  /** Maps release producers from dto. */
+  export const mapProducers = (dto: ReleaseProducersDto): ReleaseProducers => ({
     producers: mapReleaseProducerFromDto(dto.producers),
+  });
+
+  /**
+   * Maps release from dto.
+   * @param dto Dto.
+   */
+  export const fromDto = (dto: ReleaseDto): Release => ({
+    ...mapId(dto),
+    ...mapBasic(dto),
+    ...mapDetails(dto),
+    ...mapProducers(dto),
   });
 }
