@@ -1,6 +1,6 @@
+import { ExternalLink } from './externalLink';
 import { Gender } from './gender';
 import { Language } from './language';
-import { StaffLinks } from './staffLinks';
 import { StaffRole } from './staffRole';
 
 /**
@@ -109,7 +109,7 @@ export interface Staff {
   /**
    * Links to staff's external resources.
    */
-  readonly links: StaffLinks | null;
+  readonly links: readonly ExternalLink[];
 
   /**
    * Description or notes.

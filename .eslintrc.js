@@ -186,7 +186,12 @@ module.exports = {
         tags: ['see', 'copyright'],
       },
     ],
-    'jsdoc/require-param': 'off',
+    'jsdoc/require-param': [
+      'error',
+      {
+        checkDestructuredRoots: false,
+      },
+    ],
     'jsdoc/require-param-name': 'error',
     'jsdoc/require-param-description': 'error',
     'jsdoc/no-types': 'error',
