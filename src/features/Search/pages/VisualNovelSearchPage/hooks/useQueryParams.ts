@@ -11,12 +11,10 @@ import { VisualNovelSearchOptions } from '../../../../../api/services/visualNove
 import { Language } from '../../../../../models/language';
 import { Platform } from '../../../../../models/platform';
 
-type TypedArrayParam<T> = QueryParamConfig<readonly T[] | null | undefined, readonly T[] | null | undefined>;
-
 /** Uses a comma to delimit entries. */
 const ReleasedRangeParam: QueryParamConfig<
 VisualNovelSearchOptions['releasedRange'],
- VisualNovelSearchOptions['releasedRange']
+VisualNovelSearchOptions['releasedRange']
 > = {
   encode(releasedRange) {
     return JSON.stringify({
@@ -39,6 +37,9 @@ VisualNovelSearchOptions['releasedRange'],
     }
   },
 };
+
+// Didn't find better solution, rather than writing the same implementation with better typings.
+type TypedArrayParam<T> = QueryParamConfig<readonly T[] | null | undefined, readonly T[] | null | undefined>;
 
 const Schema = {
   page: withDefault(NumberParam, 1),
@@ -80,6 +81,8 @@ export function useVisualNovelQueryParams(): Return {
       return setQuery(options);
     }
     return setQuery({
+      ...options,
+
       // `null` and `""` would be shown query, `undefined` don't.
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       search: options.search || undefined,
@@ -87,7 +90,6 @@ export function useVisualNovelQueryParams(): Return {
       originalLanguages: checkEmptyOrNullish(options.originalLanguages) ? options.originalLanguages : undefined,
       platforms: checkEmptyOrNullish(options.platforms) ? options.platforms : undefined,
       releasedRange: options.releasedRange,
-      page: 1,
     });
   }
 

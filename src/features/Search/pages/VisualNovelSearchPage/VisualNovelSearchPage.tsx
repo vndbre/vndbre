@@ -86,7 +86,7 @@ export const VisualNovelSearchPage: VFC = () => {
       page: 1,
     }));
 
-    setQuery(options);
+    setQuery({ ...options, page: 1 });
   }, []);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
