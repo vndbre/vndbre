@@ -6,15 +6,15 @@ import { ReleaseAnimation } from './releaseAnimation';
 import { ReleaseMedia } from './releaseMedia';
 import { ReleaseProducer } from './releaseProducer';
 
-/**
- * Represents release.
- */
-export interface Release {
+export interface ReleaseId {
 
   /**
    * Visual novel ID.
    */
   readonly id: number;
+}
+
+export interface ReleaseBasic {
 
   /**
    * Main title.
@@ -29,21 +29,12 @@ export interface Release {
   /**
    * Date of the first release. Can be in 'yyyy', 'TBA', 'yyyy-mm', 'yyyy-mm-dd' formats.
    */
-  readonly releasedDate: string;
-
-  /**
-   * Visual novel languages.
-   */
-  readonly languages: Language[];
-
-  /**
-   * Platform where visual novel was released.
-   */
-  readonly platforms: readonly Platform[];
-
-  /**
-   * Release type.
-   */
+  readonly releasedDate: string; /**
+                                  * Visual novel languages.
+                                  */
+  readonly languages: Language[]; /**
+                                   * Release type.
+                                   */
   readonly type: ReleaseType;
 
   /**
@@ -60,6 +51,12 @@ export interface Release {
    * Doujin flag.
    */
   readonly isDoujin: boolean;
+}
+
+export interface ReleaseDetails { /**
+Eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee * Platform where visual novel was released.
+eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee */
+  readonly platforms: readonly Platform[];
 
   /**
    * Official website url.
@@ -109,9 +106,17 @@ export interface Release {
    * Animation status.
    */
   readonly animation: ReleaseAnimation;
+}
+
+/**
+ * Represents release.
+ */
+export interface ReleaseProducers {
 
   /**
    * Producers involved into release.
    */
   readonly producers: readonly ReleaseProducer[];
 }
+
+export type Release = ReleaseId & ReleaseBasic & ReleaseDetails & ReleaseProducers;

@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable jsdoc/require-jsdoc */
 import { ApiProxyEndpoints, http } from '../index';
 import { PaginationDto } from '../dtos/paginationDto';
-import { ReleaseDto } from '../dtos/releaseDto';
 import { Release } from '../../models/releases/release';
 import { ReleaseAnimationType } from '../../models/releases/releaseAnimationType';
 import { ReleaseVoiceStatus } from '../../models/releases/releaseVoiceStatus';
@@ -8,7 +12,7 @@ import { ReleaseType } from '../../models/releases/releaseType';
 import { PaginationService } from './paginationService';
 import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { ReleaseAnimation } from '../../models/releases/releaseAnimation';
-import { ReleaseMapper } from '../mappers/releaseMapper';
+import { Assumer, ReleaseFlag, VNDBService } from './vndbService';
 
 interface ReleaseIcon {
 
@@ -29,24 +33,26 @@ interface ReleaseIcon {
 export namespace ReleasesService {
 
   /**
-   * Fetches paginated releases by vn id with given query page.
-   * @param vnId Visual novel id.
-   * @param page Query page.
-   */
-  export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<ReleaseDto>> => {
-    const { data } = await http.post<PaginationDto<ReleaseDto>>(
-      ApiProxyEndpoints.VNDB,
-      `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
-    );
-    return data;
-  };
-
-  /**
    * Fetches full releases.
    * @param vnId Visual novel id.
    */
-  export const fetchFullReleases = async(vnId: VisualNovel['id']): Promise<Release[]> =>
-    (await PaginationService.fetchAllDataById(vnId, fetchReleasesPaginatedByVnId)).map(dto => ReleaseMapper.fromDto(dto));
+  export const fetchFullReleases = async<TDto, T>(
+    vnId: VisualNovel['id'], assumer: Assumer<TDto, ReleaseFlag>, mapper: (dto: TDto) => T): Promise<T[]> => {
+    const fetchReleasesPaginatedByVnId =
+      async(id: VisualNovel['id'], page: number) => {
+        const { data } = await http.post<PaginationDto<unknown>>(
+          ApiProxyEndpoints.VNDB,
+          VNDBService.createVNDBGetQuery({
+            type: 'release',
+            flags: assumer.flags,
+            filters: [{ field: 'id', operator: '=', value: id }],
+            pagination: { page, pageSize: 25 },
+          }),
+        );
+        return PaginationDto.assume(data, assumer.assume);
+      };
+    return (await PaginationService.fetchAllDataById(vnId, fetchReleasesPaginatedByVnId)).map(mapper);
+  };
 
   /**
    * Gets free/non-free icon for release.

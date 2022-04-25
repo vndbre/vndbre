@@ -14,6 +14,8 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
+import { builder, ReleaseFlag } from '../../../../api/services/vndbService';
+import { ReleaseMapper } from '../../../../api/mappers/releaseMapper';
 
 /**
  * Overview tab page.
@@ -26,7 +28,16 @@ export const OverviewPage: FC = () => {
     isLoading: isReleasesLoading,
     data: releases,
     error: releasesError,
-  } = useReleasesQuery(Number(id));
+  } = useReleasesQuery(Number(id), builder<ReleaseFlag>()
+    .with('basic')
+    .with('details')
+    .with('producers')
+    .build(), dto => ({
+    ...ReleaseMapper.mapId(dto),
+    ...ReleaseMapper.mapBasic(dto),
+    ...ReleaseMapper.mapDetails(dto),
+    ...ReleaseMapper.mapProducers(dto),
+  }));
 
   /**
    * Returns publishers grouped by language.

@@ -16,3 +16,8 @@ export interface PaginationDto<T> {
     readonly items: readonly T[];
   };
 }
+export namespace PaginationDto {
+  export function assume<T>(u: PaginationDto<unknown>, f : ((obj: unknown) => T)): PaginationDto<T> {
+    return { ...u, data: { ...u.data, items: u.data.items.map(f) } };
+  }
+}

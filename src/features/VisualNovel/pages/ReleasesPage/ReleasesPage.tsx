@@ -22,6 +22,8 @@ import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { ReleasesService } from '../../../../api/services/releasesService';
 import { Platform } from '../../../../models/platform';
+import { builder, ReleaseFlag } from '../../../../api/services/vndbService';
+import { ReleaseMapper } from '../../../../api/mappers/releaseMapper';
 
 interface ReleaseGroups {
   [language: string]: Release[];
@@ -37,7 +39,16 @@ export const ReleasesPage: VFC = () => {
     isLoading: isReleasesLoading,
     data: releasesData,
     error: releasesError,
-  } = useReleasesQuery(Number(id));
+  } = useReleasesQuery(Number(id), builder<ReleaseFlag>()
+    .with('basic')
+    .with('details')
+    .with('producers')
+    .build(), dto => ({
+    ...ReleaseMapper.mapId(dto),
+    ...ReleaseMapper.mapBasic(dto),
+    ...ReleaseMapper.mapDetails(dto),
+    ...ReleaseMapper.mapProducers(dto),
+  }));
 
   /**
    * Groups releases by language.
