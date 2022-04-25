@@ -3,13 +3,13 @@ import { ImageFlagging } from '../models/imageFlagging';
 interface Options {
 
   /** Whether image is nsfw. */
-  isImageNsfw?: boolean | null;
+  readonly isImageNsfw?: boolean | null;
 
   /** Image flagging. */
-  imageFlagging?: ImageFlagging | null;
+  readonly imageFlagging?: ImageFlagging | null;
 }
 
-// Sexual content rated higher than 0.1 may contain massive boobas.
+// Sexual content rated higher than 0.1 may be suggestive.
 const MIN_SEXUAL_AVG = 0.1;
 
 // Content under 1 is limited to bandages and small blood stains.

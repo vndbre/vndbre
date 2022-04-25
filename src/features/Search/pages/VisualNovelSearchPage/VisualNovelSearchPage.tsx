@@ -9,6 +9,7 @@ import { VisualNovelListOptions } from './components/VisualNovelListOptions/Visu
 
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
+import { useVisualNovelQueryParams } from './hooks/useQueryParams';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -43,7 +44,7 @@ const mapOptionsToFormData = (options: VisualNovelFormDataSearchOptions): Partia
   ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
 });
 
-const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
+const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
   page: 1,
   pageSize: 18,
   releasedRange: {
@@ -54,7 +55,14 @@ const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
-  const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(PREVIEW_PAGINATION_DEFAULTS);
+  const [query, setQuery] = useVisualNovelQueryParams();
+
+  const defaultSearchOptions: VisualNovelSearchOptions = {
+    ...DEFAULT_PAGINATION_OPTIONS,
+    ...query,
+  };
+
+  const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery(searchOptions);
 
   const handlePaginatorChange = useCallback((newPage: number) => {
@@ -62,19 +70,28 @@ export const VisualNovelSearchPage: VFC = () => {
       ...prev,
       page: newPage,
     }));
-  }, []);
+
+    setQuery(prev => ({
+      ...prev,
+      page: newPage,
+    }));
+  }, [searchOptions]);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
+    const options = mapFormDataToOptions(data);
+
     setSearchOptions(prev => ({
       ...prev,
-      ...mapFormDataToOptions(data),
+      ...options,
       page: 1,
     }));
+
+    setQuery(options);
   }, []);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
-  const formDefaultValue = useMemo(() => mapOptionsToFormData(PREVIEW_PAGINATION_DEFAULTS), []);
+  const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
   const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
 
   return (
@@ -86,7 +103,7 @@ export const VisualNovelSearchPage: VFC = () => {
       gap={8}
     >
       <VisualNovelSearchForm
-        defaultFormValues={formDefaultValue}
+        defaultFormValues={defaultFormValues}
         onSubmit={handleSearchSubmit}
       />
 

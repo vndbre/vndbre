@@ -20,7 +20,7 @@ interface Props {
   /** Image placeholder. */
   readonly imagePlaceholder?: string;
 
-  /** Children. */
+  /** Popover node, if not provided popover won't be rendered. */
   readonly children?: ReactNode;
 }
 
