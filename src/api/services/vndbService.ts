@@ -4,7 +4,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable jsdoc/require-jsdoc */
 import { PaginationOptions } from '../../models/paginationOptions';
-import { ReleaseProducers } from '../../models/releases/release';
 import { ReleaseBasicDto, ReleaseDetailsDto, ReleaseIdDto, ReleaseProducersDto, ReleaseVnDto } from '../dtos/releaseDto';
 import { PaginationMapper } from '../mappers/paginationMapper';
 
@@ -59,7 +58,8 @@ type MapDto<T extends Types, F extends Flags> = T extends 'release' ? (
 type IdDto<T extends Types> = T extends 'release' ? ReleaseIdDto : never;
 
 export interface Assumer<T, F> {
-  assume: (obj: unknown) => T; flags: F[];
+  assume: (obj: unknown) => T;
+  flags: F[];
 }
 
 export function builder<F extends Flags>() {
