@@ -7,9 +7,11 @@ import {
   QueryParamConfig,
   SetQuery,
 } from 'use-query-params';
+import { DateService } from '../../../../../api/services/dateService';
 import { VisualNovelSearchOptions } from '../../../../../api/services/visualNovelsService';
 import { Language } from '../../../../../models/language';
 import { Platform } from '../../../../../models/platform';
+import { checkIfArrayIsNonEmpty } from '../../../../../utils/checkIfArrayIsNonEmpty';
 
 /** Uses a comma to delimit entries. */
 const ReleasedRangeParam: QueryParamConfig<
@@ -18,8 +20,8 @@ VisualNovelSearchOptions['releasedRange']
 > = {
   encode(releasedRange) {
     return JSON.stringify({
-      startDate: releasedRange?.startDate?.toISOString() ?? null,
-      endDate: releasedRange?.endDate?.toISOString() ?? null,
+      startDate: releasedRange?.startDate ? DateService.toISODate(releasedRange?.startDate) : null,
+      endDate: releasedRange?.endDate ? DateService.toISODate(releasedRange?.endDate) : null,
     });
   },
   decode(str) {
@@ -53,23 +55,15 @@ const Schema = {
 type SetVnQuery = SetQuery<typeof Schema>;
 type SetVnQueryOptions = Parameters<SetVnQuery>[0];
 
-type Return = [
+type UseVisualNovelQueryParamsReturn = [
   Partial<VisualNovelSearchOptions>,
   SetVnQuery,
 ];
 
 /**
- * Checks whether array not nullish and have items.
- * @param array Array.
- */
-function checkEmptyOrNullish<T extends readonly unknown[]>(array: T | undefined | null): boolean {
-  return array != null && array.length > 0;
-}
-
-/**
  * Hook to handle query params for visual novel search page.
  */
-export function useVisualNovelQueryParams(): Return {
+export function useVisualNovelQueryParams(): UseVisualNovelQueryParamsReturn {
   const [query, setQuery] = useQueryParams(Schema);
 
   /**
@@ -86,9 +80,9 @@ export function useVisualNovelQueryParams(): Return {
       // `null` and `""` would be shown query, `undefined` don't.
       // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       search: options.search || undefined,
-      languages: checkEmptyOrNullish(options.languages) ? options.languages : undefined,
-      originalLanguages: checkEmptyOrNullish(options.originalLanguages) ? options.originalLanguages : undefined,
-      platforms: checkEmptyOrNullish(options.platforms) ? options.platforms : undefined,
+      languages: checkIfArrayIsNonEmpty(options.languages) ? options.languages : undefined,
+      originalLanguages: checkIfArrayIsNonEmpty(options.originalLanguages) ? options.originalLanguages : undefined,
+      platforms: checkIfArrayIsNonEmpty(options.platforms) ? options.platforms : undefined,
       releasedRange: options.releasedRange,
     });
   }

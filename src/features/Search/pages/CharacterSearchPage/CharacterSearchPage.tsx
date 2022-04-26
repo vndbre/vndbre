@@ -65,7 +65,6 @@ export const CharacterSearchPage: VFC = () => {
     }));
 
     setQuery({
-      // `null` and `""` would be shown query, `undefined` don't.
       search: data.search || undefined,
       page: 1,
     });
