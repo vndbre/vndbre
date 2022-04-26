@@ -6,8 +6,10 @@ import {
   withDefault,
   QueryParamConfig,
   SetQuery,
+  encodeObject,
+  decodeObject,
+  decodeDate,
 } from 'use-query-params';
-import { DateService } from '../../../../../api/services/dateService';
 import { VisualNovelSearchOptions } from '../../../../../api/services/visualNovelsService';
 import { Language } from '../../../../../models/language';
 import { Platform } from '../../../../../models/platform';
@@ -19,24 +21,20 @@ VisualNovelSearchOptions['releasedRange'],
 VisualNovelSearchOptions['releasedRange']
 > = {
   encode(releasedRange) {
-    return JSON.stringify({
-      startDate: releasedRange?.startDate ? DateService.toISODate(releasedRange?.startDate) : null,
-      endDate: releasedRange?.endDate ? DateService.toISODate(releasedRange?.endDate) : null,
+    return encodeObject({
+      startDate: releasedRange?.startDate?.getFullYear(),
+      endDate: releasedRange?.endDate?.getFullYear(),
     });
   },
   decode(str) {
-    if (str == null || Array.isArray(str)) {
+    const range = decodeObject(str);
+    if (range == null) {
       return undefined;
     }
-    try {
-      const range = JSON.parse(str);
-      return {
-        startDate: range?.startDate != null ? new Date(range.startDate) : undefined,
-        endDate: range?.endDate != null ? new Date(range.endDate) : undefined,
-      };
-    } catch (e: unknown) {
-      return undefined;
-    }
+    return {
+      startDate: decodeDate(range.startDate) ?? undefined,
+      endDate: decodeDate(range.endDate) ?? undefined,
+    };
   },
 };
 
