@@ -18,14 +18,16 @@ export namespace ProducerType {
    * Converts enum value to a readable equivalent.
    * @param value Producer type.
    */
-  export const toReadable = (value: ProducerType): string => TO_READABLE_MAP[value];
+  export function toReadable(value: ProducerType): string {
+    return TO_READABLE_MAP[value];
+  }
 
   /**
    * Converts string into relation type.
    * @param value Value.
    */
-  export const toProducerType = (value: string): ProducerType => {
+  export function toProducerType(value: string): ProducerType {
     const type = value as ProducerType;
     return TO_READABLE_MAP[type] ? type : ProducerType.Unknown;
-  };
+  }
 }

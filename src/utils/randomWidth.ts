@@ -3,4 +3,6 @@
  * @param min Minimum random value.
  * @param max Maximum random number.
  */
-export const getRandomWidth = (min = 25, max = 100): string => `${Math.round((Math.random() * (max - min)) + min)}%`;
+export function getRandomWidth(min = 25, max = 100): string {
+  return `${Math.round((Math.random() * (max - min)) + min)}%`;
+}
