@@ -7,7 +7,7 @@ export enum SidebarElementType {
 /**
  * SidebarLinkElement.
  */
-export interface SidebarLinkElement {
+export type SidebarLinkElement = {
 
   /** Type. */
   readonly type: SidebarElementType.Link;
@@ -15,15 +15,26 @@ export interface SidebarLinkElement {
   /** Text. */
   readonly text: string;
 
+    /** Whether link is external. */
+    readonly isDisabled?: boolean;
+
+} & (
+  {
+
+  /** Whether link is external. */
+  readonly isDisabled?: false;
+
   /** Link. */
   readonly link: string;
 
   /** Whether link is external. */
   readonly isExternal?: boolean;
+  } | {
 
   /** Whether link is external. */
-  readonly isDisabled?: boolean;
-}
+  readonly isDisabled: true;
+  }
+);
 
 /**
  * SidebarHeadingElement.
@@ -43,18 +54,18 @@ export interface SidebarHeadingElement {
 export type SidebarElement = SidebarHeadingElement | SidebarLinkElement;
 
 export const data: SidebarElement[] = [
-  { type: SidebarElementType.Link, text: 'Random visual novel', link: '#', isDisabled: true },
+  { type: SidebarElementType.Link, text: 'Random visual novel', isDisabled: true },
   {
     type: SidebarElementType.Heading,
     text: 'Lists',
     items: [
       { type: SidebarElementType.Link, text: 'Visual novels', link: '/search/vn' },
       { type: SidebarElementType.Link, text: 'Characters', link: '/search/character' },
-      { type: SidebarElementType.Link, text: 'Releases', link: '#', isDisabled: true },
-      { type: SidebarElementType.Link, text: 'Producers', link: '#', isDisabled: true },
-      { type: SidebarElementType.Link, text: 'Staff', link: '#', isDisabled: true },
-      { type: SidebarElementType.Link, text: 'Tags', link: '#', isDisabled: true },
-      { type: SidebarElementType.Link, text: 'Traits', link: '#', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Releases', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Producers', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Staff', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Tags', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Traits', isDisabled: true },
     ],
   },
   {

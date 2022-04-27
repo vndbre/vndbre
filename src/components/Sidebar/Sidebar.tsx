@@ -17,33 +17,40 @@ interface Props {
  * @returns
  */
 const getLink = (element: SidebarLinkElement): ReactNode => {
-  const disabledStyles = element.isDisabled ? {
-    pointerEvents: 'none',
-    color: 'gray.400',
-  } : undefined;
+  if (element.isDisabled) {
+    return (
+      <Box
+        pointerEvents="none"
+        color="gray.400"
+      >
+        {element.text}
+      </Box>
+    );
+  }
+
+  const linkProps = {
+    key: element.link + element.text,
+    variant: 'no-underline',
+    className: cls.link,
+  };
 
   if (element.isExternal) {
     return (
       <Link
-        key={element.link + element.text}
+        {...linkProps}
         href={element.link}
         target="_blank"
-        variant="no-underline"
-        className={cls.link}
-        sx={disabledStyles}
       >
         {element.text}
       </Link>
     );
   }
+
   return (
     <Link
-      key={element.link + element.text}
+      {...linkProps}
       as={RouterLink}
       to={element.link}
-      variant="no-underline"
-      className={cls.link}
-      sx={disabledStyles}
     >
       {element.text}
     </Link>
