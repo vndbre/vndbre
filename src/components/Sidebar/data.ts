@@ -20,6 +20,9 @@ export interface SidebarLinkElement {
 
   /** Whether link is external. */
   readonly isExternal?: boolean;
+
+  /** Whether link is external. */
+  readonly isDisabled?: boolean;
 }
 
 /**
@@ -47,12 +50,11 @@ export const data: SidebarElement[] = [
     items: [
       { type: SidebarElementType.Link, text: 'Visual novels', link: '/search/vn' },
       { type: SidebarElementType.Link, text: 'Characters', link: '/search/character' },
-
-      // { type: SidebarElementType.Link, text: 'Releases', link: '#' },
-      // { type: SidebarElementType.Link, text: 'Producers', link: '#' },
-      // { type: SidebarElementType.Link, text: 'Staff', link: '#' },
-      // { type: SidebarElementType.Link, text: 'Tags', link: '#' },
-      // { type: SidebarElementType.Link, text: 'Traits', link: '#' },
+      { type: SidebarElementType.Link, text: 'Releases', link: '#', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Producers', link: '#', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Staff', link: '#', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Tags', link: '#', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Traits', link: '#', isDisabled: true },
     ],
   },
   {

@@ -21,6 +21,10 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => {
    * @returns
    */
   const getLink = (element: SidebarLinkElement): ReactNode => {
+    const disabledStyles = element.isDisabled ? {
+      pointerEvents: 'none',
+      color: 'gray.400',
+    } : undefined;
     if (element.isExternal) {
       return (
         <Link
@@ -29,6 +33,7 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => {
           target="_blank"
           variant="no-underline"
           className={cls.link}
+          sx={disabledStyles}
         >
           {element.text}
         </Link>
@@ -37,10 +42,11 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => {
     return (
       <Link
         key={element.link + element.text}
-        as={element.isExternal ? Link : RouterLink}
+        as={RouterLink}
         to={element.link}
         variant="no-underline"
         className={cls.link}
+        sx={disabledStyles}
       >
         {element.text}
       </Link>
