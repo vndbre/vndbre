@@ -4,7 +4,10 @@ import { useRouteParams } from '../../../hooks';
 
 interface Props {
 
-  /** New path. */
+  /**
+   * New route root path.
+   * For example: `to="producer"`.
+   */
   readonly to: string;
 }
 
@@ -14,6 +17,7 @@ interface Props {
  */
 const RedirectLegacyPathComponent: VFC<Props> = ({ to }) => {
   const { id } = useRouteParams<{ id: string; }>();
+
   return (
     <Navigate replace to={`/${to}/${id}`} />
   );
