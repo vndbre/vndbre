@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import { RouteObject } from 'react-router';
+import { RedirectLegacyPath } from '../../routes/components';
 
 const VisualNovelPage = lazy(() => import('./pages').then(module => ({ default: module.VisualNovelPage })));
 const OverviewPage = lazy(() => import('./pages').then(module => ({ default: module.OverviewPage })));
@@ -39,5 +40,9 @@ export const visualNovelRoutes: RouteObject[] = [
         caseSensitive: true,
       },
     ],
+  },
+  {
+    path: 'v:id',
+    element: <RedirectLegacyPath to="vn" />,
   },
 ];

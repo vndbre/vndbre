@@ -20,6 +20,7 @@ const FIRST_INDEX = 0;
 /**
  * Calculates initial index for tabs based on route.
  * @param pathname URL pathname.
+ * @param tabsInfo Info about tabs.
  */
 const getInitialTabIndex = (pathname: string, tabsInfo: readonly RouteInfo[]): number => {
   const splitPath = pathname.split('/');
