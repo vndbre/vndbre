@@ -8,23 +8,24 @@ import { ExtendedTraitsWithRoots } from '../../../models/extendedTraitWithRoots'
 /**
  * Extends root traits with spoiler level.
  * @param characterTraits List of character traits.
+ * @param traitsWithRoot Character traits with its root traits.
  */
-const extendTraits = async(
+async function extendTraits(
   characterTraits: readonly CharacterTrait[],
   traitsWithRoot: Promise<TraitsWithRoots>,
-): Promise<ExtendedTraitsWithRoots> => {
+): Promise<ExtendedTraitsWithRoots> {
   const { traits, rootTraits } = await traitsWithRoot;
   const extendedTraits = traits.map(
     trait => ({
       ...trait,
-      spoilerLevel: characterTraits.find(ct => ct.id === trait.id)?.spoilerLevel ?? SpoilerLevel.Major,
+      spoilerLevel: characterTraits.find(characterTrait => characterTrait.id === trait.id)?.spoilerLevel ?? SpoilerLevel.Major,
     }),
   );
   return {
     rootTraits,
     traits: extendedTraits,
   };
-};
+}
 
 /**
  * Hook for fetching character traits with its root traits.
@@ -33,12 +34,12 @@ const extendTraits = async(
  * @param options Query options.
  */
 export const useExtendedTraitsQuery = (
-  id: string,
+  id: CharacterTrait['id'],
   characterTraits: readonly CharacterTrait[],
   options?: QueryObserverOptions<ExtendedTraitsWithRoots, Error>,
 ): UseQueryResult<ExtendedTraitsWithRoots, Error> =>
   useQuery(
     ['traits', id],
-    () => extendTraits(characterTraits, TraitsService.fetchTraits(characterTraits.map(ct => ct.id))),
+    () => extendTraits(characterTraits, TraitsService.fetchTraits(characterTraits.map(characterTrait => characterTrait.id))),
     { ...options },
   );

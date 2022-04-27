@@ -4,12 +4,6 @@
   gap: var(--chakra-sizes-8);
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: var(--chakra-sizes-6);
-}
-
 .items {
   display: flex;
   margin-top: var(--chakra-sizes-3);
@@ -17,8 +11,7 @@
   flex-wrap: wrap;
 }
 
-.title,
-.link {
+.title {
   text-transform: capitalize;
 }
 

@@ -49,7 +49,7 @@ export const RelationsPage: VFC = () => {
   return (
     <ContentWrapper isLoading={isVisualNovelLoading || isRelatedNovelsLoading} error={relatedNovelsError}>
       {visualNovel && relatedNovels && relatedNovels.length > 0 ? (
-        <Grid pt="4" templateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-96), 1fr))" gridGap="4">
+        <Grid pt="4" templateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-96), 1fr))" gridGap="4">
           {displayRelationCards(relatedNovels, visualNovel)}
         </Grid>
       ) : null}

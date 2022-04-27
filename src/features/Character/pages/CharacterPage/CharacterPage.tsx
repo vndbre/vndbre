@@ -1,9 +1,8 @@
-import React, { VFC } from 'react';
+import React, { useMemo, VFC } from 'react';
 import { Box, Grid, HStack, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityTitle, SafeImage, TagList } from '../../../../components';
+import { ContentWrapper, EntityDetail, EntityTitle, HideContent, SafeImage, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
-import { CharacterRouteParams } from '../../utils/characterRouteParams';
 import characterPlaceholder from '../../../../assets/person.svg';
 import { BBCode } from '../../../../components/BBCode/BBCode';
 import { useExtendedTraitsQuery } from '../../queries/trait';
@@ -11,6 +10,7 @@ import { CharacterTraits } from '../../components';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CharacterRole } from '../../../../models/characters/characterRole';
 import { Gender } from '../../../../models/gender';
+import { CharacterRouteParams } from '../../utils/characterRouteParams';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
@@ -26,7 +26,7 @@ export const CharacterPage: VFC = () => {
     isLoading: isTraitsLoading,
     data: traitsWithRoot,
     error: traitsError,
-  } = useExtendedTraitsQuery(id, traitsIds, {
+  } = useExtendedTraitsQuery(Number(id), traitsIds, {
     enabled: traitsIds.length > 0,
   });
 
@@ -62,6 +62,17 @@ export const CharacterPage: VFC = () => {
       }))}
     />
   );
+
+  const description = useMemo(() => {
+    if (character?.description != null) {
+      return (
+        <HideContent maxHeight={250}>
+          <BBCode text={character?.description} />
+        </HideContent>
+      );
+    }
+    return (<Text>No description.</Text>);
+  }, [character?.description]);
 
   return (
     <ContentWrapper isLoading={isCharacterLoading} error={characterError}>
@@ -100,7 +111,7 @@ export const CharacterPage: VFC = () => {
                     </HStack>
                   </VStack>
                 </Box>
-                {character.description ? <BBCode text={character.description} /> : <Text>No description.</Text>}
+                {description}
               </VStack>
             </Box>
           </Grid>

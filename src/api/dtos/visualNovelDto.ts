@@ -1,3 +1,4 @@
+import { ExternalLinksDto } from './externalLinksDto';
 import { ImageFlaggingDto } from './imageFlaggingDto';
 
 export enum VisualNovelLengthDto {
@@ -19,32 +20,6 @@ export enum RelationTypeDto {
   Sequel = 'seq',
   SameSeries = 'ser',
   ParentStory = 'par',
-}
-
-/**
- * Visual novel links dto.
- */
-export interface VisualNovelLinksDto {
-
-  /**
-   * The URL-encoded tag used on encubed.
-   */
-  readonly encubed: string;
-
-  /**
-   * The name part of the url on renai.us.
-   */
-  readonly renai: string;
-
-  /**
-   * Name of the related article on the English Wikipedia.
-   */
-  readonly wikipedia: string | null;
-
-  /**
-   * Wikidata identifier.
-   */
-  readonly wikidata: string | null;
 }
 
 /**
@@ -253,7 +228,7 @@ export interface VisualNovelDto {
   /**
    * Links to related data.
    */
-  readonly links: VisualNovelLinksDto;
+  readonly links: ExternalLinksDto;
 
   /**
    * HTTP link to the VN image.

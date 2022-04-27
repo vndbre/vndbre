@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Heading, Link } from '@chakra-ui/react';
+import React, { FC, useMemo } from 'react';
+import { Heading, VStack } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
@@ -7,13 +7,14 @@ import { useVisualNovelQuery, useCharactersQuery, useReleasesQuery, useExtendedT
 import { Release } from '../../../../models/releases/release';
 import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
 import { useSettingsContext } from '../../../../providers';
-import { ExtendedTag } from '../../../../models/extendedTag';
-import { ContentWrapper, TagList } from '../../../../components';
+import { ContentWrapper, EntityLinks, TagList } from '../../../../components';
 import { Icon } from '../../../../components/Icon/Icon';
-import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { StaffRole } from '../../../../models/staffRole';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+
+const MAX_CHARACTER_AMOUNT = 6;
 
 /**
  * Overview tab page.
@@ -78,35 +79,20 @@ export const OverviewPage: FC = () => {
   const { data: characters, isLoading: isCharactersLoading, error: charactersError } = useCharactersQuery(Number(id));
   const { tagsVisibility, spoilerLevel } = useSettingsContext();
 
-  /**
-   * Filter tags by category and spoiler level.
-   */
-  function tagsFilterPredicate(tag: ExtendedTag): boolean {
-    return tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel;
-  }
-
   const publishersBlock = visualNovel?.languages.map(key => (
     publishers && publishers[key].length > 0 && (
       <TagList
         key={key}
         title={Language.toReadable(Language.toLanguage(key))}
         titleIcon={<Icon name={Language.getIcon(Language.toLanguage(key))} />}
-        tags={publishers[key].map(publisher => ({ name: publisher, note: null }))}
+        tags={publishers[key].map(publisher => ({
+          name: publisher,
+          note: null,
+          path: `/producer/${releases?.flatMap(r => r.producers).find(p => p.name === publisher)?.id}`,
+        }))}
       />
     )
   ));
-
-  const linksBlock = visualNovel && (
-    Object.entries(visualNovel.links).map(([key, value]) => (
-      <Link
-        key={key}
-        className={cls.link}
-        href={value ?? '#'}
-      >
-        {key}
-      </Link>
-    ))
-  );
 
   const staffBlock = Object.keys(StaffRole.getStaffRolesInformation()).map(key => (
     visualNovel && visualNovel.staff.filter(s => s.role === key).length > 0 && (
@@ -124,18 +110,24 @@ export const OverviewPage: FC = () => {
     )
   ));
 
-  const tagsBlock = tags && tags.length > 0 && (
-    <TagList
-      title="Tags"
-      tags={tags.filter(tagsFilterPredicate).map(tag => ({ name: tag.name, note: null }))}
-      isExpandable
-    />
-  );
+  const tagsBlock = useMemo(() => {
+    if (tags != null && tags.length > 0) {
+      return (
+        <TagList
+          title="Tags"
+          tags={tags
+            .filter(tag => tagsVisibility[tag.cat] && tag.spoilerLevel <= spoilerLevel)
+            .map(tag => ({ name: tag.name, note: null }))}
+          isExpandable
+        />
+      );
+    }
 
-  const CHARACTER_COUNT = 6;
+    return null;
+  }, [tags, tagsVisibility, spoilerLevel]);
 
   const charactersBlock = characters && characters.length > 0 && (
-    characters.slice(0, CHARACTER_COUNT).map(character => (
+    characters.slice(0, MAX_CHARACTER_AMOUNT).map(character => (
       <CharacterCard
         key={character.id}
         character={character}
@@ -147,24 +139,30 @@ export const OverviewPage: FC = () => {
     <ContentWrapper isLoading={isLoading} error={error}>
       <div className={cls.page}>
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-          <div className={cls.sidebar}>
+          <VStack align="initial" spacing="6">
             {visualNovel?.length && (
               <TagList title="Game Length" tags={[{ name: visualNovel.length, note: null }]} />
             )}
             <TagList
               title="Developers"
-              tags={developers.map(dev => ({ name: dev, note: null }))}
+              tags={developers.map(dev => ({
+                name: dev,
+                note: null,
+                path: `/producer/${releases?.flatMap(r => r.producers).find(p => p.name === dev)?.id}`,
+              }))}
             />
             {publishersBlock}
-            <div>
-              <Heading as="h3" size="sm">
-                Links
-              </Heading>
-              <div className={cls.items}>
-                {linksBlock}
+            {visualNovel?.links != null && visualNovel.links.length > 0 && (
+              <div>
+                <Heading as="h3" size="sm">
+                  Links
+                </Heading>
+                <div className={cls.items}>
+                  <EntityLinks links={visualNovel.links} />
+                </div>
               </div>
-            </div>
-          </div>
+            )}
+          </VStack>
         </ContentWrapper>
         <div>
           <ContentWrapper isLoading={isTagsLoading} error={tagsError}>

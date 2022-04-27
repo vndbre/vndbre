@@ -1,8 +1,8 @@
+import { ExternalLink } from '../externalLink';
 import { ImageFlagging } from '../imageFlagging';
 import { Language } from '../language';
 import { Platform } from '../platform';
 import { ReadableVisualNovelLength } from './visualNovelLength';
-import { VisualNovelLinks } from './visualNovelLinks';
 import { VisualNovelRelated } from './visualNovelRelated';
 import { VisualNovelRelatedAnime } from './visualNovelRelatedAnime';
 import { VisualNovelRelation } from './visualNovelRelation';
@@ -68,7 +68,7 @@ export interface VisualNovel {
   /**
    * Links to related data.
    */
-  readonly links: VisualNovelLinks;
+  readonly links: readonly ExternalLink[];
 
   /**
    * HTTP link to the VN image.

@@ -4,7 +4,10 @@ import { getRandomWidth } from '../../../../../../utils/randomWidth';
 
 /** Visual novel table. */
 const VisualNovelTableSkeletonComponent: VFC = () => {
-  /** Gets table row. */
+  /**
+   * Gets table row.
+   * @param key React's key attribute.
+   */
   const getRandomRow = (key: number): ReactNode => (
     <Tr key={key} h={10}>
       <Th><SkeletonText w={getRandomWidth()} noOfLines={1} /></Th>

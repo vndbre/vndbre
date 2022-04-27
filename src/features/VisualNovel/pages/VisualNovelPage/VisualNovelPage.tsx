@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from 'react';
+import React, { FC, Suspense, useMemo } from 'react';
 import { Button, ButtonGroup, IconButton, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 
@@ -6,11 +6,19 @@ import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
-import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, EntityTitle, Loading, SafeImage } from '../../../../components';
+import { ContentWrapper, EntityTabs, EntityTitle, HideContent, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { RouteInfo } from '../../../../routes/utils/RouteInfo';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+
+export const VISUAL_NOVELS_ROUTES_INFO: readonly RouteInfo[] = [
+  { name: 'Overview', path: '' },
+  { name: 'Releases', path: 'releases' },
+  { name: 'Characters', path: 'characters' },
+  { name: 'Relations', path: 'relations' },
+  { name: 'Media', path: 'media' },
+];
 
 /**
  * Visual novel page.
@@ -18,6 +26,17 @@ import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 export const VisualNovelPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data } = useVisualNovelQuery(Number(id));
+
+  const description = useMemo(() => {
+    if (data?.description != null) {
+      return (
+        <HideContent maxHeight={250}>
+          <BBCode text={data.description} />
+        </HideContent>
+      );
+    }
+    return (<Text>No description.</Text>);
+  }, [data?.description]);
 
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
@@ -51,12 +70,12 @@ export const VisualNovelPage: FC = () => {
                   <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
                   <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
                 </div>
-                {(data.description ? <BBCode text={data.description} /> : <Text>No description.</Text>)}
+                {description}
               </div>
             </div>
-            <VisualNovelTabs id={id} />
+            <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
           </header>
-          <div className={cls.tabContent}>
+          <div>
             <Suspense fallback={<Loading isLoading />}>
               <Outlet />
             </Suspense>

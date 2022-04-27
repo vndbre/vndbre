@@ -8,7 +8,7 @@ export namespace PaginationService {
    * @param id Id to fetch by.
    * @param fetchFunction Fetch function.
    */
-  export const fetchAllDataById = async <T>(id: number, fetchFunction: PaginatedFetchFunctionById<T>): Promise<T[]> => {
+  export async function fetchAllDataById<T>(id: number, fetchFunction: PaginatedFetchFunctionById<T>): Promise<T[]> {
     let currentPage = 1;
     let hasToFetchMore = true;
     const dataChunk = [];
@@ -24,5 +24,5 @@ export namespace PaginationService {
       }
     }
     return dataChunk.flat();
-  };
+  }
 }
