@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { NumberParam, StringParam, useQueryParams, withDefault } from 'use-query-params';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { useCharactersPageQuery } from '../../../VisualNovel/queries/characters';
 import { CharacterSearchOptions } from '../../../../api/services/charactersService';
 import { CharacterList } from './components/CharacterList/CharacterList';
 import { CharacterFormData, CharacterSearchForm } from './components/CharacterSearchForm/CharacterSearchForm';
+import { useCharacterQueryParams } from '../../hooks/useCharacterQueryParams';
 
 const DEFAULT_PAGINATION_OPTIONS: CharacterSearchOptions = {
   page: 1,
@@ -18,29 +18,30 @@ type CharacterFormDataSearchOptions = Omit<CharacterSearchOptions, 'page' | 'pag
  * Maps character form data to search options.
  * @param formData Form data.
  */
-const mapFormDataToOptions = (formData: CharacterFormData): CharacterFormDataSearchOptions => ({
-  search: formData.search,
-});
+function mapFormDataToOptions(formData: CharacterFormData): CharacterFormDataSearchOptions {
+  return {
+    search: formData.search,
+  };
+}
 
 /**
  * Maps character search options to form data representation.
  * @param options Options.
  */
-const mapOptionsToFormData = (options: CharacterFormDataSearchOptions): Partial<CharacterFormData> => ({
-  ...(options.search == null ? null : { search: options.search }),
-});
+function mapOptionsToFormData(options: CharacterFormDataSearchOptions): Partial<CharacterFormData> {
+  return {
+    ...(options.search == null ? null : { search: options.search }),
+  };
+}
 
 /** Search page for characters. */
 export const CharacterSearchPage: VFC = () => {
-  const [query, setQuery] = useQueryParams({
-    page: withDefault(NumberParam, DEFAULT_PAGINATION_OPTIONS.page),
-    search: withDefault(StringParam, undefined),
-  });
+  const [queryParams, setQueryParams] = useCharacterQueryParams();
 
-  const defaultSearchOptions: CharacterSearchOptions = {
+  const defaultSearchOptions: CharacterSearchOptions = useMemo(() => ({
     ...DEFAULT_PAGINATION_OPTIONS,
-    ...query,
-  };
+    ...queryParams,
+  }), []);
 
   const [searchOptions, setSearchOptions] = useState<CharacterSearchOptions>(defaultSearchOptions);
   const { isLoading, data: charactersPage } = useCharactersPageQuery(searchOptions);
@@ -51,21 +52,23 @@ export const CharacterSearchPage: VFC = () => {
       page: newPage,
     }));
 
-    setQuery(prev => ({
-      ...prev,
+    setQueryParams({
+      ...searchOptions,
       page: newPage,
-    }));
+    });
   }, [searchOptions]);
 
   const handleSearchSubmit = useCallback((data: CharacterFormData) => {
+    const options = mapFormDataToOptions(data);
+
     setSearchOptions(prev => ({
       ...prev,
-      ...mapFormDataToOptions(data),
+      ...options,
       page: 1,
     }));
 
-    setQuery({
-      search: data.search || undefined,
+    setQueryParams({
+      ...options,
       page: 1,
     });
   }, []);

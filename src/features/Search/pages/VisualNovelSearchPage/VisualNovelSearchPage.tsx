@@ -9,7 +9,7 @@ import { VisualNovelListOptions } from './components/VisualNovelListOptions/Visu
 
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
-import { useVisualNovelQueryParams } from './hooks/useQueryParams';
+import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -17,32 +17,36 @@ type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 
  * Maps visual novel form data to search options.
  * @param formData Form data.
  */
-const mapFormDataToOptions = (formData: VisualNovelFormData): VisualNovelFormDataSearchOptions => ({
-  search: formData.title,
-  releasedRange: {
-    startDate: new Date(String(formData.releaseYearRange[0])),
-    endDate: new Date(String(formData.releaseYearRange[1])),
-  },
-  languages: formData.languages.map(language => language.value),
-  originalLanguages: formData.originalLanguages.map(language => language.value),
-  platforms: formData.platforms.map(language => language.value),
-});
+function mapFormDataToOptions(formData: VisualNovelFormData): VisualNovelFormDataSearchOptions {
+  return {
+    search: formData.title,
+    releasedRange: {
+      startDate: new Date(String(formData.releaseYearRange[0])),
+      endDate: new Date(String(formData.releaseYearRange[1])),
+    },
+    languages: formData.languages.map(language => language.value),
+    originalLanguages: formData.originalLanguages.map(language => language.value),
+    platforms: formData.platforms.map(language => language.value),
+  };
+}
 
 /**
  * Maps visual novel search options to form data representation.
  * @param options Options.
  */
-const mapOptionsToFormData = (options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> => ({
-  ...(options.search == null ? null : { title: options.search }),
-  ...(options.releasedRange == null ? null : {
-    releaseYearRange: options.releasedRange.startDate == null || options.releasedRange.endDate == null ?
-      undefined :
-      [options.releasedRange.startDate.getFullYear(), options.releasedRange.endDate.getFullYear()],
-  }),
-  ...(options.languages == null ? null : { languages: options.languages.map(mapLanguageToSelectOption) }),
-  ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(mapLanguageToSelectOption) }),
-  ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
-});
+function mapOptionsToFormData(options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> {
+  return {
+    ...(options.search == null ? null : { title: options.search }),
+    ...(options.releasedRange == null ? null : {
+      releaseYearRange: options.releasedRange.startDate == null || options.releasedRange.endDate == null ?
+        undefined :
+        [options.releasedRange.startDate.getFullYear(), options.releasedRange.endDate.getFullYear()],
+    }),
+    ...(options.languages == null ? null : { languages: options.languages.map(mapLanguageToSelectOption) }),
+    ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(mapLanguageToSelectOption) }),
+    ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
+  };
+}
 
 const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
   page: 1,
@@ -55,14 +59,15 @@ const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
-  const [query, setQuery] = useVisualNovelQueryParams();
+  const [queryParams, setQueryParams] = useVisualNovelQueryParams();
 
-  const defaultSearchOptions: VisualNovelSearchOptions = {
+  const defaultSearchOptions: VisualNovelSearchOptions = useMemo(() => ({
     ...DEFAULT_PAGINATION_OPTIONS,
-    ...query,
-  };
+    ...queryParams,
+  }), []);
 
   const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery(searchOptions);
 
   const handlePaginatorChange = useCallback((newPage: number) => {
@@ -71,10 +76,10 @@ export const VisualNovelSearchPage: VFC = () => {
       page: newPage,
     }));
 
-    setQuery(prev => ({
-      ...prev,
+    setQueryParams({
+      ...searchOptions,
       page: newPage,
-    }));
+    });
   }, [searchOptions]);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
@@ -86,13 +91,12 @@ export const VisualNovelSearchPage: VFC = () => {
       page: 1,
     }));
 
-    setQuery({ ...options, page: 1 });
+    setQueryParams({ ...options, page: 1 });
   }, []);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
-  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
 
   return (
     <Box
