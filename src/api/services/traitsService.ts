@@ -20,13 +20,13 @@ export namespace TraitsService {
      * Fetches traits by its ids.
      * @param traitIds List of traits ids.
      */
-    const fetch = async(traitIds: readonly Trait['id'][]): Promise<TraitDto[]> => {
+    async function fetch(traitIds: readonly Trait['id'][]): Promise<TraitDto[]> {
       const { data } = await http.post<TraitDto[]>(
         ApiProxyEndpoints.Traits,
         traitIds,
       );
       return data;
-    };
+    }
     const traits = await fetch(ids);
     const rootIds = Array.from(new Set(traits.map(trait => trait.root_id).filter(id => id != null)));
     const rootTraits = await fetch(rootIds);

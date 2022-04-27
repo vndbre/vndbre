@@ -7,7 +7,7 @@ export namespace DateService {
    * Formats date to 'yyyy-mm-dd' string.
    * @param date Date.
    */
-  export const toISODate = (date: Date): string => {
+  export function toISODate(date: Date): string {
     const yyyy = date
       .getFullYear()
       .toString()
@@ -21,7 +21,7 @@ export namespace DateService {
       .padStart(2, '0');
 
     return `${yyyy}-${mm}-${dd}`;
-  };
+  }
 
   /**
    * Compare dates by ascending order.
@@ -33,7 +33,7 @@ export namespace DateService {
    * @param date1 Date.
    * @param date2 Date.
    */
-  export const compareDates = (date1: Date | null, date2: Date | null): number => {
+  export function compareDates(date1: Date | null, date2: Date | null): number {
     if (date1 !== null && date2 !== null) {
       return date1 > date2 ? 1 : -1;
     }
@@ -44,5 +44,5 @@ export namespace DateService {
       return -1;
     }
     return 0;
-  };
+  }
 }

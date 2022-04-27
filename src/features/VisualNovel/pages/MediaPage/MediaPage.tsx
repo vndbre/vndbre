@@ -4,7 +4,6 @@ import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';
 import { ContentWrapper } from '../../../../components';
-
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 

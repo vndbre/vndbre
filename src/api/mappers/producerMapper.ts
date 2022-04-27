@@ -1,4 +1,7 @@
+import { Language } from '../../models/language';
 import { Producer, ProducerRelated } from '../../models/producer';
+import { ProducerRelationType } from '../../models/producerRelationType';
+import { ProducerType } from '../../models/producerType';
 import { ProducerDto, ProducerRelatedDto } from '../dtos/producerDto';
 import { ExternalLinksMapper } from './externalLinksMapper';
 
@@ -6,16 +9,15 @@ import { ExternalLinksMapper } from './externalLinksMapper';
  * Maps related producer from dto.
  * @param dto Dto.
  */
-function mapRelatedProducerFromDto(dto: ProducerRelatedDto): ProducerRelated {
+function producerRelatedFromDto(dto: ProducerRelatedDto): ProducerRelated {
   return {
     id: dto.id,
     name: dto.name,
     originalName: dto.original,
-    relation: dto.relation,
+    relation: ProducerRelationType.toProducerRelationType(dto.relation),
   };
 }
 
-/** Producer mapper. */
 export namespace ProducerMapper {
 
   /**
@@ -27,11 +29,13 @@ export namespace ProducerMapper {
       id: dto.id,
       name: dto.name,
       originalName: dto.original,
-      type: dto.type,
+      type: ProducerType.toProducerType(dto.type),
       links: ExternalLinksMapper.fromDto(dto.links),
       aliases: dto.aliases,
       description: dto.description,
-      relations: dto.relations.map(relatedDto => mapRelatedProducerFromDto(relatedDto)),
+      relations: dto.relations.map(relatedDto => producerRelatedFromDto(relatedDto)),
+      language: Language.toLanguage(dto.language),
     };
   }
+
 }

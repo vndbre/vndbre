@@ -1,3 +1,6 @@
+import { Language } from './language';
+import { ProducerRelationType } from './producerRelationType';
+import { ProducerType } from './producerType';
 import { ExternalLink } from './externalLink';
 
 /**
@@ -8,22 +11,22 @@ export interface ProducerRelated {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Relation to current producer.
    */
-  relation: string;
+  readonly relation: ProducerRelationType;
 
   /**
    * Producer name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  originalName: string | null;
+  readonly originalName: string | null;
 }
 
 /**
@@ -34,22 +37,22 @@ export interface Producer {
   /**
    * Producer id.
    */
-  id: number;
+  readonly id: number;
 
   /**
    * Producer name.
    */
-  name: string;
+  readonly name: string;
 
   /**
    * Name in original.
    */
-  originalName: string | null;
+  readonly originalName: string | null;
 
   /**
    * Type.
    */
-  type: string;
+  readonly type: ProducerType;
 
   /**
    * Links to external resources.
@@ -59,15 +62,18 @@ export interface Producer {
   /**
    * Alternative names, separated by a newline.
    */
-  aliases: string | null;
+  readonly aliases: string | null;
 
   /**
    * Description/notes of the producer.
    */
-  description: string | null;
+  readonly description: string | null;
+
+  /** Producer primary language. */
+  readonly language: Language;
 
   /**
    * Related producers to the current producer.
    */
-  relations: ProducerRelated[];
+  readonly relations: ProducerRelated[];
 }

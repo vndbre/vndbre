@@ -2,6 +2,7 @@ import React, { VFC } from 'react';
 import { RouteObject, useRoutes } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { characterRoutes } from '../features/Character/routes';
+import { producerRoutes } from '../features/Producer/routes';
 import { searchRoutes } from '../features/Search/routes';
 import { staffRoutes } from '../features/Staff/routes';
 import { visualNovelRoutes } from '../features/VisualNovel/routes';
@@ -29,6 +30,7 @@ const routes: RouteObject[] = [
       ...characterRoutes,
       ...searchRoutes,
       ...staffRoutes,
+      ...producerRoutes,
     ],
   },
 ];

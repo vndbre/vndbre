@@ -9,6 +9,7 @@ import { PaginationService } from './paginationService';
 import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { ReleaseAnimation } from '../../models/releases/releaseAnimation';
 import { ReleaseMapper } from '../mappers/releaseMapper';
+import { Producer } from '../../models/producer';
 
 interface ReleaseIcon {
 
@@ -33,26 +34,50 @@ export namespace ReleasesService {
    * @param vnId Visual novel id.
    * @param page Query page.
    */
-  export const fetchReleasesPaginatedByVnId = async(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<ReleaseDto>> => {
+  export async function fetchReleasesPaginatedByVnId(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<ReleaseDto>> {
     const { data } = await http.post<PaginationDto<ReleaseDto>>(
       ApiProxyEndpoints.VNDB,
       `get release basic,details,producers (vn = ${vnId}) {"results": 25, "page": ${page}, "sort": "released"}`,
     );
     return data;
-  };
+  }
+
+  /**
+   * Fetches paginated releases by producer id with given query page.
+   * @param producerId Producer id.
+   * @param page Query page.
+   */
+  export async function fetchReleasesPaginatedByProducerId(producerId: Producer['id'], page: number): Promise<PaginationDto<ReleaseDto>> {
+    const { data } = await http.post<PaginationDto<ReleaseDto>>(
+      ApiProxyEndpoints.VNDB,
+      `get release basic,details,producers (producer = ${producerId}) {"results": 25, "page": ${page}, "sort": "released"}`,
+    );
+    return data;
+  }
+
+  /**
+   * Fetches producer's releases.
+   * @param producerId Producer id.
+   */
+  export async function fetchProducerReleases(producerId: Producer['id']): Promise<Release[]> {
+    return (
+      await PaginationService.fetchAllDataById(producerId, fetchReleasesPaginatedByProducerId)
+    ).map(dto => ReleaseMapper.fromDto(dto));
+  }
 
   /**
    * Fetches full releases.
    * @param vnId Visual novel id.
    */
-  export const fetchFullReleases = async(vnId: VisualNovel['id']): Promise<Release[]> =>
-    (await PaginationService.fetchAllDataById(vnId, fetchReleasesPaginatedByVnId)).map(dto => ReleaseMapper.fromDto(dto));
+  export async function fetchFullReleases(vnId: VisualNovel['id']): Promise<Release[]> {
+    return (await PaginationService.fetchAllDataById(vnId, fetchReleasesPaginatedByVnId)).map(dto => ReleaseMapper.fromDto(dto));
+  }
 
   /**
    * Gets free/non-free icon for release.
    * @param isFreeware Whether release if free or not.
    */
-  export const getIsFreewareIcon = (isFreeware: boolean): ReleaseIcon => {
+  export function getIsFreewareIcon(isFreeware: boolean): ReleaseIcon {
     if (isFreeware) {
       return {
         label: 'Freeware',
@@ -64,13 +89,13 @@ export namespace ReleasesService {
       label: 'Non-free',
       icon: 'bx:bx-dollar',
     };
-  };
+  }
 
   /**
    * Gets icon for release status.
    * @param releaseType Release type.
    */
-  export const getReleaseStatusIcon = (releaseType: ReleaseType): ReleaseIcon => {
+  export function getReleaseStatusIcon(releaseType: ReleaseType): ReleaseIcon {
     const label = ReleaseType.toReadable(releaseType);
     const icon = {
       [ReleaseType.Trial]: 'carbon:circle-dash',
@@ -79,13 +104,13 @@ export namespace ReleasesService {
     }[releaseType];
 
     return { label, icon };
-  };
+  }
 
   /**
    * Gets icons for release story and ero animations.
    * @param animations Release animation info.
    */
-  export const getAnimationIcons = (animations: ReleaseAnimation): ReleaseIcon[] => {
+  export function getAnimationIcons(animations: ReleaseAnimation): ReleaseIcon[] {
     const animationIcons = [];
 
     if (animations.storyAnimation) {
@@ -108,13 +133,13 @@ export namespace ReleasesService {
     }
 
     return animationIcons;
-  };
+  }
 
   /**
    * Gets voice icon for release.
    * @param releaseVoiced How release is voiced.
    */
-  export const getVoiceIcon = (releaseVoiced: ReleaseVoiceStatus | null): ReleaseIcon | null => {
+  export function getVoiceIcon(releaseVoiced: ReleaseVoiceStatus | null): ReleaseIcon | null {
     switch (releaseVoiced) {
       case ReleaseVoiceStatus.NotVoiced:
         return {
@@ -140,13 +165,13 @@ export namespace ReleasesService {
         return null;
       }
     }
-  };
+  }
 
   /**
    * Gets icon for release resolution.
    * @param resolution Resolution.
    */
-  export const getResolutionIcon = (resolution: string | null): ReleaseIcon | null => {
+  export function getResolutionIcon(resolution: string | null): ReleaseIcon | null {
     if (resolution) {
       return {
         label: resolution,
@@ -155,16 +180,18 @@ export namespace ReleasesService {
     }
 
     return null;
-  };
+  }
 
   /**
    * Gets all icons for release.
    * @param release Release.
    */
-  export const getReleaseIcons = (release: Release): ReleaseIcon[] => [
-    getResolutionIcon(release.resolution),
-    getIsFreewareIcon(release.isFreeware),
-    getVoiceIcon(release.voiced),
-    ...getAnimationIcons(release.animation),
-  ].filter(releaseIcon => releaseIcon !== null) as ReleaseIcon[];
+  export function getReleaseIcons(release: Release): ReleaseIcon[] {
+    return [
+      getResolutionIcon(release.resolution),
+      getIsFreewareIcon(release.isFreeware),
+      getVoiceIcon(release.voiced),
+      ...getAnimationIcons(release.animation),
+    ].filter(releaseIcon => releaseIcon !== null) as ReleaseIcon[];
+  }
 }

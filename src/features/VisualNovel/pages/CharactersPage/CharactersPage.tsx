@@ -17,8 +17,8 @@ import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Character } from '../../../../models/characters/character';
 import { CharacterCard } from '../../components';
 import { useCharactersQuery } from '../../queries';
-import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 import { CharacterRole } from '../../../../models/characters/characterRole';
+import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
 
 /** Describes shape of grouped characters. */
 type GroupedCharacters = Record<CharacterRole, Character[]>;

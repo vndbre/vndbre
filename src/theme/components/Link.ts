@@ -5,6 +5,7 @@ export const Link: StyleConfig = {
     borderBottomStyle: 'solid',
     borderBottomWidth: '1px',
     borderBottomColor: 'gray.500',
+    textTransform: 'capitalize',
     _hover: {
       textDecoration: 'none',
       color: 'orange.500',

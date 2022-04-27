@@ -6,11 +6,19 @@ import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
-import { VisualNovelTabs } from '../../components';
 import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, EntityTitle, HideContent, Loading, SafeImage } from '../../../../components';
+import { ContentWrapper, EntityTabs, EntityTitle, HideContent, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
+import { RouteInfo } from '../../../../routes/utils/RouteInfo';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+
+export const VISUAL_NOVELS_ROUTES_INFO: readonly RouteInfo[] = [
+  { name: 'Overview', path: '' },
+  { name: 'Releases', path: 'releases' },
+  { name: 'Characters', path: 'characters' },
+  { name: 'Relations', path: 'relations' },
+  { name: 'Media', path: 'media' },
+];
 
 /**
  * Visual novel page.
@@ -65,7 +73,7 @@ export const VisualNovelPage: FC = () => {
                 {description}
               </div>
             </div>
-            <VisualNovelTabs id={id} />
+            <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
           </header>
           <div>
             <Suspense fallback={<Loading isLoading />}>
