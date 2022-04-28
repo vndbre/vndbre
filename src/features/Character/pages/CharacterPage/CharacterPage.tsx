@@ -84,6 +84,7 @@ export const CharacterPage: VFC = () => {
           <meta name="og:image" content={character.image ?? undefined} />
           <meta name="og:image:width" content="1200" />
           <meta name="og:image:height" content="600" />
+          <meta name="og:title" content={character.name} />
         </Helmet>
       )}
       <ContentWrapper isLoading={isCharacterLoading} error={characterError}>

@@ -48,6 +48,7 @@ export const VisualNovelPage: FC = () => {
           <meta name="og:image" content={data.image ?? undefined} />
           <meta name="og:image:width" content="1200" />
           <meta name="og:image:height" content="600" />
+          <meta name="og:title" content={`${data.title}test`} />
         </Helmet>
       )}
       <ContentWrapper isLoading={isLoading} error={error}>
