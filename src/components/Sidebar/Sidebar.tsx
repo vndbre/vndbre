@@ -2,7 +2,7 @@ import React, { Fragment, ReactNode, VFC } from 'react';
 import { Heading, Link, IconButton, HStack, Box } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
-import { data, SidebarElementType, SidebarLinkElement } from './data';
+import { data, SidebarElementType, SidebarListItem } from './data';
 import { Icon } from '../Icon/Icon';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
  * @param element Sidebar link element.
  * @param index Element index.
  */
-const getLink = (element: SidebarLinkElement, index?: number): ReactNode => {
+const getLink = (element: SidebarListItem, index?: number): ReactNode => {
   if (element.isDisabled) {
     return (
       <Box
