@@ -1,8 +1,6 @@
 import React, { FC, Suspense, useMemo } from 'react';
-import { Button, ButtonGroup, IconButton, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
-
-import { Icon } from '../../../../components/Icon/Icon';
 import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
@@ -30,7 +28,7 @@ export const VisualNovelPage: FC = () => {
   const description = useMemo(() => {
     if (data?.description != null) {
       return (
-        <HideContent maxHeight={250}>
+        <HideContent maxHeight={180}>
           <BBCode text={data.description} />
         </HideContent>
       );
@@ -60,15 +58,6 @@ export const VisualNovelPage: FC = () => {
               <div className={cls.info}>
                 <div className={cls.heading}>
                   <EntityTitle title={data.title} originalTitle={data.originalName} />
-                </div>
-                <div className={cls.controls}>
-                  <ButtonGroup isAttached>
-                    <Button mr="-px">Add to list</Button>
-                    <IconButton aria-label="Add to list extended" icon={<Icon name="carbon:chevron-down" />} />
-                  </ButtonGroup>
-                  <IconButton aria-label="Star" icon={<Icon name="carbon:star" />} colorScheme="gray" />
-                  <IconButton aria-label="Edit" icon={<Icon name="carbon:edit" />} colorScheme="gray" />
-                  <IconButton aria-label="Report" icon={<Icon name="carbon:flag" />} colorScheme="gray" />
                 </div>
                 {description}
               </div>
