@@ -8,7 +8,7 @@ import React, {
   useState,
   VFC,
 } from 'react';
-import { Box, HStack } from '@chakra-ui/react';
+import { Box, HStack, useMediaQuery } from '@chakra-ui/react';
 import { TextButton } from '../TextButton/TextButton';
 import { assertNonNull } from '../../utils/assertNonNull';
 
@@ -46,11 +46,16 @@ const HideContentComponent: VFC<Props> = ({
   const [isHidden, setIsHidden] = useState(true);
   const [shouldButtonsBeRendered, setShouldButtonsBeRendered] = useState(true);
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
+  const [isScreenLargerThan768px, isScreenLargerThan1024px, isScreenLargerThan1368px] = useMediaQuery([
+    '(min-width: 768px)',
+    '(min-width: 1024px)',
+    '(min-width: 1368px)',
+  ]);
 
   useEffect(() => {
     assertNonNull(contentContainerRef.current);
     setShouldButtonsBeRendered(contentContainerRef.current.clientHeight >= maxHeight);
-  }, [maxHeight, children]);
+  }, [maxHeight, children, isScreenLargerThan768px, isScreenLargerThan1024px, isScreenLargerThan1368px]);
 
   const contentContainerMaxHeight = useMemo(
     () => {
