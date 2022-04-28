@@ -48,6 +48,7 @@ export const VisualNovelPage: FC = () => {
           <meta name="og:image:height" content="600" />
           <meta property="og:image:type" content="image/png" />
           <meta name="og:image" content={data.image ?? undefined} />
+          <meta data-vmid="twitter:card" name="twitter:card" content="summary_large_image" data-vue-meta="true" />
         </Helmet>
       )}
       <ContentWrapper isLoading={isLoading} error={error}>
