@@ -14,14 +14,16 @@ interface Props {
 /**
  * Gets link element.
  * @param element Sidebar link element.
- * @returns
+ * @param index Element index.
  */
-const getLink = (element: SidebarLinkElement): ReactNode => {
+const getLink = (element: SidebarLinkElement, index?: number): ReactNode => {
   if (element.isDisabled) {
     return (
       <Box
+        key={element.text + String(index)}
         pointerEvents="none"
         color="gray.400"
+        fontSize="sm"
       >
         {element.text}
       </Box>

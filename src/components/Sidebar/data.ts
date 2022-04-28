@@ -1,25 +1,10 @@
 /** SidebarElementType. */
 export enum SidebarElementType {
-  'Link' = 'link',
-  'Heading' = 'heading',
+  Link = 'link',
+  Heading = 'heading',
 }
 
-/**
- * SidebarLinkElement.
- */
-export type SidebarLinkElement = {
-
-  /** Type. */
-  readonly type: SidebarElementType.Link;
-
-  /** Text. */
-  readonly text: string;
-
-    /** Whether link is external. */
-    readonly isDisabled?: boolean;
-
-} & (
-  {
+interface SidebarListItemLink {
 
   /** Whether link is external. */
   readonly isDisabled?: false;
@@ -29,17 +14,31 @@ export type SidebarLinkElement = {
 
   /** Whether link is external. */
   readonly isExternal?: boolean;
-  } | {
+}
+
+interface SidebarListItemDisabled {
 
   /** Whether link is external. */
   readonly isDisabled: true;
-  }
-);
+}
 
 /**
- * SidebarHeadingElement.
+ * Sidebar list item.
  */
-export interface SidebarHeadingElement {
+export type SidebarListItem = {
+
+  /** Type. */
+  readonly type: SidebarElementType.Link;
+
+  /** Text. */
+  readonly text: string;
+
+} & (SidebarListItemDisabled | SidebarListItemLink);
+
+/**
+ * Sidebar heading.
+ */
+export interface SidebarHeading {
 
   /** Type. */
   readonly type: SidebarElementType.Heading;
@@ -48,10 +47,10 @@ export interface SidebarHeadingElement {
   readonly text: string;
 
   /** Items. */
-  readonly items: readonly SidebarLinkElement[];
+  readonly items: readonly SidebarListItem[];
 }
 
-export type SidebarElement = SidebarHeadingElement | SidebarLinkElement;
+export type SidebarElement = SidebarHeading | SidebarListItem;
 
 export const data: SidebarElement[] = [
   { type: SidebarElementType.Link, text: 'Random visual novel', isDisabled: true },
