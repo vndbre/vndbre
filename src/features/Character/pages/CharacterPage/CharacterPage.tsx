@@ -80,11 +80,10 @@ export const CharacterPage: VFC = () => {
       {character && (
         <Helmet>
           <title>{character.name}</title>
-          <meta name="og:image:width" content="1200" />
-          <meta name="og:image:height" content="600" />
           <meta property="og:image:type" content="image/png" />
           <meta name="og:image" content={character.image ?? undefined} />
-          <meta data-vmid="twitter:card" name="twitter:card" content="summary_large_image" data-vue-meta="true" />
+          <meta name="og:image:width" content="1200" />
+          <meta name="og:image:height" content="600" />
         </Helmet>
       )}
       <ContentWrapper isLoading={isCharacterLoading} error={characterError}>

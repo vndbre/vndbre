@@ -44,11 +44,10 @@ export const VisualNovelPage: FC = () => {
       {data != null && (
         <Helmet>
           <title>{data.title}</title>
-          <meta name="og:image:width" content="1200" />
-          <meta name="og:image:height" content="600" />
           <meta property="og:image:type" content="image/png" />
           <meta name="og:image" content={data.image ?? undefined} />
-          <meta data-vmid="twitter:card" name="twitter:card" content="summary_large_image" data-vue-meta="true" />
+          <meta name="og:image:width" content="1200" />
+          <meta name="og:image:height" content="600" />
         </Helmet>
       )}
       <ContentWrapper isLoading={isLoading} error={error}>
