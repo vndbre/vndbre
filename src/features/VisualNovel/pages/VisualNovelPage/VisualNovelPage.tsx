@@ -40,13 +40,19 @@ export const VisualNovelPage: FC = () => {
   }, [data?.description]);
 
   return (
-    <ContentWrapper isLoading={isLoading} error={error}>
-      {data && (
-        <>
-          <Helmet>
-            <title>{data.title}</title>
-            <meta name="og:image" content={data.image ?? undefined} />
-          </Helmet>
+    <>
+      {data != null && (
+        <Helmet>
+          <title>{data.title}</title>
+          <meta name="og:image:width" content="1200" />
+          <meta name="og:image:height" content="600" />
+          <meta property="og:image:type" content="image/png" />
+          <meta name="og:image" content={data.image ?? undefined} />
+        </Helmet>
+      )}
+      <ContentWrapper isLoading={isLoading} error={error}>
+        {data && (
+
           <div className={cls.page}>
             <header className={cls.header}>
               <div className={cls.overview}>
@@ -87,8 +93,8 @@ export const VisualNovelPage: FC = () => {
               </Suspense>
             </div>
           </div>
-        </>
-      )}
-    </ContentWrapper>
+        )}
+      </ContentWrapper>
+    </>
   );
 };
