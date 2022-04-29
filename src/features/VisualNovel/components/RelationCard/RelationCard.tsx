@@ -61,9 +61,11 @@ const RelationCardComponent: VFC<RelationCardProps> = ({
       <Flex direction="column" justify="space-between" h="full">
         <Box>
           {isOfficial === false && <Text as="span" fontSize="xs">Unofficial</Text>}
-          <Link as={NavLink} to={`/vn/${id}`}>
-            <Heading lineHeight="22px" as="h4" size="xs">{title}</Heading>
-          </Link>
+          <Heading lineHeight="22px" as="h4" size="xs">
+            <Link as={NavLink} to={`/vn/${id}`} variant="no-underline">
+              {title}
+            </Link>
+          </Heading>
         </Box>
         <Text fontSize="xs">{VisualNovelRelation.toReadable(relationType)}</Text>
       </Flex>

@@ -38,11 +38,11 @@ export const CharacterCardComponent: VFC<CharacterCardProps> = ({ character }) =
       />
       <div className={cls.container}>
         <div className={cls.info}>
-          <Link as={NavLink} to={`/character/${character.id}`}>
-            <Heading lineHeight="22px" as="h4" size="sm">
+          <Heading lineHeight="22px" as="h4" size="sm">
+            <Link as={NavLink} to={`/character/${character.id}`} variant="no-underline">
               {character.name}
-            </Heading>
-          </Link>
+            </Link>
+          </Heading>
         </div>
         {
           role && <Text fontSize="xs">{CharacterRole.toReadable(role)}</Text>

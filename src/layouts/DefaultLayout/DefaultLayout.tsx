@@ -24,6 +24,7 @@ export const DefaultLayout: VFC = () => {
     setTimeout(() => setSidebarClasses(['sidebar-visible']), 0);
     setTimeout(() => setSidebarClasses([]), 400);
   }, []);
+
   const hideSidebar = useCallback(() => {
     setSidebarClasses(['sidebar-visible']);
     setTimeout(() => setSidebarClasses(['sidebar-hidden']), 0);
