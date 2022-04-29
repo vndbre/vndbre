@@ -7,6 +7,7 @@ import { searchRoutes } from '../features/Search/routes';
 import { staffRoutes } from '../features/Staff/routes';
 import { visualNovelRoutes } from '../features/VisualNovel/routes';
 import { DefaultLayout } from '../layouts/DefaultLayout/DefaultLayout';
+import { NotFoundPage } from './pages';
 
 /**
  * Root router for app navigation.
@@ -25,6 +26,10 @@ const routes: RouteObject[] = [
          * TODO: change redirection path.
          */
         element: <Navigate to="/vn/7/" />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
       },
       ...visualNovelRoutes,
       ...characterRoutes,
