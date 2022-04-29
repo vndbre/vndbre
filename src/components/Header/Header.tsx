@@ -1,8 +1,7 @@
 import React, { VFC } from 'react';
-import { Box, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { Icon } from '../Icon/Icon';
 import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
-import cls from './Header.module.css';
 
 interface Props {
 
@@ -20,50 +19,61 @@ export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
-    <header className={cls.header}>
-      {isLogoVisible && (
-        <HStack justifyContent="space-between" alignItems="center">
-          <IconButton
-            onClick={onSidebarShow}
-            aria-label="Toggle sidebar"
-            variant="ghost"
-            colorScheme="gray"
-            icon={<Icon name="carbon:menu" />}
-          />
-          <Heading as="h2" size="md">vndbre</Heading>
-        </HStack>
-      )}
-      <Box className={cls.search}>
-        <Icon name="carbon:search" />
-        <span>Search</span>
-      </Box>
-      <Popover
-        placement="bottom"
-        matchWidth
-        gutter={36}
-        isOpen={isOpen}
-        onClose={onClose}
-        isLazy
+    <Box
+      as="header"
+      borderBottom="1px solid"
+      borderColor="gray.300"
+      h={16}
+      display="flex"
+      justifyContent="center"
+    >
+      <Box
+        maxW="var(--screen-max-width)"
+        w="full"
+        display="flex"
+        flexDir="row"
+        alignItems="center"
+        gap={4}
+        px={8}
       >
-        <PopoverTrigger>
-          <IconButton
-            aria-label="Toggle view settings"
-            icon={<Icon name="carbon:view" size={32} />}
-            onClick={onOpen}
-            colorScheme="gray"
-            variant="ghost"
-          />
-        </PopoverTrigger>
-        <PopoverContent w="max-content" borderRadius="lg">
-          <ViewSettingsForm />
-        </PopoverContent>
-      </Popover>
-      <Box className={cls.profile}>
-        <Icon name="carbon:user-avatar" size={32} />
-        <span>Profile</span>
+        {isLogoVisible && (
+          <HStack justifyContent="space-between" alignItems="center">
+            <IconButton
+              onClick={onSidebarShow}
+              aria-label="Toggle sidebar"
+              variant="ghost"
+              colorScheme="gray"
+              icon={<Icon name="carbon:menu" />}
+            />
+            <Heading as="h2" size="md">vndbre</Heading>
+          </HStack>
+        )}
+        <Popover
+          placement="bottom-end"
+          matchWidth
+          gutter={32}
+          isOpen={isOpen}
+          onClose={onClose}
+          isLazy
+        >
+          <Tooltip label="View settings">
+            <Box display="inline" ml="auto">
+              <PopoverTrigger>
+                <IconButton
+                  aria-label="Toggle view settings"
+                  icon={<Icon name="carbon:view" size={32} />}
+                  onClick={onOpen}
+                  colorScheme="gray"
+                  variant="ghost"
+                />
+              </PopoverTrigger>
+            </Box>
+          </Tooltip>
+          <PopoverContent w="max-content" borderRadius="lg">
+            <ViewSettingsForm />
+          </PopoverContent>
+        </Popover>
       </Box>
-      <Icon name="carbon:notification" size={32} />
-      <Icon name="carbon:add" size={36} />
-    </header>
+    </Box>
   );
 };

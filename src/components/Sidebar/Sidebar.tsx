@@ -1,8 +1,8 @@
-import React, { Fragment, VFC } from 'react';
+import React, { Fragment, ReactNode, VFC } from 'react';
 import { Heading, Link, IconButton, HStack, Box } from '@chakra-ui/react';
-import { NavLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import cls from './Sidebar.module.css';
-import { data, SidebarElementType } from './data';
+import { data, SidebarElementType, SidebarListItem } from './data';
 import { Icon } from '../Icon/Icon';
 
 interface Props {
@@ -10,6 +10,54 @@ interface Props {
   /** Callback to run when the sidebar should hide. */
   readonly onSidebarHide: () => void;
 }
+
+/**
+ * Gets link element.
+ * @param element Sidebar link element.
+ * @param index Element index.
+ */
+const getLink = (element: SidebarListItem, index?: number): ReactNode => {
+  if (element.isDisabled) {
+    return (
+      <Box
+        key={element.text + String(index)}
+        pointerEvents="none"
+        color="gray.400"
+        fontSize="sm"
+      >
+        {element.text}
+      </Box>
+    );
+  }
+
+  const linkProps = {
+    key: element.link + element.text,
+    variant: 'no-underline',
+    className: cls.link,
+  };
+
+  if (element.isExternal) {
+    return (
+      <Link
+        {...linkProps}
+        href={element.link}
+        target="_blank"
+      >
+        {element.text}
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      {...linkProps}
+      as={RouterLink}
+      to={element.link}
+    >
+      {element.text}
+    </Link>
+  );
+};
 
 /**
  * Sidebar.
@@ -33,32 +81,12 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => (
             return (
               <Fragment key={el.text + el.type}>
                 <Heading as="h3" size="sm" className={cls.heading}>{el.text}</Heading>
-                {el.items.map(_el => (
-                  <Link
-                    key={_el.link + _el.text}
-                    as={NavLink}
-                    to={_el.link}
-                    variant="no-underline"
-                    className={cls.link}
-                  >
-                    {_el.text}
-                  </Link>
-                ))}
+                {el.items.map(getLink)}
               </Fragment>
             );
           }
           case SidebarElementType.Link: {
-            return (
-              <Link
-                key={el.link + el.text}
-                as={NavLink}
-                to={el.link}
-                variant="no-underline"
-                className={cls.link}
-              >
-                {el.text}
-              </Link>
-            );
+            return getLink(el);
           }
           default: {
             return null;
