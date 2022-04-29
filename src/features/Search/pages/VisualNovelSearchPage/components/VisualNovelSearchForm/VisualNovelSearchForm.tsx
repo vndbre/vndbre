@@ -10,12 +10,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { Language } from '../../../../models/language';
-import { Platform } from '../../../../models/platform';
-import { MultiSelect, RangeSlider, TextInput } from '../../../../components';
-import { Icon } from '../../../../components/Icon/Icon';
-import { debounce } from '../../../../utils/debounce';
-import { mapLanguageToSelectOption, mapPlatformToSelectOption, SelectOption } from '../../../../utils/selectOption';
+import { Language } from '../../../../../../models/language';
+import { Platform } from '../../../../../../models/platform';
+import { MultiSelect, RangeSlider, TextInput } from '../../../../../../components';
+import { Icon } from '../../../../../../components/Icon/Icon';
+import { debounce } from '../../../../../../utils/debounce';
+import { mapLanguageToSelectOption, mapPlatformToSelectOption, SelectOption } from '../../../../../../utils/selectOption';
 
 /** Visual novel search form data. */
 export interface VisualNovelFormData {

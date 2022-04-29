@@ -5,10 +5,10 @@ import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ChakraProvider } from '@chakra-ui/react';
 import { SettingsProvider } from './providers';
-import { App } from './App';
 import { queryClient } from './api';
-
+import { App } from './App';
 import { theme } from './theme';
+
 import 'focus-visible/dist/focus-visible';
 import './theme/css/base.css';
 import './theme/css/utilities.css';

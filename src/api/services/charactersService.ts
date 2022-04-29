@@ -6,6 +6,18 @@ import { CharacterDto } from '../dtos/characterDto';
 import { PaginationService } from './paginationService';
 import { CharacterMapper } from '../mappers/characterMapper';
 import { PaginationMapper } from '../mappers/paginationMapper';
+import { Pagination } from '../../models/pagination';
+import { PaginationOptions } from '../../models/paginationOptions';
+import { CharacterFilter, CharacterFlag, VNDBService } from './vndbService';
+
+/** Search options for characters. */
+export interface CharacterSearchOptions extends PaginationOptions {
+
+  /** Search query. */
+  readonly search?: string;
+}
+
+const DEFAULT_CHARACTER_FLAGS: CharacterFlag[] = ['basic', 'details', 'meas', 'voiced', 'traits', 'vns'];
 
 /**
  * Fetches vn characters with given id and page.
@@ -16,13 +28,17 @@ import { PaginationMapper } from '../mappers/paginationMapper';
 async function fetchCharactersPaginatedByVnId(vnId: VisualNovel['id'], page: number): Promise<PaginationDto<CharacterDto>> {
   const { data } = await http.post<PaginationDto<CharacterDto>>(
     ApiProxyEndpoints.VNDB,
-    `get character basic,details,meas,voiced,traits,vns (vn = ${vnId}) {"results": 25, "page": ${page}}`,
+    VNDBService.createVNDBGetQuery({
+      type: 'character',
+      flags: DEFAULT_CHARACTER_FLAGS,
+      filters: [['vn', '=', vnId]],
+      pagination: { page, pageSize: 25 },
+    }),
   );
   return data;
 }
 
 /**
- * TODO: (Maximov T.) Add extendable query for searching like in `visualNovelService`.
  * Characters service.
  */
 export namespace CharactersService {
@@ -42,8 +58,32 @@ export namespace CharactersService {
   export async function fetchCharacterById(id: Character['id']): Promise<Character> {
     const { data } = await http.post<PaginationDto<CharacterDto>>(
       ApiProxyEndpoints.VNDB,
-      `get character basic,details,meas,instances,voiced,traits,vns (id = ${id})`,
+      VNDBService.createVNDBGetQuery({
+        type: 'character',
+        flags: DEFAULT_CHARACTER_FLAGS,
+        filters: [['id', '=', id]],
+      }),
     );
     return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto).items[0];
+  }
+
+  /**
+   * Gets a page of characters.
+   * @param options Options.
+   */
+  export async function fetchPaginatedCharacters(options: CharacterSearchOptions): Promise<Pagination<Character>> {
+    const characterFilters: CharacterFilter[] = [['search', '~', options.search ?? '']];
+
+    const { data } = await http.post<PaginationDto<CharacterDto>>(
+      ApiProxyEndpoints.VNDB,
+      VNDBService.createVNDBGetQuery({
+        type: 'character',
+        flags: DEFAULT_CHARACTER_FLAGS,
+        filters: characterFilters,
+        pagination: options,
+      }),
+    );
+
+    return PaginationMapper.mapPaginationFromDto(data, CharacterMapper.fromDto);
   }
 }

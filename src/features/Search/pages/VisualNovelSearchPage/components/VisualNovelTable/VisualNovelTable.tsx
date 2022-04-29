@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
+import { VisualNovel } from '../../../../../../models/visualNovels/visualNovel';
 import { VisualNovelTableRow } from './VisualNovelTableRow';
 
 interface Props {

@@ -1,14 +1,15 @@
 import React, { memo, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
-import { VisualNovel } from '../../../../models/visualNovels/visualNovel';
-import { CoverCardSkeleton } from '../CoverCard/CoverCardSkeleton';
-import { CoverCard } from '../CoverCard/CoverCard';
+import { VisualNovel } from '../../../../../../models/visualNovels/visualNovel';
+import { CoverCardSkeleton } from '../../../../components/CoverCard/CoverCardSkeleton';
+import { VisualNovelCoverCard } from '../VisualNovelCoverCard/VisualNovelCoverCard';
 import { VisualNovelTable } from '../VisualNovelTable/VisualNovelTable';
 import { VisualNovelTableSkeleton } from '../VisualNovelTable/VisualNovelTableSkeleton';
-import { WideCard } from '../WideCard/WideCard';
-import { WideCardSkeleton } from '../WideCard/WideCardSkeleton';
-import { ExtendedCard } from '../ExtendedCard/ExtendedCard';
-import { ExtendedCardSkeleton } from '../ExtendedCard/ExtendedCardSkeleton';
+import { WideCard } from '../../../../components/WideCard/WideCard';
+import { WideCardSkeleton } from '../../../../components/WideCard/WideCardSkeleton';
+import { ExtendedCard } from '../../../../components/ExtendedCard/ExtendedCard';
+import { ExtendedCardSkeleton } from '../../../../components/ExtendedCard/ExtendedCardSkeleton';
+import { checkImageNsfw } from '../../../../../../utils/checkImageNsfw';
 
 export type VisualNovelListVariant = 'table' | 'cards' | 'wide-cards' | 'extended-cards';
 
@@ -48,7 +49,7 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
           // eslint-disable-next-line react/no-array-index-key
           <CoverCardSkeleton key={index} />
         ))}
-        {items.map(vn => <CoverCard key={vn.id} vn={vn} />)}
+        {items.map(vn => <VisualNovelCoverCard key={vn.id} vn={vn} isImageNsfw={checkImageNsfw(vn)} />)}
       </Box>
     );
   }
@@ -64,7 +65,7 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
           // eslint-disable-next-line react/no-array-index-key
           <WideCardSkeleton key={index} />
         ))}
-        {items.map(vn => <WideCard key={vn.id} vn={vn} />)}
+        {items.map(vn => <WideCard key={vn.id} vn={vn} isImageNsfw={checkImageNsfw(vn)} />)}
       </Box>
     );
   }
@@ -80,7 +81,7 @@ const VisualNovelListComponent: VFC<Props> = ({ variant, isLoading, items = [] }
           // eslint-disable-next-line react/no-array-index-key
           <ExtendedCardSkeleton key={index} />
         ))}
-        {items.map(vn => <ExtendedCard key={vn.id} vn={vn} />)}
+        {items.map(vn => <ExtendedCard key={vn.id} vn={vn} isImageNsfw={checkImageNsfw(vn)} />)}
       </Box>
     );
   }

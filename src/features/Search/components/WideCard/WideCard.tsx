@@ -13,6 +13,9 @@ interface Props {
 
   /** Visual novel data. */
   readonly vn: VisualNovel;
+
+  /** Whether image is nsfw. */
+  readonly isImageNsfw: boolean;
 }
 
 /** Wide card. */
@@ -26,8 +29,8 @@ const WideCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
-    isImageNsfw,
   },
+  isImageNsfw,
 }) => (
   <Link
     as={RouterLink}

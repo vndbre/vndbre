@@ -69,6 +69,14 @@ export const data: SidebarElement[] = [
   },
   {
     type: SidebarElementType.Heading,
+    text: 'Community',
+    items: [
+      { type: SidebarElementType.Link, text: 'Users', isDisabled: true },
+      { type: SidebarElementType.Link, text: 'Discussions', isDisabled: true },
+    ],
+  },
+  {
+    type: SidebarElementType.Heading,
     text: 'vndb',
     items: [
       { type: SidebarElementType.Link, text: 'Home', link: 'https://vndb.org/', isExternal: true },

@@ -3,12 +3,13 @@ import { Box } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
-import { VisualNovelFormData } from '../../components/VisualNovelSearchForm/VisualNovelSearchForm';
-import { VisualNovelList, VisualNovelListVariant } from '../../components/VisualNovelList/VisualNovelList';
-import { VisualNovelListOptions } from '../../components/VisualNovelListOptions/VisualNovelListOptions';
+import { VisualNovelFormData } from './components/VisualNovelSearchForm/VisualNovelSearchForm';
+import { VisualNovelList, VisualNovelListVariant } from './components/VisualNovelList/VisualNovelList';
+import { VisualNovelListOptions } from './components/VisualNovelListOptions/VisualNovelListOptions';
 
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
+import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -16,36 +17,40 @@ type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 
  * Maps visual novel form data to search options.
  * @param formData Form data.
  */
-const mapFormDataToOptions = (formData: VisualNovelFormData): VisualNovelFormDataSearchOptions => ({
-  search: formData.title,
-  releasedRange: {
-    startDate: new Date(String(formData.releaseYearRange[0])),
-    endDate: new Date(String(formData.releaseYearRange[1])),
-  },
-  languages: formData.languages.map(language => language.value),
-  originalLanguages: formData.originalLanguages.map(language => language.value),
-  platforms: formData.platforms.map(language => language.value),
-});
+function mapFormDataToOptions(formData: VisualNovelFormData): VisualNovelFormDataSearchOptions {
+  return {
+    search: formData.title,
+    releasedRange: {
+      startDate: new Date(String(formData.releaseYearRange[0])),
+      endDate: new Date(String(formData.releaseYearRange[1])),
+    },
+    languages: formData.languages.map(language => language.value),
+    originalLanguages: formData.originalLanguages.map(language => language.value),
+    platforms: formData.platforms.map(language => language.value),
+  };
+}
 
 /**
  * Maps visual novel search options to form data representation.
  * @param options Options.
  */
-const mapOptionsToFormData = (options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> => ({
-  ...(options.search == null ? null : { title: options.search }),
-  ...(options.releasedRange == null ? null : {
-    releaseYearRange: options.releasedRange.startDate == null || options.releasedRange.endDate == null ?
-      undefined :
-      [options.releasedRange.startDate.getFullYear(), options.releasedRange.endDate.getFullYear()],
-  }),
-  ...(options.languages == null ? null : { languages: options.languages.map(mapLanguageToSelectOption) }),
-  ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(mapLanguageToSelectOption) }),
-  ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
-});
+function mapOptionsToFormData(options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> {
+  return {
+    ...(options.search == null ? null : { title: options.search }),
+    ...(options.releasedRange == null ? null : {
+      releaseYearRange: options.releasedRange.startDate == null || options.releasedRange.endDate == null ?
+        undefined :
+        [options.releasedRange.startDate.getFullYear(), options.releasedRange.endDate.getFullYear()],
+    }),
+    ...(options.languages == null ? null : { languages: options.languages.map(mapLanguageToSelectOption) }),
+    ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(mapLanguageToSelectOption) }),
+    ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
+  };
+}
 
-const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
+const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
   page: 1,
-  pageSize: 20,
+  pageSize: 18,
   releasedRange: {
     startDate: new Date('1990'),
     endDate: new Date(),
@@ -54,7 +59,15 @@ const PREVIEW_PAGINATION_DEFAULTS: VisualNovelSearchOptions = {
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
-  const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(PREVIEW_PAGINATION_DEFAULTS);
+  const [queryParams, setQueryParams] = useVisualNovelQueryParams();
+
+  const defaultSearchOptions: VisualNovelSearchOptions = useMemo(() => ({
+    ...DEFAULT_PAGINATION_OPTIONS,
+    ...queryParams,
+  }), []);
+
+  const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
+  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery(searchOptions);
 
   const handlePaginatorChange = useCallback((newPage: number) => {
@@ -62,20 +75,28 @@ export const VisualNovelSearchPage: VFC = () => {
       ...prev,
       page: newPage,
     }));
-  }, []);
+
+    setQueryParams({
+      ...searchOptions,
+      page: newPage,
+    });
+  }, [searchOptions]);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
+    const options = mapFormDataToOptions(data);
+
     setSearchOptions(prev => ({
       ...prev,
-      ...mapFormDataToOptions(data),
+      ...options,
       page: 1,
     }));
+
+    setQueryParams({ ...options, page: 1 });
   }, []);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
-  const formDefaultValue = useMemo(() => mapOptionsToFormData(PREVIEW_PAGINATION_DEFAULTS), []);
-  const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('extended-cards');
+  const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
 
   return (
     <Box
@@ -85,7 +106,7 @@ export const VisualNovelSearchPage: VFC = () => {
       gap={8}
     >
       <VisualNovelSearchForm
-        defaultFormValues={formDefaultValue}
+        defaultFormValues={defaultFormValues}
         onSubmit={handleSearchSubmit}
       />
 

@@ -13,6 +13,9 @@ interface Props {
 
   /** Visual novel. */
   readonly vn: VisualNovel;
+
+  /** Whether image is nsfw. */
+  readonly isImageNsfw: boolean;
 }
 
 /** Cover card. */
@@ -26,8 +29,8 @@ const ExtendedCardComponent: VFC<Props> = ({
     length,
     platforms,
     languages,
-    isImageNsfw,
   },
+  isImageNsfw,
 }) => (
   <Box
     display="flex"

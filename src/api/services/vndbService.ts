@@ -16,6 +16,8 @@ export type VisualNovelSortField = 'id' | 'title' | 'released' | 'popularity' | 
 export type CharacterFlag = 'character' | 'basic' | 'details' | 'meas' | 'voiced' | 'traits' | 'vns';
 export type CharacterFilter =
   readonly ['search', '~', string] |
+  readonly ['id', '=' | '!=' | '>' | '>=' | '<' | '<=', number] |
+  readonly ['vn', '=', number] |
   readonly ['traits', '=' | '!=', readonly string[]];
 export type CharacterSortField = 'id' | 'name';
 
