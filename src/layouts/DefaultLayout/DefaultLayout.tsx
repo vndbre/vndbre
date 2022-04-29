@@ -15,7 +15,7 @@ export const DefaultLayout: VFC = () => {
   const [isSidebarVisible, setSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
 
   const [sidebarClasses, setSidebarClasses] = useState<string[]>([]);
-  const [containerClasses, setContainerClasses] = useState<string[]>([]);
+  const [containerClasses, setContainerClasses] = useState<string[]>(isSidebarVisible ? ['with-sidebar'] : []);
 
   const showSidebar = useCallback(() => {
     setSidebarClasses(['sidebar-hidden']);
