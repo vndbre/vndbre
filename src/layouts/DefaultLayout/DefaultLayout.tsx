@@ -19,17 +19,19 @@ export const DefaultLayout: VFC = () => {
 
   const showSidebar = useCallback(() => {
     setSidebarClasses(['sidebar-hidden']);
+    setContainerClasses(['with-sidebar']);
     setSidebarVisibility(true);
     setTimeout(() => setSidebarClasses(['sidebar-visible']), 0);
-    setTimeout(() => setSidebarClasses([]), 300);
+    setTimeout(() => setSidebarClasses([]), 400);
   }, []);
   const hideSidebar = useCallback(() => {
     setSidebarClasses(['sidebar-visible']);
     setTimeout(() => setSidebarClasses(['sidebar-hidden']), 0);
+    setContainerClasses([]);
     setTimeout(() => {
       setSidebarVisibility(false);
       setSidebarClasses([]);
-    }, 300);
+    }, 400);
   }, []);
 
   return (
@@ -41,8 +43,7 @@ export const DefaultLayout: VFC = () => {
       )}
       <Box className={`
         ${cls.container}
-        ${isSidebarVisible ? cls['with-sidebar'] : ''}
-        ${[sidebarClasses.map(className => cls[className])].join(' ')}
+        ${[containerClasses.map(className => cls[className])].join(' ')}
       `}
       >
         <Header isLogoVisible={!isSidebarVisible} onSidebarShow={showSidebar} />
