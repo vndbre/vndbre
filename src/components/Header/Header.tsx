@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import { Box, Fade, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, Tooltip, useDisclosure } from '@chakra-ui/react';
 import { Icon } from '../Icon/Icon';
 import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
@@ -13,9 +13,9 @@ interface Props {
 }
 
 /**
- * TODO: Implement header functionality.
+ * App header.
  */
-export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
+export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
@@ -77,3 +77,5 @@ export const Header: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
     </Box>
   );
 };
+
+export const Header = memo(HeaderComponent);
