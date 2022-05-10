@@ -1,11 +1,13 @@
 import React, { VFC } from 'react';
-import { Button, Heading, Link, VStack, Text } from '@chakra-ui/react';
+import { Button, Heading, Link, VStack, Text, Box } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router';
 import { PasswordInput, TextInput } from '../../../../components';
 import { AuthData } from '../../../../models/authData';
 import { Validators } from '../../../../utils/validators';
+import { useAuthContext } from '../../../../providers';
 import cls from './LoginPage.module.css';
 
 const loginFormInitialValues: AuthData.Login = {
@@ -24,13 +26,18 @@ export const LoginPage: VFC = () => {
     control,
     handleSubmit,
   } = useForm({ defaultValues: loginFormInitialValues, resolver: yupResolver(validationSchema) });
+  const { login } = useAuthContext();
+  const navigate = useNavigate();
 
   /**
    * Handles submission of the login form.
    * @param data Form data.
    */
-  const handleFormSubmit = (data: AuthData.Login): void => {
-    console.log(data);
+  const handleFormSubmit = async(data: AuthData.Login): Promise<void> => {
+    await login(data);
+
+    /** TODO (Panov A.): Change destination URL to user profile when it's implemented. */
+    navigate('/');
   };
 
   return (
@@ -46,11 +53,24 @@ export const LoginPage: VFC = () => {
             name="username"
             label="Username"
           />
-          <PasswordInput
-            control={control}
-            name="password"
-            label="Password"
-          />
+
+          <Box display="grid" gap={2} width="100%">
+            <PasswordInput
+              control={control}
+              name="password"
+              label="Password"
+            />
+
+            <Link
+              variant="no-underline"
+              href="https://vndb.org/u/newpass"
+              target="_blank"
+              color="var(--color-link)"
+            >
+              Forgot password?
+            </Link>
+          </Box>
+
           <Button type="submit" width="100%">Continue</Button>
         </VStack>
       </form>

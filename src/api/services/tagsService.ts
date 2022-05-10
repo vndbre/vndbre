@@ -1,5 +1,6 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { Tag } from '../../models/tag';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { TagDto } from '../dtos/tagDto';
 import { tagFromDto } from '../mappers/tagMapper';
 

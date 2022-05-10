@@ -1,8 +1,9 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { ExtendedTrait } from '../../models/extendedTrait';
 import { RootTraitName } from '../../models/rootTraitName';
 import { Trait } from '../../models/trait';
 import { TraitsWithRoots } from '../../models/traitsWithRoots';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { TraitDto } from '../dtos/traitDto';
 import { TraitMapper } from '../mappers/traitMapper';
 

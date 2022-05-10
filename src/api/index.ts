@@ -1,6 +1,7 @@
 import { QueryClient } from 'react-query';
 import axios, { AxiosInstance } from 'axios';
 import { defaultFetchStrategy, defaultStaleTime } from './globalConfig';
+import { authInterceptor } from './interceptors/authInterceptor';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,19 +12,9 @@ export const queryClient = new QueryClient({
   },
 });
 
-/**
- * Configured axios instance.
- */
+/** Configured axios instance. */
 export const http: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_VNDBRE_PROXY_BASEURL,
 });
 
-/**
- * Api proxy endpoints.
- */
-export enum ApiProxyEndpoints {
-  VNDB = 'vndb',
-  Tags = 'tags',
-  Traits = 'traits',
-  Login = 'login',
-}
+http.interceptors.request.use(authInterceptor);

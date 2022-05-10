@@ -1,7 +1,21 @@
-import React, { memo, VFC } from 'react';
-import { Box, Fade, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, Tooltip, useDisclosure } from '@chakra-ui/react';
+import React, { memo, useCallback, VFC } from 'react';
+import {
+  Box,
+  Button,
+  Fade,
+  Heading,
+  HStack,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Icon } from '../Icon/Icon';
 import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
+import { useAuthContext } from '../../providers';
 
 interface Props {
 
@@ -12,11 +26,14 @@ interface Props {
   readonly onSidebarShow: () => void;
 }
 
-/**
- * App header.
- */
+/** App header. */
 export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { username, isLoggedIn, logout } = useAuthContext();
+
+  const handleLogoutButtonClick = useCallback(async() => {
+    await logout();
+  }, []);
 
   return (
     <Box
@@ -73,6 +90,11 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
             <ViewSettingsForm />
           </PopoverContent>
         </Popover>
+
+        {isLoggedIn ?
+          <Button variant="ghost" colorScheme="gray" onClick={handleLogoutButtonClick}>Log Out</Button> :
+          <Button as={RouterLink} variant="ghost" colorScheme="gray" to="/auth/login">Log In</Button>}
+        {username}
       </Box>
     </Box>
   );

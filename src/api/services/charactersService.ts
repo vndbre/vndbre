@@ -1,5 +1,5 @@
 import { VisualNovel } from '../../models/visualNovels/visualNovel';
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { Character } from '../../models/characters/character';
 import { PaginationDto } from '../dtos/paginationDto';
 import { CharacterDto } from '../dtos/characterDto';
@@ -9,6 +9,7 @@ import { PaginationMapper } from '../mappers/paginationMapper';
 import { Pagination } from '../../models/pagination';
 import { PaginationOptions } from '../../models/paginationOptions';
 import { CharacterFilter, CharacterFlag, VNDBService } from './vndbService';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 
 /** Search options for characters. */
 export interface CharacterSearchOptions extends PaginationOptions {

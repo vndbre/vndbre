@@ -1,5 +1,6 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { AuthData } from '../../models/authData';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { AuthDto } from '../dtos/authDto';
 import { LoginDataMapper } from '../mappers/loginDataMapper';
 
@@ -16,5 +17,10 @@ export namespace AuthService {
     );
 
     return { token: data.sessiontoken };
+  }
+
+  /** Logs the user out. */
+  export async function logout(): Promise<void> {
+    await http.post<void>(ApiProxyEndpoints.Logout);
   }
 }
