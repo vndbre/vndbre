@@ -54,13 +54,11 @@ export const AuthProvider: VFC<{ readonly children: ReactNode; }> = ({ children 
   }, []);
 
   const logout = useCallback(async() => {
-    if (username != null && token != null) {
-      await AuthService.logout();
-      LocalStorageService.remove(KEY_USERNAME);
-      LocalStorageService.remove(KEY_TOKEN);
-      setUsername(null);
-      setToken(null);
-    }
+    await AuthService.logout();
+    LocalStorageService.remove(KEY_USERNAME);
+    LocalStorageService.remove(KEY_TOKEN);
+    setUsername(null);
+    setToken(null);
   }, []);
 
   const value = useMemo(() => ({
