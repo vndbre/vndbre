@@ -1,6 +1,7 @@
 import React, { VFC } from 'react';
 import { RouteObject, useRoutes } from 'react-router';
 import { Navigate } from 'react-router-dom';
+import { authRoutes } from '../features/Auth/routes';
 import { characterRoutes } from '../features/Character/routes';
 import { producerRoutes } from '../features/Producer/routes';
 import { searchRoutes } from '../features/Search/routes';
@@ -36,6 +37,7 @@ const routes: RouteObject[] = [
       ...searchRoutes,
       ...staffRoutes,
       ...producerRoutes,
+      ...authRoutes,
     ],
   },
 ];

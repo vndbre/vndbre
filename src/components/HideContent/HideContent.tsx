@@ -46,16 +46,29 @@ const HideContentComponent: VFC<Props> = ({
   const [isHidden, setIsHidden] = useState(true);
   const [shouldButtonsBeRendered, setShouldButtonsBeRendered] = useState(true);
   const contentContainerRef = useRef<HTMLDivElement | null>(null);
-  const [isScreenLargerThan768px, isScreenLargerThan1024px, isScreenLargerThan1368px] = useMediaQuery([
+  const [
+    isScreenLargerThan768px,
+    isScreenLargerThan1024px,
+    isScreenLargerThan1368px,
+    isScreenLargerThan1650px,
+  ] = useMediaQuery([
     '(min-width: 768px)',
     '(min-width: 1024px)',
     '(min-width: 1368px)',
+    '(min-width: 1650px)',
   ]);
 
   useEffect(() => {
     assertNonNull(contentContainerRef.current);
     setShouldButtonsBeRendered(contentContainerRef.current.clientHeight >= maxHeight);
-  }, [maxHeight, children, isScreenLargerThan768px, isScreenLargerThan1024px, isScreenLargerThan1368px]);
+  }, [
+    maxHeight,
+    children,
+    isScreenLargerThan768px,
+    isScreenLargerThan1024px,
+    isScreenLargerThan1368px,
+    isScreenLargerThan1650px,
+  ]);
 
   const contentContainerMaxHeight = useMemo(
     () => {

@@ -61,7 +61,7 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
               <PopoverTrigger>
                 <IconButton
                   aria-label="Toggle view settings"
-                  icon={<Icon name="carbon:view" size={32} />}
+                  icon={<Icon name="carbon:settings-view" size={32} />}
                   onClick={onOpen}
                   colorScheme="gray"
                   variant="ghost"
