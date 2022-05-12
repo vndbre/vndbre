@@ -6,17 +6,23 @@ const toast = createStandaloneToast({ theme });
 const DEFAULT_MESSAGE_DURATION_IN_MILLISECONDS = 5000;
 
 interface ToastConfig {
-  title?: string;
-  position?: 'top' | 'bottom';
-  duration?: number;
+
+  /** Title. */
+  readonly title?: string;
+
+  /** Toast position on the screen. */
+  readonly position?: 'top' | 'bottom';
+
+  /** Toast duration in milliseconds. */
+  readonly duration?: number;
 }
 
 export namespace Toast {
 
   /**
-   *
-   * @param message
-   * @param config
+   * Shows error message.
+   * @param message Message to display.
+   * @param config Config to customize toast.
    */
   export function showErrorMessage(message: string, config?: ToastConfig): void {
     toast({
