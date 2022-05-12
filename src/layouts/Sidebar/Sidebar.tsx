@@ -1,9 +1,9 @@
 import React, { Fragment, ReactNode, VFC } from 'react';
 import { Heading, Link, IconButton, HStack, Box } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import cls from './Sidebar.module.css';
 import { data, SidebarElementType, SidebarListItem } from './data';
-import { Icon } from '../Icon/Icon';
+import { Icon } from '../../components/Icon/Icon';
+import cls from './Sidebar.module.css';
 
 interface Props {
 
@@ -59,9 +59,7 @@ const getLink = (element: SidebarListItem, index?: number): ReactNode => {
   );
 };
 
-/**
- * Sidebar.
- */
+/** Sidebar. */
 export const Sidebar: VFC<Props> = ({ onSidebarHide }) => (
   <aside className={cls.sidebar}>
     <HStack className={cls.logo} justifyContent="space-between" alignItems="center" flexShrink={0} height={16}>

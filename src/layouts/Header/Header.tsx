@@ -13,9 +13,9 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Icon } from '../Icon/Icon';
-import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
 import { useAuthContext } from '../../providers';
+import { ViewSettingsForm } from '../../components';
+import { Icon } from '../../components/Icon/Icon';
 
 interface Props {
 
@@ -26,7 +26,7 @@ interface Props {
   readonly onSidebarShow: () => void;
 }
 
-/** App header. */
+/** Header. */
 export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { username, isLoggedIn, logout } = useAuthContext();
