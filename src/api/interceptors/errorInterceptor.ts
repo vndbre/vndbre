@@ -25,9 +25,21 @@ interface ApiError {
  * Type guard for API errors.
  * @param error Error.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function isApiError(error: any): error is ApiError {
-  return typeof error === 'object' && error?.response?.data?.data?.msg && error?.response?.status;
+function isApiError(error: unknown): error is ApiError {
+  if (typeof error !== 'object') {
+    return false;
+  }
+
+  const response = (error as Partial<ApiError>)?.response;
+  return response?.data?.data?.msg != null && response?.status != null;
+}
+
+/**
+ * Type guard for `Error` objects.
+ * @param error Error.
+ */
+function isError(error: unknown): error is Error {
+  return typeof error === 'object' && error != null && 'message' in error;
 }
 
 /**
@@ -39,5 +51,5 @@ export function errorInterceptor(error: unknown): void {
     throw new AppError(error.response.data.data.msg, error.response.status);
   }
 
-  throw new AppError((error as Error).message);
+  throw new AppError(isError(error) ? error.message : 'Unknown Error!');
 }

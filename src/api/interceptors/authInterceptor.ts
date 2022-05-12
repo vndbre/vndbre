@@ -7,7 +7,7 @@ const authenticationRequiredEndpoints = [ApiProxyEndpoints.Logout];
 
 /**
  * Checks if a request should be intercepted.
- * @param config - Request config.
+ * @param config Request config.
  */
 function shouldInterceptToken(config: AxiosRequestConfig): boolean {
   return config.url != null && authenticationRequiredEndpoints.includes(config.url as ApiProxyEndpoints);
@@ -29,12 +29,10 @@ export function authInterceptor(config: AxiosRequestConfig): AxiosRequestConfig 
     return config;
   }
 
-  const { headers } = config;
-
   return {
     ...config,
     headers: {
-      ...headers,
+      ...config.headers,
       username,
       sessiontoken: token,
     },
