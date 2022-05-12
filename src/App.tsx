@@ -1,9 +1,7 @@
 import React, { VFC } from 'react';
 import { RootRouter } from './routes/RootRouter';
 
-/**
- * TODO: add comments.
- */
+/** Root component of the application. */
 export const App: VFC = () => (
   <RootRouter />
 );
