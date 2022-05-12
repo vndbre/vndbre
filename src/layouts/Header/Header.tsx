@@ -100,8 +100,16 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
           </PopoverContent>
         </Popover>
 
-        {isLoggedIn ?
-          <Button variant="ghost" colorScheme="gray" onClick={handleLogoutButtonClick}>Log Out</Button> :
+        {isLoggedIn ? (
+          <Button
+            variant="ghost"
+            colorScheme="gray"
+            onClick={handleLogoutButtonClick}
+            isLoading={logoutMutation.isLoading}
+          >
+            Log Out
+          </Button>
+        ) :
           <Button as={RouterLink} variant="ghost" colorScheme="gray" to="/auth/login">Log In</Button>}
         {username}
       </Box>

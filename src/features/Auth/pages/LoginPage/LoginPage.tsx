@@ -73,7 +73,13 @@ export const LoginPage: VFC = () => {
             </Link>
           </Box>
 
-          <Button type="submit" width="100%">Continue</Button>
+          <Button
+            type="submit"
+            width="100%"
+            isLoading={loginMutation.isLoading}
+          >
+            Continue
+          </Button>
         </VStack>
       </form>
 
