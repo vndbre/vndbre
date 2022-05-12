@@ -10,7 +10,7 @@ import cls from './DefaultLayout.module.css';
 
 /** Default layout with sidebar and header. */
 export const DefaultLayout: VFC = () => {
-  const [isSidebarVisible, setSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
+  const { value: isSidebarVisible, setValue: setSidebarVisibility } = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
 
   const [sidebarClasses, setSidebarClasses] = useState<string[]>([]);
   const [containerClasses, setContainerClasses] = useState<string[]>(isSidebarVisible ? ['with-sidebar'] : []);

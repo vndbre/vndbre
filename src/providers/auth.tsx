@@ -1,6 +1,7 @@
-import React, { VFC, useState, createContext, ReactNode, useCallback, useMemo, useContext } from 'react';
+import React, { VFC, createContext, ReactNode, useCallback, useMemo, useContext } from 'react';
 import { AuthService } from '../api/services/authService';
 import { LocalStorageService } from '../api/services/localStorageService';
+import { useLocalStorage } from '../hooks';
 import { AuthData } from '../models/authData';
 import { assertNonNull } from '../utils/assertNonNull';
 import { KEY_TOKEN, KEY_USERNAME } from '../utils/localStorageKeys';
@@ -41,23 +42,23 @@ const authContext = createContext(authContextInitialData);
 
 /** Auth provider. */
 export const AuthProvider: VFC<{ readonly children: ReactNode; }> = ({ children }) => {
-  const [username, setUsername] = useState<string | null>(authContextInitialData.username);
-  const [token, setToken] = useState<string | null>(authContextInitialData.token);
+  const { value: username, setValue: setUsername, removeValue: removeUsername } = useLocalStorage<string | null>(
+    KEY_USERNAME, authContextInitialData.username,
+  );
+  const { value: token, setValue: setToken, removeValue: removeToken } = useLocalStorage<string | null>(
+    KEY_TOKEN, authContextInitialData.token,
+  );
 
   const login = useCallback(async(loginData: AuthData.Login) => {
     const { token: sessionToken } = await AuthService.login(loginData);
-    LocalStorageService.save(KEY_USERNAME, loginData.username);
-    LocalStorageService.save(KEY_TOKEN, sessionToken);
     setUsername(loginData.username);
     setToken(sessionToken);
   }, []);
 
   const logout = useCallback(async() => {
     await AuthService.logout();
-    LocalStorageService.remove(KEY_USERNAME);
-    LocalStorageService.remove(KEY_TOKEN);
-    setUsername(null);
-    setToken(null);
+    removeUsername(null);
+    removeToken(null);
   }, []);
 
   const value = useMemo(() => ({
