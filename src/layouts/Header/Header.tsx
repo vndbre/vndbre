@@ -17,6 +17,7 @@ import { useAuthContext } from '../../providers';
 import { ViewSettingsForm } from '../../components';
 import { Icon } from '../../components/Icon/Icon';
 import { useLogoutMutation } from '../queries';
+import { Toast } from '../../utils/toast';
 
 interface Props {
 
@@ -27,6 +28,8 @@ interface Props {
   readonly onSidebarShow: () => void;
 }
 
+const SUCCESSFUL_LOGOUT_MESSAGE = 'You have been successfully logged out!';
+
 /** Header. */
 export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
@@ -34,7 +37,11 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
   const logoutMutation = useLogoutMutation();
 
   const handleLogoutButtonClick = useCallback(() => {
-    logoutMutation.mutate();
+    logoutMutation.mutate(undefined, {
+      onSuccess() {
+        Toast.showMessage(SUCCESSFUL_LOGOUT_MESSAGE, 'success');
+      },
+    });
   }, []);
 
   return (

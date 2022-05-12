@@ -16,7 +16,7 @@ export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError(error) {
       if (error instanceof AppError) {
-        Toast.showErrorMessage(error.message);
+        Toast.showMessage(error.message, 'error');
       }
     },
   }),

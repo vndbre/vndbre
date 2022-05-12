@@ -20,15 +20,16 @@ interface ToastConfig {
 export namespace Toast {
 
   /**
-   * Shows error message.
+   * Shows message.
    * @param message Message to display.
+   * @param status Message status.
    * @param config Config to customize toast.
    */
-  export function showErrorMessage(message: string, config?: ToastConfig): void {
+  export function showMessage(message: string, status: 'success' | 'error', config?: ToastConfig): void {
     toast({
-      title: config?.title ?? 'Error',
+      title: config?.title ?? status.charAt(0).toUpperCase() + status.slice(1),
       description: message,
-      status: 'error',
+      status,
       duration: config?.duration ?? DEFAULT_MESSAGE_DURATION_IN_MILLISECONDS,
       isClosable: true,
       position: config?.position ?? 'top',
