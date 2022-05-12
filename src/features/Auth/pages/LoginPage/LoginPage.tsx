@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router';
 import { PasswordInput, TextInput } from '../../../../components';
 import { AuthData } from '../../../../models/authData';
 import { Validators } from '../../../../utils/validators';
-import { useAuthContext } from '../../../../providers';
 import cls from './LoginPage.module.css';
+import { useLoginMutation } from '../../quieries';
 
 const loginFormInitialValues: AuthData.Login = {
   username: '',
@@ -26,18 +26,20 @@ export const LoginPage: VFC = () => {
     control,
     handleSubmit,
   } = useForm({ defaultValues: loginFormInitialValues, resolver: yupResolver(validationSchema) });
-  const { login } = useAuthContext();
   const navigate = useNavigate();
+  const loginMutation = useLoginMutation();
 
   /**
    * Handles submission of the login form.
    * @param data Form data.
    */
-  const handleFormSubmit = async(data: AuthData.Login): Promise<void> => {
-    await login(data);
-
+  const handleFormSubmit = (data: AuthData.Login): void => {
     /** TODO (Panov A.): Change destination URL to user profile when it's implemented. */
-    navigate('/');
+    loginMutation.mutate(data, {
+      onSuccess() {
+        navigate('/');
+      },
+    });
   };
 
   return (

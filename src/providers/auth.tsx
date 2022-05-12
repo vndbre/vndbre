@@ -5,7 +5,6 @@ import { AuthData } from '../models/authData';
 import { assertNonNull } from '../utils/assertNonNull';
 import { KEY_TOKEN, KEY_USERNAME } from '../utils/localStorageKeys';
 
-/** TODO (Panov A.): Come up with a way to handle auth errors. */
 interface BaseAuthContext {
 
   /** Username of the user. */
