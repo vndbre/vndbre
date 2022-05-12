@@ -16,6 +16,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAuthContext } from '../../providers';
 import { ViewSettingsForm } from '../../components';
 import { Icon } from '../../components/Icon/Icon';
+import { useLogoutMutation } from '../queries';
 
 interface Props {
 
@@ -29,10 +30,11 @@ interface Props {
 /** Header. */
 export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { username, isLoggedIn, logout } = useAuthContext();
+  const { username, isLoggedIn } = useAuthContext();
+  const logoutMutation = useLogoutMutation();
 
-  const handleLogoutButtonClick = useCallback(async() => {
-    await logout();
+  const handleLogoutButtonClick = useCallback(() => {
+    logoutMutation.mutate();
   }, []);
 
   return (
