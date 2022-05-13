@@ -15,7 +15,7 @@ import { useFloatingHeader } from '../hooks/useFloatingHeader';
  */
 export const DefaultLayout: VFC = () => {
   const [isDesktopSidebarVisible, setDesktopSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
-  const [isHeaderButtonVisible, setHeaderButtonVisibility] = useState(!isDesktopSidebarVisible);
+  const [isDesktopHeaderButtonVisible, setDesktopHeaderButtonVisibility] = useState(!isDesktopSidebarVisible);
 
   const [desktopSidebarClasses, setDesktopSidebarClasses] = useState<string[]>([]);
   const [desktopContainerClasses, setDesktopContainerClasses] = useState<string[]>(isDesktopSidebarVisible ? ['with-sidebar'] : []);
@@ -24,7 +24,7 @@ export const DefaultLayout: VFC = () => {
     setDesktopSidebarClasses(['sidebar-hidden']);
     setDesktopContainerClasses(['with-sidebar']);
     setDesktopSidebarVisibility(true);
-    setHeaderButtonVisibility(false);
+    setDesktopHeaderButtonVisibility(false);
     setTimeout(() => setDesktopSidebarClasses(['sidebar-visible']), 0);
     setTimeout(() => setDesktopSidebarClasses([]), 400);
   }, []);
@@ -33,7 +33,7 @@ export const DefaultLayout: VFC = () => {
     setDesktopSidebarClasses(['sidebar-visible']);
     setTimeout(() => setDesktopSidebarClasses(['sidebar-hidden']), 0);
     setDesktopContainerClasses([]);
-    setHeaderButtonVisibility(true);
+    setDesktopHeaderButtonVisibility(true);
     setTimeout(() => {
       setDesktopSidebarVisibility(false);
       setDesktopSidebarClasses([]);
@@ -47,7 +47,7 @@ export const DefaultLayout: VFC = () => {
     onClose: handleMobileSidebarClose,
   } = useDisclosure();
 
-  // const isHeaderButtonVisible = useMemo(() => (isMobile ? true : !isDesktopSidebarVisible), [isMobile, isDesktopSidebarVisible]);
+  const isHeaderButtonVisible = useMemo(() => (isMobile ? true : !isDesktopHeaderButtonVisible), [isMobile, isDesktopHeaderButtonVisible]);
   const handleSidebarShow = useCallback(isMobile ? handleMobileSidebarOpen : handleDesktopSidebarShow, [isMobile]);
   const containerClasses = useMemo(() => (isMobile ? [] : desktopContainerClasses), [isMobile, desktopContainerClasses]);
 
