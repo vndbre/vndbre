@@ -26,6 +26,7 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
       h={16}
       display="flex"
       justifyContent="center"
+      backgroundColor="white"
     >
       <Box
         maxW="var(--screen-max-width)"

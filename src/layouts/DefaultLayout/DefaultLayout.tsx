@@ -1,5 +1,5 @@
-import React, { Suspense, useCallback, useState, VFC } from 'react';
-import { Box } from '@chakra-ui/react';
+import React, { ReactNode, Suspense, useCallback, useMemo, useState, VFC } from 'react';
+import { Box, Drawer, DrawerContent, DrawerOverlay, Slide, useDisclosure } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import { Header } from '../../components/Header/Header';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
@@ -7,47 +7,90 @@ import { KEY_IS_SIDEBAR_VISIBLE } from '../../utils/localStorageKeys';
 import { useLocalStorage } from '../../hooks';
 import cls from './DefaultLayout.module.css';
 import { Loading } from '../../components';
+import { useIsMobile } from '../../hooks/useIsMobile';
+import { useFloatingHeader } from '../hooks/useFloatingHeader';
 
 /**
  * Default layout with sidebar and header.
  */
 export const DefaultLayout: VFC = () => {
-  const [isSidebarVisible, setSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
+  const [isDesktopSidebarVisible, setDesktopSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
+  const [isHeaderButtonVisible, setHeaderButtonVisibility] = useState(!isDesktopSidebarVisible);
 
-  const [sidebarClasses, setSidebarClasses] = useState<string[]>([]);
-  const [containerClasses, setContainerClasses] = useState<string[]>(isSidebarVisible ? ['with-sidebar'] : []);
+  const [desktopSidebarClasses, setDesktopSidebarClasses] = useState<string[]>([]);
+  const [desktopContainerClasses, setDesktopContainerClasses] = useState<string[]>(isDesktopSidebarVisible ? ['with-sidebar'] : []);
 
-  const showSidebar = useCallback(() => {
-    setSidebarClasses(['sidebar-hidden']);
-    setContainerClasses(['with-sidebar']);
-    setSidebarVisibility(true);
-    setTimeout(() => setSidebarClasses(['sidebar-visible']), 0);
-    setTimeout(() => setSidebarClasses([]), 400);
+  const handleDesktopSidebarShow = useCallback(() => {
+    setDesktopSidebarClasses(['sidebar-hidden']);
+    setDesktopContainerClasses(['with-sidebar']);
+    setDesktopSidebarVisibility(true);
+    setHeaderButtonVisibility(false);
+    setTimeout(() => setDesktopSidebarClasses(['sidebar-visible']), 0);
+    setTimeout(() => setDesktopSidebarClasses([]), 400);
   }, []);
 
-  const hideSidebar = useCallback(() => {
-    setSidebarClasses(['sidebar-visible']);
-    setTimeout(() => setSidebarClasses(['sidebar-hidden']), 0);
-    setContainerClasses([]);
+  const handleDesktopSidebarHide = useCallback(() => {
+    setDesktopSidebarClasses(['sidebar-visible']);
+    setTimeout(() => setDesktopSidebarClasses(['sidebar-hidden']), 0);
+    setDesktopContainerClasses([]);
+    setHeaderButtonVisibility(true);
     setTimeout(() => {
-      setSidebarVisibility(false);
-      setSidebarClasses([]);
+      setDesktopSidebarVisibility(false);
+      setDesktopSidebarClasses([]);
     }, 400);
   }, []);
 
+  const isMobile = useIsMobile();
+  const {
+    isOpen: isMobileSidebarOpen,
+    onOpen: handleMobileSidebarOpen,
+    onClose: handleMobileSidebarClose,
+  } = useDisclosure();
+
+  // const isHeaderButtonVisible = useMemo(() => (isMobile ? true : !isDesktopSidebarVisible), [isMobile, isDesktopSidebarVisible]);
+  const handleSidebarShow = useCallback(isMobile ? handleMobileSidebarOpen : handleDesktopSidebarShow, [isMobile]);
+  const containerClasses = useMemo(() => (isMobile ? [] : desktopContainerClasses), [isMobile, desktopContainerClasses]);
+
+  /** Returns mobile or desktop sidebar. */
+  function getSidebar(): ReactNode {
+    if (isMobile) {
+      return (
+        <Drawer
+          isOpen={isMobileSidebarOpen}
+          placement="left"
+          onClose={handleMobileSidebarClose}
+        >
+          <DrawerOverlay />
+          <DrawerContent>
+            <Sidebar onSidebarHide={handleMobileSidebarClose} />
+          </DrawerContent>
+        </Drawer>
+      );
+    }
+    return isDesktopSidebarVisible && (
+      <Box className={[cls.sidebar, desktopSidebarClasses.map(className => cls[className])].join(' ')}>
+        <Sidebar onSidebarHide={handleDesktopSidebarHide} />
+      </Box>
+    );
+  }
+
+  const isFloatingHeaderVisible = useFloatingHeader();
+
   return (
     <Box className={cls.layout}>
-      {isSidebarVisible && (
-        <Box className={[cls.sidebar, sidebarClasses.map(className => cls[className])].join(' ')}>
-          <Sidebar onSidebarHide={hideSidebar} />
-        </Box>
-      )}
+      {getSidebar()}
       <Box className={`
-        ${cls.container}
-        ${[containerClasses.map(className => cls[className])].join(' ')}
+        ${[cls.container, containerClasses.map(className => cls[className])].join(' ')}
       `}
       >
-        <Header isLogoVisible={!isSidebarVisible} onSidebarShow={showSidebar} />
+        {/* <Header isLogoVisible={isHeaderButtonVisible} onSidebarShow={handleSidebarShow} /> */}
+        <Slide
+          direction="top"
+          in={isFloatingHeaderVisible}
+          style={{ zIndex: 10, marginLeft: isHeaderButtonVisible ? '0px' : 'var(--chakra-sizes-60)', transition: '0.3s linear' }}
+        >
+          <Header isLogoVisible={isHeaderButtonVisible} onSidebarShow={handleSidebarShow} />
+        </Slide>
         <Box className={cls.content}>
           <Suspense fallback={<Loading hasFullHeight isLoading />}>
             <Outlet />
