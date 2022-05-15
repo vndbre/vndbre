@@ -106,6 +106,7 @@ export const DefaultLayout: VFC = () => {
         marginTop={16}
         marginX="auto"
         transition="0.3s ease-in-out"
+        maxW="100vw"
         sx={contentSx}
       >
         <Box
@@ -113,8 +114,14 @@ export const DefaultLayout: VFC = () => {
           flexDirection="column"
           maxWidth="var(--screen-max-width)"
           w="full"
-          paddingBottom={8}
-          paddingX={10}
+          paddingY={{
+            base: 4,
+            md: 10,
+          }}
+          paddingX={{
+            base: 4,
+            md: 10,
+          }}
         >
           <Suspense fallback={<Loading hasFullHeight isLoading />}>
             <Outlet />

@@ -35,7 +35,10 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
         flexDir="row"
         alignItems="center"
         gap={4}
-        px={8}
+        px={{
+          base: 2,
+          md: 8,
+        }}
       >
         <Fade in={isLogoVisible}>
           <HStack justifyContent="space-between" alignItems="center">

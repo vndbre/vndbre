@@ -1,5 +1,4 @@
 .page {
-  padding-top: var(--chakra-sizes-8);
   display: flex;
   flex-direction: column;
   gap: var(--chakra-sizes-4);
@@ -14,8 +13,22 @@
 
 .overview {
   display: grid;
-  grid-template-columns: var(--chakra-sizes-48) 1fr;
-  gap: var(--chakra-sizes-8);
+  grid-template-columns: var(--chakra-sizes-24) 1fr;
+  grid-template-rows: fit-content 1fr;
+  gap: var(--chakra-sizes-4);
+  grid-template-areas:
+    "image heading"
+    "description description";
+}
+
+@media screen and (min-width: 30em) {
+  .overview {
+    grid-template-columns: var(--chakra-sizes-48) 1fr;
+    gap: var(--chakra-sizes-8);
+    grid-template-areas:
+      "image heading"
+      "image description";
+  }
 }
 
 .info {
@@ -24,14 +37,8 @@
   gap: var(--chakra-sizes-6);
 }
 
-.image {
-  height: auto;
-  max-height: var(--chakra-sizes-80);
-  object-fit: cover;
-  border-radius: var(--chakra-radii-lg);
-}
-
 .heading {
+  grid-area: heading;
   display: flex;
   gap: var(--chakra-sizes-4);
   align-items: flex-start;
@@ -40,6 +47,10 @@
 .title {
   display: flex;
   flex-direction: column;
+}
+
+.description {
+  grid-area: description;
 }
 
 .controls {

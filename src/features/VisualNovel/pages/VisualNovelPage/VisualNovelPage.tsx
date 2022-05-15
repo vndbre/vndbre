@@ -1,5 +1,5 @@
 import React, { FC, Suspense, useMemo } from 'react';
-import { Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
 import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
@@ -9,6 +9,7 @@ import { ContentWrapper, EntityTabs, EntityTitle, HideContent, Loading, SafeImag
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { RouteInfo } from '../../../../routes/utils/RouteInfo';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { useIsMobile } from '../../../../hooks/useIsMobile';
 
 export const VISUAL_NOVELS_ROUTES_INFO: readonly RouteInfo[] = [
   { name: 'Overview', path: '' },
@@ -25,16 +26,19 @@ export const VisualNovelPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data } = useVisualNovelQuery(Number(id));
 
+  const isMobile = useIsMobile();
+  const descriptionHeight = isMobile ? 100 : 180;
+
   const description = useMemo(() => {
     if (data?.description != null) {
       return (
-        <HideContent maxHeight={180}>
+        <HideContent maxHeight={descriptionHeight}>
           <BBCode text={data.description} />
         </HideContent>
       );
     }
     return (<Text>No description.</Text>);
-  }, [data?.description]);
+  }, [data?.description, descriptionHeight]);
 
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
@@ -46,6 +50,7 @@ export const VisualNovelPage: FC = () => {
                 containerProps={{
                   borderRadius: 'lg',
                   h: 'max-content',
+                  gridArea: 'image',
                 }}
                 objectFit="cover"
                 height="auto"
@@ -55,12 +60,12 @@ export const VisualNovelPage: FC = () => {
                 alt={data.title}
                 isNsfw={data.isImageNsfw}
               />
-              <div className={cls.info}>
-                <div className={cls.heading}>
-                  <EntityTitle title={data.title} originalTitle={data.originalName} />
-                </div>
-                {description}
+              <div className={cls.heading}>
+                <EntityTitle title={data.title} originalTitle={data.originalName} />
               </div>
+              <Box gridArea="description">
+                {description}
+              </Box>
             </div>
             <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
           </header>

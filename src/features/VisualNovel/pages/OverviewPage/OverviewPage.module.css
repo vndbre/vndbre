@@ -1,7 +1,14 @@
 .page {
   display: grid;
-  grid-template-columns: minmax(var(--chakra-sizes-64), var(--chakra-sizes-72)) 1fr;
-  gap: var(--chakra-sizes-8);
+  grid-template-columns: 1fr;
+  gap: var(--chakra-sizes-4);
+}
+
+@media screen and (min-width: 30em) {
+  .page {
+    grid-template-columns: minmax(var(--chakra-sizes-64), var(--chakra-sizes-72)) 1fr;
+    gap: var(--chakra-sizes-8);
+  }
 }
 
 .items {
@@ -19,7 +26,6 @@
   --columns-count: auto-fit;
 
   display: grid;
-  margin: var(--chakra-sizes-4) 0 var(--chakra-sizes-10);
   grid-template-columns: repeat(var(--columns-count), minmax(var(--chakra-sizes-72), 1fr));
   grid-gap: var(--chakra-sizes-4);
   grid-auto-flow: row;
@@ -38,4 +44,21 @@
   grid-template-rows: repeat(2, 1fr);
   gap: var(--chakra-sizes-4);
   overflow: hidden;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--chakra-sizes-8);
+}
+
+@media screen and (max-width: 30em) {
+  .blocks {
+    gap: var(--chakra-sizes-4);
+  }
+
+  .blocks > * {
+    padding-top: var(--chakra-sizes-4);
+    border-top: 1px var(--chakra-colors-gray-300) solid;
+  }
 }

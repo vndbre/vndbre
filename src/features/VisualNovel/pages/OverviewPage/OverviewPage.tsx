@@ -164,7 +164,7 @@ export const OverviewPage: FC = () => {
             )}
           </VStack>
         </ContentWrapper>
-        <div>
+        <div className={cls.blocks}>
           <ContentWrapper isLoading={isTagsLoading} error={tagsError}>
             {tagsBlock}
           </ContentWrapper>

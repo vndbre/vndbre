@@ -12,7 +12,11 @@ interface Props {
 
 /** Component with entity title. */
 const EntityTitleComponent: VFC<Props> = ({ title, originalTitle }) => (
-  <Box>
+  <Box
+    display="flex"
+    flexDir="column"
+    gap={2}
+  >
     <Heading as="h1" size="md">
       {title}
     </Heading>
