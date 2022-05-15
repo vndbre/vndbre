@@ -59,9 +59,7 @@ const getLink = (element: SidebarListItem, index?: number): ReactNode => {
   );
 };
 
-/**
- * Sidebar.
- */
+/** Sidebar. */
 export const Sidebar: VFC<Props> = ({ onSidebarHide }) => (
   <aside className={cls.sidebar}>
     <HStack className={cls.logo} justifyContent="space-between" alignItems="center" flexShrink={0} height={16}>
