@@ -96,6 +96,7 @@ export const DefaultLayout: VFC = () => {
         style={{
           zIndex: 10,
           marginLeft: isHeaderButtonVisible ? '0px' : 'var(--chakra-sizes-60)',
+          transition: 'margin 0.3s ease-in-out',
         }}
       >
         <Header isLogoVisible={isHeaderButtonVisible} onSidebarShow={handleSidebarShow} />
