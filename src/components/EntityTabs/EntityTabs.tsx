@@ -71,7 +71,7 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
   return (
     <nav>
       <Tabs index={currentTabIndex} colorScheme="orange">
-        <TabList overflowX="auto">
+        <TabList overflowX="auto" overflowY="hidden">
           {tabs}
         </TabList>
       </Tabs>

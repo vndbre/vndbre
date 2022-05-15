@@ -23,7 +23,10 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
       as="header"
       borderBottom="1px solid"
       borderColor="gray.300"
-      h={16}
+      h={{
+        base: 14,
+        md: 16,
+      }}
       display="flex"
       justifyContent="center"
       backgroundColor="white"
@@ -40,7 +43,7 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
           md: 8,
         }}
       >
-        <Fade in={isLogoVisible}>
+        <Fade in={isLogoVisible} style={{ flexGrow: 1 }}>
           <HStack justifyContent="space-between" alignItems="center">
             <IconButton
               onClick={onSidebarShow}
@@ -49,7 +52,16 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
               colorScheme="gray"
               icon={<Icon name="carbon:menu" />}
             />
-            <Heading as="h2" size="md">vndbre</Heading>
+            <Box
+              flexGrow={1}
+              display="flex"
+              justifyContent={{
+                base: 'center',
+                md: 'flex-start',
+              }}
+            >
+              <Heading as="h2" size="md">vndbre</Heading>
+            </Box>
           </HStack>
         </Fade>
         <Popover
