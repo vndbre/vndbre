@@ -66,7 +66,7 @@ export const CharactersPage: VFC = () => {
     Object.entries(groupCharacters()).map(([role, characters]) => (
       characters.length > 0 && (
         <AccordionItem key={role}>
-          <Heading as="h2">
+          <Heading as="h2" fontWeight="semibold">
             <AccordionButton>
               <HStack spacing={2}>
                 <Text fontWeight="bold" fontSize="sm">
@@ -79,7 +79,7 @@ export const CharactersPage: VFC = () => {
             </AccordionButton>
           </Heading>
           <AccordionPanel>
-            <Grid pt="4" templateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
+            <Grid templateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr))" gridGap="4">
               {getCharacterList(characters)}
             </Grid>
           </AccordionPanel>

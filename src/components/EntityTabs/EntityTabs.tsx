@@ -1,5 +1,5 @@
 import React, { VFC, memo, useState, useEffect, useCallback } from 'react';
-import { Tabs, TabList, Tab } from '@chakra-ui/react';
+import { Tabs, TabList, Tab, Box } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import { RouteInfo } from '../../routes/utils/RouteInfo';
 
@@ -69,13 +69,13 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
   ));
 
   return (
-    <nav>
+    <Box as="nav">
       <Tabs index={currentTabIndex} colorScheme="orange">
-        <TabList overflowX="auto" overflowY="hidden">
+        <TabList overflowX="auto">
           {tabs}
         </TabList>
       </Tabs>
-    </nav>
+    </Box>
   );
 };
 

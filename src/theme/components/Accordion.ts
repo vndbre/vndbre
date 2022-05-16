@@ -9,7 +9,14 @@ export const Accordion: StyleConfig = {
       },
     },
     button: {
+      _hover: {
+        background: 'inherit',
+      },
+      paddingX: 0,
       borderRadius: 'sm',
+    },
+    panel: {
+      paddingX: 0,
     },
   },
 };
