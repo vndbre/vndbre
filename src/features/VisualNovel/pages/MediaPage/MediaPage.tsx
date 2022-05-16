@@ -1,5 +1,5 @@
 import React, { VFC, useCallback, useMemo, useState } from 'react';
-import { Image, Flex } from '@chakra-ui/react';
+import { Image, Flex, Grid } from '@chakra-ui/react';
 import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';
@@ -38,7 +38,13 @@ export const MediaPage: VFC = () => {
   }, []);
 
   const images = data && (
-    <Flex gridGap="5" flexWrap="wrap">
+    <Grid
+      templateColumns={{
+        base: 'repeat(auto-fill, minmax(var(--chakra-sizes-40), 1fr))',
+        md: 'repeat(auto-fill, minmax(var(--chakra-sizes-64), 1fr))',
+      }}
+      gridGap={4}
+    >
       {filteredScreens.map((screen, idx) => (
         <Image
           onClick={handleImageClick(idx)}
@@ -60,7 +66,7 @@ export const MediaPage: VFC = () => {
         noClose
         onMaskClick={handleViewerClose}
       />
-    </Flex>
+    </Grid>
   );
 
   return (
