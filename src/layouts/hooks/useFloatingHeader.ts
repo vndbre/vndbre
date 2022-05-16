@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
  * Hook to check if floating header visible.
  */
 export function useFloatingHeader(): boolean {
-  const [isScrollingUp, setIsScrollingUp] = useState(true);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   /**
@@ -18,10 +18,10 @@ export function useFloatingHeader(): boolean {
       return;
     }
 
-    if (scrollPosition > newScrollPosition) {
-      setIsScrollingUp(true);
+    if (scrollPosition > newScrollPosition || newScrollPosition < 56) {
+      setIsHeaderVisible(true);
     } else {
-      setIsScrollingUp(false);
+      setIsHeaderVisible(false);
     }
     setScrollPosition(newScrollPosition);
   }
@@ -31,5 +31,5 @@ export function useFloatingHeader(): boolean {
     return () => window.removeEventListener('scroll', scrollListener);
   });
 
-  return isScrollingUp;
+  return isHeaderVisible;
 }

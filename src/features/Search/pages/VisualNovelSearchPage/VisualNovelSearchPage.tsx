@@ -10,6 +10,7 @@ import { VisualNovelListOptions } from './components/VisualNovelListOptions/Visu
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
 import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
+import { useIsMobile } from '../../../../hooks/useIsMobile';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -98,19 +99,27 @@ export const VisualNovelSearchPage: VFC = () => {
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
 
+  const isMobile = useIsMobile();
+
   return (
     <Box
       display="flex"
       flexDir="column"
-      mt={8}
       gap={8}
     >
-      <VisualNovelSearchForm
-        defaultFormValues={defaultFormValues}
-        onSubmit={handleSearchSubmit}
-      />
-
-      <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+      <Box
+        display="flex"
+        flexDir="column"
+        gap={4}
+      >
+        <VisualNovelSearchForm
+          defaultFormValues={defaultFormValues}
+          onSubmit={handleSearchSubmit}
+        />
+        <Box ml="auto">
+          <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+        </Box>
+      </Box>
 
       <VisualNovelList
         variant={tableVariant}

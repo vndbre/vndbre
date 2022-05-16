@@ -27,8 +27,14 @@ const CharacterListComponent: VFC<Props> = ({ variant, isLoading, items = [] }) 
     return (
       <Box
         display="grid"
-        gridGap={8}
-        gridTemplateColumns="repeat(auto-fill, minmax(140px, 1fr))"
+        gridGap={{
+          base: 4,
+          md: 8,
+        }}
+        gridTemplateColumns={{
+          base: 'repeat(auto-fill, minmax(160px, 1fr))',
+          md: 'repeat(auto-fill, minmax(200px, 1fr))',
+        }}
       >
         {isLoading && Array.from({ length: 20 }).map((_, index) => (
           // eslint-disable-next-line react/no-array-index-key

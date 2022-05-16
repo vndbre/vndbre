@@ -103,10 +103,13 @@ export const DefaultLayout: VFC = () => {
       </Slide>
       <Box
         paddingLeft={0}
-        marginTop={16}
-        marginX="auto"
+        marginTop={{
+          base: 14,
+          md: 16,
+        }}
         transition="0.3s ease-in-out"
         maxW="100vw"
+        w="full"
         sx={contentSx}
       >
         <Box
@@ -114,6 +117,7 @@ export const DefaultLayout: VFC = () => {
           flexDirection="column"
           maxWidth="var(--screen-max-width)"
           w="full"
+          marginX="auto"
           paddingY={{
             base: 4,
             md: 10,
