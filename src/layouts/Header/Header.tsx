@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { Box, Fade, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, Tooltip, useDisclosure } from '@chakra-ui/react';
-import { Icon } from '../Icon/Icon';
-import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
+import { Icon } from '../../components/Icon/Icon';
+import { ViewSettingsForm } from '../../components/ViewSettingsForm/ViewSettingsForm';
 
 interface Props {
 

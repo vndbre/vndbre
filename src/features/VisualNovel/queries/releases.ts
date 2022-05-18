@@ -4,7 +4,7 @@ import { Release } from '../../../models/releases/release';
 import { ReleasesService } from '../../../api/services/releasesService';
 
 /**
- * Custom hook for fetching releases query.
+ * Custom hook for fetching releases.
  * @param id Id of visual novel.
  * @param options Query options.
  */
