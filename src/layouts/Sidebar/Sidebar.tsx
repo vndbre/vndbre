@@ -66,14 +66,14 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => {
   const { data: statsData, isLoading } = useStatsQuery();
   const [randomVisualNovelId, setRandomVisualNovelId] = useState(0);
 
-  const changeRandomVisualNovelId = useCallback(() => {
+  const generateRandomVisualNovelId = useCallback(() => {
     if (statsData != null) {
       setRandomVisualNovelId(Random.generateNumberInRange(0, statsData.visualNovelsTotalAmount));
     }
   }, [statsData?.visualNovelsTotalAmount]);
 
   useEffect(() => {
-    changeRandomVisualNovelId();
+    generateRandomVisualNovelId();
   }, [statsData?.visualNovelsTotalAmount]);
 
   return (
@@ -94,7 +94,7 @@ export const Sidebar: VFC<Props> = ({ onSidebarHide }) => {
           to={`vn/${randomVisualNovelId}`}
           variant="no-underline"
           className={cls.link}
-          onClick={changeRandomVisualNovelId}
+          onClick={generateRandomVisualNovelId}
           {...isLoading && {
             pointerEvents: 'none',
             color: 'gray.400',
