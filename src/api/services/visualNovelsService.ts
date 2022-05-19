@@ -1,6 +1,6 @@
 import { PaginationDto } from '../dtos/paginationDto';
 import { VisualNovelDto } from '../dtos/visualNovelDto';
-import { ApiProxyEndpoints, http } from '../index';
+import { http } from '..';
 import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { PaginationOptions } from '../../models/paginationOptions';
 import { Tag } from '../../models/tag';
@@ -18,6 +18,7 @@ import {
   VisualNovelSortField as VisualNovelSortFieldDto,
   VNDBService,
 } from './vndbService';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 
 /** Fields available for sorting visual novels. */
 export enum VisualNovelSortField {

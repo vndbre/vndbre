@@ -1,7 +1,23 @@
-import React, { memo, VFC } from 'react';
-import { Box, Fade, Heading, HStack, IconButton, Popover, PopoverContent, PopoverTrigger, Tooltip, useDisclosure } from '@chakra-ui/react';
+import React, { memo, useCallback, VFC } from 'react';
+import {
+  Box,
+  Button,
+  Fade,
+  Heading,
+  HStack,
+  IconButton,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Tooltip,
+  useDisclosure,
+} from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
+import { useAuthContext } from '../../providers';
+import { ViewSettingsForm } from '../../components';
 import { Icon } from '../../components/Icon/Icon';
-import { ViewSettingsForm } from '../../components/ViewSettingsForm/ViewSettingsForm';
+import { useLogoutMutation } from '../queries';
+import { Toast } from '../../utils/toast';
 
 interface Props {
 
@@ -12,11 +28,21 @@ interface Props {
   readonly onSidebarShow: () => void;
 }
 
-/**
- * App header.
- */
+const SUCCESSFUL_LOGOUT_MESSAGE = 'You have been successfully logged out!';
+
+/** Header. */
 export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { username, isLoggedIn } = useAuthContext();
+  const logoutMutation = useLogoutMutation();
+
+  const handleLogoutButtonClick = useCallback(() => {
+    logoutMutation.mutate(undefined, {
+      onSuccess() {
+        Toast.showMessage(SUCCESSFUL_LOGOUT_MESSAGE, 'success');
+      },
+    });
+  }, []);
 
   return (
     <Box
@@ -61,7 +87,7 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
               <PopoverTrigger>
                 <IconButton
                   aria-label="Toggle view settings"
-                  icon={<Icon name="carbon:view" size={32} />}
+                  icon={<Icon name="carbon:settings-view" size={32} />}
                   onClick={onOpen}
                   colorScheme="gray"
                   variant="ghost"
@@ -73,6 +99,19 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
             <ViewSettingsForm />
           </PopoverContent>
         </Popover>
+
+        {isLoggedIn ? (
+          <Button
+            variant="ghost"
+            colorScheme="gray"
+            onClick={handleLogoutButtonClick}
+            isLoading={logoutMutation.isLoading}
+          >
+            Log Out
+          </Button>
+        ) :
+          <Button as={RouterLink} variant="ghost" colorScheme="gray" to="/auth/login">Log In</Button>}
+        {username}
       </Box>
     </Box>
   );

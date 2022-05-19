@@ -1,4 +1,4 @@
-import { ApiProxyEndpoints, http } from '../index';
+import { http } from '../index';
 import { PaginationDto } from '../dtos/paginationDto';
 import { ReleaseDto } from '../dtos/releaseDto';
 import { Release } from '../../models/releases/release';
@@ -10,6 +10,7 @@ import { VisualNovel } from '../../models/visualNovels/visualNovel';
 import { ReleaseAnimation } from '../../models/releases/releaseAnimation';
 import { ReleaseMapper } from '../mappers/releaseMapper';
 import { Producer } from '../../models/producer';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 
 interface ReleaseIcon {
 

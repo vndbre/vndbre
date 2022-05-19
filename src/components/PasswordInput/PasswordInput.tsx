@@ -1,32 +1,28 @@
-import React, { memo, ReactNode, useCallback, VFC } from 'react';
+import React, { memo, useCallback, useState, VFC } from 'react';
 import {
-  CloseButton,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  IconButton,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
 } from '@chakra-ui/react';
 import { useController } from 'react-hook-form';
 import { FormControlProps } from '../../utils/formControl';
+import { Icon } from '../Icon/Icon';
 
 interface Props extends FormControlProps {
 
-  /** Label for the text input. */
+  /** Label for the password input. */
   readonly label?: string;
-
-  /** The element that will be placed on the left side of the input. */
-  readonly leftElement?: ReactNode;
 }
 
-/** Text input. */
-const TextInputComponent: VFC<Props> = ({
+/** Password input. */
+const PasswordInputComponent: VFC<Props> = ({
   control,
   name,
   label,
-  leftElement,
   rules,
 }) => {
   const {
@@ -38,28 +34,35 @@ const TextInputComponent: VFC<Props> = ({
     rules,
   });
 
-  const isCloseButtonShown = value.length > 0;
+  const [isPasswordHidden, setIsPasswordHidden] = useState(true);
 
-  const clearInput = useCallback(() => onChange(''), []);
+  const togglePasswordVisibility = useCallback(() => {
+    setIsPasswordHidden(prev => !prev);
+  }, []);
 
   return (
     <FormControl isInvalid={invalid} id={name}>
       {label != null && <FormLabel>{label}</FormLabel>}
       <InputGroup>
-        {leftElement != null && (
-          <InputLeftElement>
-            {leftElement}
-          </InputLeftElement>
-        )}
         <Input
-          type="text"
+          type={isPasswordHidden ? 'password' : 'text'}
           name={name}
           ref={ref}
           value={value}
           onChange={onChange}
         />
         <InputRightElement>
-          {isCloseButtonShown && <CloseButton onClick={clearInput} />}
+          {value.length > 0 && (
+            <IconButton
+              aria-label={isPasswordHidden ? 'Show password' : 'Hide password'}
+              colorScheme="gray"
+              height="32px"
+              width="32px"
+              minWidth="initial"
+              icon={isPasswordHidden ? <Icon name="carbon:view-off" /> : <Icon name="carbon:view" />}
+              onClick={togglePasswordVisibility}
+            />
+          )}
         </InputRightElement>
       </InputGroup>
       <FormErrorMessage>{error?.message}</FormErrorMessage>
@@ -67,4 +70,4 @@ const TextInputComponent: VFC<Props> = ({
   );
 };
 
-export const TextInput = memo(TextInputComponent);
+export const PasswordInput = memo(PasswordInputComponent);

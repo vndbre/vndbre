@@ -1,5 +1,6 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { Staff } from '../../models/staff';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { PaginationDto } from '../dtos/paginationDto';
 import { StaffDto } from '../dtos/staffDto';
 import { PaginationMapper } from '../mappers/paginationMapper';

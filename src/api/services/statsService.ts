@@ -1,5 +1,6 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { Stats } from '../../models/stats';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { StatsDto } from '../dtos/statsDto';
 import { StatsMapper } from '../mappers/statsMapper';
 

@@ -22,7 +22,7 @@ export const ViewSettingsForm: VFC = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit(updateSettings)}>
+    <form>
       <VStack align="start" spacing="4" p="6">
         <VStack align="start" spacing="2">
           <FormControl>

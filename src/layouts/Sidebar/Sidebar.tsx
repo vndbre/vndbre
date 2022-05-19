@@ -1,11 +1,11 @@
 import React, { Fragment, ReactNode, useCallback, useEffect, useState, VFC } from 'react';
 import { Heading, Link, IconButton, HStack, Box } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import cls from './Sidebar.module.css';
 import { data, SidebarElementType, SidebarListItem } from './data';
 import { Icon } from '../../components/Icon/Icon';
 import { useStatsQuery } from '../queries/stats';
 import { Random } from '../../utils/random';
+import cls from './Sidebar.module.css';
 
 interface Props {
 

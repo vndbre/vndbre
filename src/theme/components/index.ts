@@ -7,6 +7,7 @@ import { Tabs } from './Tabs';
 import { Tooltip } from './Tooltip';
 import { Slider } from './Slider';
 import { Input } from './Input';
+import { Alert } from './Alert';
 
 export const components = {
   Accordion,
@@ -18,4 +19,5 @@ export const components = {
   Tooltip,
   Slider,
   Input,
+  Alert,
 };

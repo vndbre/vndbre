@@ -12,6 +12,9 @@ export const Input: StyleConfig = {
         _focus: {
           boxShadow: shadows.outline,
         },
+        _invalid: {
+          boxShadow: shadows.invalid,
+        },
       },
     },
   },

@@ -1,5 +1,6 @@
-import { ApiProxyEndpoints, http } from '..';
+import { http } from '..';
 import { Producer } from '../../models/producer';
+import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 import { PaginationDto } from '../dtos/paginationDto';
 import { ProducerDto } from '../dtos/producerDto';
 import { PaginationMapper } from '../mappers/paginationMapper';

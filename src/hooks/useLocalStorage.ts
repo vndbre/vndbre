@@ -1,24 +1,34 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { LocalStorageService } from '../api/services/localStorageService';
+
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+type UseLocalStorageReturnType<T> = { readonly value: T; readonly setValue: ((value: T) => void); removeValue: ((value: T) => void); };
 
 /**
- * Sync state to local storage so that it persists through a page refresh.
- * @param key Local store key.
- * @param initialValue Initial value, returned on errors.
+ * Syncs the state to the local storage so that it persists through the page refresh.
+ * @param key Local storage key.
+ * @param initialValue Initial value.
  */
-export function useLocalStorage<T>(key: string, initialValue: T): [T, ((value: T) => void)] {
-  // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    const item = localStorage.getItem(key);
-    return item !== null ? (JSON.parse(item) as T) : initialValue;
-  });
+export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorageReturnType<T> {
+  const [storedValue, setStoredValue] = useState<T>(LocalStorageService.get<T>(key) ?? initialValue);
 
   /**
-   * Local storage value setter.
+   * Sets a new state value and syncs it with the local storage.
    * @param value Value.
    */
-  const setValue = (value: T): void => {
+  const setValue = useCallback((value: T) => {
     setStoredValue(value);
-    localStorage.setItem(key, JSON.stringify(value));
-  };
-  return [storedValue, setValue];
+    LocalStorageService.save(key, value);
+  }, []);
+
+  /**
+   * Sets a new state value, but removes the state from the local storage.
+   * @param value Value.
+   */
+  const removeValue = useCallback((value: T) => {
+    setStoredValue(value);
+    LocalStorageService.remove(key);
+  }, []);
+
+  return { value: storedValue, setValue, removeValue };
 }

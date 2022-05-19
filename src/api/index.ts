@@ -1,6 +1,10 @@
-import { QueryClient } from 'react-query';
 import axios, { AxiosInstance } from 'axios';
+import { MutationCache, QueryClient } from 'react-query';
 import { defaultFetchStrategy, defaultStaleTime } from './globalConfig';
+import { authInterceptor } from './interceptors/authInterceptor';
+import { Toast } from '../utils/toast';
+import { errorInterceptor } from './interceptors/errorInterceptor';
+import { AppError } from '../models/appError';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,20 +13,19 @@ export const queryClient = new QueryClient({
       ...defaultFetchStrategy,
     },
   },
+  mutationCache: new MutationCache({
+    onError(error) {
+      if (error instanceof AppError) {
+        Toast.showMessage(error.message, 'error');
+      }
+    },
+  }),
 });
 
-/**
- * Configured axios instance.
- */
+/** Configured axios instance. */
 export const http: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_VNDBRE_PROXY_BASEURL,
 });
 
-/**
- * Api proxy endpoints.
- */
-export enum ApiProxyEndpoints {
-  VNDB = 'vndb',
-  Tags = 'tags',
-  Traits = 'traits',
-}
+http.interceptors.request.use(authInterceptor);
+http.interceptors.response.use(response => response, errorInterceptor);
