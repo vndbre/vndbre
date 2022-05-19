@@ -53,7 +53,6 @@ export interface SidebarHeading {
 export type SidebarElement = SidebarHeading | SidebarListItem;
 
 export const data: SidebarElement[] = [
-  { type: SidebarElementType.Link, text: 'Random visual novel', isDisabled: true },
   {
     type: SidebarElementType.Heading,
     text: 'Lists',
