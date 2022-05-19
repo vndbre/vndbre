@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
 import { Box, Skeleton, SkeletonText } from '@chakra-ui/react';
-import { getRandomWidth } from '../../../../utils/randomWidth';
+import { Random } from '../../../../utils/random';
 
 /** Card list info box skeleton. */
 const CardDetailSkeletonComponent: VFC = () => (
@@ -11,8 +11,8 @@ const CardDetailSkeletonComponent: VFC = () => (
     w="full"
     mt={1}
   >
-    <SkeletonText w={getRandomWidth(75)} noOfLines={1} />
-    <Skeleton w={getRandomWidth(75)} h={4} />
+    <SkeletonText w={Random.generateWidthInRange(75)} noOfLines={1} />
+    <Skeleton w={Random.generateWidthInRange(75)} h={4} />
   </Box>
 );
 

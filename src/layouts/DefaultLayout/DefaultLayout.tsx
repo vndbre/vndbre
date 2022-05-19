@@ -1,8 +1,8 @@
 import React, { Suspense, useCallback, useState, VFC } from 'react';
 import { Box } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
-import { Header } from '../../components/Header/Header';
-import { Sidebar } from '../../components/Sidebar/Sidebar';
+import { Header } from '../Header/Header';
+import { Sidebar } from '../Sidebar/Sidebar';
 import { KEY_IS_SIDEBAR_VISIBLE } from '../../utils/localStorageKeys';
 import { useLocalStorage } from '../../hooks';
 import cls from './DefaultLayout.module.css';
