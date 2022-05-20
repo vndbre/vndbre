@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { Heading, VStack } from '@chakra-ui/react';
+import { Box, Heading, VStack } from '@chakra-ui/react';
 
 import cls from './OverviewPage.module.css';
 import { CharacterCard } from '../../components/CharacterCard/CharacterCard';
@@ -137,11 +137,40 @@ export const OverviewPage: FC = () => {
 
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
-      <div className={cls.page}>
+      <Box
+        display="grid"
+        gridTemplateColumns={{
+          base: '1fr',
+          md: 'minmax(var(--chakra-sizes-64), var(--chakra-sizes-72)) 1fr',
+        }}
+        gap={{
+          base: 4,
+          md: 8,
+        }}
+      >
         <ContentWrapper isLoading={isReleasesLoading} error={releasesError}>
-          <VStack align="initial" spacing="6">
+          <VStack
+            align="initial"
+            spacing={{
+              base: 4,
+              md: 8,
+            }}
+          >
             {visualNovel?.length && (
               <TagList title="Game Length" tags={[{ name: visualNovel.length, note: null }]} />
+            )}
+            {visualNovel?.links != null && visualNovel.links.length > 0 && (
+              <div>
+                <Heading as="h3" size="sm">
+                  Links
+                </Heading>
+                <Box
+                  display="flex"
+                  mt={2}
+                >
+                  <EntityLinks links={visualNovel.links} />
+                </Box>
+              </div>
             )}
             <TagList
               title="Developers"
@@ -152,39 +181,49 @@ export const OverviewPage: FC = () => {
               }))}
             />
             {publishersBlock}
-            {visualNovel?.links != null && visualNovel.links.length > 0 && (
-              <div>
-                <Heading as="h3" size="sm">
-                  Links
-                </Heading>
-                <div className={cls.items}>
-                  <EntityLinks links={visualNovel.links} />
-                </div>
-              </div>
-            )}
           </VStack>
         </ContentWrapper>
-        <div className={cls.blocks}>
+        <Box
+          className={cls.blocks}
+          display="flex"
+          flexDir="column"
+          gap={{
+            base: 4,
+            md: 8,
+          }}
+        >
           <ContentWrapper isLoading={isTagsLoading} error={tagsError}>
             {tagsBlock}
           </ContentWrapper>
-          <div className={cls.staff}>
+          <Box
+            display="grid"
+            gridTemplateColumns="repeat(auto-fit, minmax(var(--chakra-sizes-72), 1fr))"
+            gap={4}
+            gridAutoFlow="dense"
+          >
             {staffBlock}
-          </div>
+          </Box>
           <ContentWrapper isLoading={isCharactersLoading} error={charactersError}>
             {characters != null && characters.length > 0 && (
               <div>
                 <Heading as="h3" size="sm">
                   Characters
                 </Heading>
-                <div className={cls.characters}>
+                <Box
+                  mt={2}
+                  display="grid"
+                  gridTemplateColumns="repeat(auto-fill, minmax(var(--chakra-sizes-72), 1fr))"
+                  gridTemplateRows="repeat(2, 1fr)"
+                  gap={4}
+                  overflow="hidden"
+                >
                   {charactersBlock}
-                </div>
+                </Box>
               </div>
             )}
           </ContentWrapper>
-        </div>
-      </div>
+        </Box>
+      </Box>
     </ContentWrapper>
   );
 };

@@ -1,7 +1,6 @@
 import React, { FC, Suspense } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
-import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
 import { ContentWrapper, EntityTabs, EntityTitle, Loading, SafeImage } from '../../../../components';
@@ -28,9 +27,38 @@ export const VisualNovelPage: FC = () => {
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
       {data && (
-        <div className={cls.page}>
-          <header className={cls.header}>
-            <div className={cls.overview}>
+        <Box
+          display="flex"
+          flexDir="column"
+          gap={4}
+          overflow="hidden"
+        >
+          <Box
+            as="header"
+            display="flex"
+            flexDir="column"
+            gap={4}
+          >
+            <Grid
+              gridTemplateColumns={{
+                base: 'grid-template-columns: var(--chakra-sizes-24) 1fr',
+                md: 'grid-template-columns: var(--chakra-sizes-48) 1fr',
+              }}
+              gridTemplateAreas={{
+                base: `
+                  "image heading"
+                  "description description"
+                `,
+                md: `
+                  "image heading"
+                  "image description"
+                `,
+              }}
+              gap={{
+                base: 4,
+                md: 8,
+              }}
+            >
               <SafeImage
                 containerProps={{
                   borderRadius: 'lg',
@@ -45,23 +73,28 @@ export const VisualNovelPage: FC = () => {
                 alt={data.title}
                 isNsfw={data.isImageNsfw}
               />
-              <div className={cls.heading}>
+              <Box
+                gridArea="heading"
+                display="flex"
+                gap={4}
+                alignItems="flex-start"
+              >
                 <EntityTitle title={data.title} originalTitle={data.originalName} />
-              </div>
+              </Box>
               <Box gridArea="description">
                 <Description text={data.description} />
               </Box>
-            </div>
+            </Grid>
             <Box overflowX="auto">
               <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
             </Box>
-          </header>
+          </Box>
           <div>
             <Suspense fallback={<Loading isLoading />}>
               <Outlet />
             </Suspense>
           </div>
-        </div>
+        </Box>
       )}
     </ContentWrapper>
   );
