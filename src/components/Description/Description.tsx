@@ -9,10 +9,10 @@ interface Props {
   /** Text. */
   readonly text: string | null;
 
-  /** Desktop description height. */
+  /** Desktop description height in pixels. */
   readonly desktopHeight?: number;
 
-  /** Mobile description height. */
+  /** Mobile description height in pixels. */
   readonly mobileHeight?: number;
 }
 
