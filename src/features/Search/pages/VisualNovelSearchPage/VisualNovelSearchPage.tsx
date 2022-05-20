@@ -10,7 +10,6 @@ import { VisualNovelListOptions } from './components/VisualNovelListOptions/Visu
 import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
 import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
-import { useIsMobile } from '../../../../hooks/useIsMobile';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -98,8 +97,6 @@ export const VisualNovelSearchPage: VFC = () => {
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
-
-  const isMobile = useIsMobile();
 
   return (
     <Box

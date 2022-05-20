@@ -1,5 +1,5 @@
 import React, { VFC, useCallback, useMemo, useState } from 'react';
-import { Image, Flex, Grid } from '@chakra-ui/react';
+import { Image, Grid } from '@chakra-ui/react';
 import Viewer from 'react-viewer';
 import { useVisualNovelQuery } from '../../queries';
 import { useSettingsContext } from '../../../../providers';

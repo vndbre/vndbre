@@ -14,7 +14,7 @@
 .overview {
   display: grid;
   grid-template-columns: var(--chakra-sizes-24) 1fr;
-  grid-template-rows: fit-content 1fr;
+  grid-template-rows: max-content 1fr;
   gap: var(--chakra-sizes-4);
   grid-template-areas:
     "image heading"

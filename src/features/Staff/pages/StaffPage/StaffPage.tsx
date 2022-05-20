@@ -1,12 +1,12 @@
 import React, { useMemo, VFC } from 'react';
-import { Box, VStack, Text } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle, HideContent } from '../../../../components';
+import { Box, VStack } from '@chakra-ui/react';
+import { ContentWrapper, EntityDetail, EntityLinks, EntityTitle } from '../../../../components';
+import { Description } from '../../../../components/Description/Description';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { Language } from '../../../../models/language';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { StaffVisualNovelsTable } from '../../components';
 import { useStaff } from '../../queries';
-import { BBCode } from '../../../../components/BBCode/BBCode';
 import { Gender } from '../../../../models/gender';
 import { StaffRouteParams } from '../../utils/staffRouteParams';
 
@@ -21,17 +21,6 @@ export const StaffPage: VFC = () => {
       enabled: visualNovelIds.length > 0,
     },
   );
-
-  const description = useMemo(() => {
-    if (staff?.description != null) {
-      return (
-        <HideContent maxHeight={350}>
-          <BBCode text={staff.description} />
-        </HideContent>
-      );
-    }
-    return <Text>No description</Text>;
-  }, [staff?.description]);
 
   const staffAliases = useMemo(() => {
     if (staff != null) {
@@ -48,9 +37,15 @@ export const StaffPage: VFC = () => {
   return (
     <ContentWrapper isLoading={isStaffLoading} error={staffError}>
       {staff != null && (
-        <Box pt="8">
-          <VStack alignItems="initial" spacing="12">
-            <VStack alignItems="initial" spacing="8">
+        <Box>
+          <VStack
+            alignItems="initial"
+            spacing={8}
+          >
+            <VStack
+              alignItems="initial"
+              spacing={8}
+            >
               <EntityTitle title={staff.name} originalTitle={staff.originalName} />
               <VStack alignItems="initial">
                 {staff.language != null && <EntityDetail title="Language">{Language.toReadable(staff.language)}</EntityDetail>}
@@ -66,7 +61,7 @@ export const StaffPage: VFC = () => {
                   </EntityDetail>
                 )}
               </VStack>
-              {description}
+              <Description text={staff.description} />
             </VStack>
             <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
               {visualNovels != null && (

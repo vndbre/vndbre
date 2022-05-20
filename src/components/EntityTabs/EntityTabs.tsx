@@ -63,6 +63,7 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
       to={`/${entityRootPath}/${id}/${tabInfo.path}`}
       onClick={handleTabClick(index)}
       onKeyPress={handleTabPress(index)}
+      marginBottom={0}
     >
       {tabInfo.name}
     </Tab>
@@ -70,8 +71,8 @@ export const EntityTabsComponent: VFC<Props> = ({ id, tabsInfo, entityRootPath }
 
   return (
     <Box as="nav">
-      <Tabs index={currentTabIndex} colorScheme="orange">
-        <TabList overflowX="auto">
+      <Tabs index={currentTabIndex} colorScheme="orange" minW="fit-content">
+        <TabList paddingBottom={0}>
           {tabs}
         </TabList>
       </Tabs>
