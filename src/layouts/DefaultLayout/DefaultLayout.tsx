@@ -84,8 +84,6 @@ export const DefaultLayout: VFC = () => {
     );
   }
 
-  const isFloatingHeaderVisible = useFloatingHeader();
-
   return (
     <Box
       display="flex"
@@ -97,7 +95,6 @@ export const DefaultLayout: VFC = () => {
         direction="top"
         in={isFloatingHeaderVisible}
         style={{
-          zIndex: 10,
           marginLeft: isHeaderButtonVisible ? '0px' : 'var(--chakra-sizes-60)',
           transition: 'margin 0.3s ease-in-out',
         }}
