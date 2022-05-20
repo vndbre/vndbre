@@ -16,6 +16,8 @@ const SIDEBAR_VISIBLE_HEADER_SX = { transform: 'translateX(calc(-1 * var(--chakr
  * Default layout with sidebar and header.
  */
 export const DefaultLayout: VFC = () => {
+  const isFloatingHeaderVisible = useFloatingHeader();
+
   const [isDesktopSidebarVisible, setDesktopSidebarVisibility] = useLocalStorage(KEY_IS_SIDEBAR_VISIBLE, true);
   const [isDesktopHeaderButtonVisible, setDesktopHeaderButtonVisibility] = useState(!isDesktopSidebarVisible);
 
@@ -41,12 +43,13 @@ export const DefaultLayout: VFC = () => {
     }, 400);
   }, []);
 
-  const isMobile = useIsMobile();
   const {
     isOpen: isMobileSidebarOpen,
     onOpen: handleMobileSidebarOpen,
     onClose: handleMobileSidebarClose,
   } = useDisclosure();
+
+  const isMobile = useIsMobile();
 
   const isHeaderButtonVisible = useMemo(() => (isMobile ? true : isDesktopHeaderButtonVisible), [isMobile, isDesktopHeaderButtonVisible]);
   const handleSidebarShow = useCallback(isMobile ? handleMobileSidebarOpen : handleDesktopSidebarShow, [isMobile]);
@@ -118,11 +121,7 @@ export const DefaultLayout: VFC = () => {
           maxWidth="var(--screen-max-width)"
           w="full"
           marginX="auto"
-          paddingY={{
-            base: 4,
-            md: 10,
-          }}
-          paddingX={{
+          padding={{
             base: 4,
             md: 10,
           }}

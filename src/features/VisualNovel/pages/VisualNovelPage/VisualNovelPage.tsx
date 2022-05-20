@@ -89,11 +89,11 @@ export const VisualNovelPage: FC = () => {
               <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
             </Box>
           </Box>
-          <div>
+          <Box>
             <Suspense fallback={<Loading isLoading />}>
               <Outlet />
             </Suspense>
-          </div>
+          </Box>
         </Box>
       )}
     </ContentWrapper>

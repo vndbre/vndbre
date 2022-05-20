@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 
-/**
- * Hook to check if floating header visible.
- */
+const MIN_FORCED_VISIBLE_POSITION = 56;
+
+/** Hook to check if floating header visible. */
 export function useFloatingHeader(): boolean {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   /**
    * Scroll event listener.
    * @param event Event.
    */
-  function scrollListener(event: Event): void {
+  function handleScroll(event: Event): void {
     const newScrollPosition = (event.target as Document).scrollingElement?.scrollTop;
 
     if (newScrollPosition == null) {
       return;
     }
 
-    if (scrollPosition > newScrollPosition || newScrollPosition < 56) {
+    if (newScrollPosition < scrollPosition || newScrollPosition < MIN_FORCED_VISIBLE_POSITION) {
       setIsHeaderVisible(true);
     } else {
       setIsHeaderVisible(false);
@@ -27,8 +27,8 @@ export function useFloatingHeader(): boolean {
   }
 
   useEffect(() => {
-    window.addEventListener('scroll', scrollListener);
-    return () => window.removeEventListener('scroll', scrollListener);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   });
 
   return isHeaderVisible;

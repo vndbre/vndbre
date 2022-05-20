@@ -205,7 +205,7 @@ export const OverviewPage: FC = () => {
           </Box>
           <ContentWrapper isLoading={isCharactersLoading} error={charactersError}>
             {characters != null && characters.length > 0 && (
-              <div>
+              <Box>
                 <Heading as="h3" size="sm">
                   Characters
                 </Heading>
@@ -219,7 +219,7 @@ export const OverviewPage: FC = () => {
                 >
                   {charactersBlock}
                 </Box>
-              </div>
+              </Box>
             )}
           </ContentWrapper>
         </Box>
