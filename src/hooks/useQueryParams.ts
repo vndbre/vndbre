@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+export const SEPARATOR_SYMBOL = '%';
+
 /**
  * Makes a string array out of search param.
  * Interprets an empty string as an empty array.

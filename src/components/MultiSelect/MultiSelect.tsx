@@ -1,47 +1,13 @@
 import React, { memo, useMemo, VFC } from 'react';
-import { FormControl, FormLabel, FormErrorMessage, CSSObject, Text } from '@chakra-ui/react';
-import {
-  Select,
-  Props as SelectProps,
-  GroupBase,
-  OptionProps,
-  chakraComponents,
-  MultiValueGenericProps,
-} from 'chakra-react-select';
+import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react';
+import { Select } from 'chakra-react-select';
 import { useController } from 'react-hook-form';
-import { FormControlProps } from '../../utils/formControl';
-import { Icon } from '../Icon/Icon';
 import { SelectOption } from '../../utils/selectOption';
+import { MultiSelect as MultiSelectBase } from './base';
 
-interface Props extends FormControlProps, Omit<SelectProps<SelectOption, true, GroupBase<SelectOption>>, 'name'> {
+type Props = MultiSelectBase.BaseProps;
 
-  /** Label for the multi select. */
-  readonly label: string;
-
-  /**
-   * The maximum number of selected items to be displayed after which overflow would be applied to the remaining elements.
-   *
-   * If `displayLimit` equals to 0 (which is default value), no overflow would be applied.
-   */
-  readonly displayLimit?: number;
-}
-
-const customMultiSelectChakraStyles = {
-
-  /**
-   * Sets styles for tag components inside multi select.
-   * @param provided Styles object.
-   */
-  multiValue: (provided: CSSObject) => ({
-    ...provided,
-    background: 'gray.200',
-    borderRadius: 'base',
-  }),
-};
-
-/**
- * Multi select.
- */
+/** Multi select. */
 const MultiSelectComponent: VFC<Props> = ({
   control,
   name,
@@ -61,54 +27,7 @@ const MultiSelectComponent: VFC<Props> = ({
     rules,
   });
 
-  const multiSelectComponents = useMemo(() => ({
-
-    /** Removes default dropdown indicator. */
-    DropdownIndicator: () => null,
-
-    /** Removes default indicator separator. */
-    IndicatorSeparator: () => null,
-
-    /** Custom chakra option component with icon support for multi select. */
-    Option: memo(({ children, ...optionProps }: OptionProps<SelectOption, true, GroupBase<SelectOption>>) => (
-      <chakraComponents.Option {...optionProps}>
-        {optionProps.data.icon && <Icon name={optionProps.data.icon} style={{ marginRight: 10 }} />}
-        {children}
-      </chakraComponents.Option>
-    )),
-
-    /** Custom chakra tag component with icon support for multi select. */
-    MultiValueContainer: memo(({
-      children,
-      ...multiValueProps
-    }: MultiValueGenericProps<SelectOption, true, GroupBase<SelectOption>>) => {
-      const selectedOptions = multiValueProps.selectProps.value as SelectOption[];
-      const itemIndex = selectedOptions.findIndex(item => item.value === multiValueProps.data.value);
-
-      if (displayLimit === 0 || itemIndex < displayLimit) {
-        return (
-          <chakraComponents.MultiValueContainer {...multiValueProps}>
-            {multiValueProps.data.icon && <Icon name={multiValueProps.data.icon} style={{ marginRight: 4 }} />}
-            {children}
-          </chakraComponents.MultiValueContainer>
-        );
-      }
-
-      if (displayLimit === itemIndex) {
-        return (
-          <chakraComponents.MultiValueContainer {...multiValueProps}>
-            <Text h={6} fontWeight="medium">
-              +
-              {selectedOptions.length - displayLimit}
-            </Text>
-          </chakraComponents.MultiValueContainer>
-        );
-      }
-
-      return null;
-    }),
-    ...components,
-  }), [displayLimit, components]);
+  const multiSelectComponents = useMemo(() => MultiSelectBase.getComponents(displayLimit, components), [displayLimit, components]);
 
   return (
     <FormControl isInvalid={invalid} id={name}>
@@ -123,7 +42,7 @@ const MultiSelectComponent: VFC<Props> = ({
         selectedOptionStyle="check"
         hideSelectedOptions={false}
         components={multiSelectComponents}
-        chakraStyles={{ ...customMultiSelectChakraStyles, ...chakraStyles }}
+        chakraStyles={{ ...MultiSelectBase.customChakraStyles, ...chakraStyles }}
         {...props}
       />
       <FormErrorMessage>{error?.message}</FormErrorMessage>

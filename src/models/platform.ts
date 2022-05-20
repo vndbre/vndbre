@@ -1,4 +1,5 @@
 import { enumToArray } from '../utils/enumToArray';
+import { SelectOption } from '../utils/selectOption';
 
 /** Platform. */
 export enum Platform {
@@ -150,5 +151,16 @@ export namespace Platform {
   export function getSorted(): Platform[] {
     // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     return enumToArray(Platform).sort();
+  }
+
+  /**
+   * Converts the specified platform to a select option.
+   * @param value Platform.
+   */
+  export function toSelectOption(value: Platform): SelectOption<Platform> {
+    return SelectOption.create(
+      value,
+      Platform.toReadable(value),
+    );
   }
 }

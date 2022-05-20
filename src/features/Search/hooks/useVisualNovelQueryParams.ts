@@ -1,5 +1,7 @@
-import { VisualNovelSearchOptions } from '../../../api/services/visualNovelsService';
-import { parseStringArrayFromSearchParam, useQueryParams, UseQueryParamsReturnType } from '../../../hooks/useQueryParams';
+import { VisualNovelSearchOptions as SearchOptions } from '../../../api/services/visualNovelsService';
+import { parseStringArrayFromSearchParam, SEPARATOR_SYMBOL, useQueryParams, UseQueryParamsReturnType } from '../../../hooks/useQueryParams';
+import { Tag } from '../../../models/tag';
+import { SelectOption } from '../../../utils/selectOption';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 type VisualNovelSearchQueryParams = {
@@ -10,13 +12,16 @@ type VisualNovelSearchQueryParams = {
   readonly platforms?: string;
   readonly startYear?: string;
   readonly endYear?: string;
+  readonly tags?: string;
 };
+
+type VisualNovelSearchOptions = Partial<SearchOptions> & { readonly tagOptions?: readonly SelectOption<Tag['id']>[]; };
 
 /**
  * Maps query params from visual novel search options.
  * @param data Search options.
  */
-function mapQueryParamsFromSearchOptions(data: Partial<VisualNovelSearchOptions>): VisualNovelSearchQueryParams {
+function mapQueryParamsFromSearchOptions(data: VisualNovelSearchOptions): VisualNovelSearchQueryParams {
   return {
     ...(data.page == null ? null : { page: data.page.toString() }),
     ...(data.search == null || data.search.length === 0 ? null : { search: data.search }),
@@ -31,6 +36,9 @@ function mapQueryParamsFromSearchOptions(data: Partial<VisualNovelSearchOptions>
     ...(data.releasedRange == null || data.releasedRange.endDate == null ? null : {
       endYear: data.releasedRange.endDate.getFullYear().toString(),
     }),
+    ...(data.tagOptions == null ? null : {
+      tags: data.tagOptions.map(option => [option.value, option.label].join(SEPARATOR_SYMBOL)).join(','),
+    }),
   };
 }
 
@@ -38,7 +46,7 @@ function mapQueryParamsFromSearchOptions(data: Partial<VisualNovelSearchOptions>
  * Maps query params to visual novel search options.
  * @param queryParams Query params.
  */
-function mapQueryParamsToSearchOptions(queryParams: VisualNovelSearchQueryParams): Partial<VisualNovelSearchOptions> {
+function mapQueryParamsToSearchOptions(queryParams: VisualNovelSearchQueryParams): VisualNovelSearchOptions {
   return {
     ...(queryParams.page == null ? null : { page: Number(queryParams.page) }),
     ...(queryParams.search == null ? null : { search: queryParams.search }),
@@ -53,11 +61,17 @@ function mapQueryParamsToSearchOptions(queryParams: VisualNovelSearchQueryParams
         endDate: new Date(queryParams.endYear),
       },
     }),
+    ...(queryParams.tags == null ? null : {
+      tagOptions: parseStringArrayFromSearchParam(queryParams.tags).map(tag => {
+        const [value, label] = tag.split(SEPARATOR_SYMBOL);
+        return SelectOption.create(Number(value), label);
+      }),
+    }),
   };
 }
 
 /** Hook for reading/writing visual novel search data via query params. */
-export function useVisualNovelQueryParams(): UseQueryParamsReturnType<Partial<VisualNovelSearchOptions>> {
+export function useVisualNovelQueryParams(): UseQueryParamsReturnType<VisualNovelSearchOptions> {
   const [queryParams, setQueryParams] = useQueryParams(mapQueryParamsFromSearchOptions, mapQueryParamsToSearchOptions);
   return [queryParams, setQueryParams];
 }

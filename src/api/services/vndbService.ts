@@ -9,7 +9,7 @@ export type VisualNovelFilter =
   readonly ['platforms', '=' | '!=', readonly string[]] |
   readonly ['languages', '=' | '!=', readonly string[]] |
   readonly ['orig_lang', '=' | '!=', readonly string[]] |
-  readonly ['tags', '=' | '!=', readonly number[]] |
+  readonly ['tags', '=' | '!=', number] |
   readonly ['released', '=' | '!=' | '>' | '>=' | '<' | '<=', string];
 export type VisualNovelSortField = 'id' | 'title' | 'released' | 'popularity' | 'rating' | 'votecount';
 
@@ -18,7 +18,7 @@ export type CharacterFilter =
   readonly ['search', '~', string] |
   readonly ['id', '=' | '!=' | '>' | '>=' | '<' | '<=', number] |
   readonly ['vn', '=', number] |
-  readonly ['traits', '=' | '!=', readonly string[]];
+  readonly ['traits', '=' | '!=', string];
 export type CharacterSortField = 'id' | 'name';
 
 type GetQueryConfigBase =
