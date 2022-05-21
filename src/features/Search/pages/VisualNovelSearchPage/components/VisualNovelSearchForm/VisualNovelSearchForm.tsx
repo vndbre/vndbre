@@ -12,10 +12,12 @@ import {
 import { useForm } from 'react-hook-form';
 import { Language } from '../../../../../../models/language';
 import { Platform } from '../../../../../../models/platform';
-import { MultiSelect, RangeSlider, TextInput } from '../../../../../../components';
+import { AsyncMultiSelect, MultiSelect, RangeSlider, TextInput } from '../../../../../../components';
 import { Icon } from '../../../../../../components/Icon/Icon';
-import { debounce } from '../../../../../../utils/debounce';
-import { mapLanguageToSelectOption, mapPlatformToSelectOption, SelectOption } from '../../../../../../utils/selectOption';
+import { Debounce } from '../../../../../../utils/debounce';
+import { SelectOption } from '../../../../../../utils/selectOption';
+import { Tag } from '../../../../../../models/tag';
+import { TagsService } from '../../../../../../api/services/tagsService';
 
 /** Visual novel search form data. */
 export interface VisualNovelFormData {
@@ -34,10 +36,13 @@ export interface VisualNovelFormData {
 
   /** Platforms. */
   readonly platforms: readonly SelectOption<Platform>[];
+
+  /** Tags. */
+  readonly tags: readonly SelectOption<Tag['id']>[];
 }
 
-const languageOptions = Language.getSorted().map(mapLanguageToSelectOption);
-const platformOptions = Platform.getSorted().map(mapPlatformToSelectOption);
+const languageOptions = Language.getSorted().map(Language.toSelectOption);
+const platformOptions = Platform.getSorted().map(Platform.toSelectOption);
 
 const currentYear = new Date().getFullYear();
 const MIN_RELEASE_YEAR = 1970;
@@ -48,6 +53,7 @@ const visualNovelFormInitialValues: VisualNovelFormData = {
   languages: [],
   originalLanguages: [],
   platforms: [],
+  tags: [],
 };
 
 interface Props {
@@ -78,7 +84,12 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
     onSubmit(data);
   };
 
-  const handleVisualNovelFormSubmitDebounced = useCallback(debounce(handleVisualNovelFormSubmit), []);
+  const handleVisualNovelFormSubmitDebounced = useCallback(Debounce.apply(handleVisualNovelFormSubmit), []);
+
+  const loadTags = useCallback(async(search: string) => {
+    const tags = await TagsService.fetchTags({ search });
+    return tags.map(Tag.toSelectOption);
+  }, []);
 
   useEffect(() => {
     const subscription = watch(
@@ -144,7 +155,7 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
                 />
               </HStack>
 
-              <HStack width="full">
+              <HStack width="full" alignItems="end">
                 <MultiSelect
                   control={control}
                   name="languages"
@@ -183,6 +194,16 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
                   label="Release date"
                   min={MIN_RELEASE_YEAR}
                   max={currentYear}
+                />
+              </HStack>
+
+              <HStack width="full">
+                <AsyncMultiSelect
+                  control={control}
+                  placeholder="Any"
+                  name="tags"
+                  label="Tags"
+                  fetchOptions={loadTags}
                 />
               </HStack>
             </VStack>

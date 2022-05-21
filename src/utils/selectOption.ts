@@ -1,9 +1,7 @@
 import { OptionBase } from 'chakra-react-select';
-import { Language } from '../models/language';
-import { Platform } from '../models/platform';
 
 /** Option for Chakra UI Select component. */
-export interface SelectOption<T = string> extends OptionBase {
+export interface SelectOption<T = string | number> extends OptionBase {
 
   /** Value. */
   readonly value: T;
@@ -15,25 +13,19 @@ export interface SelectOption<T = string> extends OptionBase {
   readonly icon?: string;
 }
 
-/**
- * Makes a select option out of the language.
- * @param language Language.
- */
-export function mapLanguageToSelectOption(language: Language): SelectOption<Language> {
-  return {
-    value: language,
-    label: Language.toReadable(language),
-    icon: Language.getIcon(language),
-  };
-}
+export namespace SelectOption {
 
-/**
- * Makes a select option out of the platform.
- * @param platform Platform.
- */
-export function mapPlatformToSelectOption(platform: Platform): SelectOption<Platform> {
-  return {
-    value: platform,
-    label: Platform.toReadable(platform),
-  };
+  /**
+   * Creates select option.
+   * @param value Value.
+   * @param label Label.
+   * @param icon Icon.
+   */
+  export function create<T>(value: SelectOption<T>['value'], label: SelectOption['label'], icon?: SelectOption['label']): SelectOption<T> {
+    return {
+      value,
+      label,
+      ...(icon == null ? null : { icon }),
+    };
+  }
 }

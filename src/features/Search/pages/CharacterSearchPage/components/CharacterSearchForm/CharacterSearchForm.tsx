@@ -3,7 +3,7 @@ import { HStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
 import { TextInput } from '../../../../../../components';
 import { Icon } from '../../../../../../components/Icon/Icon';
-import { debounce } from '../../../../../../utils/debounce';
+import { Debounce } from '../../../../../../utils/debounce';
 
 /** Character search form data. */
 export interface CharacterFormData {
@@ -43,7 +43,7 @@ export const CharacterSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues })
     onSubmit(data);
   };
 
-  const handleCharacterFormSubmitDebounced = useCallback(debounce(handleCharacterFormSubmit), []);
+  const handleCharacterFormSubmitDebounced = useCallback(Debounce.apply(handleCharacterFormSubmit), []);
 
   useEffect(() => {
     const subscription = watch(

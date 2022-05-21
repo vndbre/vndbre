@@ -133,7 +133,9 @@ export namespace VisualNovelsService {
     }
 
     if (options.tags != null && options.tags.length > 0) {
-      visualNovelFilters.push(['tags', '=', options.tags]);
+      options.tags.forEach(tag => {
+        visualNovelFilters.push(['tags', '=', tag]);
+      });
     }
 
     if (options.releasedRange != null) {

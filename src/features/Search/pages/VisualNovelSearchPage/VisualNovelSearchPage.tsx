@@ -7,9 +7,12 @@ import { VisualNovelFormData } from './components/VisualNovelSearchForm/VisualNo
 import { VisualNovelList, VisualNovelListVariant } from './components/VisualNovelList/VisualNovelList';
 import { VisualNovelListOptions } from './components/VisualNovelListOptions/VisualNovelListOptions';
 
-import { mapLanguageToSelectOption, mapPlatformToSelectOption } from '../../../../utils/selectOption';
 import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
 import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
+import { Language } from '../../../../models/language';
+import { Platform } from '../../../../models/platform';
+import { SelectOption } from '../../../../utils/selectOption';
+import { Tag } from '../../../../models/tag';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -27,14 +30,19 @@ function mapFormDataToOptions(formData: VisualNovelFormData): VisualNovelFormDat
     languages: formData.languages.map(language => language.value),
     originalLanguages: formData.originalLanguages.map(language => language.value),
     platforms: formData.platforms.map(language => language.value),
+    tags: formData.tags.map(tag => tag.value),
   };
 }
 
 /**
  * Maps visual novel search options to form data representation.
  * @param options Options.
+ * @param tags Tags.
  */
-function mapOptionsToFormData(options: VisualNovelFormDataSearchOptions): Partial<VisualNovelFormData> {
+function mapOptionsToFormData(
+  options: VisualNovelFormDataSearchOptions,
+  tags?: readonly SelectOption<Tag['id']>[],
+): Partial<VisualNovelFormData> {
   return {
     ...(options.search == null ? null : { title: options.search }),
     ...(options.releasedRange == null ? null : {
@@ -42,9 +50,11 @@ function mapOptionsToFormData(options: VisualNovelFormDataSearchOptions): Partia
         undefined :
         [options.releasedRange.startDate.getFullYear(), options.releasedRange.endDate.getFullYear()],
     }),
-    ...(options.languages == null ? null : { languages: options.languages.map(mapLanguageToSelectOption) }),
-    ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(mapLanguageToSelectOption) }),
-    ...(options.platforms == null ? null : { platforms: options.platforms.map(mapPlatformToSelectOption) }),
+    ...(options.languages == null ? null : { languages: options.languages.map(Language.toSelectOption) }),
+    ...(options.originalLanguages == null ? null : { originalLanguages: options.originalLanguages.map(Language.toSelectOption) }),
+    ...(options.platforms == null ? null : { platforms: options.platforms.map(Platform.toSelectOption) }),
+    ...(options.platforms == null ? null : { platforms: options.platforms.map(Platform.toSelectOption) }),
+    ...(tags == null ? null : { tags }),
   };
 }
 
@@ -64,10 +74,12 @@ export const VisualNovelSearchPage: VFC = () => {
   const defaultSearchOptions: VisualNovelSearchOptions = useMemo(() => ({
     ...DEFAULT_PAGINATION_OPTIONS,
     ...queryParams,
+    tags: queryParams.tagOptions?.map(t => t.value),
   }), []);
 
   const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
   const [tableVariant, setTableVariant] = useState<VisualNovelListVariant>('cards');
+  const [selectedTags, setSelectedTags] = useState<readonly SelectOption<Tag['id']>[]>([]);
   const { isLoading, data: visualNovelsPage } = useVisualNovelsPageQuery(searchOptions);
 
   const handlePaginatorChange = useCallback((newPage: number) => {
@@ -78,6 +90,7 @@ export const VisualNovelSearchPage: VFC = () => {
 
     setQueryParams({
       ...searchOptions,
+      tagOptions: selectedTags,
       page: newPage,
     });
   }, [searchOptions]);
@@ -90,13 +103,13 @@ export const VisualNovelSearchPage: VFC = () => {
       ...options,
       page: 1,
     }));
-
-    setQueryParams({ ...options, page: 1 });
+    setSelectedTags(data.tags);
+    setQueryParams({ ...options, tagOptions: data.tags, page: 1 });
   }, []);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
-  const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions), []);
+  const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions, queryParams.tagOptions), []);
 
   return (
     <Box

@@ -1,4 +1,5 @@
 import { enumToArray } from '../utils/enumToArray';
+import { SelectOption } from '../utils/selectOption';
 
 /** Language. */
 export enum Language {
@@ -148,5 +149,17 @@ export namespace Language {
   export function getSorted(): Language[] {
     // eslint-disable-next-line @typescript-eslint/require-array-sort-compare
     return enumToArray(Language).sort();
+  }
+
+  /**
+   * Converts the specified language to a select option.
+   * @param value Language.
+   */
+  export function toSelectOption(value: Language): SelectOption<Language> {
+    return SelectOption.create(
+      value,
+      Language.toReadable(value),
+      Language.getIcon(value),
+    );
   }
 }
