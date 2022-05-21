@@ -14,7 +14,7 @@ import { SelectOption } from '../../utils/selectOption';
 export namespace MultiSelect {
 
   /** Multi select base props. */
-  export interface BaseProps extends FormControlProps, Omit<SelectProps<SelectOption, true, GroupBase<SelectOption>>, 'name'> {
+  export interface Props extends FormControlProps, Omit<SelectProps<SelectOption, true, GroupBase<SelectOption>>, 'name'> {
 
     /** Label for the multi select. */
     readonly label: string;
@@ -45,7 +45,7 @@ export namespace MultiSelect {
    * @param displayLimit Maximum amount of displayed options.
    * @param components Custom multi select components.
    */
-  export const getComponents = (displayLimit: number, components: BaseProps['components']): BaseProps['components'] => ({
+  export const getComponents = (displayLimit: number, components: Props['components']): Props['components'] => ({
 
     /** Removes default dropdown indicator. */
     DropdownIndicator: () => null,

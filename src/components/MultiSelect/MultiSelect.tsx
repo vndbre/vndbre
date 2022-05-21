@@ -5,7 +5,7 @@ import { useController } from 'react-hook-form';
 import { SelectOption } from '../../utils/selectOption';
 import { MultiSelect as MultiSelectBase } from './base';
 
-type Props = MultiSelectBase.BaseProps;
+type Props = MultiSelectBase.Props;
 
 /** Multi select. */
 const MultiSelectComponent: VFC<Props> = ({

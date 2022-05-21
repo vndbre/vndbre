@@ -6,10 +6,10 @@ import { SelectOption } from '../../utils/selectOption';
 import { Debounce } from '../../utils/debounce';
 import { MultiSelect } from './base';
 
-interface Props extends MultiSelect.BaseProps {
+interface Props extends MultiSelect.Props {
 
   /** Function for options loading. */
-  readonly fetchOptions: (searchString: string) => Promise<SelectOption[]>;
+  readonly loadOptions: (searchString: string) => Promise<SelectOption[]>;
 
   /** Delay between user input and fetching of options in milliseconds. */
   readonly debounceTime?: number;
@@ -24,7 +24,7 @@ const AsyncMultiSelectComponent: VFC<Props> = ({
   components,
   chakraStyles,
   displayLimit = 0,
-  fetchOptions,
+  loadOptions,
   debounceTime = Debounce.DEFAULT_DEBOUNCE_TIME_IN_MILLISECONDS,
   ...props
 }) => {
@@ -41,7 +41,7 @@ const AsyncMultiSelectComponent: VFC<Props> = ({
 
   const loadOptionsDebounced = useCallback(Debounce.apply(
     async(searchString: string, showLoadedOptions: (options: SelectOption[]) => void) => {
-      const options = await fetchOptions(searchString);
+      const options = await loadOptions(searchString);
       showLoadedOptions(options);
     },
     debounceTime,
