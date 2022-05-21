@@ -203,7 +203,7 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
                   placeholder="Any"
                   name="tags"
                   label="Tags"
-                  fetchOptions={loadTags}
+                  loadOptions={loadTags}
                 />
               </HStack>
             </VStack>
