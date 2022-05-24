@@ -1,16 +1,16 @@
-import React, { useMemo, VFC } from 'react';
-import { Box, Grid, HStack, Text, VStack } from '@chakra-ui/react';
-import { ContentWrapper, EntityDetail, EntityTitle, HideContent, SafeImage, TagList } from '../../../../components';
+import React, { VFC } from 'react';
+import { Box, Grid, VStack } from '@chakra-ui/react';
+import { ContentWrapper, EntityDetail, EntityTitle, SafeImage, TagList } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { useCharacterQuery } from '../../queries';
 import characterPlaceholder from '../../../../assets/person.svg';
-import { BBCode } from '../../../../components/BBCode/BBCode';
 import { useExtendedTraitsQuery } from '../../queries/trait';
 import { CharacterTraits } from '../../components';
 import { useRelatedVisualNovelsQuery } from '../../../VisualNovel/queries/visualNovel';
 import { CharacterRole } from '../../../../models/characters/characterRole';
 import { Gender } from '../../../../models/gender';
 import { CharacterRouteParams } from '../../utils/characterRouteParams';
+import { Description } from '../../../../components/Description/Description';
 
 /** Character page. */
 export const CharacterPage: VFC = () => {
@@ -63,69 +63,89 @@ export const CharacterPage: VFC = () => {
     />
   );
 
-  const description = useMemo(() => {
-    if (character?.description != null) {
-      return (
-        <HideContent maxHeight={250}>
-          <BBCode text={character?.description} />
-        </HideContent>
-      );
-    }
-    return (<Text>No description.</Text>);
-  }, [character?.description]);
-
   return (
     <ContentWrapper isLoading={isCharacterLoading} error={characterError}>
-      {character && (
-        <>
-          <Grid gridTemplateColumns="var(--chakra-sizes-48) 1fr" pt="8" gap="8">
-            <SafeImage
-              src={character.image}
-              fallbackSrc={characterPlaceholder}
-              h="auto"
-              maxH="80"
-              containerProps={{
-                borderRadius: 'lg',
+      <Box
+        display="flex"
+        flexDir="column"
+        gap={8}
+      >
+        {character && (
+          <>
+            <Grid
+              gridTemplateColumns={{
+                base: 'var(--chakra-sizes-24) 1fr',
+                md: 'var(--chakra-sizes-48) 1fr',
               }}
-              objectFit="cover"
-              borderRadius="lg"
-            />
-            <Box>
-              <VStack alignItems="initial" spacing="6">
+              gridTemplateRows="min-content 1fr"
+              gridTemplateAreas={{
+                base: `
+                "image heading"
+                "image info"
+                "description description"
+              `,
+                md: `
+                "image heading"
+                "image info"
+                "image description"
+              `,
+              }}
+              gap={{
+                base: 4,
+                md: 8,
+              }}
+            >
+              <SafeImage
+                src={character.image}
+                fallbackSrc={characterPlaceholder}
+                h="auto"
+                maxH="80"
+                containerProps={{
+                  gridArea: 'image',
+                  borderRadius: 'lg',
+                }}
+                objectFit="cover"
+                borderRadius="lg"
+              />
+              <Box gridArea="heading">
                 <EntityTitle title={character.name} originalTitle={character.originalName} />
-                <Box>
-                  <VStack alignItems="initial">
-                    {character.aliases && (
-                      <EntityDetail title="Aliases">{character.aliases}</EntityDetail>
-                    )}
-                    {character.gender && (
-                      <EntityDetail title="Gender">{Gender.toReadable(character.gender)}</EntityDetail>
-                    )}
-                    <HStack spacing="6">
-                      {character.height && (
-                        <EntityDetail title="Height">{`${character.height}cm`}</EntityDetail>
-                      )}
-                      {character.weight && (
-                        <EntityDetail title="Height">{`${character.weight}kg`}</EntityDetail>
-                      )}
-                    </HStack>
-                  </VStack>
-                </Box>
-                {description}
+              </Box>
+              <VStack gridArea="info" alignItems="initial">
+                {character.aliases && (
+                  <EntityDetail title="Aliases">{character.aliases}</EntityDetail>
+                )}
+                {character.gender && (
+                  <EntityDetail title="Gender">{Gender.toReadable(character.gender)}</EntityDetail>
+                )}
+                {character.height && (
+                  <EntityDetail title="Height">{`${character.height}cm`}</EntityDetail>
+                )}
+                {character.weight && (
+                  <EntityDetail title="Weight">{`${character.weight}kg`}</EntityDetail>
+                )}
               </VStack>
-            </Box>
-          </Grid>
-          <Grid gridTemplateColumns="repeat(3, 1fr)" mt="8" gap="8">
-            <ContentWrapper isLoading={isTraitsLoading} error={traitsError}>
-              {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
-            </ContentWrapper>
-            {characterInstances}
-            <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
-              {relatedVisualNovels}
-            </ContentWrapper>
-          </Grid>
-        </>
-      )}
+              <Box gridArea="description">
+                <Description text={character.description} desktopHeight={100} />
+              </Box>
+            </Grid>
+            <Grid
+              gridTemplateColumns={{
+                base: '1fr',
+                md: 'repeat(3, 1fr)',
+              }}
+              gap={8}
+            >
+              <ContentWrapper isLoading={isVisualNovelsLoading} error={visualNovelsError}>
+                {relatedVisualNovels}
+              </ContentWrapper>
+              <ContentWrapper isLoading={isTraitsLoading} error={traitsError}>
+                {traitsWithRoot && <CharacterTraits traits={traitsWithRoot} />}
+              </ContentWrapper>
+              {characterInstances}
+            </Grid>
+          </>
+        )}
+      </Box>
     </ContentWrapper>
   );
 };

@@ -49,9 +49,13 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
       as="header"
       borderBottom="1px solid"
       borderColor="gray.300"
-      h={16}
+      h={{
+        base: 14,
+        md: 16,
+      }}
       display="flex"
       justifyContent="center"
+      backgroundColor="white"
     >
       <Box
         maxW="var(--screen-max-width)"
@@ -60,10 +64,13 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
         flexDir="row"
         alignItems="center"
         gap={4}
-        px={8}
+        px={{
+          base: 2,
+          md: 8,
+        }}
       >
-        <Fade in={isLogoVisible}>
-          <HStack justifyContent="space-between" alignItems="center">
+        <Fade in={isLogoVisible} style={{ flexGrow: 1 }}>
+          <HStack alignItems="center">
             <IconButton
               onClick={onSidebarShow}
               aria-label="Toggle sidebar"
@@ -71,7 +78,12 @@ export const HeaderComponent: VFC<Props> = ({ isLogoVisible, onSidebarShow }) =>
               colorScheme="gray"
               icon={<Icon name="carbon:menu" />}
             />
-            <Heading as="h2" size="md">vndbre</Heading>
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+            >
+              <Heading as="h2" size="md">vndbre</Heading>
+            </Box>
           </HStack>
         </Fade>
         <Popover

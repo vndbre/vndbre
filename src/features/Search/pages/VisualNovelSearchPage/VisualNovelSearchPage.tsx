@@ -115,15 +115,21 @@ export const VisualNovelSearchPage: VFC = () => {
     <Box
       display="flex"
       flexDir="column"
-      mt={8}
       gap={8}
     >
-      <VisualNovelSearchForm
-        defaultFormValues={defaultFormValues}
-        onSubmit={handleSearchSubmit}
-      />
-
-      <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+      <Box
+        display="flex"
+        flexDir="column"
+        gap={4}
+      >
+        <VisualNovelSearchForm
+          defaultFormValues={defaultFormValues}
+          onSubmit={handleSearchSubmit}
+        />
+        <Box ml="auto">
+          <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
+        </Box>
+      </Box>
 
       <VisualNovelList
         variant={tableVariant}

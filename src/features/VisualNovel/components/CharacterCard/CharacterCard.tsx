@@ -38,7 +38,7 @@ export const CharacterCardComponent: VFC<CharacterCardProps> = ({ character }) =
       />
       <div className={cls.container}>
         <div className={cls.info}>
-          <Heading lineHeight="22px" as="h4" size="sm">
+          <Heading lineHeight="22px" as="h4" size="sm" fontWeight="semibold">
             <Link as={NavLink} to={`/character/${character.id}`} variant="no-underline">
               {character.name}
             </Link>

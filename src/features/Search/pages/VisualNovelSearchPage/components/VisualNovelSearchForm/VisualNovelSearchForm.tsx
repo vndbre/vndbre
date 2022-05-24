@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, VFC } from 'react';
 import {
+  Box,
   HStack,
   IconButton,
   Modal,
@@ -18,6 +19,7 @@ import { Debounce } from '../../../../../../utils/debounce';
 import { SelectOption } from '../../../../../../utils/selectOption';
 import { Tag } from '../../../../../../models/tag';
 import { TagsService } from '../../../../../../api/services/tagsService';
+import { useIsMobile } from '../../../../../../hooks/useIsMobile';
 
 /** Visual novel search form data. */
 export interface VisualNovelFormData {
@@ -99,9 +101,11 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
     return () => subscription.unsubscribe();
   }, [watch]);
 
+  const isMobile = useIsMobile();
+
   return (
     <form>
-      <HStack width="full" alignItems="end" gap={4}>
+      <Box display="flex" width="full" alignItems="end" gap={4}>
         <TextInput
           control={control}
           name="title"
@@ -109,26 +113,29 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
           leftElement={<Icon name="carbon:search" />}
         />
 
-        <MultiSelect
-          control={control}
-          name="languages"
-          label="Language"
-          options={languageOptions}
-          placeholder="Any"
-          displayLimit={1}
-          closeMenuOnSelect={false}
-        />
+        {!isMobile && (
+          <>
+            <MultiSelect
+              control={control}
+              name="languages"
+              label="Language"
+              options={languageOptions}
+              placeholder="Any"
+              displayLimit={1}
+              closeMenuOnSelect={false}
+            />
 
-        <MultiSelect
-          control={control}
-          name="platforms"
-          label="Platform"
-          options={platformOptions}
-          placeholder="Any"
-          displayLimit={1}
-          closeMenuOnSelect={false}
-        />
-
+            <MultiSelect
+              control={control}
+              name="platforms"
+              label="Platform"
+              options={platformOptions}
+              placeholder="Any"
+              displayLimit={1}
+              closeMenuOnSelect={false}
+            />
+          </>
+        )}
         <IconButton
           aria-label="Open modal with more filter options"
           onClick={onOpen}
@@ -136,7 +143,7 @@ export const VisualNovelSearchForm: VFC<Props> = ({ onSubmit, defaultFormValues 
           colorScheme="gray"
           size="sm"
         />
-      </HStack>
+      </Box>
       <Modal
         size="5xl"
         onClose={onClose}

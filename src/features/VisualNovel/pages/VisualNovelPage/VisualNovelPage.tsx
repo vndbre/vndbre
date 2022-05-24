@@ -1,14 +1,13 @@
-import React, { FC, Suspense, useMemo } from 'react';
-import { Text } from '@chakra-ui/react';
+import React, { FC, Suspense } from 'react';
+import { Box, Grid } from '@chakra-ui/react';
 import { Outlet } from 'react-router';
-import cls from './VisualNovelPage.module.css';
 import vnPosterPlaceholder from '../../../../assets/star.svg';
 import { useVisualNovelQuery } from '../../queries';
-import { BBCode } from '../../../../components/BBCode/BBCode';
-import { ContentWrapper, EntityTabs, EntityTitle, HideContent, Loading, SafeImage } from '../../../../components';
+import { ContentWrapper, EntityTabs, EntityTitle, Loading, SafeImage } from '../../../../components';
 import { useRouteParams } from '../../../../hooks/useRouterParams';
 import { RouteInfo } from '../../../../routes/utils/RouteInfo';
 import { VisualNovelRouteParams } from '../../utils/visualNovelRouteParams';
+import { Description } from '../../../../components/Description/Description';
 
 export const VISUAL_NOVELS_ROUTES_INFO: readonly RouteInfo[] = [
   { name: 'Overview', path: '' },
@@ -25,27 +24,47 @@ export const VisualNovelPage: FC = () => {
   const { id } = useRouteParams<VisualNovelRouteParams>();
   const { isLoading, error, data } = useVisualNovelQuery(Number(id));
 
-  const description = useMemo(() => {
-    if (data?.description != null) {
-      return (
-        <HideContent maxHeight={180}>
-          <BBCode text={data.description} />
-        </HideContent>
-      );
-    }
-    return (<Text>No description.</Text>);
-  }, [data?.description]);
-
   return (
     <ContentWrapper isLoading={isLoading} error={error}>
       {data && (
-        <div className={cls.page}>
-          <header className={cls.header}>
-            <div className={cls.overview}>
+        <Box
+          display="flex"
+          flexDir="column"
+          gap={4}
+          overflow="hidden"
+        >
+          <Box
+            as="header"
+            display="flex"
+            flexDir="column"
+            gap={4}
+          >
+            <Grid
+              gridTemplateColumns={{
+                base: 'var(--chakra-sizes-24) 1fr',
+                md: 'var(--chakra-sizes-48) 1fr',
+              }}
+              gridTemplateRows="min-content 1fr"
+              gridTemplateAreas={{
+                base: `
+                  "image heading"
+                  "description description"
+                `,
+                md: `
+                  "image heading"
+                  "image description"
+                `,
+              }}
+              gap={{
+                base: 4,
+                md: 8,
+              }}
+            >
               <SafeImage
                 containerProps={{
                   borderRadius: 'lg',
                   h: 'max-content',
+                  gridArea: 'image',
                 }}
                 objectFit="cover"
                 height="auto"
@@ -55,21 +74,28 @@ export const VisualNovelPage: FC = () => {
                 alt={data.title}
                 isNsfw={data.isImageNsfw}
               />
-              <div className={cls.info}>
-                <div className={cls.heading}>
-                  <EntityTitle title={data.title} originalTitle={data.originalName} />
-                </div>
-                {description}
-              </div>
-            </div>
-            <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
-          </header>
-          <div>
+              <Box
+                gridArea="heading"
+                display="flex"
+                gap={4}
+                alignItems="flex-start"
+              >
+                <EntityTitle title={data.title} originalTitle={data.originalName} />
+              </Box>
+              <Box gridArea="description">
+                <Description text={data.description} />
+              </Box>
+            </Grid>
+            <Box overflowX="auto">
+              <EntityTabs id={id} tabsInfo={VISUAL_NOVELS_ROUTES_INFO} entityRootPath="vn" />
+            </Box>
+          </Box>
+          <Box>
             <Suspense fallback={<Loading isLoading />}>
               <Outlet />
             </Suspense>
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
     </ContentWrapper>
   );
