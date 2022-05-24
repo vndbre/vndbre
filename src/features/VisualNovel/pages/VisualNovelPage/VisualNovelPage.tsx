@@ -41,8 +41,8 @@ export const VisualNovelPage: FC = () => {
           >
             <Grid
               gridTemplateColumns={{
-                base: 'grid-template-columns: var(--chakra-sizes-24) 1fr',
-                md: 'grid-template-columns: var(--chakra-sizes-48) 1fr',
+                base: 'var(--chakra-sizes-24) 1fr',
+                md: 'var(--chakra-sizes-48) 1fr',
               }}
               gridTemplateAreas={{
                 base: `
