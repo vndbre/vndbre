@@ -3,7 +3,7 @@ import { Box, Checkbox, Divider, FormControl, Radio, VStack } from '@chakra-ui/r
 import { useForm } from 'react-hook-form';
 import { useSettingsContext } from '../../providers';
 import { SpoilerLevel } from '../../models/spoilerLevel';
-import { RadioGroup } from '../RadioGroup/RadioGroup';
+import { RadioGroup } from '../../components/RadioGroup/RadioGroup';
 
 /** Settings component. */
 export const ViewSettingsForm: VFC = () => {

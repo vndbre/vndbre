@@ -14,10 +14,10 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuthContext } from '../../providers';
-import { ViewSettingsForm } from '../../components';
 import { Icon } from '../../components/Icon/Icon';
 import { useLogoutMutation } from '../queries';
 import { Toast } from '../../utils/toast';
+import { ViewSettingsForm } from '../ViewSettingsForm/ViewSettingsForm';
 
 interface Props {
 
