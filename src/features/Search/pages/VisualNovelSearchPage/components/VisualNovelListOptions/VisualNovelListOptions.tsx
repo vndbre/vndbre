@@ -67,6 +67,9 @@ const VisualNovelListOptionsComponent: VFC<Props> = ({ activeVariant, onVariantC
           icon={<Icon name={icon} />}
           borderRadius="none"
           colorScheme="gray"
+          _focusWithin={{
+            zIndex: 1,
+          }}
           _first={{
             borderLeftRadius: 'md',
           }}

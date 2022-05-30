@@ -1,11 +1,11 @@
 /** Sort type. */
 export enum SortType {
-  Ascending,
-  Descending,
+  Ascending = 'asc',
+  Descending = 'desc',
 }
 
 /** Sort options for a list of items. */
-export interface SortOptions<T> {
+export interface SortOptions<T extends string> {
 
   /** Type. */
   readonly type: SortType;
