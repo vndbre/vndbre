@@ -44,6 +44,15 @@ const customSelectStyles = {
     ...provided,
     bg: 'white',
   }),
+
+  /**
+   * Sets styles for the options menu component inside select.
+   * @param provided Styles object.
+   */
+  menu: (provided: CSSObject) => ({
+    ...provided,
+    overflow: 'none',
+  }),
 };
 
 /**
@@ -53,7 +62,7 @@ const customSelectStyles = {
 const SortingComponent: ReactNode = <T extends string>(props: Props<T>) => {
   const { sortFieldOptions, defaultSortFieldOption, defaultDirection, onChange } = props;
   // eslint-disable-next-line react/destructuring-assignment
-  const minWidth = props.minWidth ?? 250;
+  const minWidth = props.minWidth ?? 275;
 
   const [sortOptions, setSortOptions] = useState<SortOptions<T>>({ type: defaultDirection, field: defaultSortFieldOption.value });
 

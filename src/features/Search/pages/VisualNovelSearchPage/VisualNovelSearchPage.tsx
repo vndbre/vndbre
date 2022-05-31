@@ -85,7 +85,6 @@ const SORT_OPTIONS: readonly SelectOption<VisualNovelSortField>[] = [
   { value: VisualNovelSortField.Released, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Released] },
   { value: VisualNovelSortField.Title, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Title] },
   { value: VisualNovelSortField.Popularity, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Popularity] },
-
 ];
 
 /** Search page for visual novels. */
