@@ -72,7 +72,7 @@ const SortingComponent: ReactNode = <T extends string>(props: Props<T>) => {
       onChange(newSortOptions);
       return newSortOptions;
     });
-  }, []);
+  }, [onChange]);
 
   const handleSortingFieldChange = useCallback((value: SingleValue<SelectOption<T>>) => {
     assertNonNull(value);
@@ -81,7 +81,7 @@ const SortingComponent: ReactNode = <T extends string>(props: Props<T>) => {
       onChange(newSortOptions);
       return newSortOptions;
     });
-  }, []);
+  }, [onChange]);
 
   return (
     <HStack minWidth={minWidth}>

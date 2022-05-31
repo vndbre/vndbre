@@ -60,7 +60,7 @@ function mapOptionsToFormData(
   };
 }
 
-const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
+const DEFAULT_SEARCH_OPTIONS = {
   page: 1,
   pageSize: 18,
   releasedRange: {
@@ -90,10 +90,10 @@ const SORT_OPTIONS: readonly SelectOption<VisualNovelSortField>[] = [
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
   const [queryParams, setQueryParams] = useVisualNovelQueryParams();
-  const defaultSearchOptions: VisualNovelSearchOptions = useMemo(() => ({
-    ...DEFAULT_PAGINATION_OPTIONS,
+  const defaultSearchOptions = useMemo(() => ({
+    ...DEFAULT_SEARCH_OPTIONS,
     ...queryParams,
-    tags: queryParams.tagOptions?.map(t => t.value),
+    tags: queryParams.tagOptions?.map(t => t.value) ?? [],
   }), []);
 
   const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
@@ -112,7 +112,7 @@ export const VisualNovelSearchPage: VFC = () => {
       tagOptions: selectedTags,
       page: newPage,
     });
-  }, [searchOptions]);
+  }, [searchOptions, selectedTags]);
 
   const handleSortingChange = useCallback((newSortOptions: SortOptions<VisualNovelSortField>) => {
     setSearchOptions(prev => ({
@@ -125,7 +125,7 @@ export const VisualNovelSearchPage: VFC = () => {
       tagOptions: selectedTags,
       sort: newSortOptions,
     });
-  }, [searchOptions]);
+  }, [searchOptions, selectedTags]);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
     const options = mapFormDataToOptions(data);
@@ -136,8 +136,8 @@ export const VisualNovelSearchPage: VFC = () => {
       page: 1,
     }));
     setSelectedTags(data.tags);
-    setQueryParams({ ...options, tagOptions: data.tags, page: 1 });
-  }, []);
+    setQueryParams({ ...options, sort: searchOptions.sort, tagOptions: data.tags, page: 1 });
+  }, [searchOptions]);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
