@@ -1,3 +1,4 @@
+import { AppError } from '../../models/appError';
 import { PaginationOptions } from '../../models/paginationOptions';
 import { PaginationMapper } from '../mappers/paginationMapper';
 
@@ -61,7 +62,7 @@ export namespace VNDBService {
     const flags = config.flags.join(',');
 
     if (config.filters.length === 0) {
-      throw new Error('There must be at least one filter!');
+      throw new AppError('To create VNDB get query there must be at least one filter!');
     }
 
     const filters = config.filters.map(mapFilterToString).join(' and ');
