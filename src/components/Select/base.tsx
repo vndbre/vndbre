@@ -21,7 +21,7 @@ export namespace Select {
   }
 
   export const BASE_COMPONENTS = {
-  /** Removes default dropdown indicator. */
+    /** Removes default dropdown indicator. */
     DropdownIndicator: () => null,
 
     /** Removes default indicator separator. */

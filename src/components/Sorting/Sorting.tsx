@@ -86,7 +86,8 @@ const SortingComponent: ReactNode = <T extends string>(props: Props<T>) => {
   return (
     <HStack minWidth={minWidth}>
       <IconButton
-        aria-label="Toggle sorting direction"
+        aria-label={sortOptions.type === SortType.Ascending ? 'Change the order to descending' : 'Change the order to ascending'}
+        title={sortOptions.type === SortType.Ascending ? 'Change the order to descending' : 'Change the order to ascending'}
         variant="ghost"
         colorScheme="gray"
         icon={<Icon name={sortOptions.type === SortType.Ascending ? 'mdi:sort-reverse-variant' : 'mdi:sort-variant'} />}
