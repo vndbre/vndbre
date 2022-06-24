@@ -1,11 +1,11 @@
 import React, { memo, useMemo, VFC } from 'react';
 import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react';
-import { Select } from 'chakra-react-select';
+import { Select as ReactSelect } from 'chakra-react-select';
 import { useController } from 'react-hook-form';
 import { SelectOption } from '../../utils/selectOption';
-import { MultiSelect as MultiSelectBase } from './base';
+import { Select } from './base';
 
-type Props = MultiSelectBase.Props;
+type Props = Select.Multi.Props;
 
 /** Multi select. */
 const MultiSelectComponent: VFC<Props> = ({
@@ -27,12 +27,12 @@ const MultiSelectComponent: VFC<Props> = ({
     rules,
   });
 
-  const multiSelectComponents = useMemo(() => MultiSelectBase.getComponents(displayLimit, components), [displayLimit, components]);
+  const multiSelectComponents = useMemo(() => Select.Multi.getComponents(displayLimit, components), [displayLimit, components]);
 
   return (
     <FormControl isInvalid={invalid} id={name}>
       <FormLabel>{label}</FormLabel>
-      <Select
+      <ReactSelect
         isMulti
         name={name}
         ref={ref}
@@ -42,7 +42,7 @@ const MultiSelectComponent: VFC<Props> = ({
         selectedOptionStyle="check"
         hideSelectedOptions={false}
         components={multiSelectComponents}
-        chakraStyles={{ ...MultiSelectBase.customChakraStyles, ...chakraStyles }}
+        chakraStyles={{ ...Select.Multi.customChakraStyles, ...chakraStyles }}
         {...props}
       />
       <FormErrorMessage>{error?.message}</FormErrorMessage>

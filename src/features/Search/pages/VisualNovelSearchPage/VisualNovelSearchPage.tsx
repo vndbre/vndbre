@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState, VFC } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import { Paginator } from '../../../../components/Paginator/Paginator';
 import { VisualNovelSearchForm } from '../../components';
 import { useVisualNovelsPageQuery } from '../../../VisualNovel/queries/visualNovel';
@@ -7,12 +7,14 @@ import { VisualNovelFormData } from './components/VisualNovelSearchForm/VisualNo
 import { VisualNovelList, VisualNovelListVariant } from './components/VisualNovelList/VisualNovelList';
 import { VisualNovelListOptions } from './components/VisualNovelListOptions/VisualNovelListOptions';
 
-import { VisualNovelSearchOptions } from '../../../../api/services/visualNovelsService';
+import { VisualNovelSearchOptions, VisualNovelSortField } from '../../../../api/services/visualNovelsService';
 import { useVisualNovelQueryParams } from '../../hooks/useVisualNovelQueryParams';
 import { Language } from '../../../../models/language';
 import { Platform } from '../../../../models/platform';
 import { SelectOption } from '../../../../utils/selectOption';
 import { Tag } from '../../../../models/tag';
+import { Sorting } from '../../../../components';
+import { SortOptions, SortType } from '../../../../models/sortOptions';
 
 type VisualNovelFormDataSearchOptions = Omit<VisualNovelSearchOptions, 'page' | 'pageSize'>;
 
@@ -58,23 +60,40 @@ function mapOptionsToFormData(
   };
 }
 
-const DEFAULT_PAGINATION_OPTIONS: VisualNovelSearchOptions = {
+const DEFAULT_SEARCH_OPTIONS = {
   page: 1,
   pageSize: 18,
   releasedRange: {
     startDate: new Date('1990'),
     endDate: new Date(),
   },
+  sort: {
+    type: SortType.Descending,
+    field: VisualNovelSortField.Rating,
+  },
 };
+
+const SORT_OPTION_TO_LABEL_MAP = {
+  [VisualNovelSortField.Rating]: 'Rating',
+  [VisualNovelSortField.Released]: 'Released Date',
+  [VisualNovelSortField.Title]: 'Title',
+  [VisualNovelSortField.Popularity]: 'Popularity',
+};
+
+const SORT_OPTIONS: readonly SelectOption<VisualNovelSortField>[] = [
+  { value: VisualNovelSortField.Rating, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Rating] },
+  { value: VisualNovelSortField.Released, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Released] },
+  { value: VisualNovelSortField.Title, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Title] },
+  { value: VisualNovelSortField.Popularity, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Popularity] },
+];
 
 /** Search page for visual novels. */
 export const VisualNovelSearchPage: VFC = () => {
   const [queryParams, setQueryParams] = useVisualNovelQueryParams();
-
-  const defaultSearchOptions: VisualNovelSearchOptions = useMemo(() => ({
-    ...DEFAULT_PAGINATION_OPTIONS,
+  const defaultSearchOptions = useMemo(() => ({
+    ...DEFAULT_SEARCH_OPTIONS,
     ...queryParams,
-    tags: queryParams.tagOptions?.map(t => t.value),
+    tags: queryParams.tagOptions?.map(t => t.value) ?? [],
   }), []);
 
   const [searchOptions, setSearchOptions] = useState<VisualNovelSearchOptions>(defaultSearchOptions);
@@ -93,7 +112,20 @@ export const VisualNovelSearchPage: VFC = () => {
       tagOptions: selectedTags,
       page: newPage,
     });
-  }, [searchOptions]);
+  }, [searchOptions, selectedTags]);
+
+  const handleSortingChange = useCallback((newSortOptions: SortOptions<VisualNovelSortField>) => {
+    setSearchOptions(prev => ({
+      ...prev,
+      sort: newSortOptions,
+    }));
+
+    setQueryParams({
+      ...searchOptions,
+      tagOptions: selectedTags,
+      sort: newSortOptions,
+    });
+  }, [searchOptions, selectedTags]);
 
   const handleSearchSubmit = useCallback((data: VisualNovelFormData) => {
     const options = mapFormDataToOptions(data);
@@ -104,12 +136,18 @@ export const VisualNovelSearchPage: VFC = () => {
       page: 1,
     }));
     setSelectedTags(data.tags);
-    setQueryParams({ ...options, tagOptions: data.tags, page: 1 });
-  }, []);
+    setQueryParams({ ...options, sort: searchOptions.sort, tagOptions: data.tags, page: 1 });
+  }, [searchOptions]);
 
   const page = useMemo(() => searchOptions.page, [searchOptions.page]);
   const pageCount = useMemo(() => (visualNovelsPage?.hasMore ? page + 1 : page), [searchOptions.page, visualNovelsPage?.hasMore]);
   const defaultFormValues = useMemo(() => mapOptionsToFormData(defaultSearchOptions, queryParams.tagOptions), []);
+  const defaultSortValue = useMemo(() => {
+    if (defaultSearchOptions.sort != null) {
+      return { value: defaultSearchOptions.sort.field, label: SORT_OPTION_TO_LABEL_MAP[defaultSearchOptions.sort.field] };
+    }
+    return { value: VisualNovelSortField.Rating, label: SORT_OPTION_TO_LABEL_MAP[VisualNovelSortField.Rating] };
+  }, [defaultSearchOptions.sort?.field, defaultSearchOptions.sort?.type]);
 
   return (
     <Box
@@ -126,9 +164,17 @@ export const VisualNovelSearchPage: VFC = () => {
           defaultFormValues={defaultFormValues}
           onSubmit={handleSearchSubmit}
         />
-        <Box ml="auto">
+
+        <HStack ml="auto" gap={4}>
+          <Sorting
+            defaultSortFieldOption={defaultSortValue}
+            defaultDirection={defaultSearchOptions.sort?.type ?? SortType.Descending}
+            sortFieldOptions={SORT_OPTIONS}
+            onChange={handleSortingChange}
+          />
+
           <VisualNovelListOptions activeVariant={tableVariant} onVariantChange={setTableVariant} />
-        </Box>
+        </HStack>
       </Box>
 
       <VisualNovelList

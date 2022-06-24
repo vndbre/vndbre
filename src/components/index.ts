@@ -17,5 +17,6 @@ export { EntityTabs } from './EntityTabs/EntityTabs';
 export { Releases } from './Releases/Releases';
 export { EntityLinks } from './EntityLinks/EntityLinks';
 export { PasswordInput } from './PasswordInput/PasswordInput';
-export { MultiSelect } from './MultiSelect/MultiSelect';
-export { AsyncMultiSelect } from './MultiSelect/AsyncMultiSelect';
+export { MultiSelect } from './Select/MultiSelect';
+export { AsyncMultiSelect } from './Select/AsyncMultiSelect';
+export { Sorting } from './Sorting/Sorting';

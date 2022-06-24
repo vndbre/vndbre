@@ -16,7 +16,7 @@ export namespace SortMapper {
    * @param data Sort options.
    * @param fieldMap Object for mapping sort fields to the ones that are acceptable for the API.
    */
-  export function toDto<T extends number | string>(
+  export function toDto<T extends string>(
     data: SortOptions<T>,
     fieldMap: Record<T, string>,
   ): string {

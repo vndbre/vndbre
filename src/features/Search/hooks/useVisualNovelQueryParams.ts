@@ -1,5 +1,6 @@
-import { VisualNovelSearchOptions as SearchOptions } from '../../../api/services/visualNovelsService';
+import { VisualNovelSearchOptions as SearchOptions, VisualNovelSortField } from '../../../api/services/visualNovelsService';
 import { parseStringArrayFromSearchParam, SEPARATOR_SYMBOL, useQueryParams, UseQueryParamsReturnType } from '../../../hooks/useQueryParams';
+import { SortType } from '../../../models/sortOptions';
 import { Tag } from '../../../models/tag';
 import { SelectOption } from '../../../utils/selectOption';
 
@@ -13,6 +14,8 @@ type VisualNovelSearchQueryParams = {
   readonly startYear?: string;
   readonly endYear?: string;
   readonly tags?: string;
+  readonly sortField?: string;
+  readonly sortDirection?: string;
 };
 
 type VisualNovelSearchOptions = Partial<SearchOptions> & { readonly tagOptions?: readonly SelectOption<Tag['id']>[]; };
@@ -39,6 +42,10 @@ function mapQueryParamsFromSearchOptions(data: VisualNovelSearchOptions): Visual
     ...(data.tagOptions == null ? null : {
       tags: data.tagOptions.map(option => [option.value, option.label].join(SEPARATOR_SYMBOL)).join(','),
     }),
+    ...(data.sort == null) ? null : {
+      sortField: data.sort.field,
+      sortDirection: data.sort.type,
+    },
   };
 }
 
@@ -67,6 +74,9 @@ function mapQueryParamsToSearchOptions(queryParams: VisualNovelSearchQueryParams
         return SelectOption.create(Number(value), label);
       }),
     }),
+    ...(queryParams.sortField != null && queryParams.sortDirection != null ? {
+      sort: { type: queryParams.sortDirection as SortType, field: queryParams.sortField as VisualNovelSortField },
+    } : null),
   };
 }
 

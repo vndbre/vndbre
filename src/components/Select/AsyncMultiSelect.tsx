@@ -4,9 +4,9 @@ import { AsyncSelect } from 'chakra-react-select';
 import { useController } from 'react-hook-form';
 import { SelectOption } from '../../utils/selectOption';
 import { Debounce } from '../../utils/debounce';
-import { MultiSelect } from './base';
+import { Select } from './base';
 
-interface Props extends MultiSelect.Props {
+interface Props extends Select.Multi.Props {
 
   /** Function for options loading. */
   readonly loadOptions: (searchString: string) => Promise<SelectOption[]>;
@@ -37,7 +37,7 @@ const AsyncMultiSelectComponent: VFC<Props> = ({
     rules,
   });
 
-  const asyncMultiSelectComponents = useMemo(() => MultiSelect.getComponents(displayLimit, components), [displayLimit, components]);
+  const asyncMultiSelectComponents = useMemo(() => Select.Multi.getComponents(displayLimit, components), [displayLimit, components]);
 
   const loadOptionsDebounced = useCallback(Debounce.apply(
     async(searchString: string, showLoadedOptions: (options: SelectOption[]) => void) => {
@@ -60,7 +60,7 @@ const AsyncMultiSelectComponent: VFC<Props> = ({
         selectedOptionStyle="check"
         hideSelectedOptions={false}
         components={asyncMultiSelectComponents}
-        chakraStyles={{ ...MultiSelect.customChakraStyles, ...chakraStyles }}
+        chakraStyles={{ ...Select.Multi.customChakraStyles, ...chakraStyles }}
         loadOptions={loadOptionsDebounced}
         cacheOptions
         {...props}

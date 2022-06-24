@@ -22,21 +22,17 @@ import { ApiProxyEndpoints } from '../apiProxyEndpoints';
 
 /** Fields available for sorting visual novels. */
 export enum VisualNovelSortField {
-  Id,
-  Title,
-  Released,
-  Popularity,
-  Rating,
-  VoteCount,
+  Title = 'title',
+  Released = 'released',
+  Popularity = 'popularity',
+  Rating = 'rating',
 }
 
 const SORT_FIELD_MAP: Readonly<Record<VisualNovelSortField, VisualNovelSortFieldDto>> = {
-  [VisualNovelSortField.Id]: 'id',
   [VisualNovelSortField.Title]: 'title',
   [VisualNovelSortField.Released]: 'released',
   [VisualNovelSortField.Popularity]: 'popularity',
   [VisualNovelSortField.Rating]: 'rating',
-  [VisualNovelSortField.VoteCount]: 'votecount',
 };
 
 /** Search options for visual novels. */
