@@ -1,0 +1,3 @@
+.link {
+  @apply border-b border-current hover:text-primary-500;
+}
