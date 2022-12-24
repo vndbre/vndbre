@@ -16,6 +16,7 @@ module.exports = {
       sm: '1.125rem',
       base: '1.25rem',
       lg: '1.5rem',
+      xl: '1.75rem',
     },
     colors: {
       gray: colors.neutral,
@@ -35,5 +36,4 @@ module.exports = {
     'full': '9999px',
     'large': '12px',
   },
-  plugins: [],
 };
