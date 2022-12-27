@@ -1,6 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { type NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { Button } from '../../../components/Button/Button';
 import { Layout } from '../../../components/Layout/Layout';
@@ -9,12 +9,12 @@ import { Vn } from '../../../features/vn';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+  const response = await fetch('https://jsonplaceholder.typicode.com/comments');
   const data = await response.json();
   return { props: { data } };
 };
 
-/** Vn overview page. */
+/** Vn Overview page. */
 const VnOverviewPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ data }) => {
   const router = useRouter();
 
@@ -31,21 +31,33 @@ const VnOverviewPage: NextPage<InferGetServerSidePropsType<typeof getServerSideP
 
   console.log(data);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  Router.events.on('routeChangeStart', () => setIsLoading(true));
+  Router.events.on('routeChangeComplete', () => setIsLoading(false));
+  Router.events.on('routeChangeError', () => setIsLoading(false));
+
   return (
     <Layout>
       <Vn
         activeTabName={activeTabName}
         onTabChange={handleTabChange}
       >
-        <div>overview</div>
-        <Button onClick={() => setClickCount(count => count + 1)}>
-          clicked
-          {' '}
-          {clickCount}
-        </Button>
-        <div>
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </div>
+        {isLoading ? (
+          <div>loading</div>
+        ) : (
+          <>
+            <div>Overview</div>
+            <Button onClick={() => setClickCount(count => count + 1)}>
+              clicked
+              {' '}
+              {clickCount}
+            </Button>
+            <div>
+              <code>{JSON.stringify(data, null, 2)}</code>
+            </div>
+          </>
+        )}
       </Vn>
     </Layout>
   );
