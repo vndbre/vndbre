@@ -1,12 +1,21 @@
+import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { type NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
+import { Button } from '../../../components/Button/Button';
 import { Layout } from '../../../components/Layout/Layout';
 import type { TabItem } from '../../../components/Tabs/Tabs';
 import { Vn } from '../../../features/vn';
 
-/** Vn releases page. */
-const VnReleasesPage: NextPage = () => {
+/** Get server side props. */
+export const getServerSideProps: GetServerSideProps = async() => {
+  const response = await fetch('https://jsonplaceholder.typicode.com/comments');
+  const data = await response.json();
+  return { props: { data } };
+};
+
+/** Vn Releases page. */
+const VnReleasesPage: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ data }) => {
   const router = useRouter();
 
   const activeTabName = router.route.split('/').at(-1) as TabItem['name'];
@@ -18,14 +27,25 @@ const VnReleasesPage: NextPage = () => {
     });
   }, [router.query.id]);
 
+  const [clickCount, setClickCount] = useState(0);
+
+  console.log(data);
+
   return (
     <Layout>
       <Vn
         activeTabName={activeTabName}
         onTabChange={handleTabChange}
       >
-        releases
-
+        <div>Releases</div>
+        <Button onClick={() => setClickCount(count => count + 1)}>
+          clicked
+          {' '}
+          {clickCount}
+        </Button>
+        <div>
+          <code>{JSON.stringify(data, null, 2)}</code>
+        </div>
       </Vn>
     </Layout>
   );
