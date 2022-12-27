@@ -9,6 +9,8 @@ import { Vn } from '../../../features/vn';
 const VnReleasesPage: NextPage = () => {
   const router = useRouter();
 
+  const activeTabName = router.route.split('/').at(-1) as TabItem['name'];
+
   const handleTabChange = useCallback((tabName: TabItem['name']) => {
     router.push({
       pathname: `./${tabName}`,
@@ -18,7 +20,13 @@ const VnReleasesPage: NextPage = () => {
 
   return (
     <Layout>
-      <Vn onTabChange={handleTabChange}>releases</Vn>
+      <Vn
+        activeTabName={activeTabName}
+        onTabChange={handleTabChange}
+      >
+        releases
+
+      </Vn>
     </Layout>
   );
 };

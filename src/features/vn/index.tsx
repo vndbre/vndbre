@@ -18,12 +18,15 @@ const checkInitialRoute = (router: NextRouter): boolean => {
 
 interface Props {
 
+  /** Active tab name. */
+  readonly activeTabName: TabItem['name'];
+
   /** Tab change callback. */
   readonly onTabChange: (tabName: TabItem['name']) => void;
 }
 
 /** Visual novel. */
-export const VnComponent: FC<PropsWithChildren<Props>> = ({ children, onTabChange }) => {
+export const VnComponent: FC<PropsWithChildren<Props>> = ({ children, activeTabName, onTabChange }) => {
   const titleEnglish = 'Idol Mahou Shoujo Chiruchiru ☆ Michiru';
   const titleRomaji = 'アイドル魔法少女ちるちる☆みちる';
   // eslint-disable-next-line max-len
@@ -32,7 +35,6 @@ export const VnComponent: FC<PropsWithChildren<Props>> = ({ children, onTabChang
   const pageTitle = `${titleEnglish} | vndbre`;
 
   const router = useRouter();
-  const activeTabName = router.route.split('/').at(-1) as TabItem['name'];
 
   const isInitialRoute = checkInitialRoute(router);
 
