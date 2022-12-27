@@ -12,7 +12,7 @@ const VnOverviewPage: NextPage = () => {
   const handleTabChange = useCallback((tabName: TabItem['name']) => {
     router.push({
       pathname: `./${tabName}`,
-      query: { id: router.query.id, tabName },
+      query: { id: router.query.id },
     });
   }, [router.query.id]);
 
