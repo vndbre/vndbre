@@ -1,6 +1,5 @@
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React, { useRef, useState, useCallback, memo } from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../../../../components/Button/Button';
 import { ButtonGroup } from '../../../../components/ButtonGroup/ButtonGroup';
