@@ -16,6 +16,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "react/require-default-props": "off",
     "no-duplicate-imports": "off",
     "import/no-duplicates": ["error", {"considerQueryString": true}],
     "@typescript-eslint/consistent-type-imports": "warn",
