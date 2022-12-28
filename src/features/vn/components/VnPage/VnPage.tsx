@@ -1,20 +1,9 @@
 import Head from 'next/head';
-import type { NextRouter } from 'next/router';
-import { useRouter } from 'next/router';
 import type { FC, PropsWithChildren } from 'react';
 import { memo } from 'react';
+import { useIsInitialRoute } from 'src/hooks/useIsInitialRoute';
 import { useRouterLoading } from 'src/hooks/useRouterLoading';
 import { VnHeader } from '../VnHeader/VnHeader';
-
-/**
- * Checks if current route is freshly loaded and not navigated from other route.
- * @param router Router.
- */
-const checkInitialRoute = (router: NextRouter): boolean => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const components = (router as any).components as any as Record<string, { initial?: boolean; }>;
-  return components?.[router.route]?.initial ?? false;
-};
 
 /** Visual novel. */
 export const VnPageComponent: FC<PropsWithChildren> = ({
@@ -27,10 +16,7 @@ export const VnPageComponent: FC<PropsWithChildren> = ({
 
   const pageTitle = `${titleEnglish} | vndbre`;
 
-  const router = useRouter();
-
-  const isInitialRoute = checkInitialRoute(router);
-
+  const isInitialRoute = useIsInitialRoute();
   const isRouterLoading = useRouterLoading();
 
   return (

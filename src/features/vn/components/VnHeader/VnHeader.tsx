@@ -29,7 +29,7 @@ const VnHeaderComponent: FC<Props> = ({
   titleEnglish,
   titleRomaji,
   posterSrc,
-  hasTransitionAnimations: hasAnimations = false,
+  hasTransitionAnimations = false,
 }) => {
   const router = useRouter();
   const activeTabValue = router.route.split('/').at(-1) as TabValue;
@@ -81,7 +81,7 @@ const VnHeaderComponent: FC<Props> = ({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
-          transition={{ bounce: false, duration: hasAnimations ? 0.3 : 0 }}
+          transition={{ bounce: false, duration: hasTransitionAnimations ? 0.3 : 0 }}
         >
           <Poster
             src={posterSrc}

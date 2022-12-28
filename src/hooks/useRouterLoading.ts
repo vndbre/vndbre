@@ -2,7 +2,7 @@ import { Router } from 'next/router';
 import { useState } from 'react';
 
 /**
- * Checks if route navigation is in process.
+ * Hook to checks whether route navigation is in process.
  */
 export const useRouterLoading = (): boolean => {
   const [isLoading, setIsLoading] = useState(false);

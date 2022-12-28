@@ -4,7 +4,6 @@ import { Tabs } from 'src/components/Tabs/Tabs';
 import { TabsList } from 'src/components/Tabs/TabsList';
 import { Tab } from 'src/components/Tabs/Tab';
 
-export type TabValue = keyof typeof tabs;
 const tabs = {
   overview: 'Overview',
   releases: 'Releases',
@@ -12,9 +11,12 @@ const tabs = {
   relations: 'Relations',
   media: 'Media',
 };
-const tabValues = Object.keys(tabs) as TabValue[];
 
-const disabledTabs: TabValue[] = ['characters', 'relations', 'media'];
+export type TabValue = keyof typeof tabs;
+
+const tabValues = Object.keys(tabs) as readonly TabValue[];
+
+const disabledTabs: readonly TabValue[] = ['characters', 'relations', 'media'];
 
 interface Props {
 
@@ -34,6 +36,8 @@ const VnHeaderTabsComponent: FC<Props> = ({
     asChild
     activationMode="manual"
     value={value}
+
+    // Making tabs think that it works with `strings`, but it actually works with `TabValue` union.
     onValueChange={onChange as ((value: string) => void)}
   >
     <TabsList>

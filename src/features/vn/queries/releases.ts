@@ -13,6 +13,9 @@ const wait = (delay: number): Promise<void> =>
 /** Get posts. */
 export const getPosts = async(): Promise<unknown> => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+
+  // TODO: Remove when actual api is implemented.
+  // Showcasing that only first load takes time and then cached.
   await wait(1000);
   return response.json();
 };
