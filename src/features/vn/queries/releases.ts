@@ -1,7 +1,14 @@
 import type { UseBaseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
 
-const wait = async(delay: number) => new Promise(resolve => setTimeout(resolve, delay));
+/**
+ * Wait.
+ * @param delay Delay.
+ */
+const wait = (delay: number): Promise<void> =>
+  new Promise(resolve => {
+    setTimeout(resolve, delay);
+  });
 
 /** Get posts. */
 export const getPosts = async(): Promise<unknown> => {

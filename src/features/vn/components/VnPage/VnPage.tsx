@@ -5,7 +5,6 @@ import type { FC, PropsWithChildren } from 'react';
 import { memo } from 'react';
 import { useRouterLoading } from '../../../../hooks/useRouterLoading';
 import { VnHeader } from '../VnHeader/VnHeader';
-import type { TabValue } from '../VnHeaderTabs/VnHeaderTabs';
 
 /**
  * Checks if current route is freshly loaded and not navigated from other route.
