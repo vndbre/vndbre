@@ -115,7 +115,6 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
 
   return (
     <button
-      // eslint-disable-next-line react/button-has-type
       type={type}
       className={cx(button(props))}
       onClick={onClick}

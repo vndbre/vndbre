@@ -4,7 +4,7 @@
  */
 export function nullable<Value = unknown>(
   value: Value,
-): NonNullable<Value> | null {
+): Nullable<Value> {
   if (value == null || value === '') {
     return null;
   }

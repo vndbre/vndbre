@@ -18,6 +18,7 @@
     "plugin:tailwindcss/recommended"
   ],
   "rules": {
+    "react/button-has-type": "off",
     "react/jsx-props-no-multi-spaces": "off",
     "tailwindcss/no-custom-classname": ["warn", {
       "config": "tailwind.config.cjs"

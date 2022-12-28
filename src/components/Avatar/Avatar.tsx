@@ -3,7 +3,10 @@ import type { FC } from 'react';
 import React, { memo } from 'react';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 
-/** Avatar placeholder. */
+/**
+ * Avatar placeholder.
+ * TODO: Finish component.
+ */
 const AvatarComponent: FC<PropsWithClass> = ({ className }) => (
   <div
     className={clsx(
