@@ -1,28 +1,31 @@
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import React, { memo, useState } from 'react';
-import { Button } from 'src/components/Button/Button';
-import { useOverviewQuery } from '../../queries/overview';
+import React, { memo } from 'react';
+import { Poster } from 'src/components/Poster/Poster';
+import { useVnOverviewQuery } from '../../queries/vnOverview';
 
 /** Visual novel overview tab. */
 const VnOverviewComponent: FC = () => {
-  const [count, setCount] = useState(0);
+  const { query: { id } } = useRouter();
+  const { data, isLoading } = useVnOverviewQuery(Number(id));
 
-  const { data, isLoading } = useOverviewQuery();
-
-  if (isLoading) {
-    return <div>loading 2</div>;
+  if (isLoading || data == null) {
+    return <div>loading overview</div>;
   }
 
   return (
     <div>
-      <div>Overview</div>
-      <Button onClick={() => setCount(v => v + 1)}>
-        clicks
-        {' '}
-        {count}
-      </Button>
-      <div>
-        <code>{JSON.stringify(data, null, 2)}</code>
+      <div className="flex gap-8">
+        {data.imageUrl && (
+          <Poster
+            className="w-64 shrink-0"
+            src={data.imageUrl}
+            alt={data.titleEnglish}
+          />
+        )}
+        <div>
+          <code>{JSON.stringify(data, null, 2)}</code>
+        </div>
       </div>
     </div>
   );
