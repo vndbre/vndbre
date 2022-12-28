@@ -33,7 +33,10 @@ interface Props extends ButtonProps {
   /** Is button square. */
   readonly isSquare?: boolean;
 
-  /** Is button has smaller horizontal paddings. */
+  /**
+   * Is button has smaller horizontal paddings.
+   * Doesn't work when `isSquare` enabled.
+   */
   readonly hasSmallPaddings?: boolean;
 }
 
@@ -76,10 +79,9 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         class: 'px-5 py-2',
       },
       {
-        size: 'md',
-        isSquare: false,
-        hasSmallPaddings: false,
-        class: 'px-6 py-3',
+        size: 'sm',
+        hasSmallPaddings: true,
+        class: 'px-3 py-2',
       },
       {
         size: 'sm',
@@ -88,18 +90,19 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       },
       {
         size: 'md',
-        isSquare: true,
-        class: 'w-12 h-12',
-      },
-      {
-        size: 'sm',
-        hasSmallPaddings: true,
-        class: 'px-3 py-2',
+        isSquare: false,
+        hasSmallPaddings: false,
+        class: 'px-6 py-3',
       },
       {
         size: 'md',
         hasSmallPaddings: true,
         class: 'px-4 py-3',
+      },
+      {
+        size: 'md',
+        isSquare: true,
+        class: 'w-12 h-12',
       },
     ],
     defaultVariants: {

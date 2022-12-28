@@ -25,6 +25,7 @@ const ButtonGroupComponent: FC<PropsWithChildren> = ({ children }) => {
       'rounded-r-none': index === 0,
       'rounded-none': index > 0 && index < (childrenCount - 1),
       'rounded-l-none': index === (childrenCount - 1),
+      /* eslint-enable @typescript-eslint/naming-convention */
     });
     return cloneElement(child as ReactElement, { className });
   });
