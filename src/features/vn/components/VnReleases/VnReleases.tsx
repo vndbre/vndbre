@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import React, { memo, useState } from 'react';
-import { Button } from '../../../../components/Button/Button';
+import { Button } from 'src/components/Button/Button';
 import { useReleasesQuery } from '../../queries/releases';
 
 /** Visual novel releases tab. */

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React, { memo } from 'react';
 import { clsx } from 'clsx';
 import { Icon as IconifyIcon } from '@iconify/react';
-import type { PropsWithClass } from '../../utils/PropsWithClass';
+import type { PropsWithClass } from 'src/utils/PropsWithClass';
 
 const iconNames = {
   'burger': 'carbon:menu',

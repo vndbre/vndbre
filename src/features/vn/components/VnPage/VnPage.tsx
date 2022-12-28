@@ -3,7 +3,7 @@ import type { NextRouter } from 'next/router';
 import { useRouter } from 'next/router';
 import type { FC, PropsWithChildren } from 'react';
 import { memo } from 'react';
-import { useRouterLoading } from '../../../../hooks/useRouterLoading';
+import { useRouterLoading } from 'src/hooks/useRouterLoading';
 import { VnHeader } from '../VnHeader/VnHeader';
 
 /**

@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import React, { memo } from 'react';
-import { Tabs } from '../../../../components/Tabs/Tabs';
-import { TabsList } from '../../../../components/Tabs/TabsList';
-import { Tab } from '../../../../components/Tabs/Tab';
+import { Tabs } from 'src/components/Tabs/Tabs';
+import { TabsList } from 'src/components/Tabs/TabsList';
+import { Tab } from 'src/components/Tabs/Tab';
 
 export type TabValue = keyof typeof tabs;
 const tabs = {

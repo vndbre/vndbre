@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { Layout } from '../../../../components/Layout/Layout';
-import { VnReleases } from '../../components/VnReleases/VnReleases';
+import { Layout } from 'src/components/Layout/Layout';
 import { VnPage } from '../../components/VnPage/VnPage';
+import { VnReleases } from '../../components/VnReleases/VnReleases';
 
 /** Vn Releases page. */
 const VnReleasesPage: FC = () => (

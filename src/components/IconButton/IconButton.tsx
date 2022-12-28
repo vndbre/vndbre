@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 import React, { memo } from 'react';
-import type { PropsWithClass } from '../../utils/PropsWithClass';
+import type { PropsWithClass } from 'src/utils/PropsWithClass';
 import type { ButtonProps, ButtonSize } from '../Button/Button';
 import { Button } from '../Button/Button';
 import type { IconProps } from '../Icon/Icon';

@@ -3,7 +3,7 @@ import { Inter } from '@next/font/google';
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import '../styles/globals.css';
+import 'src/styles/globals.css';
 import { queryClient } from '../api/queryClient';
 
 const inter = Inter({

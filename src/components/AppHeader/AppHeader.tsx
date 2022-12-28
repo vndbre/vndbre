@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import type { FC } from 'react';
-import { Avatar } from '../Avatar/Avatar';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
+import { Avatar } from '../Avatar/Avatar';
 
 /** App header. */
 const AppHeaderComponent: FC = () => (

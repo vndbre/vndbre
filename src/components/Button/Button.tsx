@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import type { ButtonHTMLAttributes, FC, MouseEventHandler } from 'react';
 import { cva, cx } from 'class-variance-authority';
-import type { PropsWithChildrenAndClass } from '../../utils/PropsWithClass';
+import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';

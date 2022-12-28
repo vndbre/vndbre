@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Layout } from '../../../../components/Layout/Layout';
+import { Layout } from 'src/components/Layout/Layout';
 import { VnOverview } from '../../components/VnOverview/VnOverview';
 import { VnPage } from '../../components/VnPage/VnPage';
 

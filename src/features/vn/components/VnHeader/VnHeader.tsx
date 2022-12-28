@@ -2,10 +2,10 @@ import type { FC } from 'react';
 import React, { useCallback, memo } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { Button } from '../../../../components/Button/Button';
-import { ButtonGroup } from '../../../../components/ButtonGroup/ButtonGroup';
-import { IconButton } from '../../../../components/IconButton/IconButton';
-import { Poster } from '../../../../components/Poster/Poster';
+import { Button } from 'src/components/Button/Button';
+import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
+import { Poster } from 'src/components/Poster/Poster';
+import { IconButton } from 'src/components/IconButton/IconButton';
 import type { TabValue } from '../VnHeaderTabs/VnHeaderTabs';
 import { VnHeaderTabs } from '../VnHeaderTabs/VnHeaderTabs';
 
