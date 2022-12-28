@@ -44,15 +44,15 @@ const VnHeaderComponent: FC<Props> = ({
   }, [router.query.id]);
 
   return (
-    <header className="w-full flex gap-6 items-stretch">
-      <div className="w-full flex flex-col gap-8 md:gap-4">
-        <div className="flex gap-6 items-stretch">
-          <div className="w-full flex flex-col md:flex-row gap-4 items-start justify-between">
-            <hgroup className="flex flex-col gap-2 items-start">
-              <h1 className="text-lg leading-8 tracking-tight font-bold line-clamp-2">{titleEnglish}</h1>
-              <h2 className="text-base leading-6 line-clamp-1">{titleRomaji}</h2>
+    <header className="flex w-full items-stretch gap-6">
+      <div className="flex w-full flex-col gap-8 md:gap-4">
+        <div className="flex items-stretch gap-6">
+          <div className="flex w-full flex-col items-start justify-between gap-4 md:flex-row">
+            <hgroup className="flex flex-col items-start gap-2">
+              <h1 className="line-clamp-2 text-lg font-bold leading-8 tracking-tight">{titleEnglish}</h1>
+              <h2 className="line-clamp-1 text-base leading-6">{titleRomaji}</h2>
             </hgroup>
-            <div className="flex gap-2 items-center flex-row-reverse md:flex-row">
+            <div className="flex flex-row-reverse items-center gap-2 md:flex-row">
               <IconButton name="edit" intent="tertiary" />
               <IconButton name="star" intent="tertiary" />
               <IconButton name="flag" intent="tertiary" />
@@ -66,7 +66,7 @@ const VnHeaderComponent: FC<Props> = ({
             <Poster
               src={posterSrc}
               alt="Cut girl sitting"
-              className="h-32 block md:hidden"
+              className="block h-32 md:hidden"
             />
           )}
         </div>
@@ -86,7 +86,7 @@ const VnHeaderComponent: FC<Props> = ({
           <Poster
             src={posterSrc}
             alt="Cute girl sitting"
-            className="h-32 hidden md:block"
+            className="hidden h-32 md:block"
           />
         </motion.div>
       )}

@@ -9,11 +9,11 @@ type ImageProps = ComponentProps<typeof Image>;
  * Image poster.
  */
 const PosterComponent: FC<ImageProps> = ({ className, ...props }) => (
-  <div className={clsx('aspect-[2/3] relative', className)}>
+  <div className={clsx('relative aspect-[2/3]', className)}>
     {/* eslint-disable-next-line jsx-a11y/alt-text */}
     <Image
       className={clsx(
-        'rounded object-cover outline outline-1 outline-black/10 -outline-offset-1',
+        'rounded object-cover outline outline-1 -outline-offset-1 outline-black/10',
       )}
       {...props}
       fill

@@ -19,13 +19,13 @@ const TabComponent: FC<TabProps> = ({
 }) => (
   <RadixTabs.Trigger
     {...props}
-    className={clsx('flex flex-col gap-1.5 items-stretch group', className)}
+    className={clsx('group flex flex-col items-stretch gap-1.5', className)}
     disabled={isDisabled}
   >
-    <div className="font-sm leading-6 rounded px-3 py-2 hover:bg-gray-200 group-data-[disabled]:bg-transparent group-data-[disabled]:text-gray-400">
+    <div className="border-primary-500 rounded px-3 py-2 leading-6 hover:bg-gray-200 group-data-[disabled]:bg-transparent group-data-[disabled]:text-gray-400">
       {children}
     </div>
-    <div className="mx-3 border-b-2 border-transparent group-data-[state=active]:border-primary-500" />
+    <div className="group-data-[state=active]:border-primary-500 border-primary-500  mx-3 border-b-2 border-transparent" />
   </RadixTabs.Trigger>
 );
 

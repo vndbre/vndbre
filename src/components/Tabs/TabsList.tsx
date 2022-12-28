@@ -11,7 +11,7 @@ const TabsListComponent: FC<TabsListProps> = ({
   children,
   ...props
 }) => (
-  <RadixTabs.List {...props} className={clsx('relative w-full flex overflow-x-auto', className)}>
+  <RadixTabs.List {...props} className={clsx('relative flex w-full overflow-x-auto', className)}>
     <div className="absolute bottom-0 left-0 -z-10 w-full border-b border-gray-200" />
     {children}
   </RadixTabs.List>

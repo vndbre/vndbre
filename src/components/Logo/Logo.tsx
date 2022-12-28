@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 
 /** Logo. */
 const LogoComponent: FC = () => (
-  <div className="text-lg leading-none font-bold pb-1">vndbre</div>
+  <div className="pb-1 text-lg font-bold leading-none">vndbre</div>
 );
 
 export const Logo = memo(LogoComponent);

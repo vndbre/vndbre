@@ -6,16 +6,21 @@
   },
   "plugins": [
     "jsdoc",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "tailwindcss"
   ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
     "airbnb/hooks",
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended"
   ],
   "rules": {
+    "tailwindcss/no-custom-classname": ["warn", {
+      "config": "tailwind.config.cjs"
+    }],
     "react/require-default-props": "off",
     "no-duplicate-imports": "off",
     "import/no-duplicates": ["error", {"considerQueryString": true}],

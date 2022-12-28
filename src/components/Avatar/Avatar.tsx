@@ -7,7 +7,7 @@ import type { PropsWithClass } from 'src/utils/PropsWithClass';
 const AvatarComponent: FC<PropsWithClass> = ({ className }) => (
   <div
     className={clsx(
-      'flex w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9900] to-[#AD00FF]',
+      'flex h-8 w-8 rounded-full bg-gradient-to-br from-[#FF9900] to-[#AD00FF]',
       className,
     )}
   />
