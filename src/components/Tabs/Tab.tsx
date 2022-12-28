@@ -1,48 +1,32 @@
-import clsx from 'clsx';
-import type { FC, PropsWithChildren } from 'react';
+import type { FC } from 'react';
+import * as RadixTabs from '@radix-ui/react-tabs';
 import React, { memo } from 'react';
-import { Button } from '../Button/Button';
+import clsx from 'clsx';
 
-interface Props {
-
-  /** Tab name. */
-  readonly name: string;
-
-  /** Is active. */
-  readonly isActive?: boolean;
+/** Tab props. */
+export interface TabProps extends Omit<RadixTabs.TabsTriggerProps, 'disabled'> {
 
   /** Is tab disabled. */
   readonly isDisabled?: boolean;
-
-  /** Click callback. */
-  readonly onClick?: (name: Props['name']) => void;
 }
 
 /** Tab. */
-const TabComponent: FC<PropsWithChildren<Props>> = ({
+const TabComponent: FC<TabProps> = ({
   children,
-  name,
-  isActive,
+  className,
   isDisabled,
-  onClick,
+  ...props
 }) => (
-  <div className="flex flex-col gap-1.5">
-    <Button
-      className="font-normal"
-      intent="quaternary"
-      size="sm"
-      hasSmallPaddings
-      isDisabled={isDisabled}
-      onClick={() => onClick?.(name)}
-    >
+  <RadixTabs.Trigger
+    {...props}
+    className={clsx('flex flex-col gap-1.5 items-stretch group', className)}
+    disabled={isDisabled}
+  >
+    <div className="font-sm leading-6 rounded px-3 py-2 hover:bg-gray-200 group-data-[disabled]:bg-transparent group-data-[disabled]:text-gray-400">
       {children}
-    </Button>
-    <div
-      className={clsx('border-b-2 border-transparent mx-3', {
-        'border-primary-500': isActive,
-      })}
-    />
-  </div>
+    </div>
+    <div className="mx-3 border-b-2 border-transparent group-data-[state=active]:border-primary-500" />
+  </RadixTabs.Trigger>
 );
 
 export const Tab = memo(TabComponent);

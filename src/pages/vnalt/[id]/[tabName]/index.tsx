@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { Button } from '../../../../components/Button/Button';
 import { Layout } from '../../../../components/Layout/Layout';
-import type { TabItem } from '../../../../components/Tabs/Tabs';
-import { Vn } from '../../../../features/vn';
+import type { TabItem } from '../../../../features/vn/components/VnHeaderTabs/VnHeaderTabs';
+import { Vn } from '../../../../features/vn/components/VnPage/VnPage';
 
 /** Vn page. */
 const VnPage: NextPage = () => {

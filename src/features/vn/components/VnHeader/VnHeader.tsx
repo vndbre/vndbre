@@ -1,20 +1,13 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import React, { useCallback, memo } from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { Button } from '../../../../components/Button/Button';
 import { ButtonGroup } from '../../../../components/ButtonGroup/ButtonGroup';
 import { IconButton } from '../../../../components/IconButton/IconButton';
 import { Poster } from '../../../../components/Poster/Poster';
-import type { TabItem } from '../../../../components/Tabs/Tabs';
-import { Tabs } from '../../../../components/Tabs/Tabs';
-
-const tabs: TabItem[] = [
-  { name: 'overview', text: 'Overview' },
-  { name: 'releases', text: 'Releases' },
-  { name: 'characters', text: 'Characters', isDisabled: true },
-  { name: 'relations', text: 'Relations', isDisabled: true },
-  { name: 'media', text: 'Media', isDisabled: true },
-];
+import type { TabValue } from '../VnHeaderTabs/VnHeaderTabs';
+import { VnHeaderTabs } from '../VnHeaderTabs/VnHeaderTabs';
 
 interface Props {
 
@@ -27,12 +20,6 @@ interface Props {
   /** Poster src. */
   readonly posterSrc: string;
 
-  /** Active tab name. */
-  readonly activeTabName: TabItem['name'];
-
-  /** Tab change callback. */
-  readonly onTabChange: (tabName: TabItem['name']) => void;
-
   /** Whether header has route transition animation of poster. */
   readonly hasTransitionAnimations?: boolean;
 }
@@ -42,11 +29,19 @@ const VnHeaderComponent: FC<Props> = ({
   titleEnglish,
   titleRomaji,
   posterSrc,
-  activeTabName,
-  onTabChange,
   hasTransitionAnimations: hasAnimations = false,
 }) => {
-  const isPosterVisible = activeTabName !== 'overview';
+  const router = useRouter();
+  const activeTabValue = router.route.split('/').at(-1) as TabValue;
+
+  const isPosterVisible = activeTabValue !== 'overview';
+
+  const handleTabChange = useCallback((tabName: TabValue) => {
+    router.push({
+      pathname: `./${tabName}`,
+      query: { id: router.query.id },
+    });
+  }, [router.query.id]);
 
   return (
     <header className="w-full flex gap-6 items-stretch">
@@ -75,10 +70,9 @@ const VnHeaderComponent: FC<Props> = ({
             />
           )}
         </div>
-        <Tabs
-          tabs={tabs}
-          activeName={activeTabName}
-          onChange={onTabChange}
+        <VnHeaderTabs
+          value={activeTabValue}
+          onChange={handleTabChange}
         />
       </div>
       {isPosterVisible && (
@@ -91,7 +85,7 @@ const VnHeaderComponent: FC<Props> = ({
         >
           <Poster
             src={posterSrc}
-            alt="Cut girl sitting"
+            alt="Cute girl sitting"
             className="h-32 hidden md:block"
           />
         </motion.div>
