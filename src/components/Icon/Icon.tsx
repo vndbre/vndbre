@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { Icon as IconifyIcon } from '@iconify/react';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 const iconNames = {
   'burger': 'carbon:menu',
   'chevron-down': 'carbon:chevron-down',
@@ -11,6 +12,7 @@ const iconNames = {
   'star': 'eva:star-outline',
   'edit': 'eva:edit-outline',
 } as const;
+/* eslint-enable @typescript-eslint/naming-convention */
 
 /** Icon name. */
 export type IconName = keyof typeof iconNames;
