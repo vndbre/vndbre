@@ -40,7 +40,7 @@ const VnHeaderComponent: FC<Props> = ({
     router.push({
       pathname: `./${tabName}`,
       query: { id: router.query.id },
-    });
+    }, undefined, { shallow: true });
   }, [router.query.id]);
 
   return (
