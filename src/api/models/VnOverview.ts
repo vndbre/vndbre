@@ -2,7 +2,7 @@
 export interface VnOverview {
 
   /** Romanized title. */
-  readonly titleEnglish: string | null;
+  readonly titleEnglish: string;
 
   /** Image url. */
   readonly imageUrl: string | null;
