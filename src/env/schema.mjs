@@ -1,12 +1,13 @@
 // @ts-check
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Specify your server-side environment variables schema here.
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-  NODE_ENV: z.enum(["development", "test", "production"]),
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  NODE_ENV: z.enum(['development', 'test', 'production']),
 });
 
 /**
@@ -18,6 +19,7 @@ export const clientSchema = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string(),
 });
 
+/* eslint-disable max-len */
 /**
  * You can't destruct `process.env` as a regular object, so you have to do
  * it manually here. This is because Next.js evaluates this at build time,

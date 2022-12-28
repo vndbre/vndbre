@@ -1,15 +1,27 @@
-import { type AppType } from "next/dist/shared/lib/utils";
-import { Inter } from '@next/font/google'
+import { type AppType } from 'next/dist/shared/lib/utils';
+import { Inter } from '@next/font/google';
+import { Hydrate, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import 'src/styles/globals.css';
+import { queryClient } from '../api/queryClient';
 
 const inter = Inter({
-  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
   variable: '--font-inter',
-})
+  display: 'block',
+});
 
-import "../styles/globals.css";
-
-const MyApp: AppType = ({ Component, pageProps }) => {
-  return <div className={`${inter.variable} font-sans`}><Component {...pageProps} /></div>;
-};
+/** App. */
+const MyApp: AppType<{ dehydratedState: unknown; }> = ({ Component, pageProps }) => (
+  <QueryClientProvider client={queryClient}>
+    <Hydrate state={pageProps.dehydratedState}>
+      <div className={`${inter.variable} font-sans`}>
+        <Component {...pageProps} />
+      </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </Hydrate>
+  </QueryClientProvider>
+);
 
 export default MyApp;

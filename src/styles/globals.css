@@ -1,4 +1,6 @@
 @tailwind base;
+body {
+  @apply text-base;
+}
 @tailwind components;
-@import url(./components/index.css);
 @tailwind utilities;
