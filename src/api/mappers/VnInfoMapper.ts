@@ -12,7 +12,7 @@ export namespace VnInfoMapper {
     return {
       titleEnglish: dto.title,
       titleAlt: nullable(dto.alttitle),
-      imageUrl: nullable(dto.image) == null ? null : dto.image.url,
+      imageUrl: nullable(dto.image?.url),
     };
   }
 }

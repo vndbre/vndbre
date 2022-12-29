@@ -1,16 +1,20 @@
-/** Visual novel brief info. */
-export interface VnInfoDto {
+import type { TypeOf } from 'zod';
+import { z } from 'zod';
 
-  /** Main title as displayed on the site, typically romanized from the original script.. */
-  readonly title: string;
+/** Visual novel brief info dto schema. */
+export const VnInfoDtoSchema = z.object({
+  /** Main title as displayed on the site, typically romanized from the original script. */
+  title: z.string(),
 
   /** Alternative title, typically the same as title but in the original script. */
-  readonly alttitle: string;
+  alttitle: z.string().nullable(),
 
   /** Image. */
-  readonly image: {
+  image: z.object({
 
     /** Url. */
-    readonly url: string;
-  };
-}
+    url: z.string(),
+  }).nullable(),
+});
+
+export type VnInfoDto = TypeOf<typeof VnInfoDtoSchema>;

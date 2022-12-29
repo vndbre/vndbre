@@ -11,7 +11,7 @@ export namespace VnOverviewMapper {
   export function fromDto(dto: VnOverviewDto): VnOverview {
     return {
       titleEnglish: dto.title,
-      imageUrl: nullable(dto.image) == null ? null : dto.image.url,
+      imageUrl: nullable(dto.image?.url),
     };
   }
 }

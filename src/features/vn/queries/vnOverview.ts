@@ -1,6 +1,6 @@
 import type { UseBaseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
-import type { VnOverviewDto } from 'src/api/dtos/VnOverviewDto';
+import { VnOverviewDtoSchema } from 'src/api/dtos/VnOverviewDto';
 import { VnOverviewMapper } from 'src/api/mappers/VnOverviewMapper';
 import type { VnOverview } from 'src/api/models/VnOverview';
 
@@ -20,7 +20,7 @@ export const getVnOverview = async(id: number): Promise<VnOverview> => {
     }),
   });
   const data = await response.json();
-  const dto = data.results?.[0] as VnOverviewDto;
+  const dto = VnOverviewDtoSchema.parse(data.results?.[0]);
   console.log(data);
   return VnOverviewMapper.fromDto(dto);
 };
