@@ -1,6 +1,6 @@
 import type { UseBaseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
-import type { VnInfoDto } from 'src/api/dtos/VnInfoDto';
+import { VnInfoDtoSchema } from 'src/api/dtos/VnInfoDto';
 import { VnInfoMapper } from 'src/api/mappers/VnInfoMapper';
 import type { VnInfo } from 'src/api/models/VnInfo';
 
@@ -20,7 +20,7 @@ export const getVnInfo = async(id: number): Promise<VnInfo> => {
     }),
   });
   const data = await response.json();
-  const dto = data.results?.[0] as VnInfoDto;
+  const dto = VnInfoDtoSchema.parse(data.results?.[0]);
   return VnInfoMapper.fromDto(dto);
 };
 
