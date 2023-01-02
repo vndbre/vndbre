@@ -26,6 +26,7 @@ export namespace VnService {
     const filters: VnFilter[] = [];
 
     if (options.id !== undefined) {
+      console.log(options.id);
       filters.push(createFilter('id', '=', options.id));
     }
 

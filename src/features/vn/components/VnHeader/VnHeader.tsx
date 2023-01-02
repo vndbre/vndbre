@@ -25,7 +25,7 @@ const VnHeaderComponent: FC<Props> = ({
   const activeTabValue = router.route.split('/').at(-1) as TabValue;
   const isPosterVisible = activeTabValue !== 'overview';
 
-  const { data: vnInfo, isLoading } = useVnInfoQuery(Number(router.query.id));
+  const { data: vnInfo, isLoading } = useVnInfoQuery(String(router.query.id));
 
   const handleTabChange = useCallback((tabName: TabValue) => {
     router.push({
