@@ -25,6 +25,10 @@ export namespace VnService {
   export function createVnQuery(options: VnQueryOptions): QueryBody<VnSortField, VnFilter> {
     const filters: VnFilter[] = [];
 
+    if (options.id !== undefined) {
+      filters.push(createFilter('id', '=', options.id));
+    }
+
     if (options.search !== undefined) {
       filters.push(createFilter('search', '=', options.search));
     }
@@ -35,7 +39,7 @@ export namespace VnService {
     }
 
     if (options.originalLanguages !== undefined) {
-      const originalLangs = options.originalLanguages.map<VnFilter>(originalLang => createFilter('lang', '=', originalLang));
+      const originalLangs = options.originalLanguages.map<VnFilter>(originalLang => createFilter('olang', '=', originalLang));
       filters.push(...originalLangs);
     }
 
@@ -51,7 +55,7 @@ export namespace VnService {
 
     return {
       ...QueryBuilderService.createBaseQuery(options),
-      count: true,
+      count: options.page !== undefined,
       fields: 'id, image.url, title, alttitle',
       filters: ['and', ...filters],
     };
