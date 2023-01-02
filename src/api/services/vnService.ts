@@ -26,7 +26,6 @@ export namespace VnService {
     const filters: VnFilter[] = [];
 
     if (options.id !== undefined) {
-      console.log(options.id);
       filters.push(createFilter('id', '=', options.id));
     }
 
@@ -47,6 +46,11 @@ export namespace VnService {
     if (options.platforms !== undefined) {
       const platforms = options.platforms.map<VnFilter>(platform => createFilter('platform', '=', platform));
       filters.push(...platforms);
+    }
+
+    if (options.tags !== undefined) {
+      const tags = options.tags.map<VnFilter>(tag => createFilter('tag', '=', tag));
+      filters.push(...tags);
     }
 
     if (options.released !== undefined) {
