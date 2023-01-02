@@ -3,22 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 import { VnOverviewDtoSchema } from 'src/api/dtos/VnOverviewDto';
 import { VnOverviewMapper } from 'src/api/mappers/VnOverviewMapper';
 import type { VnOverview } from 'src/api/models/VnOverview';
+import { VnService } from 'src/api/services/vnService';
 
 /**
  * Get vn overview.
  * @param id Vn id.
  */
-export const getVnOverview = async(id: number): Promise<VnOverview> => {
+export const getVnOverview = async(id: string): Promise<VnOverview> => {
+  console.log(id);
   const response = await fetch('https://api.vndb.org/kana/vn', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      filters: ['and', ['id', '=', `v${id}`]],
-      fields: 'title, image.url, languages, tags.id',
-      count: true,
-    }),
+    body: JSON.stringify(VnService.createVnQuery({ id })),
   });
   const data = await response.json();
   console.log(data);
@@ -30,7 +28,7 @@ export const getVnOverview = async(id: number): Promise<VnOverview> => {
  * Vn overview query options.
  * @param id Vn id.
  */
-export const vnOverviewQueryOptions = (id: number): UseBaseQueryOptions<VnOverview, Error> => ({
+export const vnOverviewQueryOptions = (id: string): UseBaseQueryOptions<VnOverview, Error> => ({
   queryKey: ['getVnOverview', id],
   // eslint-disable-next-line jsdoc/require-jsdoc
   queryFn: () => getVnOverview(id),
@@ -40,5 +38,5 @@ export const vnOverviewQueryOptions = (id: number): UseBaseQueryOptions<VnOvervi
  * Hook for fetching vn overview.
  * @param id Vn id.
  */
-export const useVnOverviewQuery = (id: number): UseQueryResult<VnOverview, Error> =>
+export const useVnOverviewQuery = (id: string): UseQueryResult<VnOverview, Error> =>
   useQuery(vnOverviewQueryOptions(id));

@@ -11,8 +11,8 @@ import { vnOverviewQueryOptions } from 'src/features/vn/queries/vnOverview';
  * @param context Context.
  */
 export const getServerSideProps: GetServerSideProps = async context => {
-  await queryClient.prefetchQuery(vnOverviewQueryOptions(Number(context.query.id)));
-  await queryClient.prefetchQuery(vnInfoQueryOptions(Number(context.query.id)));
+  await queryClient.prefetchQuery(vnOverviewQueryOptions(String(context.query.id)));
+  await queryClient.prefetchQuery(vnInfoQueryOptions(String(context.query.id)));
 
   return {
     props: {

@@ -20,7 +20,7 @@ const config = {
     return [
       {
         source: '/',
-        destination: '/vn/11/overview',
+        destination: '/vn/v11/overview',
         permanent: true,
       },
     ];

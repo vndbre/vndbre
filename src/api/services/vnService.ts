@@ -56,7 +56,7 @@ export namespace VnService {
     return {
       ...QueryBuilderService.createBaseQuery(options),
       count: options.page !== undefined,
-      fields: 'id, image.url, title, alttitle',
+      fields: 'image.url, title, alttitle',
       filters: ['and', ...filters],
     };
   }
