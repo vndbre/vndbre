@@ -4,6 +4,7 @@ import { VnOverviewDtoSchema } from 'src/api/dtos/VnOverviewDto';
 import { VnOverviewMapper } from 'src/api/mappers/VnOverviewMapper';
 import type { VnQueryOptions } from 'src/api/models/search/vnQueryOptions';
 import type { VnOverview } from 'src/api/models/VnOverview';
+import { VnService } from 'src/api/services/vnService';
 
 /**
  * Get vn overview.
@@ -15,11 +16,7 @@ export const getVnList = async(options: VnQueryOptions): Promise<VnOverview> => 
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      filters: ['and', ['released', '>=', '2020-01-01'], ['released', '<=', '2021-01-01']],
-      fields: 'title, image.url, languages, tags',
-      count: true,
-    }),
+    body: JSON.stringify(VnService.createVnQuery(options)),
   });
   const data = await response.json();
   const dto = VnOverviewDtoSchema.parse(data.results?.[0]);
@@ -42,5 +39,5 @@ export const vnListQueryOptions =
  * Hook for fetching vn overview.
  * @param options Options.
  */
-export const useVnOverviewQuery = (options: VnQueryOptions): UseQueryResult<VnOverview, Error> =>
+export const useVnListQuery = (options: VnQueryOptions): UseQueryResult<VnOverview, Error> =>
   useQuery(vnListQueryOptions(options));

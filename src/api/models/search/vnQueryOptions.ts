@@ -19,9 +19,6 @@ export type VnFilter = BaseFilter<VnSearchField, Extract<Operator, '=' | '!='>> 
 /** Describes shape of vn query options. */
 export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
 
-  /** Search string. */
-  readonly search?: string;
-
   /** List of languages to search by. */
   readonly languages?: readonly string[];
 

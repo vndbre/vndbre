@@ -1,7 +1,7 @@
 import type { BaseQueryBody } from '../models/baseQueryBody';
 import type { BaseQueryOptions } from '../models/baseQueryOptions';
 
-export namespace QueryService {
+export namespace QueryBuilderService {
 
   /**
    * Creates base query body.

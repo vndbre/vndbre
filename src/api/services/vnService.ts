@@ -1,4 +1,4 @@
-import { QueryService } from './queryService';
+import { QueryBuilderService } from './queryBuilderService';
 import type { Operator } from '../models/operator';
 import type { QueryBody } from '../models/queryBody';
 import type { BaseFilter } from '../models/search/baseFilter';
@@ -22,7 +22,7 @@ export namespace VnService {
    * Creates vn query.
    * @param options Query options.
    */
-  export function createVnQuery(options: VnQueryOptions): QueryBody<VnSortField> {
+  export function createVnQuery(options: VnQueryOptions): QueryBody<VnSortField, VnFilter> {
     const filters: VnFilter[] = [];
 
     if (options.search !== undefined) {
@@ -50,7 +50,7 @@ export namespace VnService {
     }
 
     return {
-      ...QueryService.createBaseQuery(options),
+      ...QueryBuilderService.createBaseQuery(options),
       count: true,
       fields: 'id, image.url, title, alttitle',
       filters: ['and', ...filters],
