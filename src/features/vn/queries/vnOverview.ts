@@ -15,13 +15,14 @@ export const getVnOverview = async(id: number): Promise<VnOverview> => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      filters: ['id', '=', `v${id}`],
-      fields: 'title, image.url',
+      filters: ['and', ['id', '=', `v${id}`]],
+      fields: 'title, image.url, languages, tags.id',
+      count: true,
     }),
   });
   const data = await response.json();
-  const dto = VnOverviewDtoSchema.parse(data.results?.[0]);
   console.log(data);
+  const dto = VnOverviewDtoSchema.parse(data.results?.[0]);
   return VnOverviewMapper.fromDto(dto);
 };
 
