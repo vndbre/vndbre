@@ -14,6 +14,7 @@ export const VN_SEARCH_FIELDS = ['search', 'lang', 'olang', 'platform', 'tag'] a
 /** Represents available search field for vn. */
 export type VnSearchField = typeof VN_SEARCH_FIELDS[number];
 
+/** Represents available filters for vn. */
 export type VnFilter = BaseFilter<VnSearchField, Extract<Operator, '=' | '!='>> | BaseFilter<VnSortField, Operator>;
 
 /** Describes shape of vn query options. */

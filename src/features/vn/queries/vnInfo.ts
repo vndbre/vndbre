@@ -15,7 +15,7 @@ export const getVnInfo = async(id: string): Promise<VnInfo> => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(VnService.createVnQuery({ id })),
+    body: JSON.stringify(VnService.createVnQueryBody({ id })),
   });
   const data = await response.json();
   const dto = VnInfoDtoSchema.parse(data.results?.[0]);
