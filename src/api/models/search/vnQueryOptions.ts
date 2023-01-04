@@ -39,9 +39,9 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   readonly released?: {
 
     /** Start of date range. */
-    start: string;
+    readonly start: string;
 
     /** End of date range. */
-    end: string;
+    readonly end: string;
   };
 }
