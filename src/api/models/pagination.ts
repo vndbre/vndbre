@@ -1,4 +1,4 @@
-/** Describe shape of pagination options. */
+/** Pagination options. */
 export interface Pagination<T> {
 
   /** Total count. */

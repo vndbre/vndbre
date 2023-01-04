@@ -1,4 +1,4 @@
-/** Represents base query body. */
+/** Base query body. */
 export interface BaseQueryBody<SortField extends string = string> {
 
   /** Sort by field. */

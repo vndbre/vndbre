@@ -1,6 +1,6 @@
 import type { SortOptions } from './sortOptions';
 
-/** Describes base query options to retrieve data. */
+/** Base query options to retrieve data. */
 export interface BaseQueryOptions<SortField extends string> {
 
   /** Search string. */
