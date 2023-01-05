@@ -1,6 +1,5 @@
 import type { BaseQueryBody } from './baseQueryBody';
-import type { Operator } from './operator';
-import type { BaseFilter } from './search/baseFilter';
+import type { BaseFilter, Operator } from './search/baseFilter';
 
 /** Base query body. */
 export interface QueryBody<

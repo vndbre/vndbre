@@ -1,6 +1,5 @@
 import type { ExtractStrict } from 'src/api/utils/strictExtract';
-import type { Operator } from '../operator';
-import type { BaseFilter } from './baseFilter';
+import type { BaseFilter, Operator } from './baseFilter';
 import type { BaseQueryOptions } from '../baseQueryOptions';
 
 /** List of available sort fields for vn. */
@@ -36,13 +35,13 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   /** List of tags to search by. */
   readonly tags?: readonly string[];
 
-  /** Date range search within. */
+  /** Year range search within. */
   readonly released?: {
 
-    /** Start of date range. */
+    /** Start of year range(YYYY). */
     readonly start: string;
 
-    /** End of date range. */
+    /** End of year range(YYYY). */
     readonly end: string;
   };
 }

@@ -1,7 +1,6 @@
 import type { BaseQueryBody } from '../models/baseQueryBody';
 import type { BaseQueryOptions } from '../models/baseQueryOptions';
-import type { Operator } from '../models/operator';
-import type { BaseFilter } from '../models/search/baseFilter';
+import type { BaseFilter, Operator } from '../models/search/baseFilter';
 
 export namespace QueryBuilderService {
 
