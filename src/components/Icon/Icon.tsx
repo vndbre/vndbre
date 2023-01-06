@@ -8,6 +8,9 @@ import { cva, cx } from 'class-variance-authority';
 const iconNames = {
   'burger': 'carbon:menu',
   'chevron-down': 'carbon:chevron-down',
+  'close': 'carbon:close',
+  'view': 'carbon:view',
+  'view-off': 'carbon:view-off',
   'flag': 'eva:flag-outline',
   'star': 'eva:star-outline',
   'edit': 'eva:edit-outline',

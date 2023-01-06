@@ -7,7 +7,7 @@ import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 
 /** Button size. */
-export type ButtonSize = 'sm' | 'md';
+export type ButtonSize = 'xs' | 'sm' | 'md';
 
 /** Button props. */
 export interface ButtonProps {
@@ -26,6 +26,9 @@ export interface ButtonProps {
 
   /** Is button disabled. */
   readonly isDisabled?: boolean;
+
+  /** `aria-label` attribute. */
+  readonly ariaLabel?: string;
 }
 
 interface Props extends ButtonProps {
@@ -47,6 +50,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   className,
   onClick,
   isDisabled,
+  ariaLabel,
   ...props
 }) => {
   const button = cva([
@@ -67,11 +71,17 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         true: '',
       },
       size: {
+        xs: '',
         sm: '',
         md: '',
       },
     },
     compoundVariants: [
+      {
+        size: 'xs',
+        isSquare: true,
+        class: 'w-8 h-8',
+      },
       {
         size: 'sm',
         isSquare: false,
@@ -115,10 +125,11 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
 
   return (
     <button
+      aria-label={ariaLabel}
       type={type}
       className={cx(button(props))}
-      onClick={onClick}
       disabled={isDisabled}
+      {...(onClick != null ? { onClick } : undefined)}
     >
       {children}
     </button>

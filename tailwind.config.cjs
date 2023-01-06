@@ -32,6 +32,7 @@ module.exports = {
       primary: colors.orange,
       current: colors.current,
       transparent: colors.transparent,
+      inherit: colors.inherit,
     },
     sm: '0.125rem',
     DEFAULT: '0.25rem',
