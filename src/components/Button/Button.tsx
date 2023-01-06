@@ -129,7 +129,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       type={type}
       className={cx(button(props))}
       disabled={isDisabled}
-      {...(onClick != null ? { onClick } : undefined)}
+      onClick={onClick}
     >
       {children}
     </button>
