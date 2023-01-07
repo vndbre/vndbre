@@ -6,7 +6,7 @@ import { Button } from '../Button/Button';
 import type { IconProps } from '../Icon/Icon';
 import { Icon } from '../Icon/Icon';
 
-type Props = Pick<ButtonProps, 'intent'> & Pick<IconProps, 'name'> & {
+type Props = Pick<ButtonProps, 'intent' | 'onClick' | 'ariaLabel'> & Pick<IconProps, 'name'> & {
 
   /** Icon button size. */
   readonly size?: ButtonProps['size'];
@@ -18,12 +18,16 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
   name,
   className,
   size,
+  ariaLabel,
+  onClick,
 }) => (
   <Button
     className={className}
     intent={intent}
     size={size}
     isSquare
+    ariaLabel={ariaLabel}
+    onClick={onClick}
   >
     <Icon name={name} />
   </Button>
