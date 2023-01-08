@@ -7,7 +7,7 @@ import { useVnOverviewQuery } from '../../queries/vnOverview';
 /** Visual novel overview tab. */
 const VnOverviewComponent: FC = () => {
   const { query: { id } } = useRouter();
-  const { data, isLoading } = useVnOverviewQuery(Number(id));
+  const { data, isLoading } = useVnOverviewQuery(String(id));
 
   if (isLoading || data == null) {
     return <div>loading overview</div>;
