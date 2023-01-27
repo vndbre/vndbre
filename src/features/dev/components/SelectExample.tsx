@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 import React, { useState, memo } from 'react';
-import { MultiValue, SingleValue } from 'react-select';
 import { Icon } from 'src/components/Icon/Icon';
 import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import type { SelectOption } from 'src/components/Select';
+import type { SelectChangeHandler } from 'src/components/Select/Select';
 import { Select } from 'src/components/Select/Select';
 
 const options: SelectOption[] = [
@@ -31,6 +31,17 @@ const options: SelectOption[] = [
 const SelectExampleComponent: FC = () => {
   const [option, setOption] = useState<SelectOption | null>();
 
+  /**
+   * Handle change.
+   * @param value Value.
+   */
+  const handleChange: SelectChangeHandler = value => {
+    if (value != null && 'length' in value) {
+      return;
+    }
+    setOption(value);
+  };
+
   return (
     <div className="flex flex-row flex-wrap gap-4">
       <div className="w-full">
@@ -40,21 +51,22 @@ const SelectExampleComponent: FC = () => {
       </div>
       <Select
         placeholder="Select one with search"
-        disableSearch
         options={options}
         className="w-full max-w-[240px]"
-        onChange={setOption}
+        onChange={handleChange}
       />
       <Select
         placeholder="Select one"
         disableSearch
+        isClearable
         options={options}
         className="w-full max-w-[240px]"
-        onChange={setOption}
+        onChange={handleChange}
       />
       <Select
         placeholder="Select multi  with search"
         isMulti
+        isClearable
         options={options}
         className="w-full max-w-[240px]"
       />
@@ -81,13 +93,13 @@ const SelectExampleComponent: FC = () => {
       <LanguageSelect
         placeholder="Select language"
         className="w-full max-w-[240px]"
-        onChange={setOption}
+        onChange={handleChange}
       />
       <LanguageSelect
         placeholder="Select language"
         className="w-full max-w-[240px]"
         size="lg"
-        onChange={setOption}
+        onChange={handleChange}
       />
     </div>
   );

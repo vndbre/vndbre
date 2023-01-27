@@ -21,10 +21,8 @@ const components: Partial<SelectComponents<Option, boolean, GroupBase<Option>>> 
   ClearIndicator: SelectClearIndicator,
 };
 
-export type SelectChangeSingleHandler = (value: Option) => void;
-export type SelectChangeSingleClearableHandler = (value: SingleValue<Option>) => void;
-export type SelectChangeMultiHandler = (value: MultiValue<Option>) => void;
-export type SelectChangeHandler = (value: SingleValue<Option> | MultiValue<Option>) => void;
+export type SelectChangeValue = SingleValue<Option> | MultiValue<Option>;
+export type SelectChangeHandler = (value: SelectChangeValue) => void;
 
 export type SelectProps =
 & PropsWithClass
@@ -33,6 +31,7 @@ export type SelectProps =
   | 'options'
   | 'closeMenuOnSelect'
   | 'hideSelectedOptions'
+  | 'isMulti'
   | 'isClearable'
   | 'placeholder'
   | 'onBlur'
@@ -51,23 +50,10 @@ export type SelectProps =
 
   /** Size. */
   readonly size?: 'md' | 'lg';
-}
-& (
-  | {
-    readonly isMulti?: false;
-    readonly isClearable?: false;
-    readonly onChange?: SelectChangeSingleHandler;
-  }
-  | {
-    readonly isMulti?: false;
-    readonly isClearable: true;
-    readonly onChange?: SelectChangeSingleClearableHandler;
-  }
-  | {
-    readonly isMulti: true;
-    readonly onChange?: SelectChangeMultiHandler;
-  }
-);
+
+  /** Change handler. */
+  readonly onChange?: SelectChangeHandler;
+};
 
 /** Select component. */
 const SelectComponent: FC<SelectProps> = ({
@@ -77,7 +63,6 @@ const SelectComponent: FC<SelectProps> = ({
   disableSearch = false,
   isClearable = false,
   size = 'md',
-  onChange,
   ...props
 }) => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
@@ -125,7 +110,6 @@ const SelectComponent: FC<SelectProps> = ({
       hideSelectedOptions={hideSelectedOptions}
       isSearchable={!disableSearch}
       isClearable={isClearable}
-      onChange={onChange as SelectChangeHandler}
       {...props}
     />
   );
