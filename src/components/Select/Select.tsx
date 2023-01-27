@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 import React, { memo } from 'react';
-import type { ClassNamesConfig, GroupBase, Props as ReactSelectProps } from 'react-select';
+import type { ClassNamesConfig, GroupBase, MultiValue, Props as ReactSelectProps, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
@@ -21,6 +21,11 @@ const components: Partial<SelectComponents<Option, boolean, GroupBase<Option>>> 
   ClearIndicator: SelectClearIndicator,
 };
 
+export type SelectChangeSingleHandler = (value: Option) => void;
+export type SelectChangeSingleClearableHandler = (value: SingleValue<Option>) => void;
+export type SelectChangeMultiHandler = (value: MultiValue<Option>) => void;
+export type SelectChangeHandler = (value: SingleValue<Option> | MultiValue<Option>) => void;
+
 export type SelectProps =
 & PropsWithClass
 & Pick<
@@ -28,14 +33,41 @@ export type SelectProps =
   | 'options'
   | 'closeMenuOnSelect'
   | 'hideSelectedOptions'
-  | 'isMulti'
+  | 'isClearable'
   | 'placeholder'
+  | 'onBlur'
+  | 'onFocus'
+  | 'onInputChange'
+  | 'onKeyDown'
+  | 'onMenuClose'
+  | 'onMenuOpen'
+  | 'onMenuScrollToBottom'
+  | 'onMenuScrollToTop'
 >
 & {
 
   /** Whether to disable search. */
   readonly disableSearch?: boolean;
-};
+
+  /** Size. */
+  readonly size?: 'md' | 'lg';
+}
+& (
+  | {
+    readonly isMulti?: false;
+    readonly isClearable?: false;
+    readonly onChange?: SelectChangeSingleHandler;
+  }
+  | {
+    readonly isMulti?: false;
+    readonly isClearable: true;
+    readonly onChange?: SelectChangeSingleClearableHandler;
+  }
+  | {
+    readonly isMulti: true;
+    readonly onChange?: SelectChangeMultiHandler;
+  }
+);
 
 /** Select component. */
 const SelectComponent: FC<SelectProps> = ({
@@ -43,6 +75,9 @@ const SelectComponent: FC<SelectProps> = ({
   closeMenuOnSelect = false,
   hideSelectedOptions = false,
   disableSearch = false,
+  isClearable = false,
+  size = 'md',
+  onChange,
   ...props
 }) => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
@@ -59,13 +94,20 @@ const SelectComponent: FC<SelectProps> = ({
         'pl-0': hasValue && isMulti,
       },
     ),
-    singleValue: () => clsx(inputClassNames),
-    placeholder: () => clsx(inputClassNames, 'text-gray-500'),
+    singleValue: () => clsx(
+      inputClassNames, 'flex', {
+        'gap-1': size === 'md',
+        'gap-2': size === 'lg',
+      },
+    ),
+    placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
     dropdownIndicator: () => '!hidden',
     menu: () => 'rounded-b-md bg-gray-100 p-2 pt-0 flex flex-col gap-2',
     option: ({ isFocused }) => clsx(
-      '!flex items-center justify-between gap-1 rounded bg-gray-100 px-2 py-1 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
+      '!flex items-center rounded bg-gray-100 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,
+        'gap-1 px-2 py-1': size === 'md',
+        'gap-2 p-2': size === 'lg',
       },
     ),
     valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
@@ -82,6 +124,8 @@ const SelectComponent: FC<SelectProps> = ({
       closeMenuOnSelect={closeMenuOnSelect}
       hideSelectedOptions={hideSelectedOptions}
       isSearchable={!disableSearch}
+      isClearable={isClearable}
+      onChange={onChange as SelectChangeHandler}
       {...props}
     />
   );

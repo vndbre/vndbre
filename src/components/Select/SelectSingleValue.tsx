@@ -8,7 +8,7 @@ import type { Option } from './Option';
 export const SelectSingleValue: ComponentType<SingleValueProps<Option>> = ({
   data, ...props
 }) => (
-  <c.SingleValue className="flex gap-1" data={data} {...props}>
+  <c.SingleValue data={data} {...props}>
     {data.icon != null && <div className="shrink-0">{data.icon}</div>}
     <span className="overflow-hidden text-ellipsis">{data.label}</span>
   </c.SingleValue>
