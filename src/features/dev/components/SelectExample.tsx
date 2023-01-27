@@ -1,9 +1,8 @@
 import type { FC } from 'react';
-import React, { useState, memo } from 'react';
+import React, { memo } from 'react';
 import { Icon } from 'src/components/Icon/Icon';
 import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import type { Option } from 'src/components/Select/Option';
-import type { ReactSelectOption } from 'src/components/Select/Select';
 import { Select } from 'src/components/Select/Select';
 
 const options: Option[] = [
