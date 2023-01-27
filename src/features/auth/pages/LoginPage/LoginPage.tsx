@@ -10,6 +10,7 @@ import * as z from 'zod';
 import Head from 'next/head';
 import { Link } from 'src/components/Link/Link';
 import { PasswordInput } from 'src/components/controls/PasswordInput';
+import type { NextPage } from 'next';
 
 const loginFormInitialValues = {
   username: '',
@@ -22,7 +23,7 @@ const validationSchema = z.object({
 });
 
 /** Login page. */
-const LoginPage: FC = () => {
+export const LoginPage: NextPage = () => {
   const {
     control,
     handleSubmit,
@@ -71,5 +72,3 @@ const LoginPage: FC = () => {
     </>
   );
 };
-
-export default LoginPage;

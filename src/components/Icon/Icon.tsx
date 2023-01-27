@@ -4,16 +4,28 @@ import { Icon as IconifyIcon } from '@iconify/react';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 import { cva, cx } from 'class-variance-authority';
 
+const flagIconNames = {
+  'flag-japan': 'emojione-v1:flag-for-japan',
+  'flag-ukraine': 'emojione-v1:flag-for-ukraine',
+  'flag-united-states': 'emojione-v1:flag-for-united-states',
+  'flag-united-kingdom': 'emojione-v1:flag-for-united-kingdom',
+  'flag-russia': 'emojione-v1:flag-for-russia',
+  'flag-china': 'emojione-v1:flag-for-china',
+  'flag-sweden': 'emojione-v1:flag-for-sweden',
+  'flag-bangladesh': 'emojione-v1:flag-for-bangladesh',
+};
+
 /* eslint-disable @typescript-eslint/naming-convention */
 const iconNames = {
   'burger': 'carbon:menu',
   'chevron-down': 'carbon:chevron-down',
-  'close': 'carbon:close',
+  'close': 'heroicons:x-mark-20-solid',
   'view': 'carbon:view',
   'view-off': 'carbon:view-off',
   'flag': 'eva:flag-outline',
   'star': 'eva:star-outline',
   'edit': 'eva:edit-outline',
+  ...flagIconNames,
 } as const;
 /* eslint-enable @typescript-eslint/naming-convention */
 
@@ -24,7 +36,7 @@ export type IconName = keyof typeof iconNames;
 type IconSize = 'sm' | 'md';
 
 /** Icon props. */
-export interface IconProps {
+export interface IconProps extends PropsWithClass {
 
   /** Icon name. */
   readonly name: IconName;
@@ -34,7 +46,7 @@ export interface IconProps {
 }
 
 /** Icon. */
-const IconComponent: FC<PropsWithClass<IconProps>> = ({ name, className, ...props }) => {
+const IconComponent: FC<IconProps> = ({ name, className, ...props }) => {
   const icon = cva([className], {
     variants: {
       size: {
