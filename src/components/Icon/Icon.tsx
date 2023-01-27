@@ -15,7 +15,6 @@ const flagIconNames = {
   'flag-bangladesh': 'emojione-v1:flag-for-bangladesh',
 };
 
-/* eslint-disable @typescript-eslint/naming-convention */
 const iconNames = {
   'burger': 'carbon:menu',
   'chevron-down': 'carbon:chevron-down',
