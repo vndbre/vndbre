@@ -3,8 +3,10 @@ import React, { memo } from 'react';
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import clsx from 'clsx';
 
+export type RadioGroupItemProps = RadixRadioGroup.RadioGroupItemProps;
+
 /** Radio group item. */
-const RadioGroupItemComponent: FC<RadixRadioGroup.RadioGroupItemProps> = ({
+const RadioGroupItemComponent: FC<RadioGroupItemProps> = ({
   className, ...props
 }) => (
   <RadixRadioGroup.Item
