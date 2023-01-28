@@ -19,7 +19,6 @@ type Props =
 
 /**
  * Language select component.
- * TODO: Extract language logic into service. It just a proof of concept.
  */
 const LanguageSelectComponent: FC<PropsWithClass<Props>> = ({
   activeLanguages,
