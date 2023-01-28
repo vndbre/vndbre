@@ -57,9 +57,9 @@ export const flagIconNames = {
 const iconNames = {
   'burger': 'carbon:menu',
   'chevron-down': 'carbon:chevron-down',
-  'close': 'heroicons:x-mark-20-solid',
-  'view': 'carbon:view',
-  'view-off': 'carbon:view-off',
+  'close': 'heroicons:x-mark',
+  'view': 'heroicons:eye',
+  'view-off': 'heroicons:eye-slash',
   'flag': 'eva:flag-outline',
   'star': 'eva:star-outline',
   'edit': 'eva:edit-outline',

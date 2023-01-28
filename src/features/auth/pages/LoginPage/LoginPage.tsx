@@ -40,7 +40,7 @@ export const LoginPage: NextPage = () => {
       </Head>
 
       <Layout>
-        <div className="mx-auto w-96">
+        <div className="mx-auto w-[360px]">
           <div className="flex w-full flex-col items-center gap-8 pt-32">
             <h1 className="text-[48px] font-bold leading-8 tracking-tight">Log In</h1>
 
