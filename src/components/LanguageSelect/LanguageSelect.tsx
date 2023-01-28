@@ -1,8 +1,7 @@
 import type { FC } from 'react';
 import React, { memo } from 'react';
-import type { LanguageCode } from 'src/api/models/language';
-import { LANGUAGES_CODE } from 'src/api/models/language';
-import { LanguageService } from 'src/api/services/languageService';
+import { LanguageCode, LANGUAGES_CODE } from 'src/api/models/language';
+
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 import { Icon } from '../Icon/Icon';
@@ -28,8 +27,8 @@ const LanguageSelectComponent: FC<PropsWithClass<Props>> = ({
 }) => {
   const availableLanguageCodes = activeLanguages ?? LANGUAGES_CODE;
   const options: SelectOption[] = availableLanguageCodes.map(code => ({
-    label: LanguageService.toReadable(code),
-    icon: <Icon name={LanguageService.getLanguageIconName(code)} />,
+    label: LanguageCode.toReadable(code),
+    icon: <Icon name={LanguageCode.getLanguageIconName(code)} />,
     value: code,
   }));
   return (
