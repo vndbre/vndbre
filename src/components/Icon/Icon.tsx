@@ -52,7 +52,10 @@ export const flagIconNames = {
   'flag-greece': 'twemoji:flag-greece',
   'flag-italy': 'twemoji:flag-italy',
   'white-flag': 'twemoji:white-flag',
-};
+} as const;
+
+/** Flag icon name. */
+export type FlagIconName = keyof typeof flagIconNames;
 
 const iconNames = {
   'burger': 'carbon:menu',
