@@ -1,38 +1,50 @@
 import clsx from 'clsx';
-import type { FC } from 'react';
-import React, { memo } from 'react';
-import type { ClassNamesConfig, GroupBase, MultiValue, Props as ReactSelectProps, SingleValue } from 'react-select';
+import React from 'react';
+import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 
-import type { Option } from './Option';
+import { typedMemo } from 'src/api/utils/typedMemo';
+import type { Group, Option } from './Option';
 import { SelectOption } from './SelectOption';
 import { SelectMenu } from './SelectMenu';
 import { SelectMultiValue } from './SelectMultiValue';
 import { SelectClearIndicator } from './SelectClearIndicator';
 import { SelectSingleValue } from './SelectSingleValue';
 
-const components: Partial<SelectComponents<Option, boolean, GroupBase<Option>>> = {
-  Menu: SelectMenu,
-  Option: SelectOption,
-  SingleValue: SelectSingleValue,
-  MultiValue: SelectMultiValue,
-  ClearIndicator: SelectClearIndicator,
-};
+export type SelectChangeValue<
+  TOption extends Option = Option,
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+> = IsMulti extends true
+  ? MultiValue<TOption>
+  : IsClearable extends true
+    ? SingleValue<TOption>
+    : TOption;
 
-export type SelectChangeValue = SingleValue<Option> | MultiValue<Option>;
-export type SelectChangeHandler = (value: SelectChangeValue) => void;
+export type SelectChangeHandler<
+  TOption extends Option = Option,
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+> = (
+  value: SelectChangeValue<TOption, IsMulti, IsClearable>,
+  actionMeta: ActionMeta<TOption>
+) => void;
 
-export type SelectProps =
+export type SelectProps<
+  TOption extends Option = Option,
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+  TGroup extends Group<TOption> = Group<TOption>,
+> =
 & PropsWithClass
 & Pick<
-  ReactSelectProps<Option>,
+ReactSelectProps<TOption, IsMulti, TGroup>,
   | 'options'
   | 'closeMenuOnSelect'
   | 'hideSelectedOptions'
   | 'isMulti'
-  | 'isClearable'
   | 'placeholder'
   | 'onBlur'
   | 'onFocus'
@@ -45,6 +57,9 @@ export type SelectProps =
 >
 & {
 
+  /** Whether select is clearable, means that value can be `null`. */
+  readonly isClearable?: IsClearable;
+
   /** Whether to disable search. */
   readonly disableSearch?: boolean;
 
@@ -52,22 +67,31 @@ export type SelectProps =
   readonly size?: 'md' | 'lg';
 
   /** Change handler. */
-  readonly onChange?: SelectChangeHandler;
+  readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
 };
 
-/** Select component. */
-const SelectComponent: FC<SelectProps> = ({
+/**
+ * Select component.
+ * @param props Props.
+ */
+const SelectComponent = <
+  TOption extends Option = Option,
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+  TGroup extends Group<TOption> = Group<TOption>,
+>({
   className,
   closeMenuOnSelect = false,
   hideSelectedOptions = false,
   disableSearch = false,
-  isClearable = false,
+  isClearable,
   size = 'md',
+  onChange,
   ...props
-}) => {
+}: SelectProps<TOption, IsMulti, IsClearable, TGroup>): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
   const inputClassNames = 'bg-transparent text-sm leading-6 focus:outline-none pl-2';
-  const classNames: ClassNamesConfig<Option> = {
+  const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
     container: () => clsx('', className),
     control: ({ menuIsOpen }) => clsx(
       'flex h-12 w-full items-center gap-1 rounded-md bg-gray-100 p-2 text-start', {
@@ -101,8 +125,18 @@ const SelectComponent: FC<SelectProps> = ({
     multiValue: () => 'bg-gray-200',
   };
 
+  const components = {
+    Menu: SelectMenu,
+    Option: SelectOption,
+    SingleValue: SelectSingleValue,
+    MultiValue: SelectMultiValue,
+    ClearIndicator: SelectClearIndicator,
+
+  // Believe me it's ok.
+  } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
+
   return (
-    <ReactSelect<Option, boolean>
+    <ReactSelect
       unstyled
       classNames={classNames}
       components={components}
@@ -110,9 +144,12 @@ const SelectComponent: FC<SelectProps> = ({
       hideSelectedOptions={hideSelectedOptions}
       isSearchable={!disableSearch}
       isClearable={isClearable}
+
+      // react-select doesn't support non nullable value in change handler.
+      onChange={onChange as SelectChangeHandler<TOption, IsMulti, boolean>}
       {...props}
     />
   );
 };
 
-export const Select = memo(SelectComponent);
+export const Select = typedMemo(SelectComponent);

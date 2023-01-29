@@ -1,19 +1,23 @@
-import type { FC } from 'react';
-import React, { useMemo, memo } from 'react';
+import React, { useMemo } from 'react';
 
 import { LanguageCode } from 'src/api/models/language';
 
 import type { StrictOmit } from 'src/api/utils/strictOmit';
+import { typedMemo } from 'src/api/utils/typedMemo';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 import { Icon } from '../Icon/Icon';
-import type { SelectOption, SelectProps } from '../Select';
+import type { SelectGroup, SelectOption, SelectProps } from '../Select';
 import { Select } from '../Select';
 
-type Props =
+type Props<
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+> =
 & StrictOmit<
-  SelectProps,
+  SelectProps<SelectOption, IsMulti, IsClearable, SelectGroup<SelectOption>>,
   | 'options'
 >
+& PropsWithClass
 & {
   readonly activeLanguages?: readonly LanguageCode[];
 };
@@ -21,10 +25,13 @@ type Props =
 /**
  * Language select component.
  */
-const LanguageSelectComponent: FC<PropsWithClass<Props>> = ({
+const LanguageSelectComponent = <
+  IsMulti extends boolean = false,
+  IsClearable extends boolean = false,
+>({
   activeLanguages = LanguageCode.list,
   ...props
-}) => {
+}: Props<IsMulti, IsClearable>): JSX.Element => {
   const options: SelectOption[] = useMemo(() => activeLanguages.map(code => ({
     label: LanguageCode.toReadable(code),
     icon: <Icon name={LanguageCode.getLanguageIconName(code)} />,
@@ -36,4 +43,4 @@ const LanguageSelectComponent: FC<PropsWithClass<Props>> = ({
   );
 };
 
-export const LanguageSelect = memo(LanguageSelectComponent);
+export const LanguageSelect = typedMemo(LanguageSelectComponent);

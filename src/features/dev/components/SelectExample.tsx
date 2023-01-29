@@ -3,8 +3,7 @@ import React, { useState, memo } from 'react';
 import { Icon } from 'src/components/Icon/Icon';
 import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import type { SelectOption } from 'src/components/Select';
-import type { SelectChangeHandler } from 'src/components/Select/Select';
-import { Select } from 'src/components/Select/Select';
+import { Select } from 'src/components/Select';
 
 const options: SelectOption[] = [
   {
@@ -31,17 +30,6 @@ const options: SelectOption[] = [
 const SelectExampleComponent: FC = () => {
   const [option, setOption] = useState<SelectOption | null>();
 
-  /**
-   * Handle change.
-   * @param value Value.
-   */
-  const handleChange: SelectChangeHandler = value => {
-    if (value != null && 'length' in value) {
-      return;
-    }
-    setOption(value);
-  };
-
   return (
     <div className="flex flex-row flex-wrap gap-4">
       <div className="w-full">
@@ -53,7 +41,7 @@ const SelectExampleComponent: FC = () => {
         placeholder="Select one with search"
         options={options}
         className="w-full max-w-[240px]"
-        onChange={handleChange}
+        onChange={value => setOption(value)}
       />
       <Select
         placeholder="Select one"
@@ -61,7 +49,7 @@ const SelectExampleComponent: FC = () => {
         isClearable
         options={options}
         className="w-full max-w-[240px]"
-        onChange={handleChange}
+        onChange={value => setOption(value)}
       />
       <Select
         placeholder="Select multi  with search"
@@ -69,6 +57,7 @@ const SelectExampleComponent: FC = () => {
         isClearable
         options={options}
         className="w-full max-w-[240px]"
+        onChange={value => setOption(value.at(-1))}
       />
       <Select
         placeholder="Select multi"
@@ -76,12 +65,14 @@ const SelectExampleComponent: FC = () => {
         disableSearch
         options={options}
         className="w-full max-w-[240px]"
+        onChange={value => setOption(value.at(-1))}
       />
       <LanguageSelect
         placeholder="Select languages"
         isMulti
         disableSearch
         className="w-full max-w-[240px]"
+        onChange={value => setOption(value.at(-1))}
       />
       <LanguageSelect
         placeholder="Select languages"
@@ -89,17 +80,18 @@ const SelectExampleComponent: FC = () => {
         disableSearch
         size="lg"
         className="w-full max-w-[240px]"
+        onChange={value => setOption(value.at(-1))}
       />
       <LanguageSelect
         placeholder="Select language"
         className="w-full max-w-[240px]"
-        onChange={handleChange}
+        onChange={value => setOption(value)}
       />
       <LanguageSelect
         placeholder="Select language"
         className="w-full max-w-[240px]"
         size="lg"
-        onChange={handleChange}
+        onChange={value => setOption(value)}
       />
     </div>
   );
