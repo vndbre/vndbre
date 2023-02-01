@@ -48,7 +48,12 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
 
   return (
-    <div className={clsx('ring-primary-300 flex items-center rounded bg-gray-100 px-3', isInputGroupFocused ? 'ring-4' : undefined)}>
+    <div className={clsx(
+      'ring-primary-300 relative flex items-center rounded-md bg-gray-100', {
+        'ring-4': isInputGroupFocused,
+      },
+    )}
+    >
       <input
         id={id}
         name={name}
@@ -60,9 +65,11 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
         onChange={onChange}
         onFocus={() => setIsInputGroupFocused(true)}
         onBlur={() => setIsInputGroupFocused(false)}
-        className="grow rounded border-none bg-inherit py-3 text-sm leading-6 focus:outline-none"
+        className="grow rounded-md border-none bg-inherit py-3  pl-4 pr-2 text-sm leading-6 focus:outline-none"
       />
-      { rightElement }
+      <div className="absolute right-2 grid place-items-center">
+        { rightElement }
+      </div>
     </div>
   );
 });

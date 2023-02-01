@@ -93,12 +93,13 @@
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/naming-convention": [
-      "warn",
+      "off",
       {
         "selector": "default",
         "format": [
           "camelCase",
-          "PascalCase"
+          "PascalCase",
+          "kebab-case"
         ],
         "leadingUnderscore": "allow",
         "trailingUnderscore": "allow"

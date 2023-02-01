@@ -1,8 +1,6 @@
 import type { FC } from 'react';
 import React, { memo } from 'react';
-import { Tabs } from 'src/components/Tabs/Tabs';
-import { TabsList } from 'src/components/Tabs/TabsList';
-import { Tab } from 'src/components/Tabs/Tab';
+import { Tabs } from 'src/components/Tabs';
 
 const tabs = {
   overview: 'Overview',
@@ -32,7 +30,7 @@ const VnHeaderTabsComponent: FC<Props> = ({
   value,
   onChange,
 }) => (
-  <Tabs
+  <Tabs.Root
     asChild
     activationMode="manual"
     value={value}
@@ -40,18 +38,18 @@ const VnHeaderTabsComponent: FC<Props> = ({
     // Making tabs think that it works with `strings`, but it actually works with `TabValue` union.
     onValueChange={onChange as ((value: string) => void)}
   >
-    <TabsList>
+    <Tabs.List>
       {tabValues.map(tabValue => (
-        <Tab
+        <Tabs.Tab
           key={tabValue}
           value={tabValue}
           isDisabled={disabledTabs.includes(tabValue)}
         >
           {tabs[tabValue]}
-        </Tab>
+        </Tabs.Tab>
       ))}
-    </TabsList>
-  </Tabs>
+    </Tabs.List>
+  </Tabs.Root>
 );
 
 export const VnHeaderTabs = memo(VnHeaderTabsComponent);

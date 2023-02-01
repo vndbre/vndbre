@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { Layout } from 'src/components/Layout/Layout';
@@ -10,6 +9,7 @@ import * as z from 'zod';
 import Head from 'next/head';
 import { Link } from 'src/components/Link/Link';
 import { PasswordInput } from 'src/components/controls/PasswordInput';
+import type { NextPage } from 'next';
 
 const loginFormInitialValues = {
   username: '',
@@ -22,7 +22,7 @@ const validationSchema = z.object({
 });
 
 /** Login page. */
-const LoginPage: FC = () => {
+export const LoginPage: NextPage = () => {
   const {
     control,
     handleSubmit,
@@ -40,7 +40,7 @@ const LoginPage: FC = () => {
       </Head>
 
       <Layout>
-        <div className="mx-auto w-96">
+        <div className="mx-auto w-[360px]">
           <div className="flex w-full flex-col items-center gap-8 pt-32">
             <h1 className="text-[48px] font-bold leading-8 tracking-tight">Log In</h1>
 
@@ -71,5 +71,3 @@ const LoginPage: FC = () => {
     </>
   );
 };
-
-export default LoginPage;

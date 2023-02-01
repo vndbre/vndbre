@@ -2,7 +2,6 @@ name: Auto Author Assign
 
 on:
   pull_request:
-    branches: [develop]
     types: [opened, reopened]
 
 jobs:

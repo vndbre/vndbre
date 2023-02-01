@@ -54,7 +54,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   ...props
 }) => {
   const button = cva([
-    'whitespace-nowrap font-medium font-base leading-6 rounded focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
+    'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
     className,
   ], {
     variants: {
@@ -71,9 +71,9 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         true: '',
       },
       size: {
-        xs: '',
-        sm: '',
-        md: '',
+        xs: 'rounded',
+        sm: 'rounded-md',
+        md: 'rounded-md',
       },
     },
     compoundVariants: [
