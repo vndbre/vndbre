@@ -15,6 +15,7 @@ const TextInputComponent: FC<Props> = ({
   name,
   placeholder,
   rules,
+  ...rest
 }) => {
   const {
     field: { onChange, value, ref },
@@ -35,6 +36,7 @@ const TextInputComponent: FC<Props> = ({
 
   return (
     <Input
+      {...rest}
       id={id}
       name={name}
       value={value}

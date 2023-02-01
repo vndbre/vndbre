@@ -14,6 +14,9 @@ export interface InputProps {
 
   /** Whether the input should be disabled. */
   readonly isDisabled?: boolean;
+
+  /** The element that will be placed on the left side of the input. */
+  readonly leftElement?: ReactNode;
 }
 
 interface Props extends InputProps {
@@ -43,6 +46,7 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
   placeholder,
   isDisabled,
   type,
+  leftElement,
   rightElement,
 }, ref) => {
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
@@ -54,6 +58,9 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
       },
     )}
     >
+      <div className="absolute left-4 grid place-items-center">
+        { leftElement }
+      </div>
       <input
         id={id}
         name={name}
@@ -65,9 +72,9 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
         onChange={onChange}
         onFocus={() => setIsInputGroupFocused(true)}
         onBlur={() => setIsInputGroupFocused(false)}
-        className="grow rounded-md border-none bg-inherit py-3  pl-4 pr-2 text-sm leading-6 focus:outline-none"
+        className={`grow rounded-md border-none bg-inherit py-3 ${leftElement ? 'pl-12' : 'pl-4'} ${leftElement ? 'pr-12' : 'pr-4'} text-sm leading-6 focus:outline-none`}
       />
-      <div className="absolute right-2 grid place-items-center">
+      <div className="absolute right-4 grid place-items-center">
         { rightElement }
       </div>
     </div>
