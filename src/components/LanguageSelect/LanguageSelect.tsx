@@ -36,7 +36,7 @@ const LanguageSelectComponent = <
     label: LanguageCode.toReadable(code),
     icon: <Icon name={LanguageCode.getLanguageIconName(code)} />,
     value: code,
-  })), []);
+  })), [activeLanguages]);
 
   return (
     <Select {...props} options={options} />
