@@ -98,6 +98,7 @@ const iconNames = {
   'edit': 'eva:edit-outline',
   'search': 'eva:search-outline',
   'options': 'eva:options-2-outline',
+  'ellipsis': 'heroicons:ellipsis-horizontal-solid',
   ...flagIconNames,
   ...platformIconNames,
 } as const;

@@ -1,6 +1,11 @@
 import { QueryBuilderService } from './queryBuilderService';
 import type { QueryBody } from '../models/queryBody';
 import type { VnFilter, VnQueryOptions, VnSortField } from '../models/search/vnQueryOptions';
+import { api } from '../apiClient';
+import { VnDtoSchema } from '../dtos/vnDto/vnDto';
+import { createPaginationDtoSchema } from '../dtos/paginationDto';
+import { PaginationMapper } from '../mappers/paginationMapper';
+import { VnMapper } from '../mappers/vn/vnMapper';
 
 export namespace VnService {
 
@@ -49,8 +54,57 @@ export namespace VnService {
 
       // we don't want to receive count without passing a page.
       count: options.page !== undefined,
-      fields: 'image.url, title, alttitle',
-      filters: ['and', ...filters],
+      fields: [
+        'aliases',
+        'alttitle',
+        'description',
+        'devstatus',
+        'id',
+        'image.dims',
+        'image.id',
+        'image.sexual',
+        'image.url',
+        'image.violence',
+        'image.votecount',
+        'languages',
+        'length_minutes',
+        'length_votes',
+        'length',
+        'olang',
+        'platforms',
+        'popularity',
+        'rating',
+        'released',
+        'screenshots.dims',
+        'screenshots.id',
+        'screenshots.sexual',
+        'screenshots.thumbnail_dims',
+        'screenshots.thumbnail',
+        'screenshots.url',
+        'screenshots.violence',
+        'screenshots.votecount',
+        'tags.aliases',
+        'tags.category',
+        'tags.description',
+        'tags.id',
+        'tags.name',
+        'title',
+        'title',
+        'titles.lang',
+        'titles.latin',
+        'titles.main',
+        'titles.official',
+        'titles.title',
+        'votecount',
+      ].join(', '),
+      filters: filters.length > 0 ? ['and', ...filters] : undefined,
     };
+  }
+
+  export async function getVns(options: VnQueryOptions) {
+    const response = await api.post(createVnQueryBody(options), 'vn').json();
+    const dto = createPaginationDtoSchema(VnDtoSchema).parse(response);
+    const data = PaginationMapper.fromDto(dto, VnMapper.fromDto);
+    console.log({ dto, data });
   }
 }

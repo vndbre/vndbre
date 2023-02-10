@@ -10,7 +10,7 @@ export interface QueryBody<
   readonly count: boolean;
 
   /** List of filters to get data by. */
-  readonly filters: ['and', ...Filter[]];
+  readonly filters?: ['and', ...Filter[]];
 
   /** Fields to retrieve by. */
   readonly fields: string;

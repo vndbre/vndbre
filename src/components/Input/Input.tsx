@@ -1,10 +1,10 @@
-import type { ReactNode, HTMLInputTypeAttribute, ChangeEventHandler } from 'react';
+import type { ReactNode, HTMLInputTypeAttribute, ChangeEventHandler, InputHTMLAttributes } from 'react';
 import React, { forwardRef, useState, memo } from 'react';
 
 import clsx from 'clsx';
 
 /** Props for the input component. */
-export interface InputProps {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
   /** Id attribute. */
   readonly id?: string;
@@ -22,13 +22,13 @@ export interface InputProps {
 interface Props extends InputProps {
 
   /** Name attribute. */
-  readonly name: string;
+  readonly name?: string;
 
   /** Input value. */
-  readonly value: string;
+  readonly value?: string;
 
   /** Input change callback. */
-  readonly onChange: ChangeEventHandler<HTMLInputElement>;
+  readonly onChange?: ChangeEventHandler<HTMLInputElement>;
 
   /** Type attribute. Default value is `text`. */
   readonly type?: HTMLInputTypeAttribute;
@@ -47,7 +47,10 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
   isDisabled,
   type,
   leftElement,
+  onBlur,
   rightElement,
+  onFocus,
+  className,
 }, ref) => {
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
 
@@ -70,9 +73,15 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
         placeholder={placeholder}
         disabled={isDisabled}
         onChange={onChange}
-        onFocus={() => setIsInputGroupFocused(true)}
-        onBlur={() => setIsInputGroupFocused(false)}
-        className={`grow rounded-md border-none bg-inherit py-3 ${leftElement ? 'pl-12' : 'pl-4'} ${leftElement ? 'pr-12' : 'pr-4'} text-sm leading-6 focus:outline-none`}
+        onFocus={e => {
+          setIsInputGroupFocused(true);
+          onFocus?.(e);
+        }}
+        onBlur={e => {
+          setIsInputGroupFocused(false);
+          onBlur?.(e);
+        }}
+        className={clsx(`grow rounded-md border-none bg-inherit py-3 ${leftElement ? 'pl-12' : 'pl-4'} ${leftElement ? 'pr-12' : 'pr-4'} text-sm leading-6 focus:outline-none`, className)}
       />
       <div className="absolute right-4 grid place-items-center">
         { rightElement }

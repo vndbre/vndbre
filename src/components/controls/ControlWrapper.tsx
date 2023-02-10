@@ -19,7 +19,7 @@ const ControlWrapperComponent: FC<Props> = ({
   children,
 }) => {
   const controlId = useId();
-  const control = useMemo(() => cloneElement(children, { id: controlId }), []);
+  const control = useMemo(() => cloneElement(children, { id: controlId }), [children]);
 
   return (
     <div role="group" className="flex flex-col gap-2">

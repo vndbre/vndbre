@@ -11,4 +11,7 @@ export interface BaseQueryOptions<SortField extends string> {
 
   /** Page to request. */
   readonly page?: number;
+
+  /** Number of results to get(max - 100). */
+  readonly results?: number;
 }

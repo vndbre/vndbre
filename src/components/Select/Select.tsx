@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import React from 'react';
-import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SingleValue } from 'react-select';
+import type { Ref } from 'react';
+import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
@@ -54,6 +54,9 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
   | 'onMenuOpen'
   | 'onMenuScrollToBottom'
   | 'onMenuScrollToTop'
+  | 'name'
+  | 'value'
+  | 'isLoading'
 >
 & {
 
@@ -68,6 +71,8 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
 
   /** Change handler. */
   readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
+
+  readonly searchRef?: Ref<SelectInstance<TOption, IsMulti, TGroup>> | null;
 };
 
 /**
@@ -87,6 +92,7 @@ const SelectComponent = <
   isClearable,
   size = 'md',
   onChange,
+  searchRef,
   ...props
 }: SelectProps<TOption, IsMulti, IsClearable, TGroup>): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
@@ -134,9 +140,9 @@ const SelectComponent = <
 
   // Believe me it's ok.
   } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
-
   return (
     <ReactSelect
+      ref={searchRef}
       unstyled
       classNames={classNames}
       components={components}

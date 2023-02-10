@@ -1,5 +1,6 @@
 import type { PlatformIconName } from 'src/components/Icon/Icon';
 
+/** List of available platforms. */
 const PLATFORMS = [
   'and',
   'bdp',
