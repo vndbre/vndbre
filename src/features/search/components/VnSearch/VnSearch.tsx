@@ -1,25 +1,23 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import type { FC } from 'react';
-import React, { useRef, useState, useCallback, memo } from 'react';
+import React, { useEffect, useState, useCallback, memo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import type { MultiValue, SingleValue } from 'react-select';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
 import { Icon } from 'src/components/Icon/Icon';
-import { IconButton } from 'src/components/IconButton/IconButton';
 import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import type { SelectOption } from 'src/components/Select';
 import { Select } from 'src/components/Select';
 import { useDebounce } from 'src/hooks/useIntersectionObserver';
 import { Paginator } from 'src/components/Paginator/Paginator';
-import { VnService } from 'src/api/services/vnService';
 import { Card } from 'src/components/Card/Card';
 import type { InfiniteData } from '@tanstack/react-query';
 import type { Pagination } from 'src/api/models/pagination';
 import type { Vn } from 'src/api/models/vn/vn';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
-import { Slider } from 'src/components/Slider/Slider';
+import { FormSlider } from 'src/components/controls/FormSlider';
 import { useVnsQuery } from '../../queries/vns';
 import { useTagsQuery } from '../../queries/tag';
 import { VnSearchPopover } from './VnSearchPopover/VnSearchPopover';
@@ -30,10 +28,10 @@ interface SearchFormValues {
   readonly originalLanguage: SingleValue<Omit<SelectOption, 'icon'>>;
   readonly platforms: MultiValue<Omit<SelectOption, 'icon'>>;
   readonly tags: MultiValue<Omit<SelectOption, 'icon'>>;
-  readonly length: number[];
-  readonly popularity: number[];
-  readonly released: number[];
-  readonly rating: number[];
+  readonly length: [number];
+  readonly popularity: [number, number];
+  readonly released: [number, number];
+  readonly rating: [number, number];
 
 }
 
@@ -43,9 +41,9 @@ const searchFormInitialValues: SearchFormValues = {
   platforms: [],
   tags: [],
   originalLanguage: null,
-  length: [1, 5],
+  length: [1],
   popularity: [0, 100],
-  released: [1970, new Date().getFullYear()],
+  released: [1980, new Date().getFullYear()],
   rating: [10, 100],
 };
 
@@ -94,10 +92,17 @@ const VnSearchComponent: FC = () => {
     languages: debouncedFormData.languages.map(l => l.value),
     originalLanguage: debouncedFormData.originalLanguage?.value,
     tags: debouncedFormData.tags.map(t => t.value),
-  // eslint-disable-next-line jsdoc/require-jsdoc
-  }, {
+    popularity: { start: debouncedFormData.popularity[0], end: debouncedFormData.popularity[1] },
+    released: { start: debouncedFormData.released[0], end: debouncedFormData.released[1] },
+    length: debouncedFormData.length[0],
+    rating: { start: debouncedFormData.rating[0], end: debouncedFormData.rating[1] },
 
+  // eslint-disable-next-line jsdoc/require-jsdoc
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedFormData]);
 
   const handleFormSubmit = useCallback((data: SearchFormValues) => {
     console.log(data);
@@ -136,7 +141,7 @@ const VnSearchComponent: FC = () => {
               render={({ field: { name, onChange, onBlur, value, ref } }) => (
                 <ControlWrapper label="Language">
                   <LanguageSelect
-                    searchRef={ref}
+                    selectRef={ref}
                     placeholder="Select languages"
                     value={value}
                     onBlur={onBlur}
@@ -156,7 +161,7 @@ const VnSearchComponent: FC = () => {
                 <ControlWrapper label="Platform">
                   <PlatformSelect
                     placeholder="Select platforms"
-                    searchRef={ref}
+                    selectRef={ref}
                     value={value}
                     onBlur={onBlur}
                     onChange={onChange}
@@ -177,7 +182,7 @@ const VnSearchComponent: FC = () => {
                   <ControlWrapper label="Tags">
                     <Select
                       placeholder="Select tags"
-                      searchRef={ref}
+                      selectRef={ref}
                       value={value}
                       onBlur={onBlur}
                       onInputChange={handleTagInputChange}
@@ -201,7 +206,7 @@ const VnSearchComponent: FC = () => {
                 render={({ field: { name, onChange, onBlur, value, ref } }) => (
                   <ControlWrapper label="Original language">
                     <LanguageSelect
-                      searchRef={ref}
+                      selectRef={ref}
                       placeholder="Select language"
                       value={value}
                       onBlur={onBlur}
@@ -214,69 +219,37 @@ const VnSearchComponent: FC = () => {
                 )}
               />
               <div className="grid grid-cols-2 gap-4">
-                <Controller
+                <FormSlider
+                  control={control}
                   name="length"
-                  control={control}
-                  render={({ field: { name, onChange, ref, value } }) => (
-                    <Slider
-                      name={name}
-                      onChange={onChange}
-                      label="Length"
-                      showValues
-                      ref={ref}
-                      value={value}
-                      min={1}
-                      max={5}
-                    />
-                  )}
+                  label="Length"
+                  showValues
+                  min={1}
+                  max={5}
                 />
-                <Controller
+                <FormSlider
+                  control={control}
                   name="released"
-                  control={control}
-                  render={({ field: { name, onChange, ref, value } }) => (
-                    <Slider
-                      name={name}
-                      onChange={onChange}
-                      label="Release Date"
-                      showValues
-                      ref={ref}
-                      value={value}
-                      min={1970}
-                      max={2023}
-                    />
-                  )}
+                  label="Release Date"
+                  showValues
+                  min={1980}
+                  max={2023}
                 />
-                <Controller
+                <FormSlider
                   name="rating"
                   control={control}
-                  render={({ field: { name, onChange, ref, value } }) => (
-                    <Slider
-                      name={name}
-                      onChange={onChange}
-                      label="Rating"
-                      showValues
-                      ref={ref}
-                      value={value}
-                      min={10}
-                      max={100}
-                    />
-                  )}
+                  label="Rating"
+                  showValues
+                  min={10}
+                  max={100}
                 />
-                <Controller
+                <FormSlider
                   name="popularity"
                   control={control}
-                  render={({ field: { name, onChange, ref, value } }) => (
-                    <Slider
-                      name={name}
-                      onChange={onChange}
-                      label="Popularity"
-                      showValues
-                      ref={ref}
-                      value={value}
-                      min={0}
-                      max={100}
-                    />
-                  )}
+                  label="Popularity"
+                  showValues
+                  min={0}
+                  max={100}
                 />
               </div>
 

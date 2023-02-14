@@ -4,7 +4,7 @@ import type { BaseQueryOptions } from '../baseQueryOptions';
 import type { Range } from '../range';
 
 /** List of available sort fields for vn. */
-export const VN_SORT_FIELDS = ['id', 'title', 'released', 'popularity', 'rating', 'votecount'] as const;
+export const VN_SORT_FIELDS = ['id', 'title', 'released', 'popularity', 'rating', 'votecount', 'length'] as const;
 
 /** Sort field for vn. */
 export type VnSortField = typeof VN_SORT_FIELDS[number];
@@ -42,6 +42,9 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   /** Bayesian rating, integer between 10 and 100. */
   readonly rating?: Range<number>;
 
+  /** Bayesian rating, integer between 10 and 100. */
+  readonly length?: number;
+
   /** Year range search within. */
-  readonly released?: Range<string>;
+  readonly released?: Range<number>;
 }

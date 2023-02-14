@@ -72,7 +72,7 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
   /** Change handler. */
   readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
 
-  readonly searchRef?: Ref<SelectInstance<TOption, IsMulti, TGroup>> | null;
+  readonly selectRef?: Ref<SelectInstance<TOption, IsMulti, TGroup>> | null;
 };
 
 /**
@@ -92,7 +92,7 @@ const SelectComponent = <
   isClearable,
   size = 'md',
   onChange,
-  searchRef,
+  selectRef,
   ...props
 }: SelectProps<TOption, IsMulti, IsClearable, TGroup>): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
@@ -142,7 +142,7 @@ const SelectComponent = <
   } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
   return (
     <ReactSelect
-      ref={searchRef}
+      ref={selectRef}
       unstyled
       classNames={classNames}
       components={components}

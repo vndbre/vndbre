@@ -46,8 +46,8 @@ export namespace VnService {
     }
 
     if (options.released !== undefined) {
-      filters.push(QueryBuilderService.createFilter('released', '>=', options.released.start));
-      filters.push(QueryBuilderService.createFilter('released', '<=', options.released.end));
+      filters.push(QueryBuilderService.createFilter('released', '>=', String(options.released.start)));
+      filters.push(QueryBuilderService.createFilter('released', '<=', String(options.released.end)));
     }
 
     if (options.popularity !== undefined) {
@@ -58,6 +58,10 @@ export namespace VnService {
     if (options.rating !== undefined) {
       filters.push(QueryBuilderService.createFilter('rating', '>=', String(options.rating.start)));
       filters.push(QueryBuilderService.createFilter('rating', '<=', String(options.rating.end)));
+    }
+
+    if (options.length !== undefined) {
+      filters.push(QueryBuilderService.createFilter('length', '=', String(options.length)));
     }
 
     return {

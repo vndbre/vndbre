@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { forwardRef, memo } from 'react';
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 
-type Props =
+export type SliderProps =
 & StrictOmit<RadixSlider.SliderProps, 'onChange' | 'onValueChange'>
 & {
   readonly onChange?: (value: number[]) => void;
@@ -11,7 +11,7 @@ type Props =
   readonly label?: string;
 };
 
-const SliderComponent = forwardRef<HTMLInputElement, Props>(({
+const SliderComponent = forwardRef<HTMLInputElement, SliderProps>(({
   showValues = false,
   label,
   onChange,
@@ -20,14 +20,13 @@ const SliderComponent = forwardRef<HTMLInputElement, Props>(({
   ...props
 }, ref) => (
   <div className="flex flex-col gap-2">
-
     <div className="flex w-full text-sm font-medium leading-6">
       {label !== undefined && <span>{label}</span>}
       {showValues && value !== undefined && (
         <span className="ml-auto text-gray-500">
           {value[0]}
-          -
-          {value[1]}
+          {' '}
+          {value[1] !== undefined && `- ${value[1]}`}
         </span>
       )}
     </div>
