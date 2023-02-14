@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import { LanguageCode } from 'src/api/models/language';
 
@@ -43,4 +43,4 @@ const LanguageSelectComponent = <
   );
 };
 
-export const LanguageSelect = typedMemo(LanguageSelectComponent);
+export const LanguageSelect = typedMemo(forwardRef(LanguageSelectComponent));

@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react';
+import type { ForwardedRef } from 'react';
+import { forwardRef, useMemo } from 'react';
+import type { SelectInstance } from 'react-select';
 
 import { Platform } from 'src/api/models/platform';
 
@@ -24,6 +26,7 @@ type Props<
 
 /**
  * Language select component.
+ * @param ref Ref.
  */
 const PlatformSelectComponent = <
   IsMulti extends boolean = false,
@@ -31,7 +34,9 @@ const PlatformSelectComponent = <
 >({
   activePlatforms = Platform.list,
   ...props
-}: Props<IsMulti, IsClearable>): JSX.Element => {
+}: Props<IsMulti, IsClearable>,
+  ref: ForwardedRef<SelectInstance<SelectOption, IsMulti, SelectGroup<SelectOption>>>,
+): JSX.Element => {
   const options: SelectOption[] = useMemo(() => activePlatforms.map(platform => ({
     label: Platform.toReadable(platform),
     icon: <Icon name={Platform.getPlatformIconName(platform)} />,
@@ -39,8 +44,8 @@ const PlatformSelectComponent = <
   })), [activePlatforms]);
 
   return (
-    <Select {...props} options={options} />
+    <Select {...props} options={options} ref={ref} />
   );
 };
 
-export const PlatformSelect = typedMemo(PlatformSelectComponent);
+export const PlatformSelect = typedMemo(forwardRef(PlatformSelectComponent));

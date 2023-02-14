@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import type { FC } from 'react';
-import React, { useEffect, useState, useCallback, memo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useMemo, useEffect, useState, useCallback, memo } from 'react';
+import { useForm } from 'react-hook-form';
 import type { MultiValue, SingleValue } from 'react-select';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
@@ -17,7 +17,8 @@ import type { InfiniteData } from '@tanstack/react-query';
 import type { Pagination } from 'src/api/models/pagination';
 import type { Vn } from 'src/api/models/vn/vn';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
-import { FormSlider } from 'src/components/controls/FormSlider';
+import { Field } from 'src/components/Field/Field';
+import { Slider } from 'src/components/Slider/Slider';
 import { useVnsQuery } from '../../queries/vns';
 import { useTagsQuery } from '../../queries/tag';
 import { VnSearchPopover } from './VnSearchPopover/VnSearchPopover';
@@ -72,7 +73,7 @@ const VnSearchComponent: FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const formData = watch();
+  const formData = useMemo(() => watch(), []);
   const debouncedFormData = useDebounce(formData, 1000);
 
   const {
@@ -101,6 +102,7 @@ const VnSearchComponent: FC = () => {
   });
 
   useEffect(() => {
+    console.log('test');
     setCurrentPage(1);
   }, [debouncedFormData]);
 
@@ -135,91 +137,57 @@ const VnSearchComponent: FC = () => {
             <TextInput name="search" control={control} placeholder="Search" leftElement={<Icon name="search" />} />
           </ControlWrapper>
           <div className="w-full">
-            <Controller
-              control={control}
-              name="languages"
-              render={({ field: { name, onChange, onBlur, value, ref } }) => (
-                <ControlWrapper label="Language">
-                  <LanguageSelect
-                    selectRef={ref}
-                    placeholder="Select languages"
-                    value={value}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    isMulti
-                    name={name}
-                  />
-                </ControlWrapper>
-              )}
-            />
+            <ControlWrapper label="Language">
+              <Field
+                Component={LanguageSelect}
+                isMulti
+                control={control}
+                name="languages"
+                placeholder="Select languages"
+              />
+            </ControlWrapper>
           </div>
           <div className="w-full">
-            <Controller
-              control={control}
-              name="platforms"
-              render={({ field: { name, onChange, onBlur, value, ref } }) => (
-                <ControlWrapper label="Platform">
-                  <PlatformSelect
-                    placeholder="Select platforms"
-                    selectRef={ref}
-                    value={value}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    isMulti
-                    name={name}
-
-                  />
-                </ControlWrapper>
-              )}
-            />
+            <ControlWrapper label="Platform">
+              <Field
+                Component={PlatformSelect}
+                isMulti
+                control={control}
+                name="platforms"
+                placeholder="Select platforms"
+              />
+            </ControlWrapper>
           </div>
           {tags && (
             <div className="w-full">
-              <Controller
-                control={control}
-                name="tags"
-                render={({ field: { name, onChange, onBlur, value, ref } }) => (
-                  <ControlWrapper label="Tags">
-                    <Select
-                      placeholder="Select tags"
-                      selectRef={ref}
-                      value={value}
-                      onBlur={onBlur}
-                      onInputChange={handleTagInputChange}
-                      onMenuScrollToBottom={handleFetchMoreTags}
-                      onChange={onChange}
-                      isLoading={isRefetchingTags || isFetchingTags}
-                      options={tagOptions}
-                      isMulti
-                      name={name}
-                    />
-                  </ControlWrapper>
-                )}
-              />
+              <ControlWrapper label="Tags">
+                <Field
+                  Component={Select}
+                  control={control}
+                  placeholder="Select tags"
+                  onInputChange={handleTagInputChange}
+                  onMenuScrollToBottom={handleFetchMoreTags}
+                  isLoading={isRefetchingTags || isFetchingTags}
+                  options={tagOptions}
+                  isMulti
+                  name="tags"
+                />
+              </ControlWrapper>
             </div>
           )}
           <VnSearchPopover>
             <div className="flex flex-col gap-8">
-              <Controller
-                control={control}
-                name="originalLanguage"
-                render={({ field: { name, onChange, onBlur, value, ref } }) => (
-                  <ControlWrapper label="Original language">
-                    <LanguageSelect
-                      selectRef={ref}
-                      placeholder="Select language"
-                      value={value}
-                      onBlur={onBlur}
-                      isClearable
-                      onChange={onChange}
-                      name={name}
-                      closeMenuOnSelect
-                    />
-                  </ControlWrapper>
-                )}
-              />
+              <ControlWrapper label="Original Language">
+                <Field
+                  Component={LanguageSelect}
+                  control={control}
+                  name="originalLanguage"
+                  placeholder="Select languages"
+                />
+              </ControlWrapper>
               <div className="grid grid-cols-2 gap-4">
-                <FormSlider
+                <Field
+                  Component={Slider}
                   control={control}
                   name="length"
                   label="Length"
@@ -227,7 +195,8 @@ const VnSearchComponent: FC = () => {
                   min={1}
                   max={5}
                 />
-                <FormSlider
+                <Field
+                  Component={Slider}
                   control={control}
                   name="released"
                   label="Release Date"
@@ -235,7 +204,8 @@ const VnSearchComponent: FC = () => {
                   min={1980}
                   max={2023}
                 />
-                <FormSlider
+                <Field
+                  Component={Slider}
                   name="rating"
                   control={control}
                   label="Rating"
@@ -243,7 +213,8 @@ const VnSearchComponent: FC = () => {
                   min={10}
                   max={100}
                 />
-                <FormSlider
+                <Field
+                  Component={Slider}
                   name="popularity"
                   control={control}
                   label="Popularity"
