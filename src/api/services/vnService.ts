@@ -6,6 +6,8 @@ import { VnDtoSchema } from '../dtos/vnDto/vnDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
 import { PaginationMapper } from '../mappers/paginationMapper';
 import { VnMapper } from '../mappers/vn/vnMapper';
+import type { Pagination } from '../models/pagination';
+import type { Vn } from '../models/vn/vn';
 
 export namespace VnService {
 
@@ -20,7 +22,7 @@ export namespace VnService {
       filters.push(QueryBuilderService.createFilter('id', '=', options.id));
     }
 
-    if (options.search !== undefined) {
+    if (options.search) {
       filters.push(QueryBuilderService.createFilter('search', '=', options.search));
     }
 
@@ -29,9 +31,8 @@ export namespace VnService {
       filters.push(...langs);
     }
 
-    if (options.originalLanguages !== undefined) {
-      const originalLangs = options.originalLanguages.map<VnFilter>(originalLang => QueryBuilderService.createFilter('olang', '=', originalLang));
-      filters.push(...originalLangs);
+    if (options.originalLanguage !== undefined) {
+      filters.push(QueryBuilderService.createFilter('olang', '=', options.originalLanguage));
     }
 
     if (options.platforms !== undefined) {
@@ -47,6 +48,16 @@ export namespace VnService {
     if (options.released !== undefined) {
       filters.push(QueryBuilderService.createFilter('released', '>=', options.released.start));
       filters.push(QueryBuilderService.createFilter('released', '<=', options.released.end));
+    }
+
+    if (options.popularity !== undefined) {
+      filters.push(QueryBuilderService.createFilter('popularity', '>=', String(options.popularity.start)));
+      filters.push(QueryBuilderService.createFilter('popularity', '<=', String(options.popularity.end)));
+    }
+
+    if (options.rating !== undefined) {
+      filters.push(QueryBuilderService.createFilter('rating', '>=', String(options.rating.start)));
+      filters.push(QueryBuilderService.createFilter('rating', '<=', String(options.rating.end)));
     }
 
     return {
@@ -101,10 +112,13 @@ export namespace VnService {
     };
   }
 
-  export async function getVns(options: VnQueryOptions) {
+  /**
+   * Gets vns.
+   * @param options Query options.
+   */
+  export async function getVns(options: VnQueryOptions): Promise<Pagination<Vn>> {
     const response = await api.post(createVnQueryBody(options), 'vn').json();
     const dto = createPaginationDtoSchema(VnDtoSchema).parse(response);
-    const data = PaginationMapper.fromDto(dto, VnMapper.fromDto);
-    console.log({ dto, data });
+    return PaginationMapper.fromDto(dto, VnMapper.fromDto);
   }
 }

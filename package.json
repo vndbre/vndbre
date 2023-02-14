@@ -13,6 +13,7 @@
     "@iconify/react": "^4.0.0",
     "@next/font": "^13.1.0",
     "@radix-ui/react-checkbox": "^1.0.1",
+    "@radix-ui/react-popover": "^1.0.3",
     "@radix-ui/react-radio-group": "^1.1.1",
     "@radix-ui/react-slider": "^1.1.0",
     "@radix-ui/react-tabs": "1.0.1",
@@ -50,5 +51,8 @@
   },
   "ct3aMetadata": {
     "initVersion": "6.10.2"
+  },
+  "volta": {
+    "node": "18.14.0"
   }
 }

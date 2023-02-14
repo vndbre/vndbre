@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
+
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
 import type { ButtonProps } from '../Button/Button';
 import { Button } from '../Button/Button';
@@ -13,15 +13,16 @@ type Props = Pick<ButtonProps, 'intent' | 'onClick' | 'ariaLabel'> & Pick<IconPr
 };
 
 /** Icon button. */
-const IconButtonComponent: FC<PropsWithClass<Props>> = ({
+const IconButtonComponent = forwardRef<HTMLButtonElement, PropsWithClass<Props>>(({
   intent,
   name,
   className,
   size,
   ariaLabel,
   onClick,
-}) => (
+}, ref) => (
   <Button
+    ref={ref}
     className={className}
     intent={intent}
     size={size}
@@ -31,6 +32,8 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
   >
     <Icon name={name} />
   </Button>
-);
+));
+
+IconButtonComponent.displayName = 'IconButton';
 
 export const IconButton = memo(IconButtonComponent);

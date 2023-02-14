@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { forwardRef, memo } from 'react';
 import type { ButtonHTMLAttributes, FC, MouseEventHandler } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
@@ -44,7 +44,7 @@ interface Props extends ButtonProps {
 }
 
 /** Button. */
-const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
+const ButtonComponent = forwardRef<HTMLButtonElement, PropsWithChildrenAndClass<Props>>(({
   children,
   type = 'button',
   className,
@@ -52,7 +52,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   isDisabled,
   ariaLabel,
   ...props
-}) => {
+}, ref) => {
   const button = cva([
     'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
     className,
@@ -125,6 +125,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
 
   return (
     <button
+      ref={ref}
       aria-label={ariaLabel}
       type={type}
       className={cx(button(props))}
@@ -134,6 +135,8 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       {children}
     </button>
   );
-};
+});
+
+ButtonComponent.displayName = 'Button';
 
 export const Button = memo(ButtonComponent);

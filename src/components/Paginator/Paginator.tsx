@@ -32,15 +32,6 @@ interface Props {
 }
 
 /**
- * Calculates page amount.
- * @param currentPageNumber Current page number.
- * @param pageAmount Maximum number of pages.
- */
-function calculatePageAmount(currentPageNumber: number, pageAmount: number): number {
-  return currentPageNumber > pageAmount ? pageAmount : currentPageNumber;
-}
-
-/**
  * Paginator component.
  */
 const PaginatorComponent: FC<Props> = ({
@@ -56,40 +47,41 @@ const PaginatorComponent: FC<Props> = ({
 
   /** Get three arrays of pages. */
   const getButtons = (): [number[], number[], number[]] => {
-    if (currentPage <= groupCount + offset + inputMinGap) {
-      const leftPagesGroup = Array.from({
-        length: calculatePageAmount(currentPage + groupCount + inputMinGap, pageCount),
-      }).map((_, i) => i + offset);
+    if (pageCount <= inputMinGap * 2 + offset + groupCount * 2) {
+      const leftPages = [...Array(pageCount).keys()].map(i => i + offset);
 
-      return [leftPagesGroup, [pageCount], []];
-    }
-    const leftPagesGroup = [offset];
-
-    if (currentPage >= pageCount - groupCount - inputMinGap) {
-      const rightPagesGroup = Array
-        .from({
-          length: calculatePageAmount(
-            pageCount - currentPage + groupCount + offset + inputMinGap,
-            pageCount,
-          ),
-        })
-        .map((_, i) => pageCount - i)
-        .reverse();
-      return [leftPagesGroup, [], rightPagesGroup];
+      return [leftPages, [], []];
     }
 
-    const middlePages = Array
-      .from({ length: calculatePageAmount(groupCount * 2 + offset, pageCount) })
-      .map((_, i) => i + (currentPage - groupCount));
-    return [leftPagesGroup, middlePages, [pageCount]];
+    if (currentPage <= inputMinGap + groupCount * 2) {
+      const leftPages = [...Array(inputMinGap + offset + groupCount * 2).keys()]
+        .map(i => i + offset);
+
+      return [
+        leftPages,
+        [],
+        [pageCount],
+      ];
+    }
+
+    if (currentPage + groupCount * 2 >= pageCount) {
+      return [
+        [offset],
+        [],
+        [...Array(inputMinGap + offset + groupCount * 2).keys()].map(i => pageCount - i).reverse(),
+      ];
+    }
+
+    const middlePages = [...Array(inputMinGap + groupCount * 2).keys()]
+      .map(i => currentPage - groupCount + i);
+
+    return [[offset], middlePages, [pageCount]];
   };
 
   const [leftPagesGroup, middlePages, rightPagesGroup] = getButtons();
 
   const isMiddlePagesVisible = middlePages.length > 0;
-  const isRightPagesGroupVisible =
-    rightPagesGroup.length > 0 &&
-    currentPage > groupCount + offset + inputMinGap;
+  const isRightPagesGroupVisible = rightPagesGroup.length > 0;
 
   /**
    * Handles page click.
@@ -113,7 +105,6 @@ const PaginatorComponent: FC<Props> = ({
   return (
     <div className="flex gap-2">
       {leftPagesGroup.map(getPaginatorButton)}
-
       {isMiddlePagesVisible && (
         <>
           <PaginatorInput onChange={onChange} />

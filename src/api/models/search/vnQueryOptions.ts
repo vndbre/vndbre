@@ -1,6 +1,7 @@
 import type { ExtractStrict } from 'src/api/utils/strictExtract';
 import type { BaseFilter, Operator } from './baseFilter';
 import type { BaseQueryOptions } from '../baseQueryOptions';
+import type { Range } from '../range';
 
 /** List of available sort fields for vn. */
 export const VN_SORT_FIELDS = ['id', 'title', 'released', 'popularity', 'rating', 'votecount'] as const;
@@ -27,7 +28,7 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   readonly languages?: readonly string[];
 
   /** List of original languages to search by. */
-  readonly originalLanguages?: readonly string[];
+  readonly originalLanguage?: string;
 
   /** List of platforms to search by. */
   readonly platforms?: readonly string[];
@@ -35,13 +36,12 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   /** List of tags to search by. */
   readonly tags?: readonly string[];
 
+  /** Popularity score, integer between 0 and 100. */
+  readonly popularity?: Range<number>;
+
+  /** Bayesian rating, integer between 10 and 100. */
+  readonly rating?: Range<number>;
+
   /** Year range search within. */
-  readonly released?: {
-
-    /** Start of year range(YYYY). */
-    readonly start: string;
-
-    /** End of year range(YYYY). */
-    readonly end: string;
-  };
+  readonly released?: Range<string>;
 }
