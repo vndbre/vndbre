@@ -40,7 +40,8 @@ const VnSearchComponent: FC = () => {
   const {
     fetchNextPage: fetchVns,
     data: vns,
-    isFetchingNextPage: isFetchingVns,
+    isFetching,
+    isLoading,
   } = useVnsQuery(mapVnSearchFormValuesToQueryOptions(debouncedFormData));
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const VnSearchComponent: FC = () => {
         <VnSearchForm />
       </Form>
       <div className="grid grid-cols-6 gap-4">
-        {vns !== undefined && !isFetchingVns ?
+        {vns !== undefined && !isFetching ?
           getPageData(vns, currentPage).map(vn => (
             <Card
               key={vn.id}
@@ -72,7 +73,7 @@ const VnSearchComponent: FC = () => {
             <CardSkeleton key={i} />
           ))}
       </div>
-      {vns?.pages[0]?.count != null && (
+      {vns?.pages[0]?.count != null && !isLoading && (
         <div className="mt-auto flex w-full justify-center">
           <Paginator
             count={vns?.pages[0]?.count}
