@@ -78,7 +78,7 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
 /**
  * Select component.
  * @param props Props.
- * @param ref
+ * @param ref Forwarded ref.
  */
 const SelectComponent = <
   TOption extends Option = Option,

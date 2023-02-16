@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { IconButton } from 'src/components/IconButton/IconButton';
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/Popover/Popover';
 
+/** Popover for vn search. */
 const VnSearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
   <Popover>
     <PopoverTrigger asChild>

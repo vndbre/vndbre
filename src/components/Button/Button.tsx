@@ -1,5 +1,5 @@
 import React, { forwardRef, memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler } from 'react';
+import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 
@@ -43,8 +43,11 @@ interface Props extends ButtonProps {
   readonly hasSmallPaddings?: boolean;
 }
 
-/** Button. */
-const ButtonComponent = forwardRef<HTMLButtonElement, PropsWithChildrenAndClass<Props>>(({
+/**
+ * Button.
+ * @param ref Forwarded ref.
+ */
+const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   children,
   type = 'button',
   className,
@@ -52,7 +55,7 @@ const ButtonComponent = forwardRef<HTMLButtonElement, PropsWithChildrenAndClass<
   isDisabled,
   ariaLabel,
   ...props
-}, ref) => {
+}, ref: ForwardedRef<HTMLButtonElement>) => {
   const button = cva([
     'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
     className,
@@ -135,8 +138,8 @@ const ButtonComponent = forwardRef<HTMLButtonElement, PropsWithChildrenAndClass<
       {children}
     </button>
   );
-});
+};
 
 ButtonComponent.displayName = 'Button';
 
-export const Button = memo(ButtonComponent);
+export const Button = memo(forwardRef(ButtonComponent));

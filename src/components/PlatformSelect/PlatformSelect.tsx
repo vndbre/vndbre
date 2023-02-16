@@ -26,7 +26,7 @@ type Props<
 
 /**
  * Language select component.
- * @param ref Ref.
+ * @param ref Forwarded ref.
  */
 const PlatformSelectComponent = <
   IsMulti extends boolean = false,

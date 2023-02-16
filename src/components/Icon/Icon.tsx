@@ -99,6 +99,10 @@ const iconNames = {
   'search': 'eva:search-outline',
   'options': 'eva:options-2-outline',
   'ellipsis': 'heroicons:ellipsis-horizontal-solid',
+  'sort-desc': 'heroicons:bars-arrow-down-solid',
+  'sort-asc': 'heroicons:bars-arrow-up-solid',
+  'rectangle-stack': 'carbon:horizontal-view',
+  'squares': 'heroicons:squares-2x2',
   ...flagIconNames,
   ...platformIconNames,
 } as const;
