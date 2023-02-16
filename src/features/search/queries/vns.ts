@@ -1,7 +1,7 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { Pagination } from 'src/api/models/pagination';
-import type { VnQueryOptions } from 'src/api/models/search/vnQueryOptions';
+import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptions';
 import type { Vn } from 'src/api/models/vn/vn';
 import { VnService } from 'src/api/services/vnService';
 

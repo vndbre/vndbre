@@ -1,6 +1,6 @@
 import { QueryBuilderService } from './queryBuilderService';
 import type { QueryBody } from '../models/queryBody';
-import type { VnFilter, VnQueryOptions, VnSortField } from '../models/search/vnQueryOptions';
+import type { VnFilter, VnQueryOptions } from '../models/queryOptions/vn/vnQueryOptions';
 import { api } from '../apiClient';
 import { VnDtoSchema } from '../dtos/vnDto/vnDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
@@ -8,6 +8,7 @@ import { PaginationMapper } from '../mappers/paginationMapper';
 import { VnMapper } from '../mappers/vn/vnMapper';
 import type { Pagination } from '../models/pagination';
 import type { Vn } from '../models/vn/vn';
+import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 
 export namespace VnService {
 

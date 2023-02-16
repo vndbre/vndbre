@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { memo, useCallback, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Button } from 'src/components/Button/Button';
+import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
@@ -103,6 +103,8 @@ const VnSearchFormComponent: FC = () => {
                 control={control}
                 name="originalLanguage"
                 placeholder="Select languages"
+                closeMenuOnSelect
+                isClearable
               />
             </ControlWrapper>
             <div className="grid grid-cols-2 gap-4">
@@ -148,20 +150,28 @@ const VnSearchFormComponent: FC = () => {
 
       </div>
       <div className="ml-auto flex gap-4">
-        <ButtonGroup>
+        <div className="flex">
           <Controller
             control={control}
             name="sortDirection"
             render={({ field: { onChange, value } }) => (
               <IconButton
+                className="rounded-r-none"
                 intent="tertiary"
                 name={`sort-${value}`}
                 onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
               />
             )}
           />
-          <Button intent="tertiary">Trending</Button>
-        </ButtonGroup>
+          <Field
+            Component={Select}
+            control={control}
+            options={VN_SORT_FIELDS.map(v => ({ value: v, label: VnSortField.toReadable(v) }))}
+            closeMenuOnSelect
+            name="sortField"
+            className="rounded-r bg-gray-100"
+          />
+        </div>
         <ButtonGroup>
           <IconButton intent="tertiary" name="rectangle-stack" />
           <IconButton intent="tertiary" name="squares" />

@@ -1,6 +1,7 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import type { MultiValue, SingleValue } from 'react-select';
-import type { VnQueryOptions } from 'src/api/models/search/vnQueryOptions';
+import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptions';
+import { VnSortField } from 'src/api/models/queryOptions/vn/vnSortField';
 import type { SortOrder } from 'src/api/models/sortOptions';
 import type { SelectOption } from 'src/components/Select';
 
@@ -14,6 +15,7 @@ export interface VnSearchFormValues {
   readonly popularity: [number, number];
   readonly released: [number, number];
   readonly rating: [number, number];
+  readonly sortField: SingleValue<Omit<SelectOption, 'icon'>>;
   readonly sortDirection: SortOrder;
 }
 
@@ -28,6 +30,10 @@ export const vnSearchInitialValues: VnSearchFormValues = {
   released: [1980, new Date().getFullYear()],
   rating: [10, 100],
   sortDirection: 'desc',
+  sortField: {
+    label: VnSortField.toReadable('popularity'),
+    value: 'popularity',
+  },
 };
 
 export function mapVnSearchFormValuesToQueryOptions(data = vnSearchInitialValues): VnQueryOptions {
@@ -41,7 +47,7 @@ export function mapVnSearchFormValuesToQueryOptions(data = vnSearchInitialValues
     released: { start: data.released[0], end: data.released[1] },
     rating: { start: data.rating[0], end: data.rating[1] },
     sort: {
-      field: 'popularity',
+      field: data.sortField?.value as VnSortField,
       order: data.sortDirection,
     },
   };

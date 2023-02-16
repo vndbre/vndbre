@@ -1,19 +1,9 @@
 import type { ExtractStrict } from 'src/api/utils/strictExtract';
-import type { BaseFilter, Operator } from './baseFilter';
-import type { BaseQueryOptions } from '../baseQueryOptions';
-import type { Range } from '../range';
-
-/** List of available sort fields for vn. */
-export const VN_SORT_FIELDS = ['id', 'title', 'released', 'popularity', 'rating', 'votecount', 'length'] as const;
-
-/** Sort field for vn. */
-export type VnSortField = typeof VN_SORT_FIELDS[number];
-
-/** List of search fields for vn. */
-export const VN_SEARCH_FIELDS = ['search', 'lang', 'olang', 'platform', 'tag'] as const;
-
-/** Available search field for vn. */
-export type VnSearchField = typeof VN_SEARCH_FIELDS[number];
+import type { BaseFilter, Operator } from '../../search/baseFilter';
+import type { BaseQueryOptions } from '../../baseQueryOptions';
+import type { Range } from '../../range';
+import type { VnSearchField } from './vnSearchField';
+import type { VnSortField } from './vnSortField';
 
 /** Available filters for vn. */
 export type VnFilter = BaseFilter<VnSearchField, ExtractStrict<Operator, '=' | '!='>> | BaseFilter<VnSortField, Operator>;
