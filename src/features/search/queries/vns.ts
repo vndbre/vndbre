@@ -5,6 +5,8 @@ import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptio
 import type { Vn } from 'src/api/models/vn/vn';
 import { VnService } from 'src/api/services/vnService';
 
+export const DEFAULT_PAGE_SIZE = 18;
+
 /**
  * Gets base options.
  * @param options Vn query options.
@@ -15,7 +17,11 @@ export const getBaseVnsQueryOptions = (
   queryKey: ['vns', options],
 
   /** Query fn. */
-  queryFn: ({ pageParam = 1 }) => VnService.getVns({ ...options, results: 18, page: pageParam }),
+  queryFn: ({ pageParam = 1 }) => VnService.getVns({
+    ...options,
+    results: DEFAULT_PAGE_SIZE,
+    page: pageParam,
+  }),
 
   /**
    * Gets next page params.

@@ -10,7 +10,8 @@ import type { Pagination } from 'src/api/models/pagination';
 import type { Vn } from 'src/api/models/vn/vn';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
 import { Form } from 'src/components/Form/Form';
-import { useVnsQuery } from '../../queries/vns';
+import { List } from 'src/components/List/List';
+import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import type { VnSearchFormValues } from '../VnSearchForm/vnSearchFormValues';
 import { vnSearchInitialValues, mapVnSearchFormValuesToQueryOptions } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
@@ -69,16 +70,18 @@ const VnSearchComponent: FC = () => {
               // TODO: FIX IT
               path={`/vn/${vn.id}/overview`}
             />
-          )) : [...Array(18).keys()].map(i => (
-            <CardSkeleton key={i} />
-          ))}
+          )) : (
+            <List size={DEFAULT_PAGE_SIZE}>
+              <CardSkeleton />
+            </List>
+          )}
       </div>
       {vns?.pages[0]?.count != null && !isLoading && (
         <div className="mt-auto flex w-full justify-center">
           <Paginator
             count={vns?.pages[0]?.count}
             currentPage={currentPage}
-            pageSize={18}
+            pageSize={DEFAULT_PAGE_SIZE}
             onChange={handlePageChange}
           />
         </div>
