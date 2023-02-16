@@ -18,8 +18,8 @@ const VN_SORT_FIELD_READABLE_MAP: Readonly<Record<VnSortField, string>> = {
 export namespace VnSortField {
 
   /**
-   * TODO: ADD DOCS.
-   * @param value Test.
+   * Converts sort field to readable equivalent.
+   * @param value Sort field.
    */
   export function toReadable(value: VnSortField): string {
     return VN_SORT_FIELD_READABLE_MAP[value];

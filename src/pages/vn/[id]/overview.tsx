@@ -15,7 +15,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // Workaround for https://github.com/TanStack/query/issues/1458
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 };

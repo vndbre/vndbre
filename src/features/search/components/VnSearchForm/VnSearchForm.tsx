@@ -44,6 +44,9 @@ const VnSearchFormComponent: FC = () => {
     .flatMap(page => page.results)
     .map(tag => ({ label: tag.name, value: tag.id })) ?? [];
 
+  const sortFieldOptions = VN_SORT_FIELDS
+    .map(field => ({ value: field, label: VnSortField.toReadable(field) }));
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex w-full flex-1 items-end gap-4">
@@ -166,10 +169,11 @@ const VnSearchFormComponent: FC = () => {
           <Field
             Component={Select}
             control={control}
-            options={VN_SORT_FIELDS.map(v => ({ value: v, label: VnSortField.toReadable(v) }))}
+            options={sortFieldOptions}
             closeMenuOnSelect
             name="sortField"
             className="rounded-r bg-gray-100"
+            disableSearch
           />
         </div>
         <ButtonGroup>

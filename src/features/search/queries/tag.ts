@@ -1,7 +1,7 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { Pagination } from 'src/api/models/pagination';
-import type { TagQueryOptions } from 'src/api/models/search/tagQueryOptions';
+import type { TagQueryOptions } from 'src/api/models/queryOptions/tag/tagQueryOptions';
 import type { Tag } from 'src/api/models/tag';
 import { TagService } from 'src/api/services/tagService';
 

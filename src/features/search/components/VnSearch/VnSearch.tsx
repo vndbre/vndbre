@@ -60,7 +60,14 @@ const VnSearchComponent: FC = () => {
       <div className="grid grid-cols-6 gap-4">
         {vns !== undefined && !isFetchingVns ?
           getPageData(vns, currentPage).map(vn => (
-            <Card key={vn.title} title={vn.title} imageUrl={vn.image?.url} />
+            <Card
+              key={vn.id}
+              title={vn.title}
+              imageUrl={vn.image?.url}
+
+              // TODO: FIX IT
+              path={`/vn/${vn.id}/overview`}
+            />
           )) : [...Array(18).keys()].map(i => (
             <CardSkeleton key={i} />
           ))}
