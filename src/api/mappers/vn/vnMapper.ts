@@ -10,6 +10,11 @@ import { VnScreenshotMapper } from './screenshotMapper';
 import { VnTitleMapper } from './titleMapper';
 
 export namespace VnMapper {
+
+  /**
+   * Maps dto to model.
+   * @param dto Dto.
+   */
   export function fromDto(dto: VnDto): Vn {
     return {
       id: dto.id,

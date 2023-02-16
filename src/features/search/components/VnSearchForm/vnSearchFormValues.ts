@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import type { MultiValue, SingleValue } from 'react-select';
 import type { VnQueryOptions } from 'src/api/models/search/vnQueryOptions';
 import type { SortOrder } from 'src/api/models/sortOptions';

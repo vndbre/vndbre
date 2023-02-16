@@ -10,6 +10,11 @@ const DEVSTATUS_READABLE_MAP: Readonly<Record<VnDevelopmentStatus, string>> = {
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace DevelopmentStatus {
+
+  /**
+   * Converts devstatus to a readable equivalent.
+   * @param value Developer status.
+   */
   export function toReadable(value: VnDevelopmentStatus): string {
     return DEVSTATUS_READABLE_MAP[value] ?? 'Unknown';
   }

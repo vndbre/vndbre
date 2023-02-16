@@ -3,6 +3,11 @@ import type { VnScreenshot } from 'src/api/models/vn/screenshot';
 import { ImageMapper } from '../imageMapper';
 
 export namespace VnScreenshotMapper {
+
+  /**
+   * Maps dto to model.
+   * @param dto Dto.
+   */
   export function fromDto(dto: VnScreenshotDto): VnScreenshot {
     return {
       ...ImageMapper.fromDto(dto),

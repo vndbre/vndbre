@@ -10,6 +10,11 @@ const LENGTH_FROM_DTO_MAP: Readonly<Record<VnLengthDto, VnLength>> = {
 };
 
 export namespace VnLengthMapper {
+
+  /**
+   * Maps dto to model.
+   * @param dto Dto.
+   */
   export function fromDto(dto: VnLengthDto): VnLength {
     return LENGTH_FROM_DTO_MAP[dto];
   }

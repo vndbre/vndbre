@@ -11,7 +11,6 @@ export namespace PaginationMapper {
    * @param dto Pagination dto.
    * @param schema Schema for results data.
    * @param mapper Mapper for results.
-   * @returns
    */
   export function fromDto<T extends z.ZodTypeAny, R>(
     dto: PaginationDto<T>,

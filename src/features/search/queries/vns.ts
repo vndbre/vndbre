@@ -7,7 +7,7 @@ import { VnService } from 'src/api/services/vnService';
 
 /**
  * Gets base options.
- * @param options
+ * @param options Vn query options.
  */
 export const getBaseVnsQueryOptions = (
   options: VnQueryOptions,
@@ -28,8 +28,8 @@ export const getBaseVnsQueryOptions = (
 
 /**
  * Hook for fetching vns.
- * @param data
- * @param options
+ * @param data Vn query options.
+ * @param options Options for useQuery hook.
  */
 export const useVnsQuery = (
   data: VnQueryOptions, options?: UseInfiniteQueryOptions<Pagination<Vn>, Error>,

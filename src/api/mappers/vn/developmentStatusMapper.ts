@@ -8,6 +8,11 @@ const DEVSTATUS_FROM_DTO_MAP: Readonly<Record<VnDevStatusDto, VnDevelopmentStatu
 };
 
 export namespace VnDevelopmentStatusMapper {
+
+  /**
+   * Maps dto to model.
+   * @param dto Dto.
+   */
   export function fromDto(dto: VnDevStatusDto): VnDevelopmentStatus {
     return DEVSTATUS_FROM_DTO_MAP[dto];
   }
