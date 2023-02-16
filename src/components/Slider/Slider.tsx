@@ -1,5 +1,6 @@
 import * as RadixSlider from '@radix-ui/react-slider';
 import clsx from 'clsx';
+import type { FC, ForwardedRef } from 'react';
 import { forwardRef, memo } from 'react';
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 
@@ -11,14 +12,18 @@ export type SliderProps =
   readonly label?: string;
 };
 
-const SliderComponent = forwardRef<HTMLInputElement, SliderProps>(({
+/**
+ * Slider component.
+ * @param ref Forwarded ref.
+ */
+const SliderComponent: FC<SliderProps> = ({
   showValues = false,
   label,
   onChange,
   className,
   value,
   ...props
-}, ref) => (
+}, ref: ForwardedRef<HTMLInputElement>) => (
   <div className="flex flex-col gap-2">
     <div className="flex w-full text-sm font-medium leading-6">
       {label !== undefined && <span>{label}</span>}
@@ -45,8 +50,8 @@ const SliderComponent = forwardRef<HTMLInputElement, SliderProps>(({
       <RadixSlider.Thumb className="bg-primary-600 block h-4 w-4 rounded-full outline-none" />
     </RadixSlider.Root>
   </div>
-));
+);
 
 SliderComponent.displayName = 'Slider';
 
-export const Slider = memo(SliderComponent);
+export const Slider = memo(forwardRef(SliderComponent));

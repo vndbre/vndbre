@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLInputTypeAttribute, ChangeEventHandler, InputHTMLAttributes } from 'react';
+import type { ReactNode, HTMLInputTypeAttribute, ChangeEventHandler, InputHTMLAttributes, ForwardedRef, FC } from 'react';
 import React, { forwardRef, useState, memo } from 'react';
 
 import clsx from 'clsx';
@@ -37,8 +37,11 @@ interface Props extends InputProps {
   readonly rightElement?: ReactNode;
 }
 
-/** Input. */
-const InputComponent = forwardRef<HTMLInputElement, Props>(({
+/**
+ * Input.
+ * @param ref Forwarded ref.
+ */
+const InputComponent: FC<Props> = ({
   id,
   name,
   value,
@@ -51,7 +54,7 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
   rightElement,
   onFocus,
   className,
-}, ref) => {
+}, ref: ForwardedRef<HTMLInputElement>) => {
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
 
   return (
@@ -88,7 +91,7 @@ const InputComponent = forwardRef<HTMLInputElement, Props>(({
       </div>
     </div>
   );
-});
+};
 InputComponent.displayName = 'Input';
 
-export const Input = memo(InputComponent);
+export const Input = memo(forwardRef(InputComponent));
