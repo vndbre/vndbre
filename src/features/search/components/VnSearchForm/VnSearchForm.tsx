@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { memo, useCallback, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
+import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
@@ -46,6 +47,9 @@ const VnSearchFormComponent: FC = () => {
 
   const sortFieldOptions = VN_SORT_FIELDS
     .map(field => ({ value: field, label: VnSortField.toReadable(field) }));
+
+  const devStatusOptions = VN_DEV_STATUSES
+    .map(status => ({ value: status, label: VnDevelopmentStatus.toReadable(status) }));
 
   return (
     <div className="flex flex-col gap-4">
@@ -100,16 +104,30 @@ const VnSearchFormComponent: FC = () => {
 
         <VnSearchPopover>
           <div className="flex flex-col gap-8">
-            <ControlWrapper label="Original Language">
-              <Field
-                Component={LanguageSelect}
-                control={control}
-                name="originalLanguage"
-                placeholder="Select languages"
-                closeMenuOnSelect
-                isClearable
-              />
-            </ControlWrapper>
+            <div className="grid grid-cols-2 gap-4">
+              <ControlWrapper label="Original Language">
+                <Field
+                  Component={LanguageSelect}
+                  control={control}
+                  name="originalLanguage"
+                  placeholder="Select languages"
+                  closeMenuOnSelect
+                  isClearable
+                />
+              </ControlWrapper>
+              <ControlWrapper label="Development status">
+                <Field
+                  Component={Select}
+                  control={control}
+                  name="developmentStatus"
+                  placeholder="Select development status"
+                  options={devStatusOptions}
+                  closeMenuOnSelect
+                  disableSearch
+                  isClearable
+                />
+              </ControlWrapper>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <Field
                 Component={Slider}

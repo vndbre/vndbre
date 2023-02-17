@@ -9,6 +9,7 @@ import { VnMapper } from '../mappers/vn/vnMapper';
 import type { Pagination } from '../models/pagination';
 import type { Vn } from '../models/vn/vn';
 import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
+import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
 
 export namespace VnService {
 
@@ -63,6 +64,14 @@ export namespace VnService {
 
     if (options.length !== undefined) {
       filters.push(QueryBuilderService.createFilter('length', '=', String(options.length)));
+    }
+
+    if (options.developmentStatus !== undefined) {
+      filters.push(QueryBuilderService.createFilter(
+        'devstatus',
+        '=',
+        String(VnDevelopmentStatusMapper.toDto(options.developmentStatus)),
+      ));
     }
 
     return {

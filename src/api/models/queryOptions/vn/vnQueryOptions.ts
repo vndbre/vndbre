@@ -4,6 +4,7 @@ import type { BaseQueryOptions } from '../../baseQueryOptions';
 import type { Range } from '../../range';
 import type { VnSearchField } from './vnSearchField';
 import type { VnSortField } from './vnSortField';
+import type { VnDevelopmentStatus } from '../../vn/developmentStatus';
 
 /** Available filters for vn. */
 export type VnFilter = BaseFilter<VnSearchField, ExtractStrict<Operator, '=' | '!='>> | BaseFilter<VnSortField, Operator>;
@@ -37,4 +38,7 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
 
   /** Year range search within. */
   readonly released?: Range<number>;
+
+  /** Vn development status. */
+  readonly developmentStatus?: VnDevelopmentStatus;
 }

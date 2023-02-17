@@ -9,7 +9,7 @@ const DEVSTATUS_READABLE_MAP: Readonly<Record<VnDevelopmentStatus, string>> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export namespace DevelopmentStatus {
+export namespace VnDevelopmentStatus {
 
   /**
    * Converts devstatus to a readable equivalent.

@@ -19,7 +19,10 @@ interface Props {
 const CardComponent: FC<Props> = ({ title, imageUrl = 'https://s2.vndb.org/cv/55/46255.jpg', path }) => (
   <Link href={path} className="hover:text-primary-500" color={false}>
     <div className="flex flex-col gap-1">
-      <Poster alt="title" src={imageUrl} />
+      <Poster
+        alt={title}
+        src={imageUrl}
+      />
       <div className="line-clamp-2 text-sm font-medium leading-6">{title}</div>
     </div>
   </Link>
