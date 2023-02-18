@@ -21,7 +21,7 @@ import type { VnSearchFormValues } from './vnSearchFormValues';
 /** Search form component for vns. */
 const VnSearchFormComponent: FC = () => {
   const [tagsInputValue, setTagsInputValue] = useState('');
-  const debouncedTagInputValue = useDebounce(tagsInputValue, 1000);
+  const debouncedTagInputValue = useDebounce(tagsInputValue);
 
   const { control } = useFormContext<VnSearchFormValues>();
   const {

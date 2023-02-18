@@ -36,7 +36,7 @@ const VnSearchComponent: FC = () => {
   const { control } = methods;
 
   const formData = useWatch({ control }) as VnSearchFormValues;
-  const debouncedFormData = useDebounce(formData, 1000);
+  const debouncedFormData = useDebounce(formData);
 
   const {
     fetchNextPage: fetchVns,
@@ -44,7 +44,6 @@ const VnSearchComponent: FC = () => {
     isFetching,
     isLoading,
   } = useVnsQuery(mapVnSearchFormValuesToQueryOptions(debouncedFormData));
-
   useEffect(() => {
     setCurrentPage(1);
   }, [formData]);
