@@ -23,7 +23,7 @@ const CardComponent: FC<Props> = ({ title, imageUrl = 'https://s2.vndb.org/cv/55
         alt={title}
         src={imageUrl}
       />
-      <div className="line-clamp-2 text-sm font-medium leading-6">{title}</div>
+      <div className="line-clamp-2 whitespace-normal text-sm font-medium leading-6">{title}</div>
     </div>
   </Link>
 );
