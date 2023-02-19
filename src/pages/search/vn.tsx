@@ -2,7 +2,7 @@ import { dehydrate } from '@tanstack/react-query';
 import type { GetServerSideProps } from 'next';
 import { queryClient } from 'src/api/queryClient';
 import { VnSearchPage } from 'src/features/search';
-import { mapVnSearchFormValuesToQueryOptions } from 'src/features/search/components/VnSearchForm/vnSearchFormValues';
+import { VnSearchFormValues } from 'src/features/search/components/VnSearchForm/vnSearchFormValues';
 import { getBaseTagsQueryOptions } from 'src/features/search/queries/tag';
 import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
 
@@ -10,7 +10,7 @@ import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
 export const getServerSideProps: GetServerSideProps = async() => {
   await queryClient.prefetchInfiniteQuery(getBaseTagsQueryOptions({}));
   await queryClient.prefetchInfiniteQuery(
-    getBaseVnsQueryOptions(mapVnSearchFormValuesToQueryOptions()),
+    getBaseVnsQueryOptions(VnSearchFormValues.toQueryOptions()),
   );
 
   return {

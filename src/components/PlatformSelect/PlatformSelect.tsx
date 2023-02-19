@@ -2,7 +2,7 @@ import type { ForwardedRef } from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { SelectInstance } from 'react-select';
 
-import { Platform } from 'src/api/models/platform';
+import { Platform, PLATFORMS } from 'src/api/models/platform';
 
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 import { typedMemo } from 'src/api/utils/typedMemo';
@@ -32,7 +32,7 @@ const PlatformSelectComponent = <
   IsMulti extends boolean = false,
   IsClearable extends boolean = false,
 >({
-  activePlatforms = Platform.list,
+  activePlatforms = PLATFORMS,
   ...props
 }: Props<IsMulti, IsClearable>,
   ref: ForwardedRef<SelectInstance<SelectOption, IsMulti, SelectGroup<SelectOption>>>,

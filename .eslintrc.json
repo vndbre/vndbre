@@ -564,7 +564,8 @@
   "overrides": [
     {
       "files": [
-        "*Dto.ts"
+        "*Dto.ts",
+        "*FormValues.ts"
       ],
       "rules": {
         "@typescript-eslint/naming-convention": "off",

@@ -8,6 +8,7 @@ import type { QueryBody } from '../models/queryBody';
 import type { TagFilter, TagQueryOptions } from '../models/queryOptions/tag/tagQueryOptions';
 import type { TagSortField } from '../models/queryOptions/tag/tagSortField';
 import type { Tag } from '../models/tag';
+import { isNotEmpty } from '../utils/isEmpty';
 import { QueryBuilderService } from './queryBuilderService';
 
 export namespace TagService {
@@ -19,15 +20,15 @@ export namespace TagService {
   export function createTagQueryBody(options: TagQueryOptions): QueryBody<TagSortField, TagFilter> {
     const filters: TagFilter[] = [];
 
-    if (options.id !== undefined) {
+    if (isNotEmpty(options.id)) {
       filters.push(QueryBuilderService.createFilter('id', '=', options.id));
     }
 
-    if (options.search !== undefined && options.search !== '') {
+    if (isNotEmpty(options.search)) {
       filters.push(QueryBuilderService.createFilter('search', '=', options.search));
     }
 
-    if (options.category !== undefined) {
+    if (isNotEmpty(options.category)) {
       filters.push(QueryBuilderService.createFilter('category', '=', options.category));
     }
 

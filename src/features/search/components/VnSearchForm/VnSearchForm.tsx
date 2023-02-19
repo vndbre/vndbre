@@ -3,6 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
+import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
@@ -51,6 +52,9 @@ const VnSearchFormComponent: FC = () => {
   const devStatusOptions = VN_DEV_STATUSES
     .map(status => ({ value: status, label: VnDevelopmentStatus.toReadable(status) }));
 
+  const lengthOptions = VN_LENGTHS
+    .map(length => ({ value: length, label: VnLength.toReadable(length) }));
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex w-full flex-1 items-end gap-4">
@@ -73,6 +77,7 @@ const VnSearchFormComponent: FC = () => {
             />
           </ControlWrapper>
         </div>
+
         <div className="w-full">
           <ControlWrapper label="Platform">
             <Field
@@ -127,17 +132,20 @@ const VnSearchFormComponent: FC = () => {
                   isClearable
                 />
               </ControlWrapper>
+              <ControlWrapper label="Length">
+                <Field
+                  Component={Select}
+                  control={control}
+                  name="length"
+                  placeholder="Select length"
+                  options={lengthOptions}
+                  closeMenuOnSelect
+                  disableSearch
+                  isClearable
+                />
+              </ControlWrapper>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <Field
-                Component={Slider}
-                control={control}
-                name="length"
-                label="Length"
-                showValues
-                min={1}
-                max={5}
-              />
               <Field
                 Component={Slider}
                 control={control}
@@ -170,6 +178,7 @@ const VnSearchFormComponent: FC = () => {
         </VnSearchPopover>
 
       </div>
+
       <div className="ml-auto flex gap-4">
         <div className="flex">
           <Controller
@@ -194,6 +203,7 @@ const VnSearchFormComponent: FC = () => {
             disableSearch
           />
         </div>
+
         <ButtonGroup>
           <IconButton intent="tertiary" name="rectangle-stack" />
           <IconButton intent="tertiary" name="squares" />

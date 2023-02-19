@@ -5,6 +5,7 @@ import type { Range } from '../../range';
 import type { VnSearchField } from './vnSearchField';
 import type { VnSortField } from './vnSortField';
 import type { VnDevelopmentStatus } from '../../vn/developmentStatus';
+import type { VnLength } from '../../vn/length';
 
 /** Available filters for vn. */
 export type VnFilter = BaseFilter<VnSearchField, ExtractStrict<Operator, '=' | '!='>> | BaseFilter<VnSortField, Operator>;
@@ -33,8 +34,8 @@ export interface VnQueryOptions extends BaseQueryOptions<VnSortField> {
   /** Bayesian rating, integer between 10 and 100. */
   readonly rating?: Range<number>;
 
-  /** Bayesian rating, integer between 10 and 100. */
-  readonly length?: number;
+  /** Vn length. */
+  readonly length?: VnLength;
 
   /** Year range search within. */
   readonly released?: Range<number>;

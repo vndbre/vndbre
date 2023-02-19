@@ -1,7 +1,7 @@
 import type { PlatformIconName } from 'src/components/Icon/Icon';
 
 /** List of available platforms. */
-const PLATFORMS = [
+export const PLATFORMS = [
   'and',
   'bdp',
   'dos',
@@ -155,8 +155,6 @@ const PLATFORM_ICON_MAP: Record<Platform, PlatformIconName> = {
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace Platform {
-
-  export const list = PLATFORMS;
 
   /**
    * Gets readable equivalent of platform abbreviation.

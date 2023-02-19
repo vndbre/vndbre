@@ -1,7 +1,7 @@
 import type { FlagIconName } from 'src/components/Icon/Icon';
 
 /** List of languages codes. */
-const LANGUAGES_CODES = [
+export const LANGUAGES_CODES = [
   'ja',
   'en',
   'ko',
@@ -167,9 +167,6 @@ export type LanguageCode = typeof LANGUAGES_CODES[number];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace LanguageCode {
-
-  /** List of language codes. */
-  export const list = LANGUAGES_CODES;
 
   /**
    * Gets readable equivalent of language code.

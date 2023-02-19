@@ -10,6 +10,8 @@ import type { Pagination } from '../models/pagination';
 import type { Vn } from '../models/vn/vn';
 import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
+import { VnLengthMapper } from '../mappers/vn/lengthMapper';
+import { isNotEmpty } from '../utils/isEmpty';
 
 export namespace VnService {
 
@@ -20,53 +22,57 @@ export namespace VnService {
   export function createVnQueryBody(options: VnQueryOptions): QueryBody<VnSortField, VnFilter> {
     const filters: VnFilter[] = [];
 
-    if (options.id !== undefined) {
+    if (isNotEmpty(options.id)) {
       filters.push(QueryBuilderService.createFilter('id', '=', options.id));
     }
 
-    if (options.search) {
+    if (isNotEmpty(options.search)) {
       filters.push(QueryBuilderService.createFilter('search', '=', options.search));
     }
 
-    if (options.languages !== undefined) {
+    if (isNotEmpty(options.languages)) {
       const langs = options.languages.map<VnFilter>(lang => QueryBuilderService.createFilter('lang', '=', lang));
       filters.push(...langs);
     }
 
-    if (options.originalLanguage !== undefined) {
+    if (isNotEmpty(options.originalLanguage)) {
       filters.push(QueryBuilderService.createFilter('olang', '=', options.originalLanguage));
     }
 
-    if (options.platforms !== undefined) {
+    if (isNotEmpty(options.platforms)) {
       const platforms = options.platforms.map<VnFilter>(platform => QueryBuilderService.createFilter('platform', '=', platform));
       filters.push(...platforms);
     }
 
-    if (options.tags !== undefined) {
+    if (isNotEmpty(options.tags)) {
       const tags = options.tags.map<VnFilter>(tag => QueryBuilderService.createFilter('tag', '=', tag));
       filters.push(...tags);
     }
 
-    if (options.released !== undefined) {
+    if (isNotEmpty(options.released)) {
       filters.push(QueryBuilderService.createFilter('released', '>=', String(options.released.start)));
       filters.push(QueryBuilderService.createFilter('released', '<=', String(options.released.end)));
     }
 
-    if (options.popularity !== undefined) {
+    if (isNotEmpty(options.popularity)) {
       filters.push(QueryBuilderService.createFilter('popularity', '>=', String(options.popularity.start)));
       filters.push(QueryBuilderService.createFilter('popularity', '<=', String(options.popularity.end)));
     }
 
-    if (options.rating !== undefined) {
+    if (isNotEmpty(options.rating)) {
       filters.push(QueryBuilderService.createFilter('rating', '>=', String(options.rating.start)));
       filters.push(QueryBuilderService.createFilter('rating', '<=', String(options.rating.end)));
     }
 
-    if (options.length !== undefined) {
-      filters.push(QueryBuilderService.createFilter('length', '=', String(options.length)));
+    if (isNotEmpty(options.length)) {
+      filters.push(QueryBuilderService.createFilter(
+        'length',
+        '=',
+        String(VnLengthMapper.toDto(options.length)),
+      ));
     }
 
-    if (options.developmentStatus !== undefined) {
+    if (isNotEmpty(options.developmentStatus)) {
       filters.push(QueryBuilderService.createFilter(
         'devstatus',
         '=',

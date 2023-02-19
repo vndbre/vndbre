@@ -2,7 +2,7 @@ import type { ForwardedRef } from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { SelectInstance } from 'react-select';
 
-import { LanguageCode } from 'src/api/models/language';
+import { LanguageCode, LANGUAGES_CODES } from 'src/api/models/language';
 
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 import { typedMemo } from 'src/api/utils/typedMemo';
@@ -32,7 +32,7 @@ const LanguageSelectComponent = <
   IsMulti extends boolean = false,
   IsClearable extends boolean = false,
 >({
-  activeLanguages = LanguageCode.list,
+  activeLanguages = LANGUAGES_CODES,
   ...props
 }: Props<IsMulti, IsClearable>,
   ref: ForwardedRef<SelectInstance<SelectOption, IsMulti, SelectGroup<SelectOption>>>,

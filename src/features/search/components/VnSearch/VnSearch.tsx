@@ -1,38 +1,22 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { FC } from 'react';
 import React, { useEffect, useState, useCallback, memo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { Paginator } from 'src/components/Paginator/Paginator';
 import { Card } from 'src/components/Card/Card';
-import type { InfiniteData } from '@tanstack/react-query';
-import type { Pagination } from 'src/api/models/pagination';
-import type { Vn } from 'src/api/models/vn/vn';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
 import { Form } from 'src/components/Form/Form';
 import { List } from 'src/components/List/List';
+import { PaginationService } from 'src/api/services/paginationService';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
-import type { VnSearchFormValues } from '../VnSearchForm/vnSearchFormValues';
-import { vnSearchInitialValues, mapVnSearchFormValuesToQueryOptions } from '../VnSearchForm/vnSearchFormValues';
+import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
-
-/**
- * Gets vns for a specific page.
- * @param data Paginated data.
- * @param page Page.
- * @returns List of vns.
- */
-const getPageData = (data: InfiniteData<Pagination<Vn>>, page: number): Vn[] => {
-  const pageParam = data.pageParams.indexOf(page);
-  const index = pageParam === -1 ? 0 : pageParam;
-  return data.pages[index]?.results as Vn[] ?? [];
-};
 
 /** Visual novel overview tab. */
 const VnSearchComponent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const methods = useForm({ defaultValues: vnSearchInitialValues });
+  const methods = useForm({ defaultValues: VN_SEARCH_INITIAL_VALUES });
   const { control } = methods;
 
   const formData = useWatch({ control }) as VnSearchFormValues;
@@ -43,7 +27,7 @@ const VnSearchComponent: FC = () => {
     data: vns,
     isFetching,
     isLoading,
-  } = useVnsQuery(mapVnSearchFormValuesToQueryOptions(debouncedFormData));
+  } = useVnsQuery(VnSearchFormValues.toQueryOptions(debouncedFormData));
   useEffect(() => {
     setCurrentPage(1);
   }, [formData]);
@@ -53,28 +37,38 @@ const VnSearchComponent: FC = () => {
     fetchVns({ pageParam: newPage });
   }, []);
 
+  const vnCards = vns !== undefined && PaginationService.getPageData(vns, currentPage).map(vn => (
+    <Card
+      key={vn.id}
+      title={vn.title}
+      imageUrl={vn.image?.url}
+
+      // TODO: FIX IT
+      path={`/vn/${vn.id}/overview`}
+    />
+  ));
+
   return (
     <div className="mb-4 flex flex-col gap-4">
       <Form {...methods}>
         <VnSearchForm />
       </Form>
-      <div className="grid grid-cols-6 gap-4">
-        {vns !== undefined && !isFetching ?
-          getPageData(vns, currentPage).map(vn => (
-            <Card
-              key={vn.id}
-              title={vn.title}
-              imageUrl={vn.image?.url}
 
-              // TODO: FIX IT
-              path={`/vn/${vn.id}/overview`}
-            />
-          )) : (
-            <List size={DEFAULT_PAGE_SIZE}>
-              <CardSkeleton />
-            </List>
-          )}
+      <div className="grid grid-cols-6 gap-4">
+        {!isFetching ? vnCards : (
+          <List size={DEFAULT_PAGE_SIZE}>
+            <CardSkeleton />
+          </List>
+        )}
       </div>
+
+      {/* TODO: Add placeholder for empty response. */}
+      {vns?.pages.at(-1)?.count === 0 && (
+        <div className="flex flex-col items-center">
+          <h2>УВЫ</h2>
+        </div>
+      )}
+
       {vns?.pages[0]?.count != null && !isLoading && (
         <div className="mt-auto flex w-full justify-center">
           <Paginator
@@ -85,6 +79,7 @@ const VnSearchComponent: FC = () => {
           />
         </div>
       )}
+
     </div>
   );
 };
