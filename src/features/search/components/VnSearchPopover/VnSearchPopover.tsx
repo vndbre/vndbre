@@ -9,7 +9,7 @@ const VnSearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
     <PopoverTrigger asChild>
       <IconButton intent="tertiary" name="options" className="shrink-0" />
     </PopoverTrigger>
-    <PopoverContent className="w-[560px] px-8 py-7">
+    <PopoverContent align="end" className="w-[560px] px-8 py-7">
       {children}
     </PopoverContent>
   </Popover>
