@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLInputTypeAttribute, ChangeEventHandler, InputHTMLAttributes, ForwardedRef, FC } from 'react';
+import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC } from 'react';
 import React, { forwardRef, useState, memo } from 'react';
 
 import clsx from 'clsx';
