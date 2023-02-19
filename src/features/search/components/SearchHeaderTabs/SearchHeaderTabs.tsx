@@ -23,6 +23,7 @@ interface Props {
   readonly onChange?: (value: TabValue) => void;
 }
 
+// TODO: Refactor tabs, make it reusable.
 /** Tabs. */
 const SearchHeaderTabsComponent: FC<Props> = ({
   value,
