@@ -7,7 +7,10 @@ import { SearchHeader } from '../../components/SearchHeader/SearchHeader';
 /** Vn Releases page. */
 export const VnSearchPage: NextPage = () => (
   <Layout>
-    <SearchHeader />
-    <VnSearch />
+    {/* TODO: improve layout for search page */}
+    <div className="flex flex-col gap-4">
+      <SearchHeader />
+      <VnSearch />
+    </div>
   </Layout>
 );

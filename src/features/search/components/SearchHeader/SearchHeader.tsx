@@ -16,7 +16,7 @@ export const SearchHeader: FC = () => {
   }, []);
 
   return (
-    <header className="mb-4">
+    <header>
       <SearchHeaderTabs value={activeTabValue} onChange={handleTabChange} />
     </header>
   );
