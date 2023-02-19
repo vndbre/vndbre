@@ -7,7 +7,7 @@ type MapperFn<T extends z.ZodTypeAny, R> = (data: z.infer<T>) => R;
 export namespace PaginationMapper {
 
   /**
-   *
+   * Maps paginated dto into model.
    * @param dto Pagination dto.
    * @param schema Schema for results data.
    * @param mapper Mapper for results.

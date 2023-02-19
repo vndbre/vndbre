@@ -14,9 +14,7 @@ interface Props {
   readonly page: number;
 }
 
-/**
- * Paginator button component.
- */
+/** Paginator button component. */
 const PaginatorButtonComponent: FC<Props> = ({ isActive = false, onClick, page }) => {
   const handleClick = useCallback(() => onClick(page), []);
   return (

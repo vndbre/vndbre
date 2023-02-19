@@ -1,4 +1,3 @@
-/* eslint-disable jsdoc/require-jsdoc */
 import type { ComponentProps, ElementType } from 'react';
 import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
@@ -10,14 +9,14 @@ type Props<C extends ElementType, T extends FieldValues> = {
 
 } & ComponentProps<C> & Omit<ComponentProps<C>, 'name'> & FormControlProps<T>;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+/** Polymorphic component that allows component to interact with form. */
 export const Field = <T extends ElementType, Values extends FieldValues>({
   Component,
   control,
   name,
   rules,
   ...componentProps
-}: Props<T, Values>) => {
+}: Props<T, Values>): JSX.Element => {
   const { field } = useController({
     name,
     control,

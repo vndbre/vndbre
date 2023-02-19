@@ -9,9 +9,7 @@ interface Props {
   readonly onChange: (pageNumber: number) => void;
 }
 
-/**
- * Paginator input component.
- */
+/** Paginator input component. */
 const PaginatorInputComponent: FC<Props> = ({ onChange }) => {
   const [isActive, setIsActive] = useState(false);
 
