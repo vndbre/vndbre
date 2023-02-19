@@ -11,7 +11,7 @@ import type { Vn } from '../models/vn/vn';
 import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
 import { VnLengthMapper } from '../mappers/vn/lengthMapper';
-import { isNotEmpty } from '../utils/isEmpty';
+import { isNotEmpty } from '../utils/isNotEmpty';
 
 export namespace VnService {
 

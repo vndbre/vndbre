@@ -6,8 +6,10 @@ import type { FormControlProps } from 'src/utils/FormControlProps';
 
 type Props<C extends ElementType, T extends FieldValues> = {
   readonly Component: C;
-
-} & ComponentProps<C> & Omit<ComponentProps<C>, 'name'> & FormControlProps<T>;
+}
+& ComponentProps<C>
+& Omit<ComponentProps<C>, 'name'>
+& FormControlProps<T>;
 
 /** Polymorphic component that allows component to interact with form. */
 export const Field = <T extends ElementType, Values extends FieldValues>({

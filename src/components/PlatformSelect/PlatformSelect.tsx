@@ -39,7 +39,7 @@ const PlatformSelectComponent = <
 ): JSX.Element => {
   const options: SelectOption[] = useMemo(() => activePlatforms.map(platform => ({
     label: Platform.toReadable(platform),
-    icon: <Icon name={Platform.getPlatformIconName(platform)} />,
+    icon: <Icon name={Platform.getIconName(platform)} />,
     value: platform,
   })), [activePlatforms]);
 

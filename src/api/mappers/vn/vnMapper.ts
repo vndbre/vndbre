@@ -3,7 +3,7 @@ import type { LanguageCode } from 'src/api/models/language';
 import type { Platform } from 'src/api/models/platform';
 import type { Vn } from 'src/api/models/vn/vn';
 import { ImageMapper } from '../imageMapper';
-import { TagMapper } from '../tagMapper';
+import { TagMapper } from '../tag/tagMapper';
 import { VnDevelopmentStatusMapper } from './developmentStatusMapper';
 import { VnLengthMapper } from './lengthMapper';
 import { VnScreenshotMapper } from './screenshotMapper';

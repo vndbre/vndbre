@@ -39,7 +39,7 @@ const LanguageSelectComponent = <
 ): JSX.Element => {
   const options: SelectOption[] = useMemo(() => activeLanguages.map(code => ({
     label: LanguageCode.toReadable(code),
-    icon: <Icon name={LanguageCode.getLanguageIconName(code)} />,
+    icon: <Icon name={LanguageCode.getIconName(code)} />,
     value: code,
   })), [activeLanguages]);
 

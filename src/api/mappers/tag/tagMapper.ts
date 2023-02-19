@@ -1,5 +1,6 @@
-import type { TagDto } from '../dtos/tagDto';
-import type { Tag } from '../models/tag';
+import type { TagDto } from '../../dtos/tagDto/tagDto';
+import type { Tag } from '../../models/tag/tag';
+import { TagCategoryMapper } from './tagCategoryMapper';
 
 export namespace TagMapper {
 
@@ -11,7 +12,7 @@ export namespace TagMapper {
     return {
       id: dto.id,
       aliases: dto.aliases,
-      category: dto.category,
+      category: TagCategoryMapper.fromDto(dto.category),
       name: dto.name,
     };
   }

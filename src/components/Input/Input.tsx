@@ -21,18 +21,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 interface Props extends InputProps {
 
-  /** Name attribute. */
-  readonly name?: string;
-
-  /** Input value. */
-  readonly value?: string;
-
-  /** Input change callback. */
-  readonly onChange?: ChangeEventHandler<HTMLInputElement>;
-
-  /** Type attribute. Default value is `text`. */
-  readonly type?: HTMLInputTypeAttribute;
-
   /** The element that will be placed on the right side of the input. */
   readonly rightElement?: ReactNode;
 }
@@ -84,7 +72,14 @@ const InputComponent: FC<Props> = ({
           setIsInputGroupFocused(false);
           onBlur?.(e);
         }}
-        className={clsx(`grow rounded-md border-none bg-inherit py-3 ${leftElement ? 'pl-12' : 'pl-4'} ${leftElement ? 'pr-12' : 'pr-4'} text-sm leading-6 focus:outline-none`, className)}
+        className={clsx(
+          'grow rounded-md border-none bg-inherit py-3 text-sm leading-6 focus:outline-none',
+          {
+            'px-12': leftElement,
+            'px-4': !leftElement,
+          },
+          className,
+        )}
       />
       <div className="absolute right-4 grid place-items-center">
         { rightElement }

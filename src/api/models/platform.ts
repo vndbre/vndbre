@@ -168,7 +168,7 @@ export namespace Platform {
    * Gets flag icon name.
    * @param platform Language code (ISO-639).
    */
-  export function getPlatformIconName(platform: Platform): PlatformIconName {
+  export function getIconName(platform: Platform): PlatformIconName {
     return PLATFORM_ICON_MAP[platform] ?? 'question-mark';
   }
 }

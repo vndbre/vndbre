@@ -1,4 +1,4 @@
-export type TagCategory = 'ero' | 'cont' | 'tech';
+import type { TagCategory } from './tagCategory';
 
 /** Tag. */
 export interface Tag {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { ImageSchemaDto } from '../imageDto';
-import { TagDtoSchema } from '../tagDto';
+import { TagDtoSchema } from '../tagDto/tagDto';
 import { VnDevStatusSchemaDto } from './developmentStatusDto';
 import { VnLengthSchemaDto } from './lengthDto';
 import { VnScreenshotSchemaDto } from './screenshotDto';

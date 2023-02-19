@@ -1,14 +1,15 @@
 import { api } from '../apiClient';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
-import { TagDtoSchema } from '../dtos/tagDto';
+import { TagDtoSchema } from '../dtos/tagDto/tagDto';
 import { PaginationMapper } from '../mappers/paginationMapper';
-import { TagMapper } from '../mappers/tagMapper';
+import { TagCategoryMapper } from '../mappers/tag/tagCategoryMapper';
+import { TagMapper } from '../mappers/tag/tagMapper';
 import type { Pagination } from '../models/pagination';
 import type { QueryBody } from '../models/queryBody';
 import type { TagFilter, TagQueryOptions } from '../models/queryOptions/tag/tagQueryOptions';
 import type { TagSortField } from '../models/queryOptions/tag/tagSortField';
-import type { Tag } from '../models/tag';
-import { isNotEmpty } from '../utils/isEmpty';
+import type { Tag } from '../models/tag/tag';
+import { isNotEmpty } from '../utils/isNotEmpty';
 import { QueryBuilderService } from './queryBuilderService';
 
 export namespace TagService {
@@ -29,7 +30,7 @@ export namespace TagService {
     }
 
     if (isNotEmpty(options.category)) {
-      filters.push(QueryBuilderService.createFilter('category', '=', options.category));
+      filters.push(QueryBuilderService.createFilter('category', '=', TagCategoryMapper.toDto(options.category)));
     }
 
     return {

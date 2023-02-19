@@ -180,7 +180,7 @@ export namespace LanguageCode {
    * Gets flag icon name.
    * @param languageCode Language code (ISO-639).
    */
-  export function getLanguageIconName(
+  export function getIconName(
     languageCode: LanguageCode,
   ): FlagIconName {
     return LANGUAGE_ICON_SUFFIX_MAP[languageCode] ?? 'white-flag';

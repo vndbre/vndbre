@@ -160,6 +160,7 @@ const SelectComponent = <
   );
 };
 
+// Workaround to support generics with `forwardRef`
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-shadow, @typescript-eslint/ban-types
   function forwardRef<T, P = {}>(

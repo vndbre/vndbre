@@ -1,7 +1,7 @@
 import type { Image } from '../image';
 import type { LanguageCode } from '../language';
 import type { Platform } from '../platform';
-import type { Tag } from '../tag';
+import type { Tag } from '../tag/tag';
 import type { VnDevelopmentStatus } from './developmentStatus';
 import type { VnLength } from './length';
 import type { VnScreenshot } from './screenshot';
@@ -65,7 +65,7 @@ export interface Vn {
   readonly voteCount: number;
 
   /** Screenshots. */
-  readonly screenshots: VnScreenshot[];
+  readonly screenshots: readonly VnScreenshot[];
 
   /** Tags. */
   readonly tags: readonly Tag[];
