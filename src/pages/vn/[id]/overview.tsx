@@ -4,6 +4,7 @@ import { queryClient } from 'src/api/queryClient';
 import { VnOverviewPage } from 'src/features/vn/pages/VnOverviewPage/VnOverviewPage';
 import { vnInfoQueryOptions } from 'src/features/vn/queries/vnInfo';
 import { vnOverviewQueryOptions } from 'src/features/vn/queries/vnOverview';
+import { nullify } from 'src/utils/nullify';
 
 /**
  * Get server side props.
@@ -16,7 +17,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
       // Workaround for https://github.com/TanStack/query/issues/1458
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      dehydratedState: nullify(dehydrate(queryClient)),
     },
   };
 };

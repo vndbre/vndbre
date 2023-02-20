@@ -5,6 +5,7 @@ import { VnSearchPage } from 'src/features/search';
 import { VnSearchFormValues } from 'src/features/search/components/VnSearchForm/vnSearchFormValues';
 import { getBaseTagsQueryOptions } from 'src/features/search/queries/tag';
 import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
+import { nullify } from 'src/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
@@ -15,8 +16,7 @@ export const getServerSideProps: GetServerSideProps = async() => {
 
   return {
     props: {
-      // Workaround for https://github.com/TanStack/query/issues/1458
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      dehydratedState: nullify(dehydrate(queryClient)),
     },
   };
 };

@@ -3,6 +3,7 @@ import type { GetServerSideProps } from 'next';
 import { queryClient } from 'src/api/queryClient';
 import { VnReleasesPage } from 'src/features/vn/pages/VnReleasesPage/VnReleasesPage';
 import { releasesQueryOptions } from 'src/features/vn/queries/releases';
+import { nullify } from 'src/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
@@ -11,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async() => {
   return {
     props: {
       // Workaround for https://github.com/TanStack/query/issues/1458
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+      dehydratedState: nullify(dehydrate(queryClient)),
     },
   };
 };
