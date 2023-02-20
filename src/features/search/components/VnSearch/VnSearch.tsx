@@ -6,8 +6,8 @@ import { Paginator } from 'src/components/Paginator/Paginator';
 import { Card } from 'src/components/Card/Card';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
 import { Form } from 'src/components/Form/Form';
-import { List } from 'src/components/List/List';
-import { PaginationService } from 'src/api/services/paginationService';
+import { ChildrenMultiplier } from 'src/components/ChildrenMultiplier/ChildrenMultiplier';
+import { Pagination } from 'src/api/models/pagination';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
@@ -28,6 +28,7 @@ const VnSearchComponent: FC = () => {
     isFetching,
     isLoading,
   } = useVnsQuery(VnSearchFormValues.toQueryOptions(debouncedFormData));
+
   useEffect(() => {
     setCurrentPage(1);
   }, [formData]);
@@ -37,7 +38,7 @@ const VnSearchComponent: FC = () => {
     fetchVns({ pageParam: newPage });
   }, []);
 
-  const vnCards = vns !== undefined && PaginationService.getPageData(vns, currentPage).map(vn => (
+  const vnCards = vns !== undefined && Pagination.getPageData(vns, currentPage).map(vn => (
     <Card
       key={vn.id}
       title={vn.title}
@@ -56,23 +57,23 @@ const VnSearchComponent: FC = () => {
 
       <div className="grid grid-cols-6 gap-4">
         {!isFetching ? vnCards : (
-          <List size={DEFAULT_PAGE_SIZE}>
+          <ChildrenMultiplier amount={DEFAULT_PAGE_SIZE}>
             <CardSkeleton />
-          </List>
+          </ChildrenMultiplier>
         )}
       </div>
 
       {/* TODO: Add placeholder for empty response. */}
-      {vns?.pages.at(-1)?.count === 0 && (
+      {Pagination.getCount(vns) === 0 && (
         <div className="flex flex-col items-center">
           <h2>УВЫ</h2>
         </div>
       )}
 
-      {vns?.pages[0]?.count != null && !isLoading && (
+      {Pagination.getCount(vns) !== 0 && !isLoading && (
         <div className="mt-auto flex w-full justify-center">
           <Paginator
-            count={vns?.pages[0]?.count}
+            count={Pagination.getCount(vns)}
             currentPage={currentPage}
             pageSize={DEFAULT_PAGE_SIZE}
             onChange={handlePageChange}

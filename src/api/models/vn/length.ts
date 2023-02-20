@@ -10,7 +10,6 @@ const LENGTH_READABLE_MAP: Readonly<Record<VnLength, string>> = {
   verylong: 'Very Long',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace VnLength {
 
   /**

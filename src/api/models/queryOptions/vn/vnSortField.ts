@@ -14,7 +14,6 @@ const VN_SORT_FIELD_READABLE_MAP: Readonly<Record<VnSortField, string>> = {
   votecount: 'Votes',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace VnSortField {
 
   /**

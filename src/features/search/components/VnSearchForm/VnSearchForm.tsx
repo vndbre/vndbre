@@ -19,6 +19,15 @@ import { useTagsQuery } from '../../queries/tag';
 import { VnSearchPopover } from '../VnSearchPopover/VnSearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
 
+const sortFieldOptions = VN_SORT_FIELDS
+  .map(field => ({ value: field, label: VnSortField.toReadable(field) }));
+
+const devStatusOptions = VN_DEV_STATUSES
+  .map(status => ({ value: status, label: VnDevelopmentStatus.toReadable(status) }));
+
+const lengthOptions = VN_LENGTHS
+  .map(length => ({ value: length, label: VnLength.toReadable(length) }));
+
 /** Search form component for vns. */
 const VnSearchFormComponent: FC = () => {
   const [tagsInputValue, setTagsInputValue] = useState('');
@@ -45,15 +54,6 @@ const VnSearchFormComponent: FC = () => {
   const tagOptions = tags?.pages
     .flatMap(page => page.results)
     .map(tag => ({ label: tag.name, value: tag.id })) ?? [];
-
-  const sortFieldOptions = VN_SORT_FIELDS
-    .map(field => ({ value: field, label: VnSortField.toReadable(field) }));
-
-  const devStatusOptions = VN_DEV_STATUSES
-    .map(status => ({ value: status, label: VnDevelopmentStatus.toReadable(status) }));
-
-  const lengthOptions = VN_LENGTHS
-    .map(length => ({ value: length, label: VnLength.toReadable(length) }));
 
   return (
     <div className="flex flex-col gap-4">
@@ -153,7 +153,7 @@ const VnSearchFormComponent: FC = () => {
                 label="Release Date"
                 showValues
                 min={1980}
-                max={2023}
+                max={new Date().getFullYear()}
               />
               <Field
                 Component={Slider}

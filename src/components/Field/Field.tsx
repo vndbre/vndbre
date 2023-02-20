@@ -3,6 +3,7 @@ import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
 import type { FormControlProps } from 'src/utils/FormControlProps';
+import { typedMemo } from 'src/api/utils/typedMemo';
 
 type Props<C extends ElementType, T extends FieldValues> = {
   readonly Component: C;
@@ -12,7 +13,7 @@ type Props<C extends ElementType, T extends FieldValues> = {
 & FormControlProps<T>;
 
 /** Polymorphic component that allows component to interact with form. */
-export const Field = <T extends ElementType, Values extends FieldValues>({
+const FieldComponent = <T extends ElementType, Values extends FieldValues>({
   Component,
   control,
   name,
@@ -29,3 +30,5 @@ export const Field = <T extends ElementType, Values extends FieldValues>({
     <Component {...field} {...componentProps} />
   );
 };
+
+export const Field = typedMemo(FieldComponent);

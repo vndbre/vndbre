@@ -3,6 +3,7 @@ import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 import type { FormControlProps } from 'src/utils/FormControlProps';
 import type { StrictOmit } from 'src/api/utils/strictOmit';
+import { typedMemo } from 'src/api/utils/typedMemo';
 import { IconButton } from '../IconButton/IconButton';
 import type { InputProps } from '../Input/Input';
 import { Input } from '../Input/Input';
@@ -10,7 +11,7 @@ import { Input } from '../Input/Input';
 type Props<T extends FieldValues> = StrictOmit<InputProps, 'name'> & FormControlProps<T>;
 
 /** Text input. */
-export const TextInput = <T extends FieldValues>({
+const TextInputComponent = <T extends FieldValues>({
   id,
   control,
   name,
@@ -48,3 +49,5 @@ export const TextInput = <T extends FieldValues>({
     />
   );
 };
+
+export const TextInput = typedMemo(TextInputComponent);

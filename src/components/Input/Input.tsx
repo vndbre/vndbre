@@ -42,6 +42,7 @@ const InputComponent: FC<Props> = ({
   rightElement,
   onFocus,
   className,
+  ...props
 }, ref: ForwardedRef<HTMLInputElement>) => {
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
 
@@ -80,6 +81,7 @@ const InputComponent: FC<Props> = ({
           },
           className,
         )}
+        {...props}
       />
       <div className="absolute right-4 grid place-items-center">
         { rightElement }

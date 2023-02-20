@@ -153,7 +153,6 @@ const PLATFORM_ICON_MAP: Record<Platform, PlatformIconName> = {
   oth: 'question-mark',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace Platform {
 
   /**

@@ -165,7 +165,6 @@ Record<LanguageCode, FlagIconName>
 
 export type LanguageCode = typeof LANGUAGES_CODES[number];
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace LanguageCode {
 
   /**

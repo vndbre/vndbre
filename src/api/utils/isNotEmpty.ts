@@ -3,11 +3,11 @@
  * @param value Value.
  */
 export function isNotEmpty<T>(value: T): value is NonNullable<T> {
-  if (value === undefined || value === null) {
+  if (value == null) {
     return false;
   }
 
-  if (typeof value === 'string' && value === '') {
+  if (value === '') {
     return false;
   }
 

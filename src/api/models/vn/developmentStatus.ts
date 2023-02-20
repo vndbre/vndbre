@@ -8,7 +8,6 @@ const DEVSTATUS_READABLE_MAP: Readonly<Record<VnDevelopmentStatus, string>> = {
   finished: 'Finished',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace VnDevelopmentStatus {
 
   /**
