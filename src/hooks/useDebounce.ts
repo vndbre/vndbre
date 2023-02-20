@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
  * @param value Value.
  * @param delay Delay.
  */
-export function useDebounce<T>(value: T, delay = 500): T {
+export const useDebounce = <T>(value: T, delay = 500): T => {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
@@ -17,4 +17,4 @@ export function useDebounce<T>(value: T, delay = 500): T {
   }, [value, delay]);
 
   return debouncedValue;
-}
+};
