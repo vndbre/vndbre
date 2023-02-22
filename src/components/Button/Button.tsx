@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler } from 'react';
+import React, { forwardRef, memo } from 'react';
+import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 
@@ -43,7 +43,10 @@ interface Props extends ButtonProps {
   readonly hasSmallPaddings?: boolean;
 }
 
-/** Button. */
+/**
+ * Button.
+ * @param ref Forwarded ref.
+ */
 const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   children,
   type = 'button',
@@ -52,9 +55,9 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   isDisabled,
   ariaLabel,
   ...props
-}) => {
+}, ref: ForwardedRef<HTMLButtonElement>) => {
   const button = cva([
-    'whitespace-nowrap font-medium font-base leading-6 rounded focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
+    'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
     className,
   ], {
     variants: {
@@ -71,9 +74,9 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         true: '',
       },
       size: {
-        xs: '',
-        sm: '',
-        md: '',
+        xs: 'rounded',
+        sm: 'rounded-md',
+        md: 'rounded-md',
       },
     },
     compoundVariants: [
@@ -125,6 +128,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
 
   return (
     <button
+      ref={ref}
       aria-label={ariaLabel}
       type={type}
       className={cx(button(props))}
@@ -136,4 +140,6 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   );
 };
 
-export const Button = memo(ButtonComponent);
+ButtonComponent.displayName = 'Button';
+
+export const Button = memo(forwardRef(ButtonComponent));

@@ -93,12 +93,13 @@
     "@typescript-eslint/explicit-member-accessibility": "error",
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/naming-convention": [
-      "warn",
+      "off",
       {
         "selector": "default",
         "format": [
           "camelCase",
-          "PascalCase"
+          "PascalCase",
+          "kebab-case"
         ],
         "leadingUnderscore": "allow",
         "trailingUnderscore": "allow"
@@ -201,6 +202,7 @@
         ]
       }
     ],
+    "@typescript-eslint/no-redeclare": "off",
     "jsdoc/require-example": "off",
     "jsdoc/require-file-overview": "off",
     "jsdoc/require-hyphen-before-param-description": "off",
@@ -563,7 +565,8 @@
   "overrides": [
     {
       "files": [
-        "*Dto.ts"
+        "*Dto.ts",
+        "*FormValues.ts"
       ],
       "rules": {
         "@typescript-eslint/naming-convention": "off",

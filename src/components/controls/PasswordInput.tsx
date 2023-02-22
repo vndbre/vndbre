@@ -1,26 +1,28 @@
-import type { FC } from 'react';
-import React, { useState, useMemo, memo, useCallback } from 'react';
-
+import { useState, useMemo, useCallback } from 'react';
 import { useController } from 'react-hook-form';
 import type { FormControlProps } from 'src/utils/FormControlProps';
+import type { FieldValues } from 'react-hook-form';
+import type { StrictOmit } from 'src/api/utils/strictOmit';
+import { typedMemo } from 'src/api/utils/typedMemo';
 import { IconButton } from '../IconButton/IconButton';
 import type { InputProps } from '../Input/Input';
 import { Input } from '../Input/Input';
 
-type Props = InputProps & FormControlProps;
+type Props<T extends FieldValues> = StrictOmit<InputProps, 'name'> & FormControlProps<T>;
 
 /** Password input. */
-const PasswordInputComponent: FC<Props> = ({
+const PasswordInputComponent = <T extends FieldValues>({
   id,
   control,
   name,
   placeholder,
   isDisabled,
   isInvalid,
-}) => {
+  ...props
+}: Props<T>): JSX.Element => {
   const {
     field: { onChange, value, ref },
-  } = useController<Record<string, string>>({
+  } = useController({
     name,
     control,
   });
@@ -48,6 +50,7 @@ const PasswordInputComponent: FC<Props> = ({
 
   return (
     <Input
+      {...props}
       id={id}
       type={isPasswordHidden ? 'password' : 'text'}
       name={name}
@@ -62,4 +65,4 @@ const PasswordInputComponent: FC<Props> = ({
   );
 };
 
-export const PasswordInput = memo(PasswordInputComponent);
+export const PasswordInput = typedMemo(PasswordInputComponent);

@@ -1,17 +1,17 @@
-import type { FC } from 'react';
 import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import Head from 'next/head';
 import { signIn } from 'next-auth/react';
 import { Layout } from 'src/components/Layout/Layout';
 import { Button } from 'src/components/Button/Button';
-import { TextInput } from 'src/components/controls/TextInput';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import type { TypeOf } from 'zod';
 import { Validators } from 'src/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/router';
+import type { NextPage } from 'next';
+import { TextInput } from 'src/components/controls/TextInput';
 
 const loginFormInitialValues = {
   token: '',
@@ -22,7 +22,7 @@ const validationSchema = z.object({
 });
 
 /** Login page. */
-const LoginPage: FC = () => {
+export const LoginPage: NextPage = () => {
   const router = useRouter();
   const {
     control,
@@ -54,7 +54,7 @@ const LoginPage: FC = () => {
       </Head>
 
       <Layout>
-        <div className="mx-auto w-96">
+        <div className="mx-auto w-[360px]">
           <div className="flex w-full flex-col items-center gap-8 pt-32">
             <h1 className="text-[48px] font-bold leading-8 tracking-tight">Log In</h1>
 
@@ -64,7 +64,7 @@ const LoginPage: FC = () => {
               </ControlWrapper>
 
               {loginError && (
-                <div role="alert" className="rounded-2xl bg-red-50 p-3 text-center text-sm font-medium leading-6 text-red-500">
+                <div role="alert" className="rounded-lg bg-red-50 p-3 text-center text-sm font-medium leading-6 text-red-500">
                   {loginError}
                 </div>
               )}
@@ -79,5 +79,3 @@ const LoginPage: FC = () => {
     </>
   );
 };
-
-export default LoginPage;

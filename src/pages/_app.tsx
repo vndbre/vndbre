@@ -7,7 +7,7 @@ import type { Session } from 'next-auth';
 import 'src/styles/globals.css';
 import { queryClient } from '../api/queryClient';
 
-const inter = Inter({
+export const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'block',

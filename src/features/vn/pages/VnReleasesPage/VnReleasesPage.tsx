@@ -1,15 +1,14 @@
-import type { FC } from 'react';
 import { Layout } from 'src/components/Layout/Layout';
+import { type NextPage } from 'next';
+
 import { VnPage } from '../../components/VnPage/VnPage';
 import { VnReleases } from '../../components/VnReleases/VnReleases';
 
 /** Vn Releases page. */
-const VnReleasesPage: FC = () => (
+export const VnReleasesPage: NextPage = () => (
   <Layout>
     <VnPage>
       <VnReleases />
     </VnPage>
   </Layout>
 );
-
-export default VnReleasesPage;
