@@ -11,7 +11,6 @@ import { Pagination } from 'src/api/models/pagination';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
-import { useCharactersQuery } from '../../queries/characters';
 
 /** Visual novel overview tab. */
 const VnSearchComponent: FC = () => {

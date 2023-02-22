@@ -10,6 +10,7 @@ import { Icon } from 'src/components/Icon/Icon';
 import { Select } from 'src/components/Select';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { useVnsQuery } from '../../queries/vns';
+import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { CharacterSearchFormValues } from './characterSearchFormValues';
 
 const characterRoleOptions = CHARACTER_ROLES
@@ -105,75 +106,15 @@ const CharacterSearchFormComponent: FC = () => {
           </div>
         )}
 
-        {/* <VnSearchPopover>
+        <SearchPopover>
           <div className="flex flex-col gap-8">
             <div className="grid grid-cols-2 gap-4">
-              <ControlWrapper label="Original Language">
-                <Field
-                  Component={LanguageSelect}
-                  control={control}
-                  name="originalLanguage"
-                  placeholder="Select languages"
-                  closeMenuOnSelect
-                  isClearable
-                />
-              </ControlWrapper>
-              <ControlWrapper label="Development status">
-                <Field
-                  Component={Select}
-                  control={control}
-                  name="developmentStatus"
-                  placeholder="Select development status"
-                  options={devStatusOptions}
-                  closeMenuOnSelect
-                  disableSearch
-                  isClearable
-                />
-              </ControlWrapper>
-              <ControlWrapper label="Length">
-                <Field
-                  Component={Select}
-                  control={control}
-                  name="length"
-                  placeholder="Select length"
-                  options={lengthOptions}
-                  closeMenuOnSelect
-                  disableSearch
-                  isClearable
-                />
-              </ControlWrapper>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <Field
-                Component={Slider}
-                control={control}
-                name="released"
-                label="Release Date"
-                showValues
-                min={1980}
-                max={new Date().getFullYear()}
-              />
-              <Field
-                Component={Slider}
-                name="rating"
-                control={control}
-                label="Rating"
-                showValues
-                min={10}
-                max={100}
-              />
-              <Field
-                Component={Slider}
-                name="popularity"
-                control={control}
-                label="Popularity"
-                showValues
-                min={0}
-                max={100}
-              />
+              Test
             </div>
           </div>
-        </VnSearchPopover>
+        </SearchPopover>
+
+        {/*
 
       </div>
 
