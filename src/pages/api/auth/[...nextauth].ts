@@ -1,11 +1,27 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { connect, commandFactory } from 'src/server/legacy/api';
 import * as z from 'zod';
 
+const authInfoDtoSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  permissions: z.array(z.enum(['listread', 'listwrite'])),
+});
+
 const userSchema = z.object({
-  name: z.string(),
-  token: z.string(),
+  id: z.string().min(1),
+  name: z.string().min(1),
+  token: z.string().min(1),
+  permissions: z.array(z.enum(['read', 'write'])),
+});
+
+const permissionsMap = {
+  listread: 'read',
+  listwrite: 'write',
+} as const;
+
+const credentialsSchema = z.object({
+  token: z.string().min(1),
 });
 
 export default NextAuth({
@@ -13,40 +29,34 @@ export default NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { type: 'text' },
-        password: { type: 'password' },
+        token: { type: 'text' },
       },
       async authorize(credentials, _req) {
-        if (credentials?.password == null || credentials.username == null) {
-          throw new Error('увы');
-        }
+        const { token } = credentialsSchema.parse(credentials);
 
-        const data = await connect((commandFactory.login(
-          credentials.username,
-          credentials.password,
-        )));
-        const status: string | undefined = data.split(' ')[0];
+        const response = await fetch('https://api.vndb.org/kana/authinfo', {
+          method: 'GET',
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
 
-        if (status === 'session') {
-          const token = data.split(' ')[1];
-
-          if (token == null) {
-            throw new Error('увы');
-          }
+        if (response.ok) {
+          const authInfoDto = await response.json();
+          const authInfo = authInfoDtoSchema.parse(authInfoDto);
 
           return {
             user: {
+              id: authInfo.id,
               token,
-              name: credentials.username,
+              name: authInfo.username,
+              permissions: authInfo.permissions.map(permission => permissionsMap[permission]),
             },
           };
         }
 
-        if (status === 'error') {
-          throw new Error('увы');
-        }
-
-        return null;
+        const errorMessage = await response.text();
+        throw new Error(errorMessage);
       },
     }),
   ],
@@ -68,6 +78,8 @@ export default NextAuth({
         const user = userSchema.parse(token.user);
         session.user.name = user.name;
         session.user.token = user.token;
+        session.user.id = user.id;
+        session.user.permissions = user.permissions;
       }
 
       return session;

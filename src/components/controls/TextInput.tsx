@@ -14,14 +14,14 @@ const TextInputComponent: FC<Props> = ({
   control,
   name,
   placeholder,
-  rules,
+  isDisabled,
+  isInvalid,
 }) => {
   const {
     field: { onChange, value, ref },
   } = useController<Record<string, string>>({
     name,
     control,
-    rules,
   });
   const clearInput = useCallback(() => onChange(''), []);
   const isClearButtonShown = value.length > 0;
@@ -42,6 +42,8 @@ const TextInputComponent: FC<Props> = ({
       placeholder={placeholder}
       rightElement={clearButton}
       onChange={onChange}
+      isDisabled={isDisabled}
+      isInvalid={isInvalid}
     />
   );
 };

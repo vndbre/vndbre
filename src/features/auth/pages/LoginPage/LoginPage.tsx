@@ -1,43 +1,49 @@
 import type { FC } from 'react';
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import Head from 'next/head';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { Layout } from 'src/components/Layout/Layout';
 import { Button } from 'src/components/Button/Button';
 import { TextInput } from 'src/components/controls/TextInput';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
-import { Link } from 'src/components/Link/Link';
-import { PasswordInput } from 'src/components/controls/PasswordInput';
+import type { TypeOf } from 'zod';
+import { Validators } from 'src/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import { useRouter } from 'next/router';
 
 const loginFormInitialValues = {
-  username: '',
-  password: '',
+  token: '',
 };
 
 const validationSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  token: z.string().min(1, { message: Validators.REQUIRED_ERROR_MESSAGE }),
 });
 
 /** Login page. */
 const LoginPage: FC = () => {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
   } = useForm({ defaultValues: loginFormInitialValues, resolver: zodResolver(validationSchema) });
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginSubmit, setLoginSubmit] = useState(false);
 
-  const handleFormSubmit = useCallback(async(data: typeof loginFormInitialValues) => {
-    const response = await signIn('credentials', { username: data.username, password: data.password, redirect: false });
+  const handleFormSubmit = useCallback(async(data: TypeOf<typeof validationSchema>) => {
+    setLoginError(null);
+    setLoginSubmit(true);
+    const response = await signIn('credentials', { ...data, redirect: false });
     if (response?.ok === false) {
-      console.log(response.error);
+      setLoginError(response.error ?? null);
     }
 
     if (response?.ok === true) {
-      console.log(response);
+      router.push('/profile/overview');
     }
+
+    setLoginSubmit(false);
   }, []);
 
   return (
@@ -48,30 +54,23 @@ const LoginPage: FC = () => {
       </Head>
 
       <Layout>
-        <Button onClick={() => signOut()}>Log out</Button>
         <div className="mx-auto w-96">
           <div className="flex w-full flex-col items-center gap-8 pt-32">
             <h1 className="text-[48px] font-bold leading-8 tracking-tight">Log In</h1>
 
             <form onSubmit={handleSubmit(handleFormSubmit)} className="flex w-full flex-col gap-8">
-              <ControlWrapper label="Username">
-                <TextInput control={control} name="username" placeholder="Enter vndb.org username" />
+              <ControlWrapper label="Token">
+                <TextInput control={control} name="token" placeholder="Enter your vndb.org token" />
               </ControlWrapper>
 
-              <div className="flex flex-col gap-2">
-                <ControlWrapper label="Password">
-                  <PasswordInput control={control} name="password" placeholder="Enter vndb.org password" />
-                </ControlWrapper>
-                <Link href="https://vndb.org/u/newpass" external className="w-min text-sm leading-6">Forgot password?</Link>
-              </div>
+              {loginError && (
+                <div role="alert" className="rounded-2xl bg-red-50 p-3 text-center text-sm font-medium leading-6 text-red-500">
+                  {loginError}
+                </div>
+              )}
 
-              <div className="flex flex-col gap-2">
-                <Button type="submit">Continue</Button>
-                <span className="text-center">
-                  Don&apos;t have an account?
-                  {' '}
-                  <Link href="https://vndb.org/u/register" external>Sign Up</Link>
-                </span>
+              <div className="flex flex-col">
+                <Button type="submit" isDisabled={loginSubmit}>Continue</Button>
               </div>
             </form>
           </div>

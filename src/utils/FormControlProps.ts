@@ -1,4 +1,4 @@
-import type { Control, RegisterOptions } from 'react-hook-form';
+import type { Control } from 'react-hook-form';
 
 /** Props that are required for any form control component. */
 export interface FormControlProps {
@@ -12,7 +12,4 @@ export interface FormControlProps {
 
   /** Name of the control. */
   readonly name: string;
-
-  /** Validation rules. */
-  readonly rules?: RegisterOptions;
 }

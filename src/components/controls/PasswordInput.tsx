@@ -15,14 +15,14 @@ const PasswordInputComponent: FC<Props> = ({
   control,
   name,
   placeholder,
-  rules,
+  isDisabled,
+  isInvalid,
 }) => {
   const {
     field: { onChange, value, ref },
   } = useController<Record<string, string>>({
     name,
     control,
-    rules,
   });
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const togglePasswordVisibility = useCallback(() => {
@@ -56,6 +56,8 @@ const PasswordInputComponent: FC<Props> = ({
       placeholder={placeholder}
       onChange={onChange}
       rightElement={toggleButton}
+      isDisabled={isDisabled}
+      isInvalid={isInvalid}
     />
   );
 };
