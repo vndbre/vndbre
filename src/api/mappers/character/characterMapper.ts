@@ -3,7 +3,7 @@ import type { Character } from 'src/api/models/character/character';
 import { ImageMapper } from '../imageMapper';
 import { BloodTypeMapper } from './bloodTypeMapper';
 import { CharacterTraitMapper } from './characterTraitMapper';
-import { CharacterVnInfoMapper } from './charaterVnInfoMapper';
+import { CharacterVnInfoMapper } from './characterVnInfoMapper';
 import { GenderMapper } from './genderMapper';
 
 export namespace CharacterMapper {
@@ -16,6 +16,7 @@ export namespace CharacterMapper {
     return {
       id: dto.id,
       name: dto.name,
+      originalName: dto.original,
       aliases: dto.aliases,
       description: dto.description,
       image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,

@@ -4,7 +4,7 @@ import { IconButton } from 'src/components/IconButton/IconButton';
 import { Popover, PopoverContent, PopoverTrigger } from 'src/components/Popover/Popover';
 
 /** Popover for vn search. */
-const VnSearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
+const SearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
   <Popover>
     <PopoverTrigger asChild>
       <IconButton intent="tertiary" name="options" className="shrink-0" />
@@ -15,4 +15,4 @@ const VnSearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
   </Popover>
 );
 
-export const VnSearchPopover = memo(VnSearchPopoverComponent);
+export const SearchPopover = memo(SearchPopoverComponent);

@@ -7,6 +7,12 @@ const GENDER_FROM_DTO_MAP: Readonly<Record<GenderDto, Gender>> = {
   b: 'both',
 };
 
+const GENDER_TO_DTO_MAP: Readonly<Record<Gender, GenderDto>> = {
+  male: 'm',
+  female: 'f',
+  both: 'b',
+};
+
 export namespace GenderMapper {
 
   /**
@@ -15,5 +21,13 @@ export namespace GenderMapper {
    */
   export function fromDto(dto: GenderDto): Gender {
     return GENDER_FROM_DTO_MAP[dto];
+  }
+
+  /**
+   * Maps model to dto.
+   * @param data Gender.
+   */
+  export function toDto(data: Gender): GenderDto {
+    return GENDER_TO_DTO_MAP[data];
   }
 }

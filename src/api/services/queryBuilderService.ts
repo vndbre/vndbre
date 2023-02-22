@@ -10,9 +10,9 @@ export namespace QueryBuilderService {
    * @param operator Operator that applies to field.
    * @param value Value to filter by.
    */
-  export function createFilter<T extends string, O extends Operator>(
-    field: T, operator: O, value: string,
-  ): BaseFilter<T, O> {
+  export function createFilter<Field extends string, TOperator extends Operator, Value = unknown>(
+    field: Field, operator: TOperator, value: Value,
+  ): BaseFilter<Field, TOperator, Value> {
     return [field, operator, value];
   }
 

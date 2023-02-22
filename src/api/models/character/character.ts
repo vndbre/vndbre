@@ -14,6 +14,9 @@ export interface Character {
   /** Name. */
   readonly name: string;
 
+  /** Name in the original script. */
+  readonly originalName: string | null;
+
   /** Aliases. */
   readonly aliases: readonly string[];
 

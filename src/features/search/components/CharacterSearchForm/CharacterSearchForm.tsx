@@ -1,59 +1,50 @@
 import type { FC } from 'react';
-import { memo, useCallback, useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
-import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
-import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
-import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
+import { useCallback, useState, memo } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { CharacterRole, CHARACTER_ROLES } from 'src/api/models/character/characterRole';
+import { Gender, GENDERS } from 'src/api/models/character/gender';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
-import { IconButton } from 'src/components/IconButton/IconButton';
-import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
-import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import { Select } from 'src/components/Select';
-import { Slider } from 'src/components/Slider/Slider';
 import { useDebounce } from 'src/hooks/useDebounce';
-import { useTagsQuery } from '../../queries/tag';
-import { SearchPopover } from '../SearchPopover/SearchPopover';
-import type { VnSearchFormValues } from './vnSearchFormValues';
+import { useVnsQuery } from '../../queries/vns';
+import type { CharacterSearchFormValues } from './characterSearchFormValues';
 
-const sortFieldOptions = VN_SORT_FIELDS
-  .map(field => ({ value: field, label: VnSortField.toReadable(field) }));
+const characterRoleOptions = CHARACTER_ROLES
+  .map(role => ({ label: CharacterRole.toReadable(role), value: role }));
 
-const devStatusOptions = VN_DEV_STATUSES
-  .map(status => ({ value: status, label: VnDevelopmentStatus.toReadable(status) }));
+const genderOptions = GENDERS
+  .map(gender => ({ label: Gender.toReadable(gender), value: gender }));
 
-const lengthOptions = VN_LENGTHS
-  .map(length => ({ value: length, label: VnLength.toReadable(length) }));
+/** Character search form. */
+const CharacterSearchFormComponent: FC = () => {
+  const { control } = useFormContext<CharacterSearchFormValues>();
 
-/** Search form component for vns. */
-const VnSearchFormComponent: FC = () => {
-  const [tagsInputValue, setTagsInputValue] = useState('');
-  const debouncedTagInputValue = useDebounce(tagsInputValue);
+  const [vnsInput, setVnsInput] = useState('');
+  const debouncedVnsInput = useDebounce(vnsInput);
 
-  const { control } = useFormContext<VnSearchFormValues>();
   const {
-    fetchNextPage: fetchMoreTags,
-    data: tags,
-    isRefetching: isRefetchingTags,
-    isFetching: isFetchingTags,
-  } = useTagsQuery(debouncedTagInputValue);
+    data: vns,
+    fetchNextPage: fetchVns,
+    isRefetching: isRefetchingVns,
+    isFetching: isFetchingVns,
+  } = useVnsQuery({ search: debouncedVnsInput });
 
-  const handleFetchMoreTags = useCallback(() => {
-    if (tags?.pages.at(-1)?.hasMore) {
-      fetchMoreTags();
-    }
-  }, [tags]);
-
-  const handleTagInputChange = useCallback((value: string) => {
-    setTagsInputValue(value);
+  const handleVnsInputChange = useCallback((value: string) => {
+    setVnsInput(value);
   }, []);
 
-  const tagOptions = tags?.pages
+  const handleFetchMoreVns = useCallback(() => {
+    if (vns?.pages.at(-1)?.hasMore) {
+      fetchVns();
+    }
+  }, [vns]);
+
+  const vnOptions = vns?.pages
     .flatMap(page => page.results)
-    .map(tag => ({ label: tag.name, value: tag.id })) ?? [];
+    .map(vn => ({ value: vn.id, label: vn.title })) ?? [];
 
   return (
     <div className="flex flex-col gap-4">
@@ -66,48 +57,55 @@ const VnSearchFormComponent: FC = () => {
             leftElement={<Icon name="search" />}
           />
         </ControlWrapper>
+
         <div className="w-full">
-          <ControlWrapper label="Language">
+          <ControlWrapper label="Character roles">
             <Field
-              Component={LanguageSelect}
-              isMulti
+              Component={Select}
               control={control}
-              name="languages"
-              placeholder="Select languages"
+              placeholder="Select character roles"
+              options={characterRoleOptions}
+              isClearable
+              isMulti
+              name="roles"
             />
           </ControlWrapper>
         </div>
 
         <div className="w-full">
-          <ControlWrapper label="Platform">
+          <ControlWrapper label="Gender">
             <Field
-              Component={PlatformSelect}
-              isMulti
+              Component={Select}
               control={control}
-              name="platforms"
-              placeholder="Select platforms"
+              placeholder="Select gender"
+              options={genderOptions}
+              isClearable
+              closeMenuOnSelect
+              disableSearch
+              name="gender"
             />
           </ControlWrapper>
         </div>
-        {tags && (
+
+        {vns && (
           <div className="w-full">
-            <ControlWrapper label="Tags">
+            <ControlWrapper label="Visual novel">
               <Field
                 Component={Select}
                 control={control}
                 placeholder="Select tags"
-                onInputChange={handleTagInputChange}
-                onMenuScrollToBottom={handleFetchMoreTags}
-                isLoading={isRefetchingTags || isFetchingTags}
-                options={tagOptions}
-                isMulti
-                name="tags"
+                onInputChange={handleVnsInputChange}
+                onMenuScrollToBottom={handleFetchMoreVns}
+                isLoading={isRefetchingVns || isFetchingVns}
+                options={vnOptions}
+                isClearable
+                name="vn"
               />
             </ControlWrapper>
           </div>
         )}
 
-        <SearchPopover>
+        {/* <VnSearchPopover>
           <div className="flex flex-col gap-8">
             <div className="grid grid-cols-2 gap-4">
               <ControlWrapper label="Original Language">
@@ -175,7 +173,7 @@ const VnSearchFormComponent: FC = () => {
               />
             </div>
           </div>
-        </SearchPopover>
+        </VnSearchPopover>
 
       </div>
 
@@ -207,10 +205,10 @@ const VnSearchFormComponent: FC = () => {
         <ButtonGroup>
           <IconButton intent="tertiary" name="rectangle-stack" />
           <IconButton intent="tertiary" name="squares" />
-        </ButtonGroup>
+        </ButtonGroup> */}
       </div>
     </div>
   );
 };
 
-export const VnSearchForm = memo(VnSearchFormComponent);
+export const CharacterSearchForm = memo(CharacterSearchFormComponent);

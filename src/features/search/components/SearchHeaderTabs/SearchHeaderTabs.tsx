@@ -12,7 +12,7 @@ export type TabValue = keyof typeof tabs;
 
 const tabValues = Object.keys(tabs) as readonly TabValue[];
 
-const disabledTabs: readonly TabValue[] = ['release', 'character'];
+const disabledTabs: readonly TabValue[] = ['release'];
 
 interface Props {
 

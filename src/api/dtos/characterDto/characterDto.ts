@@ -8,6 +8,7 @@ import { CharacterVnInfoDtoSchema } from './characterVnInfoDto';
 export const CharacterDtoSchema = z.object({
   id: z.string(),
   name: z.string(),
+  original: z.string().nullable(),
   aliases: z.string().array(),
   description: z.string().nullable(),
   image: ImageSchemaDto.nullable(),
