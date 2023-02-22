@@ -1,57 +1,57 @@
 import type { FlagIconName } from 'src/components/Icon/Icon';
 
 /** List of languages codes. */
-const LANGUAGES_CODES = [
-  'hi',
+export const LANGUAGES_CODES = [
+  'ja',
+  'en',
+  'ko',
+  'de',
+  'zh-Hans',
   'zh-Hant',
-  'no',
-  'da',
-  'ro',
-  'iu',
-  'eo',
-  'lv',
-  'nl',
   'ru',
-  'ur',
+  'es',
+  'fr',
+  'pl',
   'pt-pt',
+  'pt-br',
+  'ar',
+  'bg',
+  'ca',
+  'ck',
+  'cs',
+  'da',
+  'el',
+  'eo',
+  'eu',
+  'fa',
+  'fi',
+  'ga',
+  'gd',
+  'he',
+  'hi',
+  'hr',
+  'hu',
+  'id',
+  'it',
+  'iu',
+  'la',
+  'lt',
+  'lv',
+  'mk',
   'ms',
-  'sv',
+  'nl',
+  'no',
+  'ro',
+  'sk',
   'sl',
   'sr',
-  'zh-Hans',
-  'ar',
+  'sv',
   'ta',
-  'pl',
-  'vi',
-  'cs',
-  'ja',
-  'it',
-  'de',
-  'fr',
-  'ck',
-  'ga',
-  'hu',
-  'ko',
-  'hr',
-  'tr',
-  'lt',
-  'fa',
-  'uk',
-  'la',
-  'bg',
-  'eu',
   'th',
-  'he',
-  'mk',
-  'sk',
-  'en',
-  'fi',
-  'es',
-  'gd',
-  'pt-br',
-  'ca',
-  'id',
-  'el',
+  'tr',
+  'uk',
+  'ur',
+  'vi',
 ] as const;
 
 /** Readable language map. */
@@ -67,7 +67,7 @@ const LANGUAGE_READABLE_MAP: Readonly<Record<LanguageCode, string>> = {
   'nl': 'Dutch',
   'ru': 'Russian',
   'ur': 'Urdu',
-  'pt-pt': 'European Portuguese',
+  'pt-pt': 'Portuguese',
   'ms': 'Malay',
   'sv': 'Swedish',
   'sl': 'Slovenian',
@@ -165,11 +165,7 @@ Record<LanguageCode, FlagIconName>
 
 export type LanguageCode = typeof LANGUAGES_CODES[number];
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace LanguageCode {
-
-  /** List of language codes. */
-  export const list = LANGUAGES_CODES;
 
   /**
    * Gets readable equivalent of language code.
@@ -183,7 +179,7 @@ export namespace LanguageCode {
    * Gets flag icon name.
    * @param languageCode Language code (ISO-639).
    */
-  export function getLanguageIconName(
+  export function getIconName(
     languageCode: LanguageCode,
   ): FlagIconName {
     return LANGUAGE_ICON_SUFFIX_MAP[languageCode] ?? 'white-flag';

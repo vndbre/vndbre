@@ -5,16 +5,13 @@ import { z } from 'zod';
 export function createPaginationDtoSchema<T extends z.ZodTypeAny>(schema: T) {
   return z.object({
     /** Total count. */
-    count: z.number(),
+    count: z.number().optional(),
 
     /** If there is more data to fetch. */
     more: z.boolean(),
 
-    /** Current page. */
-    page: z.number(),
-
     /** Data. */
-    results: z.array(schema),
+    results: schema.array(),
   });
 }
 

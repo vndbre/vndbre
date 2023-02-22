@@ -27,6 +27,7 @@ export namespace QueryBuilderService {
       sort: options.sort?.field,
       reverse: options.sort?.order === 'desc',
       page: options.page,
+      results: options.results,
     };
   }
 }

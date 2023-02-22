@@ -9,4 +9,7 @@ export interface BaseQueryBody<SortField extends string = string> {
 
   /** Request query page. */
   readonly page?: number;
+
+  /** Number of results to receive(max - 100). */
+  readonly results?: number;
 }

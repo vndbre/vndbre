@@ -10,7 +10,6 @@ import { VnService } from 'src/api/services/vnService';
  * @param id Vn id.
  */
 export const getVnOverview = async(id: string): Promise<VnOverview> => {
-  console.log(id);
   const response = await fetch('https://api.vndb.org/kana/vn', {
     method: 'POST',
     headers: {
@@ -19,7 +18,6 @@ export const getVnOverview = async(id: string): Promise<VnOverview> => {
     body: JSON.stringify(VnService.createVnQueryBody({ id })),
   });
   const data = await response.json();
-  console.log(data);
   const dto = VnOverviewDtoSchema.parse(data.results?.[0]);
   return VnOverviewMapper.fromDto(dto);
 };

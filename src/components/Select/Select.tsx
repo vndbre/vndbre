@@ -1,6 +1,7 @@
 import clsx from 'clsx';
-import React from 'react';
-import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SingleValue } from 'react-select';
+import type { ForwardedRef } from 'react';
+import { forwardRef, ReactElement, Ref } from 'react';
+import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
@@ -54,6 +55,9 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
   | 'onMenuOpen'
   | 'onMenuScrollToBottom'
   | 'onMenuScrollToTop'
+  | 'name'
+  | 'value'
+  | 'isLoading'
 >
 & {
 
@@ -68,11 +72,13 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
 
   /** Change handler. */
   readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
+
 };
 
 /**
  * Select component.
  * @param props Props.
+ * @param ref Forwarded ref.
  */
 const SelectComponent = <
   TOption extends Option = Option,
@@ -88,7 +94,9 @@ const SelectComponent = <
   size = 'md',
   onChange,
   ...props
-}: SelectProps<TOption, IsMulti, IsClearable, TGroup>): JSX.Element => {
+}: SelectProps<TOption, IsMulti, IsClearable, TGroup>,
+  ref: ForwardedRef<SelectInstance<TOption, IsMulti, TGroup>>,
+): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
   const inputClassNames = 'bg-transparent text-sm leading-6 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
@@ -134,9 +142,9 @@ const SelectComponent = <
 
   // Believe me it's ok.
   } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
-
   return (
     <ReactSelect
+      ref={ref}
       unstyled
       classNames={classNames}
       components={components}
@@ -152,4 +160,12 @@ const SelectComponent = <
   );
 };
 
-export const Select = typedMemo(SelectComponent);
+// Workaround to support generics with `forwardRef`
+declare module 'react' {
+  // eslint-disable-next-line @typescript-eslint/no-shadow, @typescript-eslint/ban-types
+  function forwardRef<T, P = {}>(
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+  ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
+}
+
+export const Select = typedMemo(forwardRef(SelectComponent));

@@ -25,6 +25,7 @@ interface Props {
   readonly onChange?: (value: TabValue) => void;
 }
 
+// TODO: Refactor tabs, make it reusable.
 /** Tabs. */
 const VnHeaderTabsComponent: FC<Props> = ({
   value,

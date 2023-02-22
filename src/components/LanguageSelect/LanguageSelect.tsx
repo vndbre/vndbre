@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react';
+import type { ForwardedRef } from 'react';
+import { forwardRef, useMemo } from 'react';
+import type { SelectInstance } from 'react-select';
 
-import { LanguageCode } from 'src/api/models/language';
+import { LanguageCode, LANGUAGES_CODES } from 'src/api/models/language';
 
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 import { typedMemo } from 'src/api/utils/typedMemo';
@@ -24,23 +26,26 @@ type Props<
 
 /**
  * Language select component.
+ * @param ref Forwarded ref.
  */
 const LanguageSelectComponent = <
   IsMulti extends boolean = false,
   IsClearable extends boolean = false,
 >({
-  activeLanguages = LanguageCode.list,
+  activeLanguages = LANGUAGES_CODES,
   ...props
-}: Props<IsMulti, IsClearable>): JSX.Element => {
+}: Props<IsMulti, IsClearable>,
+  ref: ForwardedRef<SelectInstance<SelectOption, IsMulti, SelectGroup<SelectOption>>>,
+): JSX.Element => {
   const options: SelectOption[] = useMemo(() => activeLanguages.map(code => ({
     label: LanguageCode.toReadable(code),
-    icon: <Icon name={LanguageCode.getLanguageIconName(code)} />,
+    icon: <Icon name={LanguageCode.getIconName(code)} />,
     value: code,
   })), [activeLanguages]);
 
   return (
-    <Select {...props} options={options} />
+    <Select {...props} options={options} ref={ref} />
   );
 };
 
-export const LanguageSelect = typedMemo(LanguageSelectComponent);
+export const LanguageSelect = typedMemo(forwardRef(LanguageSelectComponent));

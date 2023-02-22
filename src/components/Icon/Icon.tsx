@@ -54,8 +54,38 @@ export const flagIconNames = {
   'white-flag': 'twemoji:white-flag',
 } as const;
 
+export const platformIconNames = {
+  'windows': 'simple-icons:windows11',
+  'linux': 'simple-icons:linux',
+  'ios': 'simple-icons:ios',
+  'android': 'simple-icons:android',
+  'macos': 'simple-icons:macos',
+  'gameboy': 'mdi:nintendo-game-boy',
+  'pc': 'bi:pc-display-horizontal',
+  'gamepad': 'mdi:gamepad-variant-outline',
+  'sega': 'simple-icons:sega',
+  'disk': 'mdi:disk',
+  'playstaion-vita': 'simple-icons:playstationvita',
+  'playstation': 'simple-icons:playstation',
+  'playstation-2': 'simple-icons:playstation2',
+  'playstation-3': 'simple-icons:playstation3',
+  'playstation-4': 'simple-icons:playstation4',
+  'playstation-5': 'simple-icons:playstation5',
+  'playstation-portable': 'simple-icons:playstation',
+  'nintendo-3ds': 'simple-icons:nintendo3ds',
+  'wiiu': 'simple-icons:wiiu',
+  'nintendo-switch': 'simple-icons:nintendoswitch',
+  'nintendo': 'simple-icons:nintendo',
+  'wii': 'simple-icons:wii',
+  'xbox': 'simple-icons:xbox',
+  'smartphone': 'eva:smartphone-outline',
+  'chrome': 'simple-icons:googlechrome',
+  'question-mark': 'eva:question-mark-circle-outline',
+} as const;
+
 /** Flag icon name. */
 export type FlagIconName = keyof typeof flagIconNames;
+export type PlatformIconName = keyof typeof platformIconNames;
 
 const iconNames = {
   'burger': 'carbon:menu',
@@ -66,7 +96,15 @@ const iconNames = {
   'flag': 'eva:flag-outline',
   'star': 'eva:star-outline',
   'edit': 'eva:edit-outline',
+  'search': 'eva:search-outline',
+  'options': 'eva:options-2-outline',
+  'ellipsis': 'heroicons:ellipsis-horizontal-solid',
+  'sort-desc': 'heroicons:bars-arrow-down-solid',
+  'sort-asc': 'heroicons:bars-arrow-up-solid',
+  'rectangle-stack': 'carbon:horizontal-view',
+  'squares': 'heroicons:squares-2x2',
   ...flagIconNames,
+  ...platformIconNames,
 } as const;
 /* eslint-enable @typescript-eslint/naming-convention */
 
