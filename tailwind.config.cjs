@@ -40,6 +40,12 @@ module.exports = {
           letterSpacing: '0',
         },
       ],
+      'caption-16': [
+        '16px', {
+          lineHeight: '20px',
+          letterSpacing: '0',
+        },
+      ],
     },
     colors: {
       gray: colors.neutral,

@@ -53,7 +53,7 @@ const InputComponent: FC<Props> = ({
       },
     )}
     >
-      <div className="absolute left-4 grid place-items-center">
+      <div className="absolute left-3 grid place-items-center">
         { leftElement }
       </div>
       <input
@@ -76,14 +76,14 @@ const InputComponent: FC<Props> = ({
         className={clsx(
           'grow rounded-md border-none bg-inherit py-3 text-sm leading-6 focus:outline-none',
           {
-            'px-12': leftElement,
-            'px-4': !leftElement,
+            'px-11': leftElement,
+            'px-3': !leftElement,
           },
           className,
         )}
         {...props}
       />
-      <div className="absolute right-4 grid place-items-center">
+      <div className="absolute right-2 grid place-items-center">
         { rightElement }
       </div>
     </div>

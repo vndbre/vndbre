@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
+import { Icon } from '../Icon/Icon';
 
 /** App header. */
 const AppHeaderComponent: FC = () => (
@@ -10,9 +11,12 @@ const AppHeaderComponent: FC = () => (
     <div className="relative grid w-full max-w-screen-xl grid-cols-3 items-center justify-between gap-2 px-6">
       <Logo />
       <Button
-        className="max-w-[400px]"
+        isLink
+        href="/search/vn"
+        className="text-caption-18 max-w-[400px]"
         intent="tertiary"
         size="sm"
+        leftElement={<Icon size="sm" name="search" />}
       >
         Search
       </Button>

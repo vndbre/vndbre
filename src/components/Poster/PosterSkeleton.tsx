@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import { Skeleton } from '../Skeleton/Skeleton';
+import { SkeletonRect } from '../Skeleton/SkeletonRect';
 
 /** Skeleton for poster component. */
 export const PosterSkeleton: FC = () => (
-  <Skeleton className="aspect-[2/3] rounded" />
+  <SkeletonRect className="aspect-[2/3] rounded" />
 );

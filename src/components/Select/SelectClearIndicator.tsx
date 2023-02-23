@@ -10,7 +10,7 @@ export const SelectClearIndicator: ComponentType<ClearIndicatorProps<Option>> = 
   children, ...props
 }) => (
   <c.ClearIndicator {...props}>
-    <IconButton name="close" intent="tertiary" size="xs" />
+    <IconButton name="close" intent="tertiary" size="2xs" iconSize="sm" />
     {children}
   </c.ClearIndicator>
 );

@@ -119,7 +119,8 @@ const SelectComponent = <
     ),
     placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
     dropdownIndicator: () => '!hidden',
-    menu: () => 'rounded-b-md bg-gray-100 p-2 pt-0 flex flex-col gap-2',
+    menuList: () => 'py-2',
+    menu: () => 'rounded-b-md bg-gray-100 px-2 flex flex-col shadow-lg',
     option: ({ isFocused }) => clsx(
       '!flex items-center rounded bg-gray-100 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,

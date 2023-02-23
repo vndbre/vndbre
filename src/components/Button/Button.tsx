@@ -1,13 +1,15 @@
 import React, { forwardRef, memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef } from 'react';
+import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef, ReactNode } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import type { LinkProps } from '../Link/Link';
+import { Link } from '../Link/Link';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 
 /** Button size. */
-export type ButtonSize = 'xs' | 'sm' | 'md';
+export type ButtonSize = '2xs' | 'xs' | 'sm' | 'md';
 
 /** Button props. */
 export interface ButtonProps {
@@ -31,7 +33,9 @@ export interface ButtonProps {
   readonly ariaLabel?: string;
 }
 
-interface Props extends ButtonProps {
+type Props =
+& ButtonProps
+& {
 
   /** Is button square. */
   readonly isSquare?: boolean;
@@ -41,7 +45,30 @@ interface Props extends ButtonProps {
    * Doesn't work when `isSquare` enabled.
    */
   readonly hasSmallPaddings?: boolean;
+
+  /** The element that will be placed on the left side of the button. */
+  readonly leftElement?: ReactNode;
 }
+& (
+  & {
+
+    /** Whether element is link looking like button. */
+    readonly isLink?: boolean;
+  }
+  & LinkProps
+  & (
+  | {
+    readonly isLink?: undefined;
+    readonly href?: undefined;
+    readonly external?: undefined;
+  }
+  | {
+    readonly isLink: true;
+    readonly href: string;
+    readonly external?: boolean;
+  }
+  )
+);
 
 /**
  * Button.
@@ -54,10 +81,14 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   onClick,
   isDisabled,
   ariaLabel,
+  leftElement,
+  isLink,
+  href,
+  external,
   ...props
 }, ref: ForwardedRef<HTMLButtonElement>) => {
   const button = cva([
-    'whitespace-nowrap text-caption-20 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
+    'whitespace-nowrap text-caption-20 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors flex gap-2 justify-center items-center',
     className,
   ], {
     variants: {
@@ -74,16 +105,17 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         true: '',
       },
       size: {
-        xs: 'rounded',
-        sm: 'rounded-md',
-        md: 'rounded-md',
+        '2xs': 'rounded',
+        'xs': 'rounded',
+        'sm': 'rounded-md',
+        'md': 'rounded-md',
       },
     },
     compoundVariants: [
       {
-        size: 'xs',
+        size: '2xs',
         isSquare: true,
-        class: 'w-8 h-8',
+        class: 'w-6 h-6',
       },
       {
         size: 'sm',
@@ -126,6 +158,19 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
     },
   });
 
+  if (isLink) {
+    return (
+      <Link
+        href={href}
+        external={external}
+        className={cx(button(props))}
+      >
+        {leftElement && leftElement}
+        {children}
+      </Link>
+    );
+  }
+
   return (
     <button
       ref={ref}
@@ -135,6 +180,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       disabled={isDisabled}
       onClick={onClick}
     >
+      {leftElement && leftElement}
       {children}
     </button>
   );

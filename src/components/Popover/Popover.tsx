@@ -17,10 +17,10 @@ export const PopoverContentComponent: FC<PopoverContentProps> =
   ({ children, className, ...props }, ref: ForwardedRef<HTMLDivElement>) => (
     <RadixPopover.Portal>
       <RadixPopover.Content
-        sideOffset={5}
+        sideOffset={16}
         {...props}
         ref={ref}
-        className={clsx('rounded border border-gray-200 bg-white font-sans shadow-2xl', inter.variable, className)}
+        className={clsx('rounded-md border border-gray-100 bg-white font-sans shadow-lg', inter.variable, className)}
       >
         {children}
       </RadixPopover.Content>

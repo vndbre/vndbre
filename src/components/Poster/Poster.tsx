@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import type { ComponentProps, FC } from 'react';
-import React, { memo } from 'react';
+import React, { useState, useMemo, memo } from 'react';
 
 export const POSTER_RATIO = 2 / 3;
 
@@ -21,23 +21,40 @@ type Props =
 /**
  * Image poster.
  */
-const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => (
-  <div
-    className={clsx('relative aspect-[2/3]', className)}
-    style={{
+const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
+  const style = useMemo(() => {
+    if (width == null && height == null) {
+      return {};
+    }
+    return {
       height: height ?? (width ?? 0) / POSTER_RATIO,
       width: width ?? (height ?? 0) * POSTER_RATIO,
-    }}
-  >
-    {/* eslint-disable-next-line jsx-a11y/alt-text */}
-    <Image
-      className={clsx(
-        'rounded object-cover outline outline-1 -outline-offset-1 outline-black/10',
-      )}
-      {...props}
-      fill
-    />
-  </div>
-);
+    };
+  }, [width, height]);
+
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
+
+  return (
+    <div
+      className={clsx('relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className, {
+        'bg-gray-200': !isLoadingComplete,
+        'bg-gray-100': isLoadingComplete,
+      })}
+      style={style}
+    >
+      {/* eslint-disable-next-line jsx-a11y/alt-text */}
+      <Image
+        className={clsx(
+          'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300', {
+            'opacity-100': isLoadingComplete,
+          },
+        )}
+        {...props}
+        fill
+        onLoadingComplete={() => setIsLoadingComplete(true)}
+      />
+    </div>
+  );
+};
 
 export const Poster = memo(PosterComponent);
