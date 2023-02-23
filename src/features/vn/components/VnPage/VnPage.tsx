@@ -30,7 +30,9 @@ export const VnPageComponent: FC<PropsWithChildren> = ({
         <meta name="description" content="vndbre" />
       </Head>
       <div className="flex flex-col gap-6">
-        <VnHeader />
+        <VnHeader
+          disableAppearanceAnimation={isInitialRoute}
+        />
         {isRouterLoading ? (
           <div>loading</div>
         ) : (

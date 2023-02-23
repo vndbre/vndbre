@@ -14,8 +14,16 @@ import type { TabValue } from '../VnHeaderTabs/VnHeaderTabs';
 import { VnHeaderTabs } from '../VnHeaderTabs/VnHeaderTabs';
 import { useVnInfoQuery } from '../../queries/vnInfo';
 
+interface Props {
+
+  /** Whether to disable appearance animations. */
+  readonly disableAppearanceAnimation?: boolean;
+}
+
 /** Vn header. */
-const VnHeaderComponent: FC = () => {
+const VnHeaderComponent: FC<Props> = ({
+  disableAppearanceAnimation,
+}) => {
   const router = useRouter();
 
   const handleTabChange = useCallback((tabName: TabValue) => {
@@ -74,6 +82,8 @@ const VnHeaderComponent: FC = () => {
               <h1 className="line-clamp-2 text-title-1">{vnInfo.titleEnglish}</h1>
               <h2 className="line-clamp-1 text-caption-20">
                 {vnInfo.titleAlt}
+                {' '}
+                {disableAppearanceAnimation ? 'd' : 'n'}
               </h2>
             </hgroup>
             <div
@@ -110,7 +120,7 @@ const VnHeaderComponent: FC = () => {
       </div>
       {isPosterVisible && (
         <motion.div
-          initial={{ rotate: 180, scale: 0 }}
+          initial={disableAppearanceAnimation ? {} : { rotate: 180, scale: 0 }}
           animate={{ rotate: 0, scale: 1 }}
           transition={{
             type: 'spring',
