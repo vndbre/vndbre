@@ -24,9 +24,13 @@ const TabsListComponent: FC<TabsListProps> = ({
    * Handle tabs hover to move hover overlay.
    * @param event Mouse event.
    */
-  const handleTabsHover: MouseEventHandler<HTMLDivElement> = event => {
-    const target = (event.target as HTMLDivElement);
+  const handleTabsPointerOver: MouseEventHandler<HTMLDivElement> = event => {
+    const target = (event.target as HTMLButtonElement);
 
+    if (target.disabled) {
+      setHoverCount(0);
+      return;
+    }
     if (target.getAttribute('role') === 'tab') {
       setHoverCount(v => v + 1);
       setOverlayX(target.offsetLeft);
@@ -38,7 +42,7 @@ const TabsListComponent: FC<TabsListProps> = ({
    * Handle tabs hover to hide hover overlay.
    * @param event Mouse event.
    */
-  const handleTabsLeave: MouseEventHandler<HTMLDivElement> = () => {
+  const handleTabsPointerLeave: MouseEventHandler<HTMLDivElement> = () => {
     setHoverCount(0);
   };
 
@@ -47,8 +51,8 @@ const TabsListComponent: FC<TabsListProps> = ({
       ref={ref}
       {...props}
       className={clsx('group relative flex w-full overflow-x-auto', className)}
-      onMouseOver={handleTabsHover}
-      onMouseLeave={handleTabsLeave}
+      onPointerOver={handleTabsPointerOver}
+      onPointerLeave={handleTabsPointerLeave}
     >
       {children}
       <div className="absolute bottom-0 left-0 -z-10 w-full border-b border-gray-200" />

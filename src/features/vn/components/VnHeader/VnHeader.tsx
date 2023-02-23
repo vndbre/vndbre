@@ -82,8 +82,6 @@ const VnHeaderComponent: FC<Props> = ({
               <h1 className="line-clamp-2 text-title-1">{vnInfo.titleEnglish}</h1>
               <h2 className="line-clamp-1 text-caption-20">
                 {vnInfo.titleAlt}
-                {' '}
-                {disableAppearanceAnimation ? 'd' : 'n'}
               </h2>
             </hgroup>
             <div
