@@ -11,6 +11,9 @@ type Props = Pick<ButtonProps, 'intent' | 'onClick' | 'ariaLabel'> & Pick<IconPr
 
   /** Icon button size. */
   readonly size?: ButtonProps['size'];
+
+  /** Icon size. */
+  readonly iconSize?: IconProps['size'];
 };
 
 /**
@@ -24,6 +27,7 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
   size,
   ariaLabel,
   onClick,
+  iconSize,
 }, ref: ForwardedRef<HTMLButtonElement>) => (
   <Button
     ref={ref}
@@ -34,7 +38,7 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
     ariaLabel={ariaLabel}
     onClick={onClick}
   >
-    <Icon name={name} />
+    <Icon name={name} size={iconSize} />
   </Button>
 );
 

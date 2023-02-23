@@ -57,12 +57,12 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   ...props
 }, ref: ForwardedRef<HTMLButtonElement>) => {
   const button = cva([
-    'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
+    'whitespace-nowrap text-caption-20 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
     className,
   ], {
     variants: {
       intent: {
-        primary: 'bg-primary-500 text-white hover:bg-primary-400 disabled:bg-gray-50 disabled:text-gray-500',
+        primary: 'bg-primary-400 text-white hover:bg-primary-500 disabled:bg-gray-50 disabled:text-gray-500',
         secondary: 'bg-primary-100 text-primary-600 hover:bg-primary-200 disabled:bg-gray-50 disabled:text-gray-500',
         tertiary: 'bg-gray-100 text-black hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-500',
         quaternary: 'bg-transparent text-black hover:bg-gray-200 disabled:bg-transparent disabled:text-gray-500',

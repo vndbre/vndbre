@@ -16,11 +16,30 @@ module.exports = {
       },
     },
     fontSize: {
-      xs: '1rem',
-      sm: '1.125rem',
-      base: '1.25rem',
-      lg: '1.5rem',
-      xl: '1.75rem',
+      'xs': '1rem',
+      'sm': '1.125rem',
+      'base': '1.25rem',
+      'lg': '1.5rem',
+      'xl': '1.75rem',
+      'title-1': [
+        '1.5rem', {
+          lineHeight: '2rem',
+          letterSpacing: '-0.025em',
+          fontWeight: '700',
+        },
+      ],
+      'caption-20': [
+        '20px', {
+          lineHeight: '24px',
+          letterSpacing: '-0.025em',
+        },
+      ],
+      'caption-18': [
+        '18px', {
+          lineHeight: '24px',
+          letterSpacing: '0',
+        },
+      ],
     },
     colors: {
       gray: colors.neutral,
