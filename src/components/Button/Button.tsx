@@ -1,5 +1,5 @@
 import React, { forwardRef, memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 import type { LinkProps } from '../Link/Link';
@@ -29,13 +29,15 @@ export interface ButtonProps {
 
   /** Is button disabled. */
   readonly isDisabled?: boolean;
-
-  /** `aria-label` attribute. */
-  readonly ariaLabel?: string;
 }
 
 type Props =
-& ButtonProps
+& AriaAttributes
+& PropsWithChildrenAndClass
+& Pick<ButtonProps,
+  | 'intent'
+  | 'size'
+>
 & {
 
   /** Is button square. */
@@ -50,24 +52,29 @@ type Props =
   /** The element that will be placed on the left side of the button. */
   readonly leftElement?: ReactNode;
 }
-& (
-  & {
-
-    /** Whether element is link looking like button. */
-    readonly isLink?: boolean;
-  }
+& Partial<
+  & Pick<ButtonProps,
+  | 'type'
+  | 'onClick'
+  | 'isDisabled'
+  >
   & LinkProps
-  & (
-  | {
-    readonly isLink?: undefined;
-    readonly href?: undefined;
-    readonly external?: undefined;
-  }
-  | {
+  & {
     readonly isLink: true;
-    readonly href: string;
-    readonly external?: boolean;
   }
+>
+& (
+  | Pick<ButtonProps,
+    | 'type'
+    | 'onClick'
+    | 'isDisabled'
+  >
+  | (
+
+    & LinkProps
+    & {
+      readonly isLink: true;
+    }
   )
 );
 
@@ -75,13 +82,12 @@ type Props =
  * Button.
  * @param ref Forwarded ref.
  */
-const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
+const ButtonComponent: FC<Props> = ({
   children,
   type = 'button',
   className,
   onClick,
   isDisabled,
-  ariaLabel,
   leftElement,
   isLink,
   href,
@@ -161,7 +167,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
     },
   });
 
-  if (isLink) {
+  if (isLink && href != null) {
     return (
       <Link
         href={href}
@@ -178,11 +184,11 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   return (
     <button
       ref={ref}
-      aria-label={ariaLabel}
       type={type}
       className={cx(button(props))}
       disabled={isDisabled ?? buttonGroup.isDisabled}
       onClick={onClick}
+      {...props}
     >
       {leftElement && leftElement}
       {children}

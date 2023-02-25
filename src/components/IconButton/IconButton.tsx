@@ -1,4 +1,4 @@
-import type { FC, ForwardedRef } from 'react';
+import type { AriaAttributes, FC, ForwardedRef } from 'react';
 import React, { forwardRef, memo } from 'react';
 
 import type { PropsWithClass } from 'src/utils/PropsWithClass';
@@ -7,7 +7,11 @@ import { Button } from '../Button/Button';
 import type { IconProps } from '../Icon/Icon';
 import { Icon } from '../Icon/Icon';
 
-type Props = Pick<ButtonProps, 'intent' | 'onClick' | 'ariaLabel'> & Pick<IconProps, 'name'> & {
+type Props =
+& AriaAttributes
+& Pick<ButtonProps, 'intent' | 'onClick'>
+& Pick<IconProps, 'name'>
+& {
 
   /** Icon button size. */
   readonly size?: ButtonProps['size'];
@@ -25,9 +29,9 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
   name,
   className,
   size,
-  ariaLabel,
   onClick,
   iconSize,
+  ...props
 }, ref: ForwardedRef<HTMLButtonElement>) => (
   <Button
     ref={ref}
@@ -35,8 +39,8 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
     intent={intent}
     size={size}
     isSquare
-    ariaLabel={ariaLabel}
     onClick={onClick}
+    {...props}
   >
     <Icon name={name} size={iconSize} />
   </Button>
