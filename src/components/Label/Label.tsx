@@ -9,7 +9,7 @@ interface Props {
 
 /** Label. */
 const LabelComponent: FC<PropsWithChildren<Props>> = ({ htmlFor, children }) => (
-  <label htmlFor={htmlFor} className="text-sm font-medium leading-6">{children}</label>
+  <label htmlFor={htmlFor} className="text-caption-18 font-medium">{children}</label>
 );
 
 export const Label = memo(LabelComponent);

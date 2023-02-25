@@ -102,7 +102,7 @@ const SelectComponent = <
   ref: ForwardedRef<SelectInstance<TOption, IsMulti, TGroup>>,
 ): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
-  const inputClassNames = 'bg-transparent text-sm leading-6 focus:outline-none pl-2';
+  const inputClassNames = 'bg-transparent text-caption-18 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
     container: () => clsx('rounded-md bg-gray-100', className),
     control: ({ menuIsOpen }) => clsx(
@@ -124,18 +124,18 @@ const SelectComponent = <
       },
     ),
     placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
-    dropdownIndicator: () => '!hidden',
+    dropdownIndicator: () => 'hidden',
     menuList: () => 'py-2',
     menu: () => 'rounded-b-md bg-gray-100 px-2 flex flex-col shadow-lg',
     option: ({ isFocused }) => clsx(
-      '!flex cursor-pointer items-center rounded bg-gray-100 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
+      'text-caption-18 flex cursor-pointer items-center rounded bg-gray-100 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,
         'gap-1 px-2 py-1': optionSize === 'md',
         'gap-2 p-2': optionSize === 'lg',
       },
     ),
     valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
-      '!flex !flex-nowrap': hasValue && isMulti,
+      'flex flex-nowrap': hasValue && isMulti,
     }),
     multiValue: () => 'bg-gray-200',
   };

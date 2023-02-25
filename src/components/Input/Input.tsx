@@ -67,7 +67,7 @@ const InputComponent: FC<Props> = ({
 
   return (
     <div className={clsx(
-      'ring-primary-300 relative flex items-center overflow-hidden rounded-md bg-gray-100 text-sm leading-6', {
+      'ring-primary-300 text-caption-18 relative flex items-center overflow-hidden rounded-md bg-gray-100', {
         'ring-4': isInputGroupFocused,
       },
     )}

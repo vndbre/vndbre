@@ -53,7 +53,7 @@ export const LoginPage: NextPage = () => {
                 <ControlWrapper label="Password">
                   <PasswordInput control={control} name="password" placeholder="Enter vndb.org password" />
                 </ControlWrapper>
-                <Link href="https://vndb.org/u/newpass" external className="w-min text-sm leading-6">Forgot password?</Link>
+                <Link href="https://vndb.org/u/newpass" external className="text-caption-18 w-min">Forgot password?</Link>
               </div>
 
               <div className="flex flex-col gap-2">
