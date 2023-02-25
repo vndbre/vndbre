@@ -13,7 +13,6 @@ interface Props {
 }
 
 /** Control wrapper. */
-/** TODO: Add displaying of control errors. */
 const ControlWrapperComponent: FC<Props> = ({
   label,
   children,

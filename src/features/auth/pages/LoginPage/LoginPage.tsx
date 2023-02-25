@@ -4,14 +4,15 @@ import Head from 'next/head';
 import { signIn } from 'next-auth/react';
 import { Layout } from 'src/components/Layout/Layout';
 import { Button } from 'src/components/Button/Button';
-import { ControlWrapper } from 'src/components/controls/ControlWrapper';
+import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
 import type { TypeOf } from 'zod';
 import { Validators } from 'src/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
-import { TextInput } from 'src/components/controls/TextInput';
+import { TextInput } from 'src/components/TextInput/TextInput';
+import { Field } from 'src/components/Field/Field';
 
 const loginFormInitialValues = {
   token: '',
@@ -20,6 +21,8 @@ const loginFormInitialValues = {
 const validationSchema = z.object({
   token: z.string().min(1, { message: Validators.REQUIRED_ERROR_MESSAGE }),
 });
+
+type FormData = TypeOf<typeof validationSchema>;
 
 /** Login page. */
 export const LoginPage: NextPage = () => {
@@ -31,7 +34,7 @@ export const LoginPage: NextPage = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginSubmit, setLoginSubmit] = useState(false);
 
-  const handleFormSubmit = useCallback(async(data: TypeOf<typeof validationSchema>) => {
+  const handleFormSubmit = useCallback(async(data: FormData) => {
     setLoginError(null);
     setLoginSubmit(true);
     const response = await signIn('credentials', { ...data, redirect: false });
@@ -60,7 +63,12 @@ export const LoginPage: NextPage = () => {
 
             <form onSubmit={handleSubmit(handleFormSubmit)} className="flex w-full flex-col gap-8">
               <ControlWrapper label="Token">
-                <TextInput control={control} name="token" placeholder="Enter your vndb.org token" />
+                <Field
+                  Component={TextInput}
+                  control={control}
+                  name="token"
+                  placeholder="Enter your vndb.org token"
+                />
               </ControlWrapper>
 
               {loginError && (
