@@ -2,6 +2,8 @@ import type { MultiValue, SingleValue } from 'react-select';
 import type { CharacterRole } from 'src/api/models/character/characterRole';
 import type { Gender } from 'src/api/models/character/gender';
 import type { CharacterQueryOptions } from 'src/api/models/queryOptions/character/characterQueryOptions';
+import { CharacterSortField } from 'src/api/models/queryOptions/character/characterSortField';
+import type { SortOrder } from 'src/api/models/sortOptions';
 import type { SelectOption } from 'src/components/Select';
 
 export interface CharacterSearchFormValues {
@@ -9,17 +11,8 @@ export interface CharacterSearchFormValues {
   readonly vn: SingleValue<Omit<SelectOption, 'icon'>>;
   readonly roles: MultiValue<Omit<SelectOption, 'icon'>>;
   readonly gender: SingleValue<Omit<SelectOption, 'icon'>>;
-
-  // readonly languages: MultiValue<Omit<SelectOption, 'icon'>>;
-  // readonly originalLanguage: SingleValue<Omit<SelectOption, 'icon'>>;
-  // readonly platforms: MultiValue<Omit<SelectOption, 'icon'>>;
-  // readonly tags: MultiValue<Omit<SelectOption, 'icon'>>;
-  // readonly popularity: [number, number];
-  // readonly released: [number, number];
-  // readonly rating: [number, number];
-  // readonly sortField: SingleValue<Omit<SelectOption, 'icon'>>;
-  // readonly sortDirection: SortOrder;
-  // readonly developmentStatus: SingleValue<Omit<SelectOption, 'icon'>>;
+  readonly sortField: SingleValue<Omit<SelectOption, 'icon'>>;
+  readonly sortDirection: SortOrder;
 }
 
 export const CHARACTER_SEARCH_INITIAL_VALUES: CharacterSearchFormValues = {
@@ -27,6 +20,13 @@ export const CHARACTER_SEARCH_INITIAL_VALUES: CharacterSearchFormValues = {
   vn: null,
   roles: [],
   gender: null,
+  sortField: {
+    label: CharacterSortField.toReadable('id'),
+    value: 'id',
+  },
+  sortDirection: 'asc',
+
+  // TODO: Add more fields once slider will be updated.
 };
 
 export namespace CharacterSearchFormValues {
@@ -36,6 +36,10 @@ export namespace CharacterSearchFormValues {
       vnId: data.vn?.value,
       roles: data.roles?.map(roles => roles.value as CharacterRole),
       gender: data.gender?.value as Gender,
+      sort: {
+        field: data.sortField?.value as CharacterSortField,
+        order: data?.sortDirection,
+      },
     };
   }
 }

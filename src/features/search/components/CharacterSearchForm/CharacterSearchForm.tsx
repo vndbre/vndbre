@@ -1,12 +1,15 @@
 import type { FC } from 'react';
 import { useCallback, useState, memo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { CharacterRole, CHARACTER_ROLES } from 'src/api/models/character/characterRole';
 import { Gender, GENDERS } from 'src/api/models/character/gender';
+import { CharacterSortField, CHARACTER_SORT_FIELDS } from 'src/api/models/queryOptions/character/characterSortField';
+import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { TextInput } from 'src/components/controls/TextInput';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
+import { IconButton } from 'src/components/IconButton/IconButton';
 import { Select } from 'src/components/Select';
 import { useDebounce } from 'src/hooks/useDebounce';
 import { useVnsQuery } from '../../queries/vns';
@@ -18,6 +21,9 @@ const characterRoleOptions = CHARACTER_ROLES
 
 const genderOptions = GENDERS
   .map(gender => ({ label: Gender.toReadable(gender), value: gender }));
+
+const sortFieldOptions = CHARACTER_SORT_FIELDS
+  .map(field => ({ label: CharacterSortField.toReadable(field), value: field }));
 
 /** Character search form. */
 const CharacterSearchFormComponent: FC = () => {
@@ -109,15 +115,12 @@ const CharacterSearchFormComponent: FC = () => {
         <SearchPopover>
           <div className="flex flex-col gap-8">
             <div className="grid grid-cols-2 gap-4">
-              Test
+              Not implemented
             </div>
           </div>
         </SearchPopover>
 
-        {/*
-
       </div>
-
       <div className="ml-auto flex gap-4">
         <div className="flex">
           <Controller
@@ -146,7 +149,7 @@ const CharacterSearchFormComponent: FC = () => {
         <ButtonGroup>
           <IconButton intent="tertiary" name="rectangle-stack" />
           <IconButton intent="tertiary" name="squares" />
-        </ButtonGroup> */}
+        </ButtonGroup>
       </div>
     </div>
   );

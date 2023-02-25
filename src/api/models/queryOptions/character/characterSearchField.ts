@@ -1,5 +1,4 @@
 export const CHARACTER_SEARCH_FIELDS = [
-  'id',
   'search',
   'role',
   'blood_type',
