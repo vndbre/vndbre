@@ -204,9 +204,9 @@ const VnSearchFormComponent: FC = () => {
           />
         </div>
 
-        <ButtonGroup>
-          <IconButton intent="tertiary" name="rectangle-stack" />
-          <IconButton intent="tertiary" name="squares" />
+        <ButtonGroup intent="tertiary">
+          <IconButton name="rectangle-stack" />
+          <IconButton name="squares" />
         </ButtonGroup>
       </div>
     </div>

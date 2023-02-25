@@ -4,6 +4,7 @@ import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 import type { LinkProps } from '../Link/Link';
 import { Link } from '../Link/Link';
+import { useButtonGroupContext } from '../ButtonGroup/ButtonGroupProvider';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
@@ -87,6 +88,8 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
   external,
   ...props
 }, ref: ForwardedRef<HTMLButtonElement>) => {
+  const buttonGroup = useButtonGroupContext();
+
   const button = cva([
     'whitespace-nowrap text-caption-20 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors flex gap-2 justify-center items-center',
     className,
@@ -151,10 +154,10 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       },
     ],
     defaultVariants: {
-      intent: 'primary',
+      intent: buttonGroup.intent ?? 'primary',
       isSquare: false,
       hasSmallPaddings: false,
-      size: 'md',
+      size: buttonGroup.size ?? 'md',
     },
   });
 
@@ -177,7 +180,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       aria-label={ariaLabel}
       type={type}
       className={cx(button(props))}
-      disabled={isDisabled}
+      disabled={isDisabled ?? buttonGroup.isDisabled}
       onClick={onClick}
     >
       {leftElement && leftElement}

@@ -1,6 +1,16 @@
 import clsx from 'clsx';
 import type { FC, PropsWithChildren, ReactElement } from 'react';
 import { cloneElement, memo, Children } from 'react';
+import type { ButtonProps } from '../Button/Button';
+import { ButtonGroupProvider } from './ButtonGroupProvider';
+
+type Props =
+& PropsWithChildren
+& Pick<ButtonProps,
+| 'intent'
+| 'size'
+| 'isDisabled'
+>;
 
 /**
  * Button group.
@@ -12,7 +22,7 @@ import { cloneElement, memo, Children } from 'react';
  * </ButtonGroup>
  * ```
  */
-const ButtonGroupComponent: FC<PropsWithChildren> = ({ children }) => {
+const ButtonGroupComponent: FC<Props> = ({ children, ...props }) => {
   const childrenCount = Children.toArray(children).length;
 
   if (childrenCount === 1) {
@@ -31,7 +41,9 @@ const ButtonGroupComponent: FC<PropsWithChildren> = ({ children }) => {
   });
 
   return (
-    <div className="flex">{childrenWithProps}</div>
+    <ButtonGroupProvider {...props}>
+      <div className="flex">{childrenWithProps}</div>
+    </ButtonGroupProvider>
   );
 };
 
