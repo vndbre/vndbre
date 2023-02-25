@@ -180,7 +180,7 @@ const VnSearchFormComponent: FC = () => {
       </div>
 
       <div className="ml-auto flex gap-4">
-        <div className="flex">
+        <div className="flex items-center">
           <Controller
             control={control}
             name="sortDirection"
@@ -188,6 +188,7 @@ const VnSearchFormComponent: FC = () => {
               <IconButton
                 className="rounded-r-none"
                 intent="tertiary"
+                size="sm"
                 name={`sort-${value}`}
                 onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
               />
@@ -201,10 +202,11 @@ const VnSearchFormComponent: FC = () => {
             name="sortField"
             className="min-w-[120px] rounded-l-none"
             disableSearch
+            size="sm"
           />
         </div>
 
-        <ButtonGroup intent="tertiary">
+        <ButtonGroup intent="tertiary" size="sm" isDisabled>
           <IconButton name="rectangle-stack" />
           <IconButton name="squares" />
         </ButtonGroup>

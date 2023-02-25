@@ -68,7 +68,10 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
   readonly disableSearch?: boolean;
 
   /** Size. */
-  readonly size?: 'md' | 'lg';
+  readonly size?: 'sm' | 'md';
+
+  /** Option size. */
+  readonly optionSize?: 'md' | 'lg';
 
   /** Change handler. */
   readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
@@ -92,6 +95,7 @@ const SelectComponent = <
   disableSearch = false,
   isClearable,
   size = 'md',
+  optionSize = 'md',
   onChange,
   ...props
 }: SelectProps<TOption, IsMulti, IsClearable, TGroup>,
@@ -102,8 +106,10 @@ const SelectComponent = <
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
     container: () => clsx('rounded-md bg-gray-100', className),
     control: ({ menuIsOpen }) => clsx(
-      'flex h-12 w-full cursor-pointer items-center gap-1 rounded-md bg-gray-100 p-2 text-start', {
+      'flex w-full cursor-pointer items-center gap-1 rounded-md bg-gray-100 text-start', {
         'rounded-b-none': menuIsOpen,
+        'h-12 p-2': size === 'md',
+        'h-10 px-2 py-1': size === 'sm',
       },
     ),
     input: ({ hasValue, isMulti }) => clsx(
@@ -113,8 +119,8 @@ const SelectComponent = <
     ),
     singleValue: () => clsx(
       inputClassNames, 'flex', {
-        'gap-1': size === 'md',
-        'gap-2': size === 'lg',
+        'gap-1': optionSize === 'md',
+        'gap-2': optionSize === 'lg',
       },
     ),
     placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
@@ -124,8 +130,8 @@ const SelectComponent = <
     option: ({ isFocused }) => clsx(
       '!flex cursor-pointer items-center rounded bg-gray-100 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,
-        'gap-1 px-2 py-1': size === 'md',
-        'gap-2 p-2': size === 'lg',
+        'gap-1 px-2 py-1': optionSize === 'md',
+        'gap-2 p-2': optionSize === 'lg',
       },
     ),
     valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
