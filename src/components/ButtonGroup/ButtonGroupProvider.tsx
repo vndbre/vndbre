@@ -1,5 +1,5 @@
 import type { PropsWithChildren, FC } from 'react';
-import React, { createContext, useMemo, useContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import type { ButtonIntent, ButtonSize } from '../Button/Button';
 
 interface ButtonGroupContext {

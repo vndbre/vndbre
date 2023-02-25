@@ -1,5 +1,5 @@
 import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC, FormEventHandler } from 'react';
-import React, { useRef, forwardRef, useState, memo } from 'react';
+import React, { useRef, forwardRef, memo } from 'react';
 
 import clsx from 'clsx';
 
@@ -48,13 +48,15 @@ const InputComponent: FC<Props> = ({
   hasAutoWidth,
   ...props
 }, ref: ForwardedRef<HTMLInputElement>) => {
-  const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
-
   const textMirrorRef = useRef<HTMLSpanElement>(null);
 
-  const handleInput: FormEventHandler<HTMLInputElement> = e => {
+  /**
+   * Resize input depending on content.
+   * @param event Event.
+   */
+  const handleInput: FormEventHandler<HTMLInputElement> = event => {
     if (hasAutoWidth && textMirrorRef.current != null) {
-      const target = e.target as HTMLInputElement;
+      const target = event.target as HTMLInputElement;
       textMirrorRef.current.textContent = target.value;
       target.style.width = `${textMirrorRef.current.scrollWidth}px`;
     }
@@ -84,14 +86,8 @@ const InputComponent: FC<Props> = ({
         disabled={isDisabled}
         onInput={handleInput}
         onChange={onChange}
-        onFocus={e => {
-          setIsInputGroupFocused(true);
-          onFocus?.(e);
-        }}
-        onBlur={e => {
-          setIsInputGroupFocused(false);
-          onBlur?.(e);
-        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
         className={clsx(
           'outline-primary-300 grow rounded-md bg-gray-100 py-3 outline-2 outline-offset-0',
           inputPaddingClass,

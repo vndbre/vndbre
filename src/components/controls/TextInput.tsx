@@ -33,7 +33,7 @@ const TextInputComponent = <T extends FieldValues>({
       return null;
     }
 
-    return <IconButton name="close" intent="quaternary" size="2xs" iconSize="sm" onClick={clearInput} ariaLabel="Clear input" />;
+    return <IconButton name="close" intent="quaternary" size="2xs" iconSize="sm" onClick={clearInput} aria-label="Clear input" />;
   }, [isClearButtonShown]);
 
   return (
