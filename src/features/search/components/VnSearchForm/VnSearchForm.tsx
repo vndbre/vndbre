@@ -199,7 +199,7 @@ const VnSearchFormComponent: FC = () => {
             options={sortFieldOptions}
             closeMenuOnSelect
             name="sortField"
-            className="rounded-r bg-gray-100"
+            className="min-w-[120px] rounded-l-none"
             disableSearch
           />
         </div>

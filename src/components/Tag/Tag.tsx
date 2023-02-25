@@ -16,7 +16,7 @@ interface Props extends PropsWithChildrenAndClass {
 const TagComponent: FC<Props> = ({ children, className, iconLeft, isMultiLine }) => (
   <div
     className={clsx(
-      'text-caption-18 flex cursor-default items-center gap-1 overflow-hidden rounded bg-gray-100 px-2 py-1', className,
+      'text-caption-18 flex items-center gap-1 overflow-hidden rounded bg-gray-100 px-2 py-1', className,
     )}
   >
     {iconLeft != null && <div className="shrink-0">{iconLeft}</div>}

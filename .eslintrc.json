@@ -483,7 +483,8 @@
     "operator-assignment": "error",
     "operator-linebreak": [
       "error",
-      "after"
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
     ],
     "prefer-exponentiation-operator": "error",
     "prefer-object-spread": "error",

@@ -14,7 +14,7 @@ export const SelectMultiValue: ComponentType<MultiValueProps<Option>> = ({
     <>
       <Tag
         {...props}
-        className="bg-gray-200 [&:nth-of-type(n+2)]:hidden "
+        className="bg-gray-200 [&:nth-of-type(n+2)]:hidden"
         iconLeft={props.data.icon}
       >
         {children}

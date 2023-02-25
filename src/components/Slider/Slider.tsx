@@ -43,7 +43,7 @@ const SliderComponent: FC<SliderProps> = ({
       onValueChange={onChange}
       className={clsx('relative flex h-4 items-center', className)}
     >
-      <RadixSlider.Track className="relative h-2 w-full flex-1 rounded-full bg-gray-200">
+      <RadixSlider.Track className="relative h-2 w-full flex-1 cursor-pointer rounded-full bg-gray-200">
         <RadixSlider.Range className="bg-primary-400 absolute h-2 rounded-full" />
       </RadixSlider.Track>
       <ChildrenMultiplier amount={2}>
