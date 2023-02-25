@@ -21,23 +21,36 @@ module.exports = {
       'base': '1.25rem',
       'lg': '1.5rem',
       'xl': '1.75rem',
-      'title-1': [
-        '1.5rem', {
-          lineHeight: '2rem',
-          letterSpacing: '-0.025em',
+      'title-24': [
+        '24px', {
+          lineHeight: '32px',
+          letterSpacing: '-0.015em',
           fontWeight: '700',
+        },
+      ],
+      'title-20': [
+        '20px', {
+          lineHeight: '24px',
+          letterSpacing: '-0.015em',
+          fontWeight: '600',
+        },
+      ],
+      'body-20': [
+        '20px', {
+          lineHeight: '28px',
+          letterSpacing: '-0.015em',
         },
       ],
       'caption-20': [
         '20px', {
           lineHeight: '24px',
-          letterSpacing: '-0.025em',
+          letterSpacing: '-0.015em',
         },
       ],
       'caption-18': [
         '18px', {
           lineHeight: '24px',
-          letterSpacing: '0',
+          letterSpacing: '-0.015em',
         },
       ],
       'caption-16': [

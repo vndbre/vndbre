@@ -1,7 +1,7 @@
 @tailwind base;
 
 body {
-  @apply text-base;
+  @apply text-body-20;
 }
 
 *:focus-visible {

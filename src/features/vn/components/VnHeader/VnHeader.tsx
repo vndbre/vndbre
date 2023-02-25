@@ -79,7 +79,7 @@ const VnHeaderComponent: FC<Props> = ({
         <div className="flex items-start gap-6">
           <div ref={mobileParentRef} className={clsx('flex w-full flex-col items-start justify-between gap-4 md:flex-row')}>
             <hgroup className="flex flex-col items-start gap-2">
-              <h1 className="line-clamp-2 text-title-1">{vnInfo.titleEnglish}</h1>
+              <h1 className="line-clamp-2 text-title-24">{vnInfo.titleEnglish}</h1>
               <h2 className="line-clamp-1 text-caption-20">
                 {vnInfo.titleAlt}
               </h2>
