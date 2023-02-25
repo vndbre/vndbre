@@ -166,6 +166,7 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       <Link
         href={href}
         external={external}
+        isUnstyled
         className={cx(button(props))}
       >
         {leftElement && leftElement}
