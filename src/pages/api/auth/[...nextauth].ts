@@ -1,18 +1,12 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { userSchema } from 'src/api/models/user';
 import * as z from 'zod';
 
 const authInfoDtoSchema = z.object({
   id: z.string(),
   username: z.string(),
   permissions: z.array(z.enum(['listread', 'listwrite'])),
-});
-
-const userSchema = z.object({
-  id: z.string().min(1),
-  name: z.string().min(1),
-  token: z.string().min(1),
-  permissions: z.array(z.enum(['read', 'write'])),
 });
 
 const permissionsMap = {

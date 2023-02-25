@@ -9,7 +9,9 @@ import { Link } from '../Link/Link';
 
 /** App header. */
 const AppHeaderComponent: FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  console.log(user);
 
   const handleLogoutButtonClick = useCallback(() => {
     signOut();
