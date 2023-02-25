@@ -9,18 +9,15 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
   images: {
     domains: ['userapi.com', 'sun9-32.userapi.com', 's2.vndb.org'],
   },
+  // eslint-disable-next-line require-await
   async redirects() {
     return [
       {
         source: '/',
-        destination: '/vn/v14973/overview',
+        destination: '/search/vn',
         permanent: true,
       },
     ];
