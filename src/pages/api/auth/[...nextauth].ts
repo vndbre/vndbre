@@ -60,9 +60,6 @@ export default NextAuth({
       },
     }),
   ],
-
-  /** TODO: regenerate secret and move out to env variable. */
-  secret: 'XH6bp/TkLvnUkQiPDEZNyHc0CV+VV5RL/n+HdVHoHN0=',
   session: {
     strategy: 'jwt',
   },
