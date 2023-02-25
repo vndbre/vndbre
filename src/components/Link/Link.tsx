@@ -39,7 +39,7 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     ...props
   },
 ) => {
-  const link = cva([className, 'focus:outline-none ring-primary-300 focus-visible:ring-4'], {
+  const link = cva([className, ''], {
     variants: {
       color: {
         'never': '',

@@ -97,7 +97,7 @@ const ButtonComponent: FC<Props> = ({
   const buttonGroup = useButtonGroupContext();
 
   const button = cva([
-    'whitespace-nowrap text-caption-20 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors flex gap-2 justify-center items-center',
+    'whitespace-nowrap text-caption-20 transition-colors flex gap-2 justify-center items-center focus:z-10',
     className,
   ], {
     variants: {
@@ -125,6 +125,11 @@ const ButtonComponent: FC<Props> = ({
         size: '2xs',
         isSquare: true,
         class: 'w-6 h-6',
+      },
+      {
+        size: 'xs',
+        isSquare: true,
+        class: 'w-8 h-8',
       },
       {
         size: 'sm',

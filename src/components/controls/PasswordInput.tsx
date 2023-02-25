@@ -40,8 +40,9 @@ const PasswordInputComponent = <T extends FieldValues>({
       <IconButton
         intent="quaternary"
         size="xs"
+        iconSize="md"
         name={isPasswordHidden ? 'view' : 'view-off'}
-        ariaLabel={isPasswordHidden ? 'Show password' : 'Hide password'}
+        aria-label={isPasswordHidden ? 'Show password' : 'Hide password'}
         onClick={togglePasswordVisibility}
       />
     );

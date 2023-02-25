@@ -67,9 +67,7 @@ const InputComponent: FC<Props> = ({
 
   return (
     <div className={clsx(
-      'ring-primary-300 text-caption-18 relative flex items-center overflow-hidden rounded-md bg-gray-100', {
-        'ring-4': isInputGroupFocused,
-      },
+      'text-caption-18 relative flex items-center',
     )}
     >
       {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
@@ -95,7 +93,7 @@ const InputComponent: FC<Props> = ({
           onBlur?.(e);
         }}
         className={clsx(
-          'bg-inherit py-3 focus:outline-none',
+          'outline-primary-300 grow rounded-md bg-gray-100 py-3 outline-2 outline-offset-0',
           inputPaddingClass,
           className,
         )}

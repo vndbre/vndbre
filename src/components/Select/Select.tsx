@@ -104,12 +104,14 @@ const SelectComponent = <
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
   const inputClassNames = 'bg-transparent text-caption-18 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
-    container: () => clsx('rounded-md bg-gray-100', className),
-    control: ({ menuIsOpen }) => clsx(
-      'flex w-full cursor-pointer items-center gap-1 rounded-md bg-gray-100 text-start', {
+    container: () => clsx('z-50 rounded-md bg-gray-100 ', className),
+    control: ({ menuIsOpen, isFocused }) => clsx(
+      'outline-focus relative flex w-full cursor-pointer items-center gap-1 !rounded-md bg-gray-100 text-start transition-none', {
         'rounded-b-none': menuIsOpen,
         'h-12 p-2': size === 'md',
         'h-10 px-2 py-1': size === 'sm',
+        '-z-10': isFocused,
+        '!outline': isFocused && !menuIsOpen,
       },
     ),
     input: ({ hasValue, isMulti }) => clsx(
@@ -126,7 +128,8 @@ const SelectComponent = <
     placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
     dropdownIndicator: () => 'hidden',
     menuList: () => 'py-2',
-    menu: () => 'rounded-b-md bg-gray-100 px-2 flex flex-col shadow-lg',
+    menu: () => clsx('-z-10 flex flex-col rounded-b-md bg-gray-100 px-2 shadow-lg', {
+    }),
     option: ({ isFocused }) => clsx(
       'text-caption-18 flex cursor-pointer items-center rounded bg-gray-100 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,
