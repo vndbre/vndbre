@@ -1,5 +1,5 @@
-import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC } from 'react';
-import React, { forwardRef, useState, memo } from 'react';
+import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC, FormEventHandler } from 'react';
+import React, { useRef, forwardRef, useState, memo } from 'react';
 
 import clsx from 'clsx';
 
@@ -23,6 +23,9 @@ interface Props extends InputProps {
 
   /** The element that will be placed on the right side of the input. */
   readonly rightElement?: ReactNode;
+
+  /** Whether input will grow/shrink depending on content inside. */
+  readonly hasAutoWidth?: boolean;
 }
 
 /**
@@ -42,18 +45,35 @@ const InputComponent: FC<Props> = ({
   rightElement,
   onFocus,
   className,
+  hasAutoWidth,
   ...props
 }, ref: ForwardedRef<HTMLInputElement>) => {
   const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
 
+  const textMirrorRef = useRef<HTMLSpanElement>(null);
+
+  const handleInput: FormEventHandler<HTMLInputElement> = e => {
+    if (hasAutoWidth && textMirrorRef.current != null) {
+      const target = e.target as HTMLInputElement;
+      textMirrorRef.current.textContent = target.value;
+      target.style.width = `${textMirrorRef.current.scrollWidth}px`;
+    }
+  };
+
+  const inputPaddingClass = {
+    'px-11': leftElement,
+    'px-3': !leftElement,
+  };
+
   return (
     <div className={clsx(
-      'ring-primary-300 relative flex items-center rounded-md bg-gray-100', {
+      'ring-primary-300 relative flex items-center overflow-hidden rounded-md bg-gray-100 text-sm leading-6', {
         'ring-4': isInputGroupFocused,
       },
     )}
     >
-      <div className="absolute left-3 grid place-items-center">
+      {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
+      <div className="pointer-events-none absolute left-3 grid place-items-center">
         { leftElement }
       </div>
       <input
@@ -64,6 +84,7 @@ const InputComponent: FC<Props> = ({
         ref={ref}
         placeholder={placeholder}
         disabled={isDisabled}
+        onInput={handleInput}
         onChange={onChange}
         onFocus={e => {
           setIsInputGroupFocused(true);
@@ -74,13 +95,13 @@ const InputComponent: FC<Props> = ({
           onBlur?.(e);
         }}
         className={clsx(
-          'grow rounded-md border-none bg-inherit py-3 text-sm leading-6 focus:outline-none',
-          {
-            'px-11': leftElement,
-            'px-3': !leftElement,
-          },
+          'bg-inherit py-3 focus:outline-none',
+          inputPaddingClass,
           className,
         )}
+        style={{
+          width: hasAutoWidth ? 0 : undefined,
+        }}
         {...props}
       />
       <div className="absolute right-2 grid place-items-center">
