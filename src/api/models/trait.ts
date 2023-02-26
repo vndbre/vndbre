@@ -24,4 +24,10 @@ export interface Trait {
    * If null - trait is a root trait.
    */
   readonly groupName: string | null;
+
+  /** Whether trait is searchable. */
+  readonly isSearchable: boolean;
+
+  /** Whether trait is applicable. */
+  readonly isApplicable: boolean;
 }

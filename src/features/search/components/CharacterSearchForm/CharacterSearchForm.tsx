@@ -84,7 +84,9 @@ const CharacterSearchFormComponent: FC = () => {
       if (cur.groupName === null) {
         return { ...prev, [cur.name]: [] };
       }
-      if (cur.description?.match('These are the traits')) {
+
+      // This excludes subparent traits(hair color, etc.)
+      if (!cur.isApplicable || !cur.isSearchable) {
         return prev;
       }
       return { ...prev, [cur.groupName]: [...prev[cur.groupName] ?? [], cur] };

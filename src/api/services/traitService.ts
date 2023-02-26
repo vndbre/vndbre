@@ -33,7 +33,7 @@ export namespace TraitService {
     return {
       ...QueryBuilderService.createBaseQueryBody(options),
       count: options.page !== undefined,
-      fields: 'id, name, aliases, description, group_id, group_name',
+      fields: 'id, name, aliases, description, group_id, group_name, applicable, searchable',
       filters: filters.length > 0 ? ['and', ...filters] : undefined,
     };
   }

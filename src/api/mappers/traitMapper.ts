@@ -15,6 +15,8 @@ export namespace TraitMapper {
       groupId: dto.group_id,
       groupName: dto.group_name,
       name: dto.name,
+      isApplicable: dto.applicable,
+      isSearchable: dto.searchable,
     };
   }
 }

@@ -7,6 +7,8 @@ export const TraitDtoSchema = z.object({
   aliases: z.string().array(),
   group_id: z.string().nullable(),
   group_name: z.string().nullable(),
+  applicable: z.boolean(),
+  searchable: z.boolean(),
 });
 
 export type TraitDto = z.infer<typeof TraitDtoSchema>;
