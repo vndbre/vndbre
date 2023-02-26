@@ -191,7 +191,7 @@ const CharacterSearchFormComponent: FC = () => {
             options={sortFieldOptions}
             closeMenuOnSelect
             name="sortField"
-            className="rounded-r bg-gray-100"
+            className="rounded-r-md bg-gray-100"
             disableSearch
           />
         </div>
