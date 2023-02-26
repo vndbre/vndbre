@@ -11,6 +11,7 @@ import { Pagination } from 'src/api/models/pagination';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
+import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 
 /** Visual novel overview tab. */
 const VnSearchComponent: FC = () => {
@@ -65,9 +66,7 @@ const VnSearchComponent: FC = () => {
 
       {/* TODO: Add placeholder for empty response. */}
       {Pagination.getCount(vns) === 0 && (
-        <div className="flex flex-col items-center">
-          <h2>УВЫ</h2>
-        </div>
+        <EmptyPlaceholder />
       )}
 
       {Pagination.getCount(vns) !== 0 && !isLoading && (

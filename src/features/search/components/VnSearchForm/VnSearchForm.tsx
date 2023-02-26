@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 import { memo, useCallback, useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
 import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
+import { SortDirectionControl } from 'src/components/controls/SortDirection';
 import { TextInput } from 'src/components/controls/TextInput';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
@@ -181,17 +182,9 @@ const VnSearchFormComponent: FC = () => {
 
       <div className="ml-auto flex gap-4">
         <div className="flex">
-          <Controller
+          <SortDirectionControl
             control={control}
             name="sortDirection"
-            render={({ field: { onChange, value } }) => (
-              <IconButton
-                className="rounded-r-none"
-                intent="tertiary"
-                name={`sort-${value}`}
-                onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
-              />
-            )}
           />
           <Field
             Component={Select}

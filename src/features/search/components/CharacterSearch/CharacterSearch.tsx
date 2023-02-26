@@ -11,6 +11,7 @@ import { Form } from 'src/components/Form/Form';
 import { DEFAULT_PAGE_SIZE, useCharactersQuery } from '../../queries/characters';
 import { CharacterSearchFormValues, CHARACTER_SEARCH_INITIAL_VALUES } from '../CharacterSearchForm/characterSearchFormValues';
 import { CharacterSearchForm } from '../CharacterSearchForm/CharacterSearchForm';
+import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 
 /** Visual novel overview tab. */
 const CharacterSearchComponent: FC = () => {
@@ -46,7 +47,7 @@ const CharacterSearchComponent: FC = () => {
         imageUrl={character.image?.url}
 
         // TODO: FIX IT
-        path={`/vn/${character.id}/overview`}
+        path={`/character/${character.id}/overview`}
       />
     ));
 
@@ -66,9 +67,7 @@ const CharacterSearchComponent: FC = () => {
 
       {/* TODO: Add placeholder for empty response. */}
       {Pagination.getCount(characters) === 0 && (
-        <div className="flex flex-col items-center">
-          <h2>УВЫ</h2>
-        </div>
+        <EmptyPlaceholder />
       )}
 
       {Pagination.getCount(characters) !== 0 && !isLoading && (
