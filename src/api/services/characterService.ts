@@ -53,6 +53,11 @@ export namespace CharacterService {
       filters.push(QueryBuilderService.createFilter('vn', '=', ['and', vnFilter]));
     }
 
+    if (isNotEmpty(options.traits)) {
+      const traits = options.traits.map<CharacterFilter>(trait => QueryBuilderService.createFilter('trait', '=', trait));
+      filters.push(...traits);
+    }
+
     return {
       ...QueryBuilderService.createBaseQueryBody(options),
       count: options.page !== undefined,

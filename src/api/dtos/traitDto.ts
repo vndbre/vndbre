@@ -5,8 +5,8 @@ export const TraitDtoSchema = z.object({
   name: z.string(),
   description: z.string().nullable(),
   aliases: z.string().array(),
-  group_id: z.string(),
-  group_name: z.string(),
+  group_id: z.string().nullable(),
+  group_name: z.string().nullable(),
 });
 
 export type TraitDto = z.infer<typeof TraitDtoSchema>;

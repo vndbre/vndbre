@@ -5,7 +5,7 @@ import { CharacterSearchFormValues } from 'src/features/search/components/Charac
 import { CharacterSearchPage } from 'src/features/search/pages/CharacterSearchPage/CharacterSearchPage';
 import { getBaseCharactersQueryOptions } from 'src/features/search/queries/characters';
 import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
-import { nullify } from 'src/utils/nullify';
+import { nullify } from 'src/api/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {

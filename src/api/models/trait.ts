@@ -13,9 +13,15 @@ export interface Trait {
   /** Alias names. */
   readonly aliases: string[];
 
-  /** Top-level parent trait id. */
-  readonly groupId: string;
+  /**
+   * Top-level parent trait id.
+   * If null - trait is a root trait.
+   */
+  readonly groupId: string | null;
 
-  /** Top-level parent trait name. */
-  readonly groupName: string;
+  /**
+   * Top-level parent trait name.
+   * If null - trait is a root trait.
+   */
+  readonly groupName: string | null;
 }

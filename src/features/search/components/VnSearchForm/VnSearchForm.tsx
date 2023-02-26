@@ -16,7 +16,7 @@ import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
 import { useDebounce } from 'src/hooks/useDebounce';
-import { useTagsQuery } from '../../queries/tag';
+import { useTagsQuery } from '../../queries/tags';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
 
@@ -182,10 +182,7 @@ const VnSearchFormComponent: FC = () => {
 
       <div className="ml-auto flex gap-4">
         <div className="flex">
-          <SortDirectionControl
-            control={control}
-            name="sortDirection"
-          />
+          <SortDirectionControl control={control} name="sortDirection" />
           <Field
             Component={Select}
             control={control}

@@ -3,9 +3,9 @@ import type { GetServerSideProps } from 'next';
 import { queryClient } from 'src/api/queryClient';
 import { VnSearchPage } from 'src/features/search';
 import { VnSearchFormValues } from 'src/features/search/components/VnSearchForm/vnSearchFormValues';
-import { getBaseTagsQueryOptions } from 'src/features/search/queries/tag';
+import { getBaseTagsQueryOptions } from 'src/features/search/queries/tags';
 import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
-import { nullify } from 'src/utils/nullify';
+import { nullify } from 'src/api/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {

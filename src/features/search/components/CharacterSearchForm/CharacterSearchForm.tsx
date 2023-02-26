@@ -1,9 +1,11 @@
 import type { FC } from 'react';
-import { useCallback, useState, memo } from 'react';
+import { useMemo, useCallback, useState, memo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { CharacterRole, CHARACTER_ROLES } from 'src/api/models/character/characterRole';
 import { Gender, GENDERS } from 'src/api/models/character/gender';
+import { Pagination } from 'src/api/models/pagination';
 import { CharacterSortField, CHARACTER_SORT_FIELDS } from 'src/api/models/queryOptions/character/characterSortField';
+import type { Trait } from 'src/api/models/trait';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/controls/ControlWrapper';
 import { SortDirectionControl } from 'src/components/controls/SortDirection';
@@ -13,6 +15,7 @@ import { Icon } from 'src/components/Icon/Icon';
 import { IconButton } from 'src/components/IconButton/IconButton';
 import { Select } from 'src/components/Select';
 import { useDebounce } from 'src/hooks/useDebounce';
+import { useTraitsQuery } from '../../queries/traits';
 import { useVnsQuery } from '../../queries/vns';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { CharacterSearchFormValues } from './characterSearchFormValues';
@@ -30,8 +33,18 @@ const sortFieldOptions = CHARACTER_SORT_FIELDS
 const CharacterSearchFormComponent: FC = () => {
   const { control } = useFormContext<CharacterSearchFormValues>();
 
-  const [vnsInput, setVnsInput] = useState('');
-  const debouncedVnsInput = useDebounce(vnsInput);
+  const [traitsSearchInput, setTraitsSearchInput] = useState('');
+  const debouncedTraitsSearchInput = useDebounce(traitsSearchInput);
+
+  const [vnsSearchInput, setVnsSearchInput] = useState('');
+  const debouncedVnsInput = useDebounce(vnsSearchInput);
+
+  const {
+    data: traits,
+    fetchNextPage: fetchTraits,
+    isRefetching: isRefetchingTraits,
+    isFetching: isFetchingTraits,
+  } = useTraitsQuery(debouncedTraitsSearchInput);
 
   const {
     data: vns,
@@ -40,19 +53,46 @@ const CharacterSearchFormComponent: FC = () => {
     isFetching: isFetchingVns,
   } = useVnsQuery({ search: debouncedVnsInput });
 
+  const handleTraitsInputChange = useCallback((value: string) => {
+    setTraitsSearchInput(value);
+  }, []);
+
+  const handleFetchMoreTraits = useCallback(() => {
+    if (Pagination.hasMore(traits)) {
+      fetchTraits();
+    }
+  }, [traits]);
+
   const handleVnsInputChange = useCallback((value: string) => {
-    setVnsInput(value);
+    setVnsSearchInput(value);
   }, []);
 
   const handleFetchMoreVns = useCallback(() => {
-    if (vns?.pages.at(-1)?.hasMore) {
+    if (Pagination.hasMore(vns)) {
       fetchVns();
     }
   }, [vns]);
 
-  const vnOptions = vns?.pages
+  const vnOptions = useMemo(() => vns?.pages
     .flatMap(page => page.results)
-    .map(vn => ({ value: vn.id, label: vn.title })) ?? [];
+    .map(vn => ({ value: vn.id, label: vn.title })) ?? [], [vns]);
+
+  const traitOptions = useMemo(() => {
+    const traitResults = traits?.pages.flatMap(page => page.results) ?? [];
+
+    const groupedTraitsByName = traitResults.reduce((prev, cur) => {
+      if (cur.groupName === null) {
+        return { ...prev, [cur.name]: [] };
+      }
+      if (cur.description?.match('These are the traits')) {
+        return prev;
+      }
+      return { ...prev, [cur.groupName]: [...prev[cur.groupName] ?? [], cur] };
+    }, {} as Record<string, Trait[]>);
+
+    return Object.entries(groupedTraitsByName)
+      .map(([key, ts]) => ({ label: key, options: ts.map(t => ({ label: t.name, value: t.id })) }));
+  }, [traits]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -80,32 +120,37 @@ const CharacterSearchFormComponent: FC = () => {
           </ControlWrapper>
         </div>
 
-        <div className="w-full">
-          <ControlWrapper label="Gender">
-            <Field
-              Component={Select}
-              control={control}
-              placeholder="Select gender"
-              options={genderOptions}
-              isClearable
-              closeMenuOnSelect
-              disableSearch
-              name="gender"
-            />
-          </ControlWrapper>
-        </div>
+        {traits !== undefined && (
+          <div className="w-full">
+            <ControlWrapper label="Trait">
+              <Field
+                Component={Select}
+                control={control}
+                placeholder="Select traits"
+                onInputChange={handleTraitsInputChange}
+                onMenuScrollToBottom={handleFetchMoreTraits}
+                isLoading={isRefetchingTraits || isFetchingTraits}
+                options={traitOptions}
+                isClearable
+                isMulti
+                name="traits"
+              />
+            </ControlWrapper>
+          </div>
+        )}
 
-        {vns && (
+        {vns !== undefined && (
           <div className="w-full">
             <ControlWrapper label="Visual novel">
               <Field
                 Component={Select}
                 control={control}
-                placeholder="Select tags"
+                placeholder="Select visual novel"
                 onInputChange={handleVnsInputChange}
                 onMenuScrollToBottom={handleFetchMoreVns}
                 isLoading={isRefetchingVns || isFetchingVns}
                 options={vnOptions}
+                closeMenuOnSelect
                 isClearable
                 name="vn"
               />
@@ -115,8 +160,21 @@ const CharacterSearchFormComponent: FC = () => {
 
         <SearchPopover>
           <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-2 gap-4">
-              Not implemented
+            <div className="grid grid-cols-1 gap-4">
+              <div className="w-full">
+                <ControlWrapper label="Gender">
+                  <Field
+                    Component={Select}
+                    control={control}
+                    placeholder="Select gender"
+                    options={genderOptions}
+                    isClearable
+                    closeMenuOnSelect
+                    disableSearch
+                    name="gender"
+                  />
+                </ControlWrapper>
+              </div>
             </div>
           </div>
         </SearchPopover>

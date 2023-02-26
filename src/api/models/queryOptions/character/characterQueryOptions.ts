@@ -36,4 +36,7 @@ export interface CharacterQueryOptions extends BaseQueryOptions<CharacterSortFie
 
   /** Gender. */
   readonly gender?: Gender;
+
+  /** List of trait ids. */
+  readonly traits?: readonly string[];
 }

@@ -3,7 +3,7 @@ import type { GetServerSideProps } from 'next';
 import { queryClient } from 'src/api/queryClient';
 import { VnReleasesPage } from 'src/features/vn/pages/VnReleasesPage/VnReleasesPage';
 import { releasesQueryOptions } from 'src/features/vn/queries/releases';
-import { nullify } from 'src/utils/nullify';
+import { nullify } from 'src/api/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
