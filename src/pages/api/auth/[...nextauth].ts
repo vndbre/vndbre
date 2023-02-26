@@ -1,18 +1,10 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { userSchema } from 'src/api/models/user';
+import { api } from 'src/api/apiClient';
+import { authInfoDtoSchema } from 'src/api/dtos/authInfoDto';
+import { AuthInfoMapper } from 'src/api/mappers/authInfoMapper';
+import { authInfoSchema } from 'src/api/models/authInfo';
 import * as z from 'zod';
-
-const authInfoDtoSchema = z.object({
-  id: z.string(),
-  username: z.string(),
-  permissions: z.array(z.enum(['listread', 'listwrite'])),
-});
-
-const permissionsMap = {
-  listread: 'read',
-  listwrite: 'write',
-} as const;
 
 const credentialsSchema = z.object({
   token: z.string().min(1),
@@ -28,29 +20,15 @@ export default NextAuth({
       async authorize(credentials, _req) {
         const { token } = credentialsSchema.parse(credentials);
 
-        const response = await fetch('https://api.vndb.org/kana/authinfo', {
-          method: 'GET',
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        });
+        const data = await api
+          .auth(`Token ${token}`)
+          .get('authinfo')
+          .json();
+        const userInfoDto = authInfoDtoSchema.parse(data);
 
-        if (response.ok) {
-          const authInfoDto = await response.json();
-          const authInfo = authInfoDtoSchema.parse(authInfoDto);
-
-          return {
-            user: {
-              id: authInfo.id,
-              token,
-              name: authInfo.username,
-              permissions: authInfo.permissions.map(permission => permissionsMap[permission]),
-            },
-          };
-        }
-
-        const errorMessage = await response.text();
-        throw new Error(errorMessage);
+        return {
+          user: AuthInfoMapper.fromDto(userInfoDto, token),
+        };
       },
     }),
   ],
@@ -66,11 +44,11 @@ export default NextAuth({
     },
     session({ session, token }) {
       if (session.user != null) {
-        const user = userSchema.parse(token.user);
-        session.user.name = user.name;
-        session.user.token = user.token;
-        session.user.id = user.id;
-        session.user.permissions = user.permissions;
+        const auth = authInfoSchema.parse(token.user);
+        session.user.name = auth.name;
+        session.user.token = auth.token;
+        session.user.id = auth.id;
+        session.user.permissions = auth.permissions;
       }
 
       return session;
