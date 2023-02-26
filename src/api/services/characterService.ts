@@ -17,7 +17,7 @@ import { QueryBuilderService } from './queryBuilderService';
 export namespace CharacterService {
 
   /**
-   * A.
+   * Create query body for character requests.
    * @param options Opt.
    */
   export function createCharacterQueryBody(
