@@ -1,6 +1,8 @@
 import type { FC } from 'react';
-import { memo, useCallback, useState } from 'react';
+import { useMemo, memo, useCallback, useState } from 'react';
+
 import { useFormContext } from 'react-hook-form';
+import { Pagination } from 'src/api/models/pagination';
 import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
 import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
@@ -43,7 +45,7 @@ const VnSearchFormComponent: FC = () => {
   } = useTagsQuery(debouncedTagInputValue);
 
   const handleFetchMoreTags = useCallback(() => {
-    if (tags?.pages.at(-1)?.hasMore) {
+    if (Pagination.hasMore(tags)) {
       fetchMoreTags();
     }
   }, [tags]);
@@ -52,9 +54,10 @@ const VnSearchFormComponent: FC = () => {
     setTagsInputValue(value);
   }, []);
 
-  const tagOptions = tags?.pages
-    .flatMap(page => page.results)
-    .map(tag => ({ label: tag.name, value: tag.id })) ?? [];
+  const tagOptions = useMemo(() =>
+    tags?.pages
+      .flatMap(page => page.results)
+      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], []);
 
   return (
     <div className="flex flex-col gap-4">
