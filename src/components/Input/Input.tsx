@@ -15,6 +15,9 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Whether the input should be disabled. */
   readonly isDisabled?: boolean;
 
+  /** Whether the input is in invalid state. */
+  readonly isInvalid?: boolean;
+
   /** The element that will be placed on the left side of the input. */
   readonly leftElement?: ReactNode;
 }
@@ -36,6 +39,7 @@ const InputComponent: FC<Props> = ({
   onChange,
   placeholder,
   isDisabled,
+  isInvalid,
   type,
   leftElement,
   onBlur,
@@ -48,14 +52,13 @@ const InputComponent: FC<Props> = ({
 
   return (
     <div className={clsx(
-      'ring-primary-300 relative flex items-center rounded-md bg-gray-100', {
+      'ring-primary-300 relative flex items-center rounded bg-gray-100', {
         'ring-4': isInputGroupFocused,
+        'ring-4 ring-red-500': isInvalid && isInputGroupFocused === false,
       },
     )}
     >
-      <div className="absolute left-4 grid place-items-center">
-        { leftElement }
-      </div>
+      { leftElement && <div className="absolute left-4 grid place-items-center">{ leftElement }</div> }
       <input
         id={id}
         name={name}
@@ -74,18 +77,18 @@ const InputComponent: FC<Props> = ({
           onBlur?.(e);
         }}
         className={clsx(
-          'grow rounded-md border-none bg-inherit py-3 text-sm leading-6 focus:outline-none',
+          'grow rounded-md border-none bg-inherit py-3 px-4 text-sm leading-6 focus:outline-none',
           {
-            'px-12': leftElement,
-            'px-4': !leftElement,
+            'pl-12': leftElement,
+            'pr-12': rightElement,
           },
           className,
         )}
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        {...(isInvalid ? { 'aria-invalid': true } : null)}
         {...props}
       />
-      <div className="absolute right-4 grid place-items-center">
-        { rightElement }
-      </div>
+      { rightElement && <div className="absolute right-4 grid place-items-center">{ rightElement }</div> }
     </div>
   );
 };
