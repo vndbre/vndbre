@@ -124,7 +124,7 @@ const CharacterSearchFormComponent: FC = () => {
 
         {traits !== undefined && (
           <div className="w-full">
-            <ControlWrapper label="Trait">
+            <ControlWrapper label="Traits">
               <Field
                 Component={Select}
                 control={control}

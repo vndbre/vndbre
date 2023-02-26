@@ -6,6 +6,7 @@ import { CharacterSearchPage } from 'src/features/search/pages/CharacterSearchPa
 import { getBaseCharactersQueryOptions } from 'src/features/search/queries/characters';
 import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
 import { nullify } from 'src/api/utils/nullify';
+import { getBaseTraitsQueryOptions } from 'src/features/search/queries/traits';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
@@ -13,6 +14,10 @@ export const getServerSideProps: GetServerSideProps = async() => {
     getBaseCharactersQueryOptions(
       CharacterSearchFormValues.toQueryOptions(),
     ),
+  );
+
+  await queryClient.prefetchInfiniteQuery(
+    getBaseTraitsQueryOptions({}),
   );
 
   await queryClient.prefetchInfiniteQuery(
