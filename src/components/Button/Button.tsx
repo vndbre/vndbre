@@ -145,14 +145,18 @@ const ButtonComponent = <C extends ElementType>({
     },
   });
 
+  const { intent, isSquare, hasSmallPaddings, size, ...componentProps } = props;
+
+  const componentClassName = cx(button({ intent, isSquare, hasSmallPaddings, size }));
+
   return (
     <Component
       ref={ref}
       type={type}
-      className={cx(button(props))}
+      className={componentClassName}
       disabled={isDisabled ?? buttonGroup.isDisabled}
       onClick={onClick}
-      {...props}
+      {...componentProps}
     >
       {leftElement}
       {children}
