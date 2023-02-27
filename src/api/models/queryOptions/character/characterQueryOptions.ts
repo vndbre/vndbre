@@ -20,7 +20,7 @@ export interface CharacterQueryOptions extends BaseQueryOptions<CharacterSortFie
   readonly id?: string;
 
   /** Character role. */
-  readonly roles?: CharacterRole[];
+  readonly roles?: readonly CharacterRole[];
 
   /** Character age. */
   readonly age?: number | null;

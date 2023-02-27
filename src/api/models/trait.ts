@@ -11,7 +11,7 @@ export interface Trait {
   readonly description: string | null;
 
   /** Alias names. */
-  readonly aliases: string[];
+  readonly aliases: readonly string[];
 
   /**
    * Top-level parent trait id.
