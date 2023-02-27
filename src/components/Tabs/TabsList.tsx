@@ -19,6 +19,7 @@ const TabsListComponent: FC<TabsListProps> = ({
 
   // Used to check if tab was hovered by moving cursor from outside or from another tab.
   const [hoverCount, setHoverCount] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
 
   /**
    * Handle tabs hover to move hover overlay.
@@ -27,12 +28,13 @@ const TabsListComponent: FC<TabsListProps> = ({
   const handleTabsPointerOver: MouseEventHandler<HTMLDivElement> = event => {
     const target = (event.target as HTMLButtonElement);
 
-    if (target.disabled) {
-      setHoverCount(0);
+    if (target.disabled || 'disabled' in target.dataset) {
+      setIsHovering(false);
       return;
     }
     if (target.getAttribute('role') === 'tab') {
       setHoverCount(v => v + 1);
+      setIsHovering(true);
       setOverlayX(target.offsetLeft);
       setOverlayWidth(target.clientWidth);
     }
@@ -66,7 +68,7 @@ const TabsListComponent: FC<TabsListProps> = ({
         style={{
           transform: `translateX(${overlayX}px)`,
           width: `${overlayWidth}px`,
-          opacity: hoverCount > 0 ? 1 : 0,
+          opacity: isHovering ? 1 : 0,
         }}
       />
     </RadixTabs.List>

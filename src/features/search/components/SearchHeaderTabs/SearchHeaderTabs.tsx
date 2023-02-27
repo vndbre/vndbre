@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import React, { memo } from 'react';
 import { Tabs } from 'src/components/Tabs';
+import NextLink from 'next/link';
 
 const tabs = {
   vn: 'Visual novels',
@@ -40,6 +41,8 @@ const SearchHeaderTabsComponent: FC<Props> = ({
     <Tabs.List>
       {tabValues.map(tabValue => (
         <Tabs.Tab
+          as={NextLink}
+          href={`/search/${tabValue}`}
           key={tabValue}
           value={tabValue}
           isDisabled={disabledTabs.includes(tabValue)}
