@@ -64,9 +64,11 @@ const ButtonComponent = <C extends ElementType>({
   onClick,
   isDisabled,
   leftElement,
-  as: Component = 'button',
+  as,
   ...props
 }: Props<C>, ref: ForwardedRef<HTMLButtonElement>): JSX.Element => {
+  const Component = as ?? 'button';
+
   const buttonGroup = useButtonGroupContext();
 
   const button = cva([
