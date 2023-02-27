@@ -31,7 +31,7 @@ const TabComponent = <C extends ElementType>({
       value={value}
       className={clsx('group flex flex-col items-stretch gap-1.5 outline-none', className)}
       disabled={isDisabled}
-      data-disabled={isDisabled}
+      {...(isDisabled ? { 'data-disabled': true } : {})}
       asChild
     >
       <Component>
