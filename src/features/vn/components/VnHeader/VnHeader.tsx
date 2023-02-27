@@ -104,6 +104,7 @@ const VnHeaderComponent: FC<Props> = ({
           </div>
           {isPosterVisible && (
             <Poster
+              priority
               src={vnInfo.imageUrl}
               alt="Cut girl sitting"
               className="md:hidden"
@@ -127,6 +128,7 @@ const VnHeaderComponent: FC<Props> = ({
           }}
         >
           <Poster
+            priority
             src={vnInfo.imageUrl}
             alt="Cute girl sitting"
             className="max-md:hidden"
