@@ -46,6 +46,7 @@ const TabsListComponent: FC<TabsListProps> = ({
    */
   const handleTabsPointerLeave: MouseEventHandler<HTMLDivElement> = () => {
     setHoverCount(0);
+    setIsHovering(false);
   };
 
   return (
