@@ -39,7 +39,7 @@ const AppHeaderComponent: FC = () => {
             </>
           )}
 
-          {!isAuthenticated && <Link color="never" href="/auth/login">Login</Link>}
+          {!isAuthenticated && <Button isLink size="sm" intent="quaternary" href="/auth/login">Login</Button>}
         </div>
       </div>
     </header>

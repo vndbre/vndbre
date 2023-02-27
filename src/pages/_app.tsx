@@ -33,12 +33,12 @@ const MyApp: AppType<{ dehydratedState: unknown; session: Session | null; }> = (
   <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
       <CacheProvider value={cache}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <div className={`${inter.variable} font-sans`}>
-              <Component {...pageProps} />
-            </div>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Hydrate>
+        <Hydrate state={pageProps.dehydratedState}>
+          <div className={`${inter.variable} font-sans`}>
+            <Component {...pageProps} />
+          </div>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
       </CacheProvider>
     </QueryClientProvider>
   </SessionProvider>
