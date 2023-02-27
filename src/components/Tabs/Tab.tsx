@@ -16,7 +16,7 @@ export type TabProps<C extends ElementType> =
 
 /** Tab. */
 const TabComponent = <C extends ElementType>({
-  as: Component,
+  as: Component = 'button',
   children,
   className,
   isDisabled,
