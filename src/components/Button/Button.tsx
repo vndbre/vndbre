@@ -195,7 +195,7 @@ const ButtonComponent: FC<Props> = ({
       onClick={onClick}
       {...props}
     >
-      {leftElement && leftElement}
+      {leftElement}
       {children}
     </button>
   );

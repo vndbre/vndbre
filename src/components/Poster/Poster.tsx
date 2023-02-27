@@ -34,6 +34,9 @@ const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
 
   const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
+  /** Handle image loading complete. */
+  const handleLoadingComplete = (): void => setIsLoadingComplete(true);
+
   return (
     <div
       className={clsx('relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className, {
@@ -51,7 +54,7 @@ const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
         )}
         {...props}
         fill
-        onLoadingComplete={() => setIsLoadingComplete(true)}
+        onLoadingComplete={handleLoadingComplete}
       />
     </div>
   );
