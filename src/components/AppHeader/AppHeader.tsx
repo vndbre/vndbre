@@ -6,7 +6,6 @@ import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
 import { Icon } from '../Icon/Icon';
-import { Link } from '../Link/Link';
 
 /** App header. */
 const AppHeaderComponent: FC = () => {
