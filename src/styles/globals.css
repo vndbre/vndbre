@@ -8,8 +8,9 @@ body {
   @apply rounded-sm outline outline-4 outline-primary-300 outline-offset-2;
 }
 
+:disabled,
 [data-disabled] {
-  cursor: default;
+  cursor: not-allowed;
 }
 
 @tailwind components;
