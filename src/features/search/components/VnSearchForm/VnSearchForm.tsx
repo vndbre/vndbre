@@ -14,7 +14,7 @@ import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
-import { useDebounce } from 'src/hooks/useDebounce';
+import { useDebounce } from 'usehooks-ts';
 import { useTagsQuery } from '../../queries/tag';
 import { VnSearchPopover } from '../VnSearchPopover/VnSearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
