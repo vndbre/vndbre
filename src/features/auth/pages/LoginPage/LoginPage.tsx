@@ -67,7 +67,6 @@ export const LoginPage: NextPage = () => {
                   Component={TextInput}
                   control={control}
                   name="token"
-                  isInvalid
                   placeholder="Enter your vndb.org token"
                 />
               </ControlWrapper>

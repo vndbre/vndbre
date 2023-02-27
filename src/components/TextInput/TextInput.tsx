@@ -32,7 +32,7 @@ const TextInputComponent: FC<Props> = ({
   const isClearButtonShown = value ? value.length > 0 : false;
   const clearButton = useMemo(() => (
     <div>
-      {isClearButtonShown && <IconButton name="close" intent="quaternary" size="xs" onClick={clearInput} ariaLabel="Clear input" />}
+      {isClearButtonShown && <IconButton name="close" intent="quaternary" size="2xs" iconSize="sm" onClick={clearInput} aria-label="Clear input" />}
     </div>
   ), [isClearButtonShown]);
 

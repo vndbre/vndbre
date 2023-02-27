@@ -105,7 +105,7 @@ const ButtonComponent: FC<Props> = ({
         primary: 'bg-primary-400 text-white hover:bg-primary-500 disabled:bg-gray-50 disabled:text-gray-500',
         secondary: 'bg-primary-100 text-primary-600 hover:bg-primary-200 disabled:bg-gray-50 disabled:text-gray-500',
         tertiary: 'bg-gray-100 text-black hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-500',
-        quaternary: 'bg-transparent text-black hover:bg-gray-200 disabled:bg-transparent disabled:text-gray-500',
+        quaternary: 'bg-transparent text-black hover:bg-black/10 disabled:bg-transparent disabled:text-gray-500',
       },
       isSquare: {
         true: 'grid place-content-center',
