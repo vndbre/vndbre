@@ -23,13 +23,15 @@ type Props<Type extends SkeletonType = 'rect'> =
 
 /** Skeleton component. */
 const SkeletonComponent = <T extends SkeletonType>({ type, ...props }: Props<T>): JSX.Element => {
+  const commonProps = { 'aria-hidden': true };
+
   if (type === 'text') {
-    return <SkeletonText {...props} />;
+    return <SkeletonText {...commonProps} {...props} />;
   }
   if (type === 'text-line') {
-    return <SkeletonTextLine {...props} />;
+    return <SkeletonTextLine {...commonProps} {...props} />;
   }
-  return <SkeletonRect {...props} />;
+  return <SkeletonRect {...commonProps} {...props} />;
 };
 
 export const Skeleton = typedMemo(SkeletonComponent);
