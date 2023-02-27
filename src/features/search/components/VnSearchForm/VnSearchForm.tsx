@@ -57,7 +57,7 @@ const VnSearchFormComponent: FC = () => {
   const tagOptions = useMemo(() =>
     tags?.pages
       .flatMap(page => page.results)
-      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], []);
+      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags]);
 
   return (
     <div className="flex flex-col gap-4">
