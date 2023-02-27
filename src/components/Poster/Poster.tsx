@@ -53,6 +53,7 @@ const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
           },
         )}
         {...props}
+        sizes={`${style.width ?? 256}px`}
         fill
         onLoadingComplete={handleLoadingComplete}
       />
