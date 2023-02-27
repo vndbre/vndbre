@@ -25,3 +25,8 @@ input::-webkit-inner-spin-button {
 .outline-focus-inside {
   @apply rounded-md outline-4 outline-primary-300 -outline-offset-4;
 }
+
+
+html {
+  scrollbar-gutter: stable;
+}

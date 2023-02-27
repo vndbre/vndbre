@@ -5,7 +5,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-
+import { SessionProvider } from 'next-auth/react';
+import type { Session } from 'next-auth';
 import 'src/styles/globals.css';
 import { queryClient } from '../api/queryClient';
 
@@ -26,17 +27,21 @@ export const inter = Inter({
 });
 
 /** App. */
-const MyApp: AppType<{ dehydratedState: unknown; }> = ({ Component, pageProps }) => (
-  <QueryClientProvider client={queryClient}>
-    <CacheProvider value={cache}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <div className={`${inter.variable} font-sans`}>
-          <Component {...pageProps} />
-        </div>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </Hydrate>
-    </CacheProvider>
-  </QueryClientProvider>
+const MyApp: AppType<{ dehydratedState: unknown; session: Session | null; }> = ({
+  Component, pageProps: { session, ...pageProps },
+}) => (
+  <SessionProvider session={session}>
+    <QueryClientProvider client={queryClient}>
+      <CacheProvider value={cache}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <div className={`${inter.variable} font-sans`}>
+              <Component {...pageProps} />
+            </div>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </Hydrate>
+      </CacheProvider>
+    </QueryClientProvider>
+  </SessionProvider>
 );
 
 export default MyApp;

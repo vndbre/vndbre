@@ -15,6 +15,9 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Whether the input should be disabled. */
   readonly isDisabled?: boolean;
 
+  /** Whether the input is in invalid state. */
+  readonly isInvalid?: boolean;
+
   /** The element that will be placed on the left side of the input. */
   readonly leftElement?: ReactNode;
 }
@@ -39,6 +42,7 @@ const InputComponent: FC<Props> = ({
   onChange,
   placeholder,
   isDisabled,
+  isInvalid,
   type,
   leftElement,
   onBlur,
@@ -73,9 +77,7 @@ const InputComponent: FC<Props> = ({
     )}
     >
       {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
-      <div className="pointer-events-none absolute left-3 grid place-items-center">
-        { leftElement }
-      </div>
+      { leftElement && <div className="pointer-events-none absolute left-3 grid place-items-center">{ leftElement }</div> }
       <input
         id={id}
         name={name}
@@ -91,11 +93,18 @@ const InputComponent: FC<Props> = ({
         className={clsx(
           'outline-primary-300 grow rounded-md bg-gray-100 py-3 outline-2 outline-offset-0',
           inputPaddingClass,
+          {
+            'outline-red-400': isInvalid,
+            'pl-12': leftElement,
+            'pr-12': rightElement,
+          },
           className,
         )}
         style={{
           width: hasAutoWidth ? 0 : undefined,
         }}
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        {...(isInvalid ? { 'aria-invalid': true } : null)}
         {...props}
       />
       <div className="absolute right-2 grid place-items-center">

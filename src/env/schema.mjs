@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // @ts-check
 import { z } from 'zod';
 
@@ -8,6 +9,11 @@ import { z } from 'zod';
 export const serverSchema = z.object({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   NODE_ENV: z.enum(['development', 'test', 'production']),
+  NEXTAUTH_SECRET:
+  process.env.NODE_ENV === 'production' ?
+    z.string().min(1) :
+    z.string().min(1)
+      .optional(),
 });
 
 /**
@@ -19,7 +25,6 @@ export const clientSchema = z.object({
   // NEXT_PUBLIC_CLIENTVAR: z.string(),
 });
 
-/* eslint-disable max-len */
 /**
  * You can't destruct `process.env` as a regular object, so you have to do
  * it manually here. This is because Next.js evaluates this at build time,

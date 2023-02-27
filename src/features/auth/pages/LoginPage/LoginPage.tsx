@@ -1,35 +1,52 @@
-import { useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import Head from 'next/head';
+import { signIn } from 'next-auth/react';
 import { Layout } from 'src/components/Layout/Layout';
 import { Button } from 'src/components/Button/Button';
-import { TextInput } from 'src/components/controls/TextInput';
-import { ControlWrapper } from 'src/components/controls/ControlWrapper';
+import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
+import type { TypeOf } from 'zod';
+import { Validators } from 'src/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import Head from 'next/head';
-import { Link } from 'src/components/Link/Link';
-import { PasswordInput } from 'src/components/controls/PasswordInput';
+import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
+import { TextInput } from 'src/components/TextInput/TextInput';
+import { Field } from 'src/components/Field/Field';
 
 const loginFormInitialValues = {
-  username: '',
-  password: '',
+  token: '',
 };
 
 const validationSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  token: z.string().min(1, { message: Validators.REQUIRED_ERROR_MESSAGE }),
 });
+
+type FormData = TypeOf<typeof validationSchema>;
 
 /** Login page. */
 export const LoginPage: NextPage = () => {
+  const router = useRouter();
   const {
     control,
     handleSubmit,
   } = useForm({ defaultValues: loginFormInitialValues, resolver: zodResolver(validationSchema) });
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginSubmit, setLoginSubmit] = useState(false);
 
-  const handleFormSubmit = useCallback((data: typeof loginFormInitialValues) => {
-    console.log(data);
+  const handleFormSubmit = useCallback(async(data: FormData) => {
+    setLoginError(null);
+    setLoginSubmit(true);
+    const response = await signIn('credentials', { ...data, redirect: false });
+    if (response?.ok === false) {
+      setLoginError(response.error ?? null);
+    }
+
+    if (response?.ok === true) {
+      router.push('/profile/overview');
+    }
+
+    setLoginSubmit(false);
   }, []);
 
   return (
@@ -45,24 +62,24 @@ export const LoginPage: NextPage = () => {
             <h1 className="text-[48px] font-bold leading-8 tracking-tight">Log In</h1>
 
             <form onSubmit={handleSubmit(handleFormSubmit)} className="flex w-full flex-col gap-8">
-              <ControlWrapper label="Username">
-                <TextInput control={control} name="username" placeholder="Enter vndb.org username" />
+              <ControlWrapper label="Token">
+                <Field
+                  Component={TextInput}
+                  control={control}
+                  name="token"
+                  isInvalid
+                  placeholder="Enter your vndb.org token"
+                />
               </ControlWrapper>
 
-              <div className="flex flex-col gap-2">
-                <ControlWrapper label="Password">
-                  <PasswordInput control={control} name="password" placeholder="Enter vndb.org password" />
-                </ControlWrapper>
-                <Link href="https://vndb.org/u/newpass" external className="text-caption-18 self-start">Forgot password?</Link>
-              </div>
+              {loginError && (
+                <div role="alert" className="text-caption-18 grid min-h-[64px] place-items-center rounded-md bg-red-50 p-3 text-center font-medium text-red-500">
+                  {loginError}
+                </div>
+              )}
 
-              <div className="flex flex-col gap-2">
-                <Button type="submit">Continue</Button>
-                <span className="text-center">
-                  Don&apos;t have an account?
-                  {' '}
-                  <Link href="https://vndb.org/u/register" external>Sign Up</Link>
-                </span>
+              <div className="flex flex-col">
+                <Button type="submit" isDisabled={loginSubmit}>Continue</Button>
               </div>
             </form>
           </div>

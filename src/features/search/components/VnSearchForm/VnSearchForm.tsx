@@ -5,8 +5,8 @@ import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSo
 import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
 import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
-import { ControlWrapper } from 'src/components/controls/ControlWrapper';
-import { TextInput } from 'src/components/controls/TextInput';
+import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
+import { TextInput } from 'src/components/TextInput/TextInput';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
 import { IconButton } from 'src/components/IconButton/IconButton';
@@ -59,9 +59,10 @@ const VnSearchFormComponent: FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex w-full flex-1 items-end gap-4">
         <ControlWrapper>
-          <TextInput
-            name="search"
+          <Field
+            Component={TextInput}
             control={control}
+            name="search"
             placeholder="Search"
             leftElement={<Icon name="search" />}
           />
