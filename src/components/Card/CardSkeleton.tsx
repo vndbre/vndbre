@@ -1,14 +1,18 @@
 import type { FC } from 'react';
 import { PosterSkeleton } from '../Poster/PosterSkeleton';
-import { SkeletonText } from '../Skeleton/SkeletonText';
+import { Skeleton } from '../Skeleton/Skeleton';
 
 /** Skeleton component for card. */
 export const CardSkeleton: FC = () => (
   <div className="flex flex-col gap-1">
     <PosterSkeleton />
     <div>
-      <SkeletonText textClassName="text-caption-18" className="w-11/12" />
-      <SkeletonText textClassName="text-caption-18" className="w-8/12" />
+      <Skeleton
+        type="text"
+        textClassName="text-caption-18"
+        linesCount={2}
+        lineWidths={[95, 70]}
+      />
     </div>
   </div>
 );
