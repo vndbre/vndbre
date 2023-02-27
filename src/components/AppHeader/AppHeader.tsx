@@ -2,6 +2,7 @@ import React, { memo, useCallback } from 'react';
 import type { FC } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 import { signOut } from 'next-auth/react';
+import NextLink from 'next/link';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
@@ -20,7 +21,7 @@ const AppHeaderComponent: FC = () => {
       <div className="relative grid w-full max-w-screen-xl grid-cols-3 items-center justify-between gap-2 px-6">
         <Logo />
         <Button
-          isLink
+          as={NextLink}
           href="/search/vn"
           className="text-caption-18 max-w-[400px]"
           intent="tertiary"
@@ -38,7 +39,7 @@ const AppHeaderComponent: FC = () => {
             </>
           )}
 
-          {!isAuthenticated && <Button isLink size="sm" intent="quaternary" href="/auth/login">Login</Button>}
+          {!isAuthenticated && <Button as={NextLink} size="sm" intent="quaternary" href="/auth/login">Login</Button>}
         </div>
       </div>
     </header>

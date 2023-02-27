@@ -1,10 +1,9 @@
 import React, { forwardRef, memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes } from 'react';
+import type { ButtonHTMLAttributes, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes, ElementType } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
-import type { LinkProps } from '../Link/Link';
-import { Link } from '../Link/Link';
 import { useButtonGroupContext } from '../ButtonGroup/ButtonGroupProvider';
+import type { PolymorphicProps } from '../Polymorphic/Polymorphic';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
@@ -31,9 +30,10 @@ export interface ButtonProps {
   readonly isDisabled?: boolean;
 }
 
-type Props =
+type Props<C extends ElementType> =
 & AriaAttributes
 & PropsWithChildrenAndClass
+& PolymorphicProps<C>
 & Pick<ButtonProps,
   | 'intent'
   | 'size'
@@ -51,49 +51,22 @@ type Props =
 
   /** The element that will be placed on the left side of the button. */
   readonly leftElement?: ReactNode;
-}
-& Partial<
-  & Pick<ButtonProps,
-  | 'type'
-  | 'onClick'
-  | 'isDisabled'
-  >
-  & LinkProps
-  & {
-    readonly isLink: true;
-  }
->
-& (
-  | Pick<ButtonProps,
-    | 'type'
-    | 'onClick'
-    | 'isDisabled'
-  >
-  | (
-
-    & LinkProps
-    & {
-      readonly isLink: true;
-    }
-  )
-);
+};
 
 /**
  * Button.
  * @param ref Forwarded ref.
  */
-const ButtonComponent: FC<Props> = ({
+const ButtonComponent = <C extends ElementType>({
   children,
   type = 'button',
   className,
   onClick,
   isDisabled,
   leftElement,
-  isLink,
-  href,
-  external,
+  as: Component = 'button',
   ...props
-}, ref: ForwardedRef<HTMLButtonElement>) => {
+}: Props<C>, ref: ForwardedRef<HTMLButtonElement>): JSX.Element => {
   const buttonGroup = useButtonGroupContext();
 
   const button = cva([
@@ -172,22 +145,8 @@ const ButtonComponent: FC<Props> = ({
     },
   });
 
-  if (isLink && href != null) {
-    return (
-      <Link
-        href={href}
-        external={external}
-        isUnstyled
-        className={cx(button(props))}
-      >
-        {leftElement && leftElement}
-        {children}
-      </Link>
-    );
-  }
-
   return (
-    <button
+    <Component
       ref={ref}
       type={type}
       className={cx(button(props))}
@@ -197,7 +156,7 @@ const ButtonComponent: FC<Props> = ({
     >
       {leftElement}
       {children}
-    </button>
+    </Component>
   );
 };
 
