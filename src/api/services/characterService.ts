@@ -42,6 +42,7 @@ const CHARACTER_FIELDS = [
   'original',
   'sex',
   'traits.id',
+  'traits.name',
   'traits.spoiler',
   'traits.searchable',
   'traits.aliases',
