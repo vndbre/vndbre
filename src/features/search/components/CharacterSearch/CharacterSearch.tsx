@@ -58,11 +58,13 @@ const CharacterSearchComponent: FC = () => {
       </Form>
 
       <div className="grid grid-cols-6 gap-4">
-        {!isFetching ? characterCards : (
+        {isFetching && (
           <ChildrenMultiplier amount={DEFAULT_PAGE_SIZE}>
             <CardSkeleton />
           </ChildrenMultiplier>
         )}
+        
+         {!isFetching && characterCards} 
       </div>
 
       {/* TODO: Add placeholder for empty response. */}
