@@ -12,8 +12,10 @@ export namespace TraitMapper {
       id: dto.id,
       aliases: dto.aliases,
       description: dto.description,
-      groupId: dto.group_id,
-      groupName: dto.group_name,
+      parent: dto.group_id === null || dto.group_name === null ? null : {
+        id: dto.group_id,
+        name: dto.group_name,
+      },
       name: dto.name,
       isApplicable: dto.applicable,
       isSearchable: dto.searchable,

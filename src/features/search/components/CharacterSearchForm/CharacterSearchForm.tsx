@@ -81,7 +81,7 @@ const CharacterSearchFormComponent: FC = () => {
     const traitResults = traits?.pages.flatMap(page => page.results) ?? [];
 
     const groupedTraitsByName = traitResults.reduce((prev, cur) => {
-      if (cur.groupName === null) {
+      if (cur.parent === null) {
         return { ...prev, [cur.name]: [] };
       }
 
@@ -89,7 +89,7 @@ const CharacterSearchFormComponent: FC = () => {
       if (!cur.isApplicable || !cur.isSearchable) {
         return prev;
       }
-      return { ...prev, [cur.groupName]: [...prev[cur.groupName] ?? [], cur] };
+      return { ...prev, [cur.parent.name]: [...prev[cur.parent.name] ?? [], cur] };
     }, {} as Record<string, Trait[]>);
 
     return Object.entries(groupedTraitsByName)

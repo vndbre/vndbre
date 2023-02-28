@@ -1,3 +1,16 @@
+interface TraitParent {
+
+  /**
+   * Top-level parent trait id.
+   */
+  readonly id: string;
+
+  /**
+   * Top-level parent trait name.
+   */
+  readonly name: string;
+}
+
 /** Trait(eye-color, hair, etc...). */
 export interface Trait {
 
@@ -14,16 +27,10 @@ export interface Trait {
   readonly aliases: readonly string[];
 
   /**
-   * Top-level parent trait id.
-   * If null - trait is a root trait.
+   * Parent info.
+   * If null, then trait is a parent trait(root trait.).
    */
-  readonly groupId: string | null;
-
-  /**
-   * Top-level parent trait name.
-   * If null - trait is a root trait.
-   */
-  readonly groupName: string | null;
+  readonly parent: TraitParent | null;
 
   /** Whether trait is searchable. */
   readonly isSearchable: boolean;
