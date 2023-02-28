@@ -1,14 +1,13 @@
 import { z } from 'zod';
 import { ImageSchemaDto } from '../imageDto';
-import { TagDtoSchema } from '../tagDto/tagDto';
+import { BaseVnDtoSchema } from './baseVnDto';
 import { VnDevStatusSchemaDto } from './developmentStatusDto';
 import { VnLengthSchemaDto } from './lengthDto';
 import { VnScreenshotSchemaDto } from './screenshotDto';
 import { VnTitleSchemaDto } from './titleDto';
+import { VnTagDtoSchema } from './vnTagDto';
 
-export const VnDtoSchema = z.object({
-  id: z.string(),
-  title: z.string(),
+export const VnDtoSchema = BaseVnDtoSchema.extend({
   alttitle: z.string().nullable(),
   titles: VnTitleSchemaDto.array(),
   aliases: z.string().array(),
@@ -29,7 +28,7 @@ export const VnDtoSchema = z.object({
     .max(100),
   votecount: z.number(),
   screenshots: VnScreenshotSchemaDto.array(),
-  tags: TagDtoSchema.array(),
+  tags: VnTagDtoSchema.array(),
 });
 
 export type VnDto = z.infer<typeof VnDtoSchema>;

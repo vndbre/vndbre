@@ -1,6 +1,6 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { Character } from 'src/api/models/character/character';
+import type { BaseCharacter } from 'src/api/models/character/baseCharacter';
 import type { Pagination } from 'src/api/models/pagination';
 import type { CharacterQueryOptions } from 'src/api/models/queryOptions/character/characterQueryOptions';
 import { CharacterService } from 'src/api/services/characterService';
@@ -13,11 +13,11 @@ export const DEFAULT_PAGE_SIZE = 18;
  */
 export const getBaseCharactersQueryOptions = (
   options: CharacterQueryOptions,
-): UseInfiniteQueryOptions<Pagination<Character>, Error> => ({
+): UseInfiniteQueryOptions<Pagination<BaseCharacter>, Error> => ({
   queryKey: ['characters', options],
 
   /** Query fn. */
-  queryFn: ({ pageParam = 1 }) => CharacterService.getCharacters({
+  queryFn: ({ pageParam = 1 }) => CharacterService.getBaseCharacters({
     ...options,
     results: DEFAULT_PAGE_SIZE,
     page: pageParam,
@@ -38,6 +38,6 @@ export const getBaseCharactersQueryOptions = (
  * @param options Options for useQuery hook.
  */
 export const useCharactersQuery = (
-  data: CharacterQueryOptions, options?: UseInfiniteQueryOptions<Pagination<Character>, Error>,
-): UseInfiniteQueryResult<Pagination<Character>, Error> =>
+  data: CharacterQueryOptions, options?: UseInfiniteQueryOptions<Pagination<BaseCharacter>, Error>,
+): UseInfiniteQueryResult<Pagination<BaseCharacter>, Error> =>
   useInfiniteQuery({ ...getBaseCharactersQueryOptions(data), ...options });

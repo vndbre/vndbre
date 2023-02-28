@@ -1,17 +1,14 @@
 import { z } from 'zod';
-import { ImageSchemaDto } from '../imageDto';
 import { BloodTypeDtoSchema } from './bloodTypeDto';
 import { GenderDtoSchema } from './genderDto';
 import { CharacterTraitDtoSchema } from './characterTraitDto';
 import { CharacterVnInfoDtoSchema } from './characterVnInfoDto';
+import { BaseCharacterDtoSchema } from './baseCharacterDto';
 
-export const CharacterDtoSchema = z.object({
-  id: z.string(),
-  name: z.string(),
+export const CharacterDtoSchema = BaseCharacterDtoSchema.extend({
   original: z.string().nullable(),
   aliases: z.string().array(),
   description: z.string().nullable(),
-  image: ImageSchemaDto.nullable(),
   blood_type: BloodTypeDtoSchema.nullable(),
   height: z.number().nullable(),
   weight: z.number().nullable(),

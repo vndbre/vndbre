@@ -1,6 +1,7 @@
 import type { CharacterTraitDto } from 'src/api/dtos/characterDto/characterTraitDto';
 import type { CharacterTrait } from 'src/api/models/character/characterTrait';
 import { SpoilerLevelMapper } from '../spoilerLevelMapper';
+import { TraitMapper } from '../traitMapper';
 
 export namespace CharacterTraitMapper {
 
@@ -10,7 +11,7 @@ export namespace CharacterTraitMapper {
    */
   export function fromDto(dto: CharacterTraitDto): CharacterTrait {
     return {
-      id: dto.id,
+      ...TraitMapper.fromDto(dto),
       spoilerLevel: SpoilerLevelMapper.fromDto(dto.spoiler),
     };
   }

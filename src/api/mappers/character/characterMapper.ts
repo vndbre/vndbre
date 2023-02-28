@@ -1,6 +1,6 @@
 import type { CharacterDto } from 'src/api/dtos/characterDto/characterDto';
 import type { Character } from 'src/api/models/character/character';
-import { ImageMapper } from '../imageMapper';
+import { BaseCharacterMapper } from './baseCharacterMapper';
 import { BloodTypeMapper } from './bloodTypeMapper';
 import { CharacterTraitMapper } from './characterTraitMapper';
 import { CharacterVnInfoMapper } from './characterVnInfoMapper';
@@ -14,12 +14,10 @@ export namespace CharacterMapper {
    */
   export function fromDto(dto: CharacterDto): Character {
     return {
-      id: dto.id,
-      name: dto.name,
+      ...BaseCharacterMapper.fromDto(dto),
       originalName: dto.original,
       aliases: dto.aliases,
       description: dto.description,
-      image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,
       bloodType: dto.blood_type !== null ? BloodTypeMapper.fromDto(dto.blood_type) : null,
       height: dto.height,
       weight: dto.weight,

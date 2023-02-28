@@ -1,20 +1,14 @@
-import type { Image } from '../image';
 import type { LanguageCode } from '../language';
 import type { Platform } from '../platform';
-import type { Tag } from '../tag/tag';
+import type { BaseVn } from './baseVn';
 import type { VnDevelopmentStatus } from './developmentStatus';
 import type { VnLength } from './length';
 import type { VnScreenshot } from './screenshot';
 import type { VnTitle } from './title';
+import type { VnTag } from './vnTag';
 
 /** Vn. */
-export interface Vn {
-
-  /** Id. */
-  readonly id: string;
-
-  /** Title. */
-  readonly title: string;
+export interface Vn extends BaseVn {
 
   /** Alternative vn title. */
   readonly altTitle: string | null;
@@ -39,9 +33,6 @@ export interface Vn {
 
   /** List of platforms that vn was released. */
   readonly platforms: readonly Platform[];
-
-  /** Vn image(poster). */
-  readonly image: Image | null;
 
   /** Vn length. */
   readonly length: VnLength | null;
@@ -68,5 +59,5 @@ export interface Vn {
   readonly screenshots: readonly VnScreenshot[];
 
   /** Tags. */
-  readonly tags: readonly Tag[];
+  readonly tags: readonly VnTag[];
 }
