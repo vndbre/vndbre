@@ -1,4 +1,4 @@
-import type { Control, RegisterOptions, FieldValues, FieldPath } from 'react-hook-form';
+import type { Control, FieldValues, FieldPath } from 'react-hook-form';
 
 /** Props that are required for any form control component. */
 export interface FormControlProps<T extends FieldValues = FieldValues> {
@@ -12,7 +12,4 @@ export interface FormControlProps<T extends FieldValues = FieldValues> {
 
   /** Name of the control. */
   readonly name: FieldPath<T>;
-
-  /** Validation rules. */
-  readonly rules?: RegisterOptions;
 }

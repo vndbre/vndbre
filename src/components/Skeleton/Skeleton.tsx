@@ -1,14 +1,37 @@
-import clsx from 'clsx';
-import type { FC } from 'react';
-import { memo } from 'react';
-import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import type { ComponentProps } from 'react';
+import React from 'react';
+import { typedMemo } from 'src/api/utils/typedMemo';
+import { SkeletonRect } from './SkeletonRect';
+import { SkeletonText } from './SkeletonText';
+import { SkeletonTextLine } from './SkeletonTextLine';
 
-// TODO: Add props for text/rectangle types
+const commonProps = { 'aria-hidden': true };
+
+type SkeletonType = 'rect' | 'text' | 'text-line';
+
+type Props<Type extends SkeletonType = 'rect'> =
+& {
+
+  /** Skeleton type. */
+  readonly type: Type;
+}
+& ComponentProps<
+  Type extends 'rect'
+    ? typeof SkeletonRect
+    : Type extends 'text'
+      ? typeof SkeletonText
+      : typeof SkeletonTextLine
+>;
+
 /** Skeleton component. */
-const SkeletonComponent: FC<PropsWithChildrenAndClass> = ({ children, className }) => (
-  <div className={clsx('animate-pulse bg-gray-200', className)}>
-    {children}
-  </div>
-);
+const SkeletonComponent = <T extends SkeletonType>({ type, ...props }: Props<T>): JSX.Element => {
+  if (type === 'text') {
+    return <SkeletonText {...commonProps} {...props} />;
+  }
+  if (type === 'text-line') {
+    return <SkeletonTextLine {...commonProps} {...props} />;
+  }
+  return <SkeletonRect {...commonProps} {...props} />;
+};
 
-export const Skeleton = memo(SkeletonComponent);
+export const Skeleton = typedMemo(SkeletonComponent);

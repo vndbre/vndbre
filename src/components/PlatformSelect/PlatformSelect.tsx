@@ -44,7 +44,7 @@ const PlatformSelectComponent = <
   })), [activePlatforms]);
 
   return (
-    <Select {...props} options={options} ref={ref} />
+    <Select {...props} options={options} ref={ref} optionSize="lg" />
   );
 };
 

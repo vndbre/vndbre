@@ -4,9 +4,15 @@ import { Skeleton } from '../Skeleton/Skeleton';
 
 /** Skeleton component for card. */
 export const CardSkeleton: FC = () => (
-  <div className="flex flex-col gap-2.5">
+  <div className="flex flex-col gap-1">
     <PosterSkeleton />
-    <Skeleton className="rounded-xs h-3.5 w-11/12 text-sm" />
-    <Skeleton className="rounded-xs h-3.5 w-8/12 text-sm" />
+    <div>
+      <Skeleton
+        type="text"
+        textClassName="text-caption-18"
+        linesCount={2}
+        lineWidths={[95, 70]}
+      />
+    </div>
   </div>
 );

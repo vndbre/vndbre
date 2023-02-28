@@ -89,16 +89,18 @@ export type PlatformIconName = keyof typeof platformIconNames;
 
 const iconNames = {
   'burger': 'carbon:menu',
-  'chevron-down': 'carbon:chevron-down',
+  'chevron-down': 'heroicons:chevron-down',
+  'chevron-down-bold': 'heroicons:chevron-down-20-solid',
   'close': 'heroicons:x-mark',
   'view': 'heroicons:eye',
   'view-off': 'heroicons:eye-slash',
   'flag': 'eva:flag-outline',
-  'star': 'eva:star-outline',
+  'star': 'heroicons:star',
   'edit': 'eva:edit-outline',
+  'ellipsis': 'heroicons:ellipsis-horizontal-20-solid',
+  'bookmark': 'heroicons:bookmark',
   'search': 'eva:search-outline',
   'options': 'eva:options-2-outline',
-  'ellipsis': 'heroicons:ellipsis-horizontal-solid',
   'sort-desc': 'heroicons:bars-arrow-down-solid',
   'sort-asc': 'heroicons:bars-arrow-up-solid',
   'rectangle-stack': 'carbon:horizontal-view',
@@ -112,7 +114,7 @@ const iconNames = {
 export type IconName = keyof typeof iconNames;
 
 /** Icon size in tailwind tokens. */
-type IconSize = 'sm' | 'md';
+type IconSize = 'sm' | 'md' | 'lg';
 
 /** Icon props. */
 export interface IconProps extends PropsWithClass {
@@ -129,8 +131,10 @@ const IconComponent: FC<IconProps> = ({ name, className, ...props }) => {
   const icon = cva([className], {
     variants: {
       size: {
-        sm: 'w-4 h-4',
+        xs: 'w-4 h-4',
+        sm: 'w-5 h-5',
         md: 'w-6 h-6',
+        lg: 'w-8 h-8',
       },
     },
     defaultVariants: {

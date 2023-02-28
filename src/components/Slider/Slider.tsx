@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import type { FC, ForwardedRef } from 'react';
 import { forwardRef, memo } from 'react';
 import type { StrictOmit } from 'src/api/utils/strictOmit';
+import { ChildrenMultiplier } from '../ChildrenMultiplier/ChildrenMultiplier';
 
 export type SliderProps =
 & StrictOmit<RadixSlider.SliderProps, 'onChange' | 'onValueChange'>
@@ -24,14 +25,13 @@ const SliderComponent: FC<SliderProps> = ({
   value,
   ...props
 }, ref: ForwardedRef<HTMLInputElement>) => (
-  <div className="flex flex-col gap-2">
-    <div className="flex w-full text-sm font-medium leading-6">
-      {label !== undefined && <span>{label}</span>}
+  <div className="flex flex-col gap-1">
+    <div className="flex w-full items-center">
+      {label !== undefined && <span className="text-caption-18 font-medium">{label}</span>}
       {showValues && value !== undefined && (
-        <span className="ml-auto text-gray-500">
+        <span className="text-caption-16 ml-auto text-gray-500">
           {value[0]}
-          {' '}
-          {value[1] !== undefined && `- ${value[1]}`}
+          {value[1] !== undefined && `-${value[1]}`}
         </span>
       )}
     </div>
@@ -41,13 +41,14 @@ const SliderComponent: FC<SliderProps> = ({
       ref={ref}
       value={value}
       onValueChange={onChange}
-      className={clsx('relative flex items-center', className)}
+      className={clsx('relative flex h-4 items-center', className)}
     >
-      <RadixSlider.Track className="relative h-3 w-full flex-1 rounded-full bg-gray-200">
-        <RadixSlider.Range className="bg-primary-300 absolute h-3 rounded-full" />
+      <RadixSlider.Track className="relative h-2 w-full flex-1 cursor-pointer rounded-full bg-gray-200">
+        <RadixSlider.Range className="bg-primary-400 absolute h-2 rounded-full" />
       </RadixSlider.Track>
-      <RadixSlider.Thumb className="bg-primary-600 block h-4 w-4 rounded-full outline-none" />
-      <RadixSlider.Thumb className="bg-primary-600 block h-4 w-4 rounded-full outline-none" />
+      <ChildrenMultiplier amount={2}>
+        <RadixSlider.Thumb className="bg-primary-400 block h-4 w-8 cursor-grab rounded-full outline-none active:cursor-grabbing" />
+      </ChildrenMultiplier>
     </RadixSlider.Root>
   </div>
 );

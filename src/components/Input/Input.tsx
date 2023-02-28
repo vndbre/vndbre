@@ -1,5 +1,5 @@
-import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC } from 'react';
-import React, { forwardRef, useState, memo } from 'react';
+import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC, FormEventHandler } from 'react';
+import React, { useRef, forwardRef, memo } from 'react';
 
 import clsx from 'clsx';
 
@@ -15,47 +15,66 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   /** Whether the input should be disabled. */
   readonly isDisabled?: boolean;
 
+  /** Whether the input is in invalid state. */
+  readonly isInvalid?: boolean;
+
   /** The element that will be placed on the left side of the input. */
   readonly leftElement?: ReactNode;
-}
-
-interface Props extends InputProps {
 
   /** The element that will be placed on the right side of the input. */
   readonly rightElement?: ReactNode;
+
+  /** Whether input will grow/shrink depending on content inside. */
+  readonly hasAutoWidth?: boolean;
 }
 
 /**
  * Input.
  * @param ref Forwarded ref.
  */
-const InputComponent: FC<Props> = ({
+const InputComponent: FC<InputProps> = ({
   id,
   name,
   value,
   onChange,
   placeholder,
   isDisabled,
+  isInvalid,
   type,
   leftElement,
   onBlur,
   rightElement,
   onFocus,
   className,
+  hasAutoWidth,
   ...props
 }, ref: ForwardedRef<HTMLInputElement>) => {
-  const [isInputGroupFocused, setIsInputGroupFocused] = useState(false);
+  const textMirrorRef = useRef<HTMLSpanElement>(null);
+
+  /**
+   * Resize input depending on content.
+   * @param event Event.
+   */
+  const handleInput: FormEventHandler<HTMLInputElement> = event => {
+    if (hasAutoWidth && textMirrorRef.current != null) {
+      const target = event.target as HTMLInputElement;
+      textMirrorRef.current.textContent = target.value;
+      target.style.width = `${textMirrorRef.current.scrollWidth}px`;
+    }
+  };
+
+  const inputPaddingClass = {
+    'px-11': leftElement,
+    'px-3': !leftElement,
+  };
 
   return (
     <div className={clsx(
-      'ring-primary-300 relative flex items-center rounded-md bg-gray-100', {
-        'ring-4': isInputGroupFocused,
-      },
+      'text-caption-18 relative flex items-center',
     )}
     >
-      <div className="absolute left-4 grid place-items-center">
-        { leftElement }
-      </div>
+      {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
+      {leftElement && <div className="pointer-events-none absolute left-3 grid place-items-center">{ leftElement }</div>}
       <input
         id={id}
         name={name}
@@ -64,28 +83,28 @@ const InputComponent: FC<Props> = ({
         ref={ref}
         placeholder={placeholder}
         disabled={isDisabled}
+        onInput={handleInput}
         onChange={onChange}
-        onFocus={e => {
-          setIsInputGroupFocused(true);
-          onFocus?.(e);
-        }}
-        onBlur={e => {
-          setIsInputGroupFocused(false);
-          onBlur?.(e);
-        }}
+        onFocus={onFocus}
+        onBlur={onBlur}
         className={clsx(
-          'grow rounded-md border-none bg-inherit py-3 text-sm leading-6 focus:outline-none',
+          'outline-primary-300 grow rounded-md bg-gray-100 py-3 outline-2 outline-offset-0',
+          inputPaddingClass,
           {
-            'px-12': leftElement,
-            'px-4': !leftElement,
+            'outline-red-400': isInvalid,
+            'pl-12': leftElement,
+            'pr-12': rightElement,
           },
           className,
         )}
+        style={{
+          width: hasAutoWidth ? 0 : undefined,
+        }}
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        {...(isInvalid ? { 'aria-invalid': true } : null)}
         {...props}
       />
-      <div className="absolute right-4 grid place-items-center">
-        { rightElement }
-      </div>
+      {rightElement && <div className="absolute right-2 grid place-items-center">{ rightElement }</div>}
     </div>
   );
 };

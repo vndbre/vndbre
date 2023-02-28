@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import React, { useEffect, useState, useCallback, memo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useDebounce } from 'src/hooks/useDebounce';
+import { useDebounce } from 'usehooks-ts';
 import { Paginator } from 'src/components/Paginator/Paginator';
 import { Card } from 'src/components/Card/Card';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';

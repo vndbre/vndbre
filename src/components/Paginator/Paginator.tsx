@@ -96,7 +96,7 @@ const PaginatorComponent: FC<Props> = ({
   const getPaginatorButton = useCallback((page: number) => (
     <PaginatorButton
       page={page}
-      key={page}
+      key={page === currentPage ? 'active' : page}
       isActive={page === currentPage}
       onClick={handlePageClick}
     />

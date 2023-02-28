@@ -7,14 +7,14 @@ import { Pagination } from 'src/api/models/pagination';
 import { CharacterSortField, CHARACTER_SORT_FIELDS } from 'src/api/models/queryOptions/character/characterSortField';
 import type { Trait } from 'src/api/models/trait';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
-import { ControlWrapper } from 'src/components/controls/ControlWrapper';
-import { SortDirectionControl } from 'src/components/controls/SortDirection';
-import { TextInput } from 'src/components/controls/TextInput';
+import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
+import { SortDirectionControl } from 'src/components/SortDirection/SortDirection';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
 import { IconButton } from 'src/components/IconButton/IconButton';
 import { Select } from 'src/components/Select';
-import { useDebounce } from 'src/hooks/useDebounce';
+import { TextInput } from 'src/components/TextInput/TextInput';
+import { useDebounce } from 'usehooks-ts';
 import { useTraitsQuery } from '../../queries/traits';
 import { useVnsQuery } from '../../queries/vns';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
@@ -100,9 +100,10 @@ const CharacterSearchFormComponent: FC = () => {
     <div className="flex flex-col gap-4">
       <div className="flex w-full flex-1 items-end gap-4">
         <ControlWrapper>
-          <TextInput
-            name="search"
+          <Field
+            Component={TextInput}
             control={control}
+            name="search"
             placeholder="Search"
             leftElement={<Icon name="search" />}
           />

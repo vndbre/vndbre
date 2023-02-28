@@ -18,6 +18,7 @@ const VnOverviewComponent: FC = () => {
       <div className="flex gap-8">
         {data.imageUrl && (
           <Poster
+            priority
             className="w-64 shrink-0"
             src={data.imageUrl}
             alt={data.titleEnglish}

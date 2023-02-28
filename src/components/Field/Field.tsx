@@ -17,17 +17,18 @@ const FieldComponent = <T extends ElementType, Values extends FieldValues>({
   Component,
   control,
   name,
-  rules,
   ...componentProps
 }: Props<T, Values>): JSX.Element => {
-  const { field } = useController({
+  const { field, fieldState: { error } } = useController({
     name,
     control,
-    rules,
   });
 
   return (
-    <Component {...field} {...componentProps} />
+    <div className="flex flex-col gap-2">
+      <Component {...field} {...componentProps} />
+      {error && <span className="text-caption-18 text-red-500">{error.message}</span>}
+    </div>
   );
 };
 
