@@ -140,6 +140,8 @@ const SelectComponent = <
       'flex flex-nowrap': hasValue && isMulti,
     }),
     multiValue: () => 'bg-gray-200',
+    groupHeading: () => 'font-semibold text-xs text-gray-600 px-2',
+    group: () => 'border-b border-gray-300 py-2',
   };
 
   const components = {
@@ -151,6 +153,7 @@ const SelectComponent = <
 
   // Believe me it's ok.
   } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
+
   return (
     <ReactSelect
       instanceId={useId()}

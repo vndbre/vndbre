@@ -1,34 +1,34 @@
 import type { FC } from 'react';
 import React, { useEffect, useState, useCallback, memo } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
-import { useDebounce } from 'usehooks-ts';
 import { Paginator } from 'src/components/Paginator/Paginator';
 import { Card } from 'src/components/Card/Card';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
-import { Form } from 'src/components/Form/Form';
 import { ChildrenMultiplier } from 'src/components/ChildrenMultiplier/ChildrenMultiplier';
 import { Pagination } from 'src/api/models/pagination';
-import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
-import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
-import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
+import { useForm, useWatch } from 'react-hook-form';
+import { Form } from 'src/components/Form/Form';
+import { useDebounce } from 'usehooks-ts';
+import { DEFAULT_PAGE_SIZE, useCharactersQuery } from '../../queries/characters';
+import { CharacterSearchFormValues, CHARACTER_SEARCH_INITIAL_VALUES } from '../CharacterSearchForm/characterSearchFormValues';
+import { CharacterSearchForm } from '../CharacterSearchForm/CharacterSearchForm';
 import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 
 /** Visual novel overview tab. */
-const VnSearchComponent: FC = () => {
+const CharacterSearchComponent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const methods = useForm({ defaultValues: VN_SEARCH_INITIAL_VALUES });
+  const methods = useForm({ defaultValues: CHARACTER_SEARCH_INITIAL_VALUES });
   const { control } = methods;
 
-  const formData = useWatch({ control }) as VnSearchFormValues;
+  const formData = useWatch({ control }) as CharacterSearchFormValues;
   const debouncedFormData = useDebounce(formData);
 
   const {
-    fetchNextPage: fetchVns,
-    data: vns,
+    fetchNextPage: fetchCharacters,
+    data: characters,
     isFetching,
     isLoading,
-  } = useVnsQuery(VnSearchFormValues.toQueryOptions(debouncedFormData));
+  } = useCharactersQuery(CharacterSearchFormValues.toQueryOptions(debouncedFormData));
 
   useEffect(() => {
     setCurrentPage(1);
@@ -36,24 +36,25 @@ const VnSearchComponent: FC = () => {
 
   const handlePageChange = useCallback((newPage: number) => {
     setCurrentPage(newPage);
-    fetchVns({ pageParam: newPage });
+    fetchCharacters({ pageParam: newPage });
   }, []);
 
-  const vnCards = vns !== undefined && Pagination.getPageData(vns, currentPage).map(vn => (
-    <Card
-      key={vn.id}
-      title={vn.title}
-      imageUrl={vn.image?.url}
+  const characterCards = characters !== undefined &&
+    Pagination.getPageData(characters, currentPage).map(character => (
+      <Card
+        key={character.id}
+        title={character.name}
+        imageUrl={character.image?.url}
 
-      // TODO: Fix link once page will be implemented
-      path={`/vn/${vn.id}/overview`}
-    />
-  ));
+        // TODO: Fix links once page will be implemented
+        path={`/character/${character.id}/overview`}
+      />
+    ));
 
   return (
     <div className="mb-4 flex flex-col gap-4">
       <Form {...methods}>
-        <VnSearchForm />
+        <CharacterSearchForm />
       </Form>
 
       <div className="grid grid-cols-6 gap-4">
@@ -63,18 +64,18 @@ const VnSearchComponent: FC = () => {
           </ChildrenMultiplier>
         )}
 
-        {!isFetching && vnCards}
+        {!isFetching && characterCards}
       </div>
 
       {/* TODO: Add placeholder for empty response. */}
-      {Pagination.getCount(vns) === 0 && (
+      {Pagination.getCount(characters) === 0 && (
         <EmptyPlaceholder />
       )}
 
-      {Pagination.getCount(vns) !== 0 && !isLoading && (
+      {Pagination.getCount(characters) !== 0 && !isLoading && (
         <div className="mt-auto flex w-full justify-center">
           <Paginator
-            count={Pagination.getCount(vns)}
+            count={Pagination.getCount(characters)}
             currentPage={currentPage}
             pageSize={DEFAULT_PAGE_SIZE}
             onChange={handlePageChange}
@@ -86,4 +87,4 @@ const VnSearchComponent: FC = () => {
   );
 };
 
-export const VnSearch = memo(VnSearchComponent);
+export const CharacterSearch = memo(CharacterSearchComponent);

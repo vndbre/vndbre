@@ -1,12 +1,14 @@
 import type { FC } from 'react';
-import { memo, useCallback, useState } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useMemo, memo, useCallback, useState } from 'react';
+
+import { useFormContext } from 'react-hook-form';
+import { Pagination } from 'src/api/models/pagination';
 import { VnSortField, VN_SORT_FIELDS } from 'src/api/models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatus, VN_DEV_STATUSES } from 'src/api/models/vn/developmentStatus';
 import { VnLength, VN_LENGTHS } from 'src/api/models/vn/length';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
-import { TextInput } from 'src/components/TextInput/TextInput';
+import { SortDirectionControl } from 'src/components/SortDirection/SortDirection';
 import { Field } from 'src/components/Field/Field';
 import { Icon } from 'src/components/Icon/Icon';
 import { IconButton } from 'src/components/IconButton/IconButton';
@@ -14,9 +16,10 @@ import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
+import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
-import { useTagsQuery } from '../../queries/tag';
-import { VnSearchPopover } from '../VnSearchPopover/VnSearchPopover';
+import { useTagsQuery } from '../../queries/tags';
+import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
 
 const sortFieldOptions = VN_SORT_FIELDS
@@ -42,7 +45,7 @@ const VnSearchFormComponent: FC = () => {
   } = useTagsQuery(debouncedTagInputValue);
 
   const handleFetchMoreTags = useCallback(() => {
-    if (tags?.pages.at(-1)?.hasMore) {
+    if (Pagination.hasMore(tags)) {
       fetchMoreTags();
     }
   }, [tags]);
@@ -51,9 +54,10 @@ const VnSearchFormComponent: FC = () => {
     setTagsInputValue(value);
   }, []);
 
-  const tagOptions = tags?.pages
-    .flatMap(page => page.results)
-    .map(tag => ({ label: tag.name, value: tag.id })) ?? [];
+  const tagOptions = useMemo(() =>
+    tags?.pages
+      .flatMap(page => page.results)
+      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -108,9 +112,9 @@ const VnSearchFormComponent: FC = () => {
           </div>
         )}
 
-        <VnSearchPopover>
-          <div className="flex flex-col gap-8 pb-1">
-            <div className="grid grid-cols-1 gap-4">
+        <SearchPopover>
+          <div className="flex flex-col gap-8">
+            <div className="grid grid-cols-2 gap-4">
               <ControlWrapper label="Original Language">
                 <Field
                   Component={LanguageSelect}
@@ -176,25 +180,13 @@ const VnSearchFormComponent: FC = () => {
               />
             </div>
           </div>
-        </VnSearchPopover>
+        </SearchPopover>
 
       </div>
 
       <div className="ml-auto flex gap-4">
-        <div className="flex items-center">
-          <Controller
-            control={control}
-            name="sortDirection"
-            render={({ field: { onChange, value } }) => (
-              <IconButton
-                className="rounded-r-none"
-                intent="tertiary"
-                size="sm"
-                name={`sort-${value}`}
-                onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
-              />
-            )}
-          />
+        <div className="flex">
+          <SortDirectionControl control={control} name="sortDirection" />
           <Field
             Component={Select}
             control={control}

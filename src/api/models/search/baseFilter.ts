@@ -5,4 +5,8 @@ export const OPERATORS = ['=', '>', '<', '>=', '<=', '!='] as const;
 export type Operator = typeof OPERATORS[number];
 
 /** Base filter for query. */
-export type BaseFilter<Field extends string, O extends Operator> = [Field, O, string];
+export type BaseFilter<
+Field extends string,
+TOperator extends Operator,
+Value = unknown,
+> = [Field, TOperator, Value];

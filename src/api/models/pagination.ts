@@ -27,6 +27,14 @@ export namespace Pagination {
   }
 
   /**
+   * Whether the latest page `hasMore` is true or not.
+   * @param data Infinite query results data.
+   */
+  export function hasMore<T>(data: InfiniteData<Pagination<T>> | undefined): boolean {
+    return Boolean(data?.pages.at(-1)?.hasMore);
+  }
+
+  /**
    * Checks if there is items in infinite query results.
    * @param data Infinite query results data.
    */
