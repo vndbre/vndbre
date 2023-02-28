@@ -9,10 +9,12 @@ import { nullify } from 'src/api/utils/nullify';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
-  await queryClient.prefetchInfiniteQuery(getBaseTagsQueryOptions({}));
-  await queryClient.prefetchInfiniteQuery(
-    getBaseVnsQueryOptions(VnSearchFormValues.toQueryOptions()),
-  );
+  await Promise.all([
+    queryClient.prefetchInfiniteQuery(getBaseTagsQueryOptions({})),
+    queryClient.prefetchInfiniteQuery(
+      getBaseVnsQueryOptions(VnSearchFormValues.toQueryOptions()),
+    ),
+  ]);
 
   return {
     props: {

@@ -45,7 +45,7 @@ const VnSearchComponent: FC = () => {
       title={vn.title}
       imageUrl={vn.image?.url}
 
-      // TODO: FIX IT
+      // TODO: Fix link once page will be implemented
       path={`/vn/${vn.id}/overview`}
     />
   ));
@@ -57,11 +57,13 @@ const VnSearchComponent: FC = () => {
       </Form>
 
       <div className="grid grid-cols-6 gap-4">
-        {!isFetching ? vnCards : (
+        {isFetching && (
           <ChildrenMultiplier amount={DEFAULT_PAGE_SIZE}>
             <CardSkeleton />
           </ChildrenMultiplier>
         )}
+
+        {!isFetching && vnCards}
       </div>
 
       {/* TODO: Add placeholder for empty response. */}

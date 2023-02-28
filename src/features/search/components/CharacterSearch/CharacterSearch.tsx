@@ -46,7 +46,7 @@ const CharacterSearchComponent: FC = () => {
         title={character.name}
         imageUrl={character.image?.url}
 
-        // TODO: FIX IT
+        // TODO: Fix links once page will be implemented
         path={`/character/${character.id}/overview`}
       />
     ));
@@ -63,8 +63,8 @@ const CharacterSearchComponent: FC = () => {
             <CardSkeleton />
           </ChildrenMultiplier>
         )}
-        
-         {!isFetching && characterCards} 
+
+        {!isFetching && characterCards}
       </div>
 
       {/* TODO: Add placeholder for empty response. */}

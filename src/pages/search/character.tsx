@@ -10,19 +10,19 @@ import { getBaseTraitsQueryOptions } from 'src/features/search/queries/traits';
 
 /** Get server side props. */
 export const getServerSideProps: GetServerSideProps = async() => {
-  await queryClient.prefetchInfiniteQuery(
-    getBaseCharactersQueryOptions(
-      CharacterSearchFormValues.toQueryOptions(),
+  await Promise.all([
+    queryClient.prefetchInfiniteQuery(
+      getBaseCharactersQueryOptions(
+        CharacterSearchFormValues.toQueryOptions(),
+      ),
     ),
-  );
-
-  await queryClient.prefetchInfiniteQuery(
-    getBaseTraitsQueryOptions({}),
-  );
-
-  await queryClient.prefetchInfiniteQuery(
-    getBaseVnsQueryOptions({ search: '' }),
-  );
+    queryClient.prefetchInfiniteQuery(
+      getBaseTraitsQueryOptions({}),
+    ),
+    queryClient.prefetchInfiniteQuery(
+      getBaseVnsQueryOptions({ search: '' }),
+    ),
+  ]);
 
   return {
     props: {
