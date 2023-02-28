@@ -24,6 +24,7 @@ const SortDirectionControlComponent = <T extends FieldValues>({
         intent="tertiary"
         name={`sort-${value as SortOrder}`}
         onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
+        size="sm"
       />
     )}
   />

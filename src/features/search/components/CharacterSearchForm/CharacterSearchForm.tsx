@@ -162,7 +162,7 @@ const CharacterSearchFormComponent: FC = () => {
         )}
 
         <SearchPopover>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 pb-1">
             <div className="grid grid-cols-1 gap-4">
               <div className="w-full">
                 <ControlWrapper label="Gender">
@@ -192,14 +192,15 @@ const CharacterSearchFormComponent: FC = () => {
             options={sortFieldOptions}
             closeMenuOnSelect
             name="sortField"
-            className="rounded-r-md bg-gray-100"
+            className="min-w-[100px] rounded-l-none"
             disableSearch
+            size="sm"
           />
         </div>
 
-        <ButtonGroup>
-          <IconButton intent="tertiary" name="rectangle-stack" />
-          <IconButton intent="tertiary" name="squares" />
+        <ButtonGroup intent="tertiary" size="sm" isDisabled>
+          <IconButton name="rectangle-stack" />
+          <IconButton name="squares" />
         </ButtonGroup>
       </div>
     </div>
