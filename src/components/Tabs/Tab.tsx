@@ -2,7 +2,7 @@ import type { ElementType } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
 import React, { memo } from 'react';
 import clsx from 'clsx';
-import type { PolymorphicProps } from '../Polymorphic/Polymorphic';
+import type { PolymorphicProps } from 'src/utils/PolymorphicProps';
 
 /** Tab props. */
 export type TabProps<C extends ElementType> =

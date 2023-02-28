@@ -2,8 +2,8 @@ import React, { forwardRef, memo } from 'react';
 import type { ButtonHTMLAttributes, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes, ElementType } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import type { PolymorphicProps } from 'src/utils/PolymorphicProps';
 import { useButtonGroupContext } from '../ButtonGroup/ButtonGroupProvider';
-import type { PolymorphicProps } from '../Polymorphic/Polymorphic';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';

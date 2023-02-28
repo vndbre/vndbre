@@ -5,6 +5,8 @@ import { SkeletonRect } from './SkeletonRect';
 import { SkeletonText } from './SkeletonText';
 import { SkeletonTextLine } from './SkeletonTextLine';
 
+const commonProps = { 'aria-hidden': true };
+
 type SkeletonType = 'rect' | 'text' | 'text-line';
 
 type Props<Type extends SkeletonType = 'rect'> =
@@ -23,8 +25,6 @@ type Props<Type extends SkeletonType = 'rect'> =
 
 /** Skeleton component. */
 const SkeletonComponent = <T extends SkeletonType>({ type, ...props }: Props<T>): JSX.Element => {
-  const commonProps = { 'aria-hidden': true };
-
   if (type === 'text') {
     return <SkeletonText {...commonProps} {...props} />;
   }

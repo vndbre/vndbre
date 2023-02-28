@@ -11,7 +11,6 @@ import { SkeletonTextLine } from './SkeletonTextLine';
  */
 const getRandomLineWidths = (count: number): number[] => Array
   .from({ length: count })
-  .fill(0)
   .map(() => randomBetween(75, 100));
 
 type Props =

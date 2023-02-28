@@ -20,9 +20,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
   /** The element that will be placed on the left side of the input. */
   readonly leftElement?: ReactNode;
-}
-
-interface Props extends InputProps {
 
   /** The element that will be placed on the right side of the input. */
   readonly rightElement?: ReactNode;
@@ -35,7 +32,7 @@ interface Props extends InputProps {
  * Input.
  * @param ref Forwarded ref.
  */
-const InputComponent: FC<Props> = ({
+const InputComponent: FC<InputProps> = ({
   id,
   name,
   value,
@@ -77,7 +74,7 @@ const InputComponent: FC<Props> = ({
     )}
     >
       {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
-      { leftElement && <div className="pointer-events-none absolute left-3 grid place-items-center">{ leftElement }</div> }
+      {leftElement && <div className="pointer-events-none absolute left-3 grid place-items-center">{ leftElement }</div>}
       <input
         id={id}
         name={name}
@@ -107,9 +104,7 @@ const InputComponent: FC<Props> = ({
         {...(isInvalid ? { 'aria-invalid': true } : null)}
         {...props}
       />
-      <div className="absolute right-2 grid place-items-center">
-        { rightElement }
-      </div>
+      {rightElement && <div className="absolute right-2 grid place-items-center">{ rightElement }</div>}
     </div>
   );
 };
