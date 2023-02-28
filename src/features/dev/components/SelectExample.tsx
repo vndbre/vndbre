@@ -78,7 +78,6 @@ const SelectExampleComponent: FC = () => {
         placeholder="Select languages"
         isMulti
         disableSearch
-        size="lg"
         className="w-full max-w-[240px]"
         onChange={value => setOption(value.at(-1))}
       />
@@ -90,7 +89,6 @@ const SelectExampleComponent: FC = () => {
       <LanguageSelect
         placeholder="Select language"
         className="w-full max-w-[240px]"
-        size="lg"
         onChange={value => setOption(value)}
       />
     </div>

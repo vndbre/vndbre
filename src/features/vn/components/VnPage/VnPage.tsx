@@ -31,7 +31,7 @@ export const VnPageComponent: FC<PropsWithChildren> = ({
       </Head>
       <div className="flex flex-col gap-6">
         <VnHeader
-          hasTransitionAnimations={!isInitialRoute}
+          disableAppearanceAnimation={isInitialRoute}
         />
         {isRouterLoading ? (
           <div>loading</div>

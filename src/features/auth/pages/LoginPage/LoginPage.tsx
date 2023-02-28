@@ -72,7 +72,7 @@ export const LoginPage: NextPage = () => {
               </ControlWrapper>
 
               {loginError && (
-                <div role="alert" className="rounded-lg bg-red-50 p-3 text-center text-sm font-medium leading-6 text-red-500">
+                <div role="alert" className="text-caption-18 grid min-h-[64px] place-items-center rounded-md bg-red-50 p-3 text-center font-medium text-red-500">
                   {loginError}
                 </div>
               )}

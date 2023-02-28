@@ -1,7 +1,18 @@
 @tailwind base;
+
 body {
-  @apply text-base;
+  @apply text-body-20;
 }
+
+*:focus-visible {
+  @apply rounded-sm outline outline-4 outline-primary-300 outline-offset-2;
+}
+
+:disabled,
+[data-disabled] {
+  cursor: not-allowed;
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -11,6 +22,16 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-html { 
+.outline-focus {
+  @apply rounded-sm !outline-4 !outline-primary-300 !outline-offset-2;
+}
+
+/** If overflow set to hidden we need to place outline inside. */
+.outline-focus-inside {
+  @apply rounded-md outline-4 outline-primary-300 -outline-offset-4;
+}
+
+
+html {
   scrollbar-gutter: stable;
 }

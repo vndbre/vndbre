@@ -16,11 +16,49 @@ module.exports = {
       },
     },
     fontSize: {
-      xs: '1rem',
-      sm: '1.125rem',
-      base: '1.25rem',
-      lg: '1.5rem',
-      xl: '1.75rem',
+      'xs': '1rem',
+      'sm': '1.125rem',
+      'base': '1.25rem',
+      'lg': '1.5rem',
+      'xl': '1.75rem',
+      'title-24': [
+        '24px', {
+          lineHeight: '32px',
+          letterSpacing: '-0.015em',
+          fontWeight: '700',
+        },
+      ],
+      'title-20': [
+        '20px', {
+          lineHeight: '24px',
+          letterSpacing: '-0.015em',
+          fontWeight: '600',
+        },
+      ],
+      'body-20': [
+        '20px', {
+          lineHeight: '28px',
+          letterSpacing: '-0.015em',
+        },
+      ],
+      'caption-20': [
+        '20px', {
+          lineHeight: '24px',
+          letterSpacing: '-0.015em',
+        },
+      ],
+      'caption-18': [
+        '18px', {
+          lineHeight: '24px',
+          letterSpacing: '-0.015em',
+        },
+      ],
+      'caption-16': [
+        '16px', {
+          lineHeight: '20px',
+          letterSpacing: '0',
+        },
+      ],
     },
     colors: {
       gray: colors.neutral,

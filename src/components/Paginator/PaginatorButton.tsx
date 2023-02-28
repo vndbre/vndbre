@@ -20,7 +20,7 @@ const PaginatorButtonComponent: FC<Props> = ({ isActive = false, onClick, page }
   return (
     <Button
       onClick={handleClick}
-      className="px-5"
+      className="min-w-[48px] px-3"
       intent={isActive ? 'primary' : 'tertiary'}
     >
       {page}

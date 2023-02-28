@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
-import { forwardRef, ReactElement, Ref } from 'react';
+import { useId, forwardRef, ReactElement, Ref } from 'react';
 import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
@@ -68,7 +68,10 @@ ReactSelectProps<TOption, IsMulti, TGroup>,
   readonly disableSearch?: boolean;
 
   /** Size. */
-  readonly size?: 'md' | 'lg';
+  readonly size?: 'sm' | 'md';
+
+  /** Option size. */
+  readonly optionSize?: 'md' | 'lg';
 
   /** Change handler. */
   readonly onChange?: SelectChangeHandler<TOption, IsMulti, IsClearable>;
@@ -92,43 +95,49 @@ const SelectComponent = <
   disableSearch = false,
   isClearable,
   size = 'md',
+  optionSize = 'md',
   onChange,
   ...props
 }: SelectProps<TOption, IsMulti, IsClearable, TGroup>,
   ref: ForwardedRef<SelectInstance<TOption, IsMulti, TGroup>>,
 ): JSX.Element => {
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
-  const inputClassNames = 'bg-transparent text-sm leading-6 focus:outline-none pl-2';
+  const inputClassNames = 'bg-transparent text-caption-18 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
-    container: () => clsx('', className),
-    control: ({ menuIsOpen }) => clsx(
-      'flex h-12 w-full items-center gap-1 rounded-md bg-gray-100 p-2 text-start', {
-        'rounded-b-none': menuIsOpen,
+    container: () => clsx('rounded-md bg-gray-100 ', className),
+    control: ({ menuIsOpen, isFocused }) => clsx(
+      'outline-focus relative flex w-full cursor-pointer items-center gap-1 !rounded-md bg-gray-100 text-start transition-none', {
+        '!rounded-b-none': menuIsOpen,
+        'h-12 p-2': size === 'md',
+        'h-10 px-2 py-1': size === 'sm',
+        '!outline': isFocused && !menuIsOpen,
       },
     ),
     input: ({ hasValue, isMulti }) => clsx(
-      inputClassNames, {
+      'cursor-text', inputClassNames, {
         'pl-0': hasValue && isMulti,
       },
     ),
     singleValue: () => clsx(
       inputClassNames, 'flex', {
-        'gap-1': size === 'md',
-        'gap-2': size === 'lg',
+        'gap-1': optionSize === 'md',
+        'gap-2': optionSize === 'lg',
       },
     ),
     placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
-    dropdownIndicator: () => '!hidden',
-    menu: () => 'rounded-b-md bg-gray-100 p-2 pt-0 flex flex-col gap-2',
+    dropdownIndicator: () => 'hidden',
+    menuList: () => 'py-2',
+    menu: () => clsx('flex flex-col rounded-b-md bg-gray-100 px-2 shadow-lg', {
+    }),
     option: ({ isFocused }) => clsx(
-      '!flex items-center rounded bg-gray-100 text-sm leading-6 hover:bg-gray-200 focus:bg-gray-200', {
+      'text-caption-18 flex cursor-pointer items-center rounded bg-gray-100 hover:bg-gray-200 focus:bg-gray-200', {
         'bg-gray-200': isFocused,
-        'gap-1 px-2 py-1': size === 'md',
-        'gap-2 p-2': size === 'lg',
+        'gap-1 px-2 py-1': optionSize === 'md',
+        'gap-2 p-2': optionSize === 'lg',
       },
     ),
     valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
-      '!flex !flex-nowrap': hasValue && isMulti,
+      'flex flex-nowrap': hasValue && isMulti,
     }),
     multiValue: () => 'bg-gray-200',
   };
@@ -144,6 +153,7 @@ const SelectComponent = <
   } as unknown as Partial<SelectComponents<TOption, IsMulti, TGroup>>;
   return (
     <ReactSelect
+      instanceId={useId()}
       ref={ref}
       unstyled
       classNames={classNames}

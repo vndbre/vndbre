@@ -4,19 +4,28 @@ import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 import NextLink from 'next/link';
 import { cva, cx } from 'class-variance-authority';
 
-interface Props {
+/** Link props. */
+export interface LinkProps {
 
   /** Navigation URL. */
   readonly href: string;
 
   /** Whether a link leads to external page. */
   readonly external?: boolean;
+}
 
-  /** Whether the primary color be applied to a link. */
-  readonly color?: boolean;
+type Variant = 'never' | 'on-hover' | 'always';
 
-  /** Whether a link should be underlined. */
-  readonly hasUnderline?: boolean;
+interface Props extends LinkProps {
+
+  /** Whether the color changes to primary on hover. */
+  readonly color?: Variant;
+
+  /** Whether the underline appears on hover. */
+  readonly underline?: Variant;
+
+  /** Whether link is unstyled. */
+  readonly isUnstyled?: boolean;
 }
 
 /** Link. */
@@ -26,44 +35,38 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     className,
     external = false,
     children,
+    isUnstyled,
     ...props
   },
 ) => {
-  const link = cva([
-    'whitespace-nowrap leading-7 focus:outline-none ring-primary-300 focus-visible:ring-4',
-    className,
-  ], {
+  const link = cva([className, ''], {
     variants: {
       color: {
-        true: 'text-primary-500',
+        'never': '',
+        'on-hover': 'hover:text-primary-500',
+        'always': 'text-primary-500',
       },
-      hasUnderline: {
-        true: 'border-b border-solid',
+      underline: {
+        'never': '',
+        'on-hover': 'hover:underline',
+        'always': 'underline',
       },
     },
-    compoundVariants: [
-      {
-        color: false,
-        hasUnderline: true,
-        class: 'border-black',
-      },
-      {
-        color: true,
-        hasUnderline: true,
-        class: 'border-primary-500',
-      },
-    ],
     defaultVariants: {
-      color: true,
-      hasUnderline: false,
+      color: 'always',
+      underline: 'on-hover',
     },
   });
+
+  const linkProps = {
+    href,
+    className: isUnstyled ? className : cx(link(props)),
+  };
 
   if (external) {
     return (
       <a
-        href={href}
-        className={cx(link(props))}
+        {...linkProps}
         target="_blank"
         rel="noreferrer"
       >
@@ -72,7 +75,13 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     );
   }
 
-  return <NextLink href={href} className={cx(link(props))}>{children}</NextLink>;
+  return (
+    <NextLink
+      {...linkProps}
+    >
+      {children}
+    </NextLink>
+  );
 };
 
 export const Link = memo(LinkComponent);

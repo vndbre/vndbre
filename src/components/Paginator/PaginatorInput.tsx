@@ -53,18 +53,20 @@ const PaginatorInputComponent: FC<Props> = ({ onChange }) => {
   if (isActive) {
     return (
       <Input
+        className="min-w-[48px] text-center"
+        hasAutoWidth
         ref={focusOnRender}
         onBlur={handleInputBlur}
         onKeyDown={handleKeyDown}
         type="number"
-        className="w-14"
       />
     );
   }
   return (
     <IconButton
       onClick={handleActiveClick}
-      aria-label="Report"
+      aria-label="Input page number"
+      className="cursor-text"
       name="ellipsis"
       intent="tertiary"
     />

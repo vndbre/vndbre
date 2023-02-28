@@ -3,5 +3,5 @@ import { Skeleton } from '../Skeleton/Skeleton';
 
 /** Skeleton for poster component. */
 export const PosterSkeleton: FC = () => (
-  <Skeleton className="aspect-[2/3] rounded" />
+  <Skeleton type="rect" className="aspect-[2/3] rounded" />
 );

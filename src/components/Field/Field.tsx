@@ -27,7 +27,7 @@ const FieldComponent = <T extends ElementType, Values extends FieldValues>({
   return (
     <div className="flex flex-col gap-2">
       <Component {...field} {...componentProps} />
-      {error && <span className="text-sm leading-5 text-red-500">{error.message}</span>}
+      {error && <span className="text-caption-18 text-red-500">{error.message}</span>}
     </div>
   );
 };

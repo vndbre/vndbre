@@ -2,10 +2,11 @@ import React, { memo, useCallback } from 'react';
 import type { FC } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 import { signOut } from 'next-auth/react';
+import NextLink from 'next/link';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
-import { Link } from '../Link/Link';
+import { Icon } from '../Icon/Icon';
 
 /** App header. */
 const AppHeaderComponent: FC = () => {
@@ -20,9 +21,12 @@ const AppHeaderComponent: FC = () => {
       <div className="relative grid w-full max-w-screen-xl grid-cols-3 items-center justify-between gap-2 px-6">
         <Logo />
         <Button
-          className="max-w-[400px]"
+          as={NextLink}
+          href="/search/vn"
+          className="text-caption-18 max-w-[400px]"
           intent="tertiary"
           size="sm"
+          leftElement={<Icon size="sm" name="search" />}
         >
           Search
         </Button>
@@ -35,7 +39,7 @@ const AppHeaderComponent: FC = () => {
             </>
           )}
 
-          {!isAuthenticated && <Link color={false} href="/auth/login">Login</Link>}
+          {!isAuthenticated && <Button as={NextLink} size="sm" intent="quaternary" href="/auth/login">Login</Button>}
         </div>
       </div>
     </header>

@@ -1,13 +1,15 @@
 import React, { forwardRef, memo } from 'react';
-import type { ButtonHTMLAttributes, FC, MouseEventHandler, ForwardedRef } from 'react';
+import type { ButtonHTMLAttributes, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes, ElementType } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import type { PolymorphicProps } from 'src/utils/PolymorphicProps';
+import { useButtonGroupContext } from '../ButtonGroup/ButtonGroupProvider';
 
 /** Button intent. */
 export type ButtonIntent = 'primary' | 'secondary' | 'tertiary' | 'quaternary';
 
 /** Button size. */
-export type ButtonSize = 'xs' | 'sm' | 'md';
+export type ButtonSize = '2xs' | 'xs' | 'sm' | 'md';
 
 /** Button props. */
 export interface ButtonProps {
@@ -26,12 +28,17 @@ export interface ButtonProps {
 
   /** Is button disabled. */
   readonly isDisabled?: boolean;
-
-  /** `aria-label` attribute. */
-  readonly ariaLabel?: string;
 }
 
-interface Props extends ButtonProps {
+type Props<C extends ElementType> =
+& AriaAttributes
+& PropsWithChildrenAndClass
+& PolymorphicProps<C>
+& Pick<ButtonProps,
+  | 'intent'
+  | 'size'
+>
+& {
 
   /** Is button square. */
   readonly isSquare?: boolean;
@@ -41,31 +48,39 @@ interface Props extends ButtonProps {
    * Doesn't work when `isSquare` enabled.
    */
   readonly hasSmallPaddings?: boolean;
-}
+
+  /** The element that will be placed on the left side of the button. */
+  readonly leftElement?: ReactNode;
+};
 
 /**
  * Button.
  * @param ref Forwarded ref.
  */
-const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
+const ButtonComponent = <C extends ElementType>({
   children,
   type = 'button',
   className,
   onClick,
   isDisabled,
-  ariaLabel,
+  leftElement,
+  as,
   ...props
-}, ref: ForwardedRef<HTMLButtonElement>) => {
+}: Props<C>, ref: ForwardedRef<HTMLButtonElement>): JSX.Element => {
+  const Component = as ?? 'button';
+
+  const buttonGroup = useButtonGroupContext();
+
   const button = cva([
-    'whitespace-nowrap font-medium font-base leading-6 focus:outline-none ring-primary-300 focus-visible:ring-4 transition-colors',
+    'whitespace-nowrap text-caption-20 transition-colors flex gap-2 justify-center items-center focus:z-10',
     className,
   ], {
     variants: {
       intent: {
-        primary: 'bg-primary-500 text-white hover:bg-primary-400 disabled:bg-gray-50 disabled:text-gray-500',
+        primary: 'bg-primary-400 text-white hover:bg-primary-500 disabled:bg-gray-50 disabled:text-gray-500',
         secondary: 'bg-primary-100 text-primary-600 hover:bg-primary-200 disabled:bg-gray-50 disabled:text-gray-500',
         tertiary: 'bg-gray-100 text-black hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-500',
-        quaternary: 'bg-transparent text-black hover:bg-gray-200 disabled:bg-transparent disabled:text-gray-500',
+        quaternary: 'bg-transparent text-black hover:bg-black/10 disabled:bg-transparent disabled:text-gray-500',
       },
       isSquare: {
         true: 'grid place-content-center',
@@ -74,12 +89,18 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
         true: '',
       },
       size: {
-        xs: 'rounded',
-        sm: 'rounded-md',
-        md: 'rounded-md',
+        '2xs': 'rounded',
+        'xs': 'rounded',
+        'sm': 'rounded-md',
+        'md': 'rounded-md',
       },
     },
     compoundVariants: [
+      {
+        size: '2xs',
+        isSquare: true,
+        class: 'w-6 h-6',
+      },
       {
         size: 'xs',
         isSquare: true,
@@ -119,24 +140,29 @@ const ButtonComponent: FC<PropsWithChildrenAndClass<Props>> = ({
       },
     ],
     defaultVariants: {
-      intent: 'primary',
+      intent: buttonGroup.intent ?? 'primary',
       isSquare: false,
       hasSmallPaddings: false,
-      size: 'md',
+      size: buttonGroup.size ?? 'md',
     },
   });
 
+  const { intent, isSquare, hasSmallPaddings, size, ...componentProps } = props;
+
+  const componentClassName = cx(button({ intent, isSquare, hasSmallPaddings, size }));
+
   return (
-    <button
+    <Component
       ref={ref}
-      aria-label={ariaLabel}
       type={type}
-      className={cx(button(props))}
-      disabled={isDisabled}
+      className={componentClassName}
+      disabled={isDisabled ?? buttonGroup.isDisabled}
       onClick={onClick}
+      {...componentProps}
     >
+      {leftElement}
       {children}
-    </button>
+    </Component>
   );
 };
 

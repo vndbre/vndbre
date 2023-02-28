@@ -14,7 +14,7 @@ import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import { PlatformSelect } from 'src/components/PlatformSelect/PlatformSelect';
 import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
-import { useDebounce } from 'src/hooks/useDebounce';
+import { useDebounce } from 'usehooks-ts';
 import { useTagsQuery } from '../../queries/tag';
 import { VnSearchPopover } from '../VnSearchPopover/VnSearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
@@ -109,8 +109,8 @@ const VnSearchFormComponent: FC = () => {
         )}
 
         <VnSearchPopover>
-          <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-8 pb-1">
+            <div className="grid grid-cols-1 gap-4">
               <ControlWrapper label="Original Language">
                 <Field
                   Component={LanguageSelect}
@@ -146,7 +146,7 @@ const VnSearchFormComponent: FC = () => {
                 />
               </ControlWrapper>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
               <Field
                 Component={Slider}
                 control={control}
@@ -181,7 +181,7 @@ const VnSearchFormComponent: FC = () => {
       </div>
 
       <div className="ml-auto flex gap-4">
-        <div className="flex">
+        <div className="flex items-center">
           <Controller
             control={control}
             name="sortDirection"
@@ -189,6 +189,7 @@ const VnSearchFormComponent: FC = () => {
               <IconButton
                 className="rounded-r-none"
                 intent="tertiary"
+                size="sm"
                 name={`sort-${value}`}
                 onClick={() => onChange(value === 'asc' ? 'desc' : 'asc')}
               />
@@ -200,14 +201,15 @@ const VnSearchFormComponent: FC = () => {
             options={sortFieldOptions}
             closeMenuOnSelect
             name="sortField"
-            className="rounded-r bg-gray-100"
+            className="min-w-[120px] rounded-l-none"
             disableSearch
+            size="sm"
           />
         </div>
 
-        <ButtonGroup>
-          <IconButton intent="tertiary" name="rectangle-stack" />
-          <IconButton intent="tertiary" name="squares" />
+        <ButtonGroup intent="tertiary" size="sm" isDisabled>
+          <IconButton name="rectangle-stack" />
+          <IconButton name="squares" />
         </ButtonGroup>
       </div>
     </div>
