@@ -4,7 +4,7 @@ import { api } from 'src/api/apiClient';
 import { authInfoDtoSchema } from 'src/api/dtos/authInfoDto';
 import { AuthInfoMapper } from 'src/api/mappers/authInfoMapper';
 import { authInfoSchema } from 'src/api/models/authInfo';
-import * as z from 'zod';
+import { z } from 'zod';
 
 const credentialsSchema = z.object({
   token: z.string().min(1),

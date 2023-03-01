@@ -8,7 +8,7 @@ import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
 import type { TypeOf } from 'zod';
 import { Validators } from 'src/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { z } from 'zod';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { TextInput } from 'src/components/TextInput/TextInput';

@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import { z } from 'zod';
 import type { TypeOf } from 'zod';
 
 export const authInfoSchema = z.object({
