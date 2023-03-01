@@ -41,38 +41,32 @@ export const Settings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="none" id="safeSexLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label className="text-caption-20 font-medium" htmlFor="safeSexLevel">
-                      Safe images
-                    </label>
+                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="safeSexLevel">
+                    Safe images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Hide sexually suggestive or explicit images
                     </span>
-                  </div>
+                  </label>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="suggestive" id="suggestiveSexLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label htmlFor="suggestiveSexLevel" className="text-caption-20 font-medium">
-                      Suggestive images
-                    </label>
+                  <label htmlFor="suggestiveSexLevel" className="text-caption-20 flex flex-col font-medium">
+                    Suggestive images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Hide only sexually explicit images
                     </span>
-                  </div>
+                  </label>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="all" id="fullSexLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label className="text-caption-20 font-medium" htmlFor="fullSexLevel">
-                      All images
-                    </label>
+                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="fullSexLevel">
+                    All images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Don&apos;t hide suggestive or explicit images
                     </span>
-                  </div>
+                  </label>
                 </div>
               </div>
             </Field>
@@ -85,38 +79,32 @@ export const Settings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="none" id="safeViolenceLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label className="text-caption-20 font-medium" htmlFor="safeViolenceLevel">
-                      Safe images
-                    </label>
+                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="safeViolenceLevel">
+                    Safe images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Hide violent or brutal images
                     </span>
-                  </div>
+                  </label>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="suggestive" id="brutalViolenceLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label htmlFor="brutalViolenceLevel" className="text-caption-20 font-medium">
-                      Brutal images
-                    </label>
+                  <label htmlFor="brutalViolenceLevel" className="text-caption-20 flex flex-col font-medium">
+                    Brutal images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Hide only brutal images
                     </span>
-                  </div>
+                  </label>
                 </div>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="all" id="fullViolenceLevel" className="shrink-0" />
-                  <div className="flex flex-col">
-                    <label className="text-caption-20 font-medium" htmlFor="fullViolenceLevel">
-                      All images
-                    </label>
+                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="fullViolenceLevel">
+                    All images
                     <span className="text-caption-18 font-medium text-gray-500">
                       Don&apos;t hide violent or brutal images
                     </span>
-                  </div>
+                  </label>
                 </div>
 
               </div>
