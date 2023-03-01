@@ -1,12 +1,21 @@
+import type { Image } from '../image';
 import type { SpoilerLevel } from '../spoilerLevel';
-import type { BaseCharacter } from './baseCharacter';
 import type { BloodType } from './bloodType';
 import type { CharacterTrait } from './characterTrait';
 import type { CharacterVnInfo } from './characterVnInfo';
 import type { Gender } from './gender';
 
 /** Character. */
-export interface Character extends BaseCharacter {
+export interface Character {
+
+  /** Id. */
+  readonly id: string;
+
+  /** Name. */
+  readonly name: string;
+
+  /** Image. */
+  readonly image: Image | null;
 
   /** Name in the original script. */
   readonly originalName: string | null;

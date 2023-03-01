@@ -12,11 +12,11 @@ import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
 import { VnLengthMapper } from '../mappers/vn/lengthMapper';
 import { isNotEmpty } from '../utils/isNotEmpty';
-import type { BaseVn } from '../models/vn/baseVn';
-import { BaseVnMapper } from '../mappers/vn/baseVnMapper';
-import { BaseVnDtoSchema } from '../dtos/vnDto/baseVnDto';
+import { SearchVnMapper } from '../mappers/vn/searchVnMapper';
+import { SearchVnDtoSchema } from '../dtos/vnDto/searchVnDto';
+import type { SearchVn } from '../models/vn/searchVn';
 
-const BASE_VN_FIELDS = [
+const VN_FIELDS = [
   'id',
   'title',
   'image.dims',
@@ -25,10 +25,6 @@ const BASE_VN_FIELDS = [
   'image.url',
   'image.violence',
   'image.votecount',
-];
-
-const VN_FIELDS = [
-  ...BASE_VN_FIELDS,
   'aliases',
   'alttitle',
   'description',
@@ -65,6 +61,17 @@ const VN_FIELDS = [
   'votecount',
 ];
 
+const SEARCH_VN_FIELDS = [
+  'id',
+  'title',
+  'image.dims',
+  'image.id',
+  'image.sexual',
+  'image.url',
+  'image.violence',
+  'image.votecount',
+];
+
 export namespace VnService {
 
   /**
@@ -73,7 +80,7 @@ export namespace VnService {
    * @param fields List of fields to fetch.
    */
   export function createVnQueryBody(
-    options: VnQueryOptions, fields = BASE_VN_FIELDS,
+    options: VnQueryOptions, fields = SEARCH_VN_FIELDS,
   ): QueryBody<VnSortField, VnFilter> {
     const filters: VnFilter[] = [];
 
@@ -146,13 +153,13 @@ export namespace VnService {
   }
 
   /**
-   * Gets base vns.
+   * Gets vns with fields for search feature.
    * @param options Query options.
    */
-  export async function getBaseVns(options: VnQueryOptions): Promise<Pagination<BaseVn>> {
-    const response = await api.post(createVnQueryBody(options, BASE_VN_FIELDS), 'vn').json();
-    const dto = createPaginationDtoSchema(BaseVnDtoSchema).parse(response);
-    return PaginationMapper.fromDto(dto, BaseVnMapper.fromDto);
+  export async function getSearchVns(options: VnQueryOptions): Promise<Pagination<SearchVn>> {
+    const response = await api.post(createVnQueryBody(options, SEARCH_VN_FIELDS), 'vn').json();
+    const dto = createPaginationDtoSchema(SearchVnDtoSchema).parse(response);
+    return PaginationMapper.fromDto(dto, SearchVnMapper.fromDto);
   }
 
   /**

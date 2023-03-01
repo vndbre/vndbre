@@ -2,7 +2,7 @@ import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { Pagination } from 'src/api/models/pagination';
 import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptions';
-import type { BaseVn } from 'src/api/models/vn/baseVn';
+import type { SearchVn } from 'src/api/models/vn/searchVn';
 import { VnService } from 'src/api/services/vnService';
 
 export const DEFAULT_PAGE_SIZE = 18;
@@ -13,11 +13,11 @@ export const DEFAULT_PAGE_SIZE = 18;
  */
 export const getBaseVnsQueryOptions = (
   options: VnQueryOptions,
-): UseInfiniteQueryOptions<Pagination<BaseVn>, Error> => ({
+): UseInfiniteQueryOptions<Pagination<SearchVn>, Error> => ({
   queryKey: ['vns', options],
 
   /** Query fn. */
-  queryFn: ({ pageParam = 1 }) => VnService.getBaseVns({
+  queryFn: ({ pageParam = 1 }) => VnService.getSearchVns({
     ...options,
     results: DEFAULT_PAGE_SIZE,
     page: pageParam,
@@ -38,6 +38,6 @@ export const getBaseVnsQueryOptions = (
  * @param options Options for useQuery hook.
  */
 export const useVnsQuery = (
-  data: VnQueryOptions, options?: UseInfiniteQueryOptions<Pagination<BaseVn>, Error>,
-): UseInfiniteQueryResult<Pagination<BaseVn>, Error> =>
+  data: VnQueryOptions, options?: UseInfiniteQueryOptions<Pagination<SearchVn>, Error>,
+): UseInfiniteQueryResult<Pagination<SearchVn>, Error> =>
   useInfiniteQuery({ ...getBaseVnsQueryOptions(data), ...options });

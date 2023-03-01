@@ -2,12 +2,12 @@ import type { VnDto } from 'src/api/dtos/vnDto/vnDto';
 import type { LanguageCode } from 'src/api/models/language';
 import type { Platform } from 'src/api/models/platform';
 import type { Vn } from 'src/api/models/vn/vn';
-import { BaseVnMapper } from './baseVnMapper';
 import { VnDevelopmentStatusMapper } from './developmentStatusMapper';
 import { VnLengthMapper } from './lengthMapper';
 import { VnScreenshotMapper } from './screenshotMapper';
 import { VnTitleMapper } from './titleMapper';
 import { VnTagMapper } from './vnTagMapper';
+import { ImageMapper } from '../imageMapper';
 
 export namespace VnMapper {
 
@@ -17,7 +17,9 @@ export namespace VnMapper {
    */
   export function fromDto(dto: VnDto): Vn {
     return {
-      ...BaseVnMapper.fromDto(dto),
+      id: dto.id,
+      image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,
+      title: dto.title,
       aliases: dto.aliases,
       altTitle: dto.alttitle,
       description: dto.description,

@@ -1,6 +1,6 @@
+import type { Image } from '../image';
 import type { LanguageCode } from '../language';
 import type { Platform } from '../platform';
-import type { BaseVn } from './baseVn';
 import type { VnDevelopmentStatus } from './developmentStatus';
 import type { VnLength } from './length';
 import type { VnScreenshot } from './screenshot';
@@ -8,7 +8,16 @@ import type { VnTitle } from './title';
 import type { VnTag } from './vnTag';
 
 /** Vn. */
-export interface Vn extends BaseVn {
+export interface Vn {
+
+  /** Id. */
+  readonly id: string;
+
+  /** Title. */
+  readonly title: string;
+
+  /** Vn image(poster). */
+  readonly image: Image | null;
 
   /** Alternative vn title. */
   readonly altTitle: string | null;

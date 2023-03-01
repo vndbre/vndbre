@@ -1,14 +1,14 @@
-import type { BaseVnDto } from 'src/api/dtos/vnDto/baseVnDto';
-import type { BaseVn } from 'src/api/models/vn/baseVn';
+import type { SearchVnDto } from 'src/api/dtos/vnDto/searchVnDto';
+import type { SearchVn } from 'src/api/models/vn/searchVn';
 import { ImageMapper } from '../imageMapper';
 
-export namespace BaseVnMapper {
+export namespace SearchVnMapper {
 
   /**
    * Maps dto to model.
    * @param dto Dto.
    */
-  export function fromDto(dto: BaseVnDto): BaseVn {
+  export function fromDto(dto: SearchVnDto): SearchVn {
     return {
       id: dto.id,
       image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,

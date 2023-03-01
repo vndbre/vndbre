@@ -3,9 +3,12 @@ import { BloodTypeDtoSchema } from './bloodTypeDto';
 import { GenderDtoSchema } from './genderDto';
 import { CharacterTraitDtoSchema } from './characterTraitDto';
 import { CharacterVnInfoDtoSchema } from './characterVnInfoDto';
-import { BaseCharacterDtoSchema } from './baseCharacterDto';
+import { ImageSchemaDto } from '../imageDto';
 
-export const CharacterDtoSchema = BaseCharacterDtoSchema.extend({
+export const CharacterDtoSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  image: ImageSchemaDto.nullable(),
   original: z.string().nullable(),
   aliases: z.string().array(),
   description: z.string().nullable(),

@@ -1,14 +1,14 @@
 import { api } from '../apiClient';
-import { BaseCharacterDtoSchema } from '../dtos/characterDto/baseCharacterDto';
 import { CharacterDtoSchema } from '../dtos/characterDto/characterDto';
+import { SearchCharacterDtoSchema } from '../dtos/characterDto/searchCharacterDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
-import { BaseCharacterMapper } from '../mappers/character/baseCharacterMapper';
 import { CharacterMapper } from '../mappers/character/characterMapper';
 import { CharacterRoleMapper } from '../mappers/character/characterRoleMapper';
 import { GenderMapper } from '../mappers/character/genderMapper';
+import { SearchCharacterMapper } from '../mappers/character/searchCharacterMapper';
 import { PaginationMapper } from '../mappers/paginationMapper';
-import type { BaseCharacter } from '../models/character/baseCharacter';
 import type { Character } from '../models/character/character';
+import type { SearchCharacter } from '../models/character/searchCharacter';
 import type { Pagination } from '../models/pagination';
 import type { QueryBody } from '../models/queryBody';
 import type { CharacterFilter, CharacterQueryOptions } from '../models/queryOptions/character/characterQueryOptions';
@@ -17,7 +17,7 @@ import type { VnFilter } from '../models/queryOptions/vn/vnQueryOptions';
 import { isNotEmpty } from '../utils/isNotEmpty';
 import { QueryBuilderService } from './queryBuilderService';
 
-const BASE_CHARACTER_FIELDS = [
+const CHARACTER_FIELDS = [
   'id',
   'name',
   'image.dims',
@@ -26,10 +26,6 @@ const BASE_CHARACTER_FIELDS = [
   'image.url',
   'image.violence',
   'image.votecount',
-];
-
-const CHARACTER_FIELDS = [
-  ...BASE_CHARACTER_FIELDS,
   'age',
   'aliases',
   'birthday',
@@ -57,16 +53,27 @@ const CHARACTER_FIELDS = [
   'weight',
 ];
 
+const SEARCH_CHARACTER_FIELDS = [
+  'id',
+  'name',
+  'image.dims',
+  'image.id',
+  'image.sexual',
+  'image.url',
+  'image.violence',
+  'image.votecount',
+];
+
 export namespace CharacterService {
 
   /**
    * Create query body for character requests.
-   * @param options Opt.
+   * @param options Options.
    * @param fields Fields to fetch.
    */
   export function createCharacterQueryBody(
     options: CharacterQueryOptions,
-    fields = BASE_CHARACTER_FIELDS,
+    fields = SEARCH_CHARACTER_FIELDS,
   ): QueryBody<CharacterSortField, CharacterFilter> {
     const filters: CharacterFilter[] = [];
 
@@ -112,15 +119,15 @@ export namespace CharacterService {
   }
 
   /**
-   * Gets characters with base fields.
+   * Gets characters with fields for search feature.
    * @param options Options.
    */
-  export async function getBaseCharacters(
+  export async function getSearchCharacters(
     options: CharacterQueryOptions,
-  ): Promise<Pagination<BaseCharacter>> {
-    const response = await api.post(createCharacterQueryBody(options, BASE_CHARACTER_FIELDS), 'character').json();
-    const dto = createPaginationDtoSchema(BaseCharacterDtoSchema).parse(response);
-    return PaginationMapper.fromDto(dto, BaseCharacterMapper.fromDto);
+  ): Promise<Pagination<SearchCharacter>> {
+    const response = await api.post(createCharacterQueryBody(options, SEARCH_CHARACTER_FIELDS), 'character').json();
+    const dto = createPaginationDtoSchema(SearchCharacterDtoSchema).parse(response);
+    return PaginationMapper.fromDto(dto, SearchCharacterMapper.fromDto);
   }
 
   /**
