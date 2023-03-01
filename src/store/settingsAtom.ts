@@ -1,11 +1,6 @@
 import { atom, useAtom } from 'jotai';
 import type { Settings } from 'src/api/models/settings/settings';
 
-/**
- *  0 - means hide all images that might contain any suggestive/violent content.
- *  2 - means show all images.
- */
-
 const initialSettings: Settings = {
   spoilerLevel: 'none',
   hideSexualTags: true,
@@ -22,4 +17,6 @@ export const settingsAtom = atom(
   (_get, set, newSettings: Settings) => set(_settingsAtom, newSettings),
 );
 
+/** Hook for retrieving settings. */
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useSettings = () => useAtom(settingsAtom);

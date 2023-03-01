@@ -21,6 +21,11 @@ export namespace CensorService {
       image.violence > ImageDisplayLevel.getValue(violenceLevel);
   }
 
+  /**
+   * Checks if sexual trait should be removed.
+   * @param trait Trait.
+   * @param isSexualTraitsDisabled Setting for disabling traits with sexual content.
+   */
   export function shouldRemoveSexualTrait(
     trait: Trait, isSexualTraitsDisabled: boolean,
   ): boolean {
@@ -30,6 +35,11 @@ export namespace CensorService {
     return trait.parent.name.toLocaleLowerCase().includes('sexual') && isSexualTraitsDisabled;
   }
 
+  /**
+   * Checks if sexual tag should be removed.
+   * @param tag Tag.
+   * @param isSexualTagsDisabled Setting for disabling tags with sexual content.
+   */
   export function shouldRemoveSexualTags(tag: Tag, isSexualTagsDisabled: boolean): boolean {
     return tag.category === 'erotical' && isSexualTagsDisabled;
   }
