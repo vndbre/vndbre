@@ -16,12 +16,15 @@ type Props =
 
   /** Image height, if height isn't provided will use aspect ratio. */
   readonly width?: number;
+
+  readonly isBlurred?: boolean;
+
 };
 
 /**
  * Image poster.
  */
-const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
+const PosterComponent: FC<Props> = ({ className, height, width, isBlurred = false, ...props }) => {
   const style = useMemo(() => {
     if (width == null && height == null) {
       return {};
@@ -50,6 +53,7 @@ const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
         className={clsx(
           'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300', {
             'opacity-100': isLoadingComplete,
+            'blur': isBlurred,
           },
         )}
         {...props}

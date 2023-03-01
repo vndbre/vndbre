@@ -18,6 +18,8 @@ import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
+import { useSettings } from 'src/store/settingsAtom';
+import { CensorService } from 'src/api/services/censorService';
 import { useTagsQuery } from '../../queries/tags';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
@@ -33,6 +35,7 @@ const lengthOptions = VN_LENGTHS
 
 /** Search form component for vns. */
 const VnSearchFormComponent: FC = () => {
+  const [settings] = useSettings();
   const [tagsInputValue, setTagsInputValue] = useState('');
   const debouncedTagInputValue = useDebounce(tagsInputValue);
 
@@ -57,7 +60,8 @@ const VnSearchFormComponent: FC = () => {
   const tagOptions = useMemo(() =>
     tags?.pages
       .flatMap(page => page.results)
-      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags]);
+      .filter(tag => !CensorService.shouldRemoveSexualTags(tag, settings.hideSexualTags))
+      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags, settings.hideSexualTags]);
 
   return (
     <div className="flex flex-col gap-4">

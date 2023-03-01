@@ -7,6 +7,7 @@ import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
 import { Icon } from '../Icon/Icon';
+import { Settings } from '../Settings/Settings';
 
 /** App header. */
 const AppHeaderComponent: FC = () => {
@@ -32,6 +33,7 @@ const AppHeaderComponent: FC = () => {
         </Button>
 
         <div className="flex items-center gap-2 justify-self-end">
+          <Settings />
           {isAuthenticated && (
             <>
               <Button intent="quaternary" onClick={handleLogoutButtonClick}>Log out</Button>
