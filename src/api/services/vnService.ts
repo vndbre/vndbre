@@ -150,7 +150,7 @@ export namespace VnService {
    * @param options Query options.
    */
   export async function getBaseVns(options: VnQueryOptions): Promise<Pagination<BaseVn>> {
-    const response = await api.post(createVnQueryBody(options), 'vn').json();
+    const response = await api.post(createVnQueryBody(options, BASE_VN_FIELDS), 'vn').json();
     const dto = createPaginationDtoSchema(BaseVnDtoSchema).parse(response);
     return PaginationMapper.fromDto(dto, BaseVnMapper.fromDto);
   }
