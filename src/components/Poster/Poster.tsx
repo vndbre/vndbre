@@ -17,6 +17,7 @@ type Props =
   /** Image height, if height isn't provided will use aspect ratio. */
   readonly width?: number;
 
+  /** Whether image should be blurred or not. */
   readonly isBlurred?: boolean;
 
 };

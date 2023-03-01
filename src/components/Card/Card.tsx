@@ -14,6 +14,7 @@ interface Props {
   /** Path to entity. */
   readonly path: string;
 
+  /** Whether image should be blurred or not. */
   readonly isBlurred?: boolean;
 }
 
