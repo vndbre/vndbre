@@ -8,7 +8,6 @@ import { CacheProvider } from '@emotion/react';
 import { SessionProvider } from 'next-auth/react';
 import type { Session } from 'next-auth';
 import 'src/styles/globals.css';
-import { Provider } from 'jotai';
 import { queryClient } from '../api/queryClient';
 
 /**
@@ -33,16 +32,14 @@ const MyApp: AppType<{ dehydratedState: unknown; session: Session | null; }> = (
 }) => (
   <SessionProvider session={session}>
     <QueryClientProvider client={queryClient}>
-      <Provider>
-        <CacheProvider value={cache}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <div className={`${inter.variable} font-sans`}>
-              <Component {...pageProps} />
-            </div>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Hydrate>
-        </CacheProvider>
-      </Provider>
+      <CacheProvider value={cache}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <div className={`${inter.variable} font-sans`}>
+            <Component {...pageProps} />
+          </div>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Hydrate>
+      </CacheProvider>
     </QueryClientProvider>
   </SessionProvider>
 );
