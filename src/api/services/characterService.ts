@@ -1,13 +1,10 @@
 import { api } from '../apiClient';
-import { CharacterDtoSchema } from '../dtos/characterDto/characterDto';
 import { SearchCharacterDtoSchema } from '../dtos/characterDto/searchCharacterDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
-import { CharacterMapper } from '../mappers/character/characterMapper';
 import { CharacterRoleMapper } from '../mappers/character/characterRoleMapper';
 import { GenderMapper } from '../mappers/character/genderMapper';
 import { SearchCharacterMapper } from '../mappers/character/searchCharacterMapper';
 import { PaginationMapper } from '../mappers/paginationMapper';
-import type { Character } from '../models/character/character';
 import type { SearchCharacter } from '../models/character/searchCharacter';
 import type { Pagination } from '../models/pagination';
 import type { QueryBody } from '../models/queryBody';
@@ -17,6 +14,7 @@ import type { VnFilter } from '../models/queryOptions/vn/vnQueryOptions';
 import { isNotEmpty } from '../utils/isNotEmpty';
 import { QueryBuilderService } from './queryBuilderService';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const CHARACTER_FIELDS = [
   'id',
   'name',
@@ -128,17 +126,5 @@ export namespace CharacterService {
     const response = await api.post(createCharacterQueryBody(options, SEARCH_CHARACTER_FIELDS), 'character').json();
     const dto = createPaginationDtoSchema(SearchCharacterDtoSchema).parse(response);
     return PaginationMapper.fromDto(dto, SearchCharacterMapper.fromDto);
-  }
-
-  /**
-   * Gets characters.
-   * @param options Options.
-   */
-  export async function getCharacters(
-    options: CharacterQueryOptions,
-  ): Promise<Pagination<Character>> {
-    const response = await api.post(createCharacterQueryBody(options, CHARACTER_FIELDS), 'character').json();
-    const dto = createPaginationDtoSchema(CharacterDtoSchema).parse(response);
-    return PaginationMapper.fromDto(dto, CharacterMapper.fromDto);
   }
 }

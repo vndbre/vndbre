@@ -2,12 +2,9 @@ import { QueryBuilderService } from './queryBuilderService';
 import type { QueryBody } from '../models/queryBody';
 import type { VnFilter, VnQueryOptions } from '../models/queryOptions/vn/vnQueryOptions';
 import { api } from '../apiClient';
-import { VnDtoSchema } from '../dtos/vnDto/vnDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
 import { PaginationMapper } from '../mappers/paginationMapper';
-import { VnMapper } from '../mappers/vn/vnMapper';
 import type { Pagination } from '../models/pagination';
-import type { Vn } from '../models/vn/vn';
 import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
 import { VnLengthMapper } from '../mappers/vn/lengthMapper';
@@ -16,6 +13,7 @@ import { SearchVnMapper } from '../mappers/vn/searchVnMapper';
 import { SearchVnDtoSchema } from '../dtos/vnDto/searchVnDto';
 import type { SearchVn } from '../models/vn/searchVn';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const VN_FIELDS = [
   'id',
   'title',
@@ -160,15 +158,5 @@ export namespace VnService {
     const response = await api.post(createVnQueryBody(options, SEARCH_VN_FIELDS), 'vn').json();
     const dto = createPaginationDtoSchema(SearchVnDtoSchema).parse(response);
     return PaginationMapper.fromDto(dto, SearchVnMapper.fromDto);
-  }
-
-  /**
-   * Gets vns.
-   * @param options Query options.
-   */
-  export async function getVns(options: VnQueryOptions): Promise<Pagination<Vn>> {
-    const response = await api.post(createVnQueryBody(options, VN_FIELDS), 'vn').json();
-    const dto = createPaginationDtoSchema(VnDtoSchema).parse(response);
-    return PaginationMapper.fromDto(dto, VnMapper.fromDto);
   }
 }
