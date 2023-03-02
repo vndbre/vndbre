@@ -2,24 +2,84 @@ import { QueryBuilderService } from './queryBuilderService';
 import type { QueryBody } from '../models/queryBody';
 import type { VnFilter, VnQueryOptions } from '../models/queryOptions/vn/vnQueryOptions';
 import { api } from '../apiClient';
-import { VnDtoSchema } from '../dtos/vnDto/vnDto';
 import { createPaginationDtoSchema } from '../dtos/paginationDto';
 import { PaginationMapper } from '../mappers/paginationMapper';
-import { VnMapper } from '../mappers/vn/vnMapper';
 import type { Pagination } from '../models/pagination';
-import type { Vn } from '../models/vn/vn';
 import type { VnSortField } from '../models/queryOptions/vn/vnSortField';
 import { VnDevelopmentStatusMapper } from '../mappers/vn/developmentStatusMapper';
 import { VnLengthMapper } from '../mappers/vn/lengthMapper';
 import { isNotEmpty } from '../utils/isNotEmpty';
+import { SearchVnMapper } from '../mappers/vn/searchVnMapper';
+import { SearchVnDtoSchema } from '../dtos/vnDto/searchVnDto';
+import type { SearchVn } from '../models/vn/searchVn';
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const VN_FIELDS = [
+  'id',
+  'title',
+  'image.dims',
+  'image.id',
+  'image.sexual',
+  'image.url',
+  'image.violence',
+  'image.votecount',
+  'aliases',
+  'alttitle',
+  'description',
+  'devstatus',
+  'languages',
+  'length_minutes',
+  'length_votes',
+  'length',
+  'olang',
+  'platforms',
+  'popularity',
+  'rating',
+  'released',
+  'screenshots.dims',
+  'screenshots.id',
+  'screenshots.sexual',
+  'screenshots.thumbnail_dims',
+  'screenshots.thumbnail',
+  'screenshots.url',
+  'screenshots.violence',
+  'screenshots.votecount',
+  'tags.spoiler',
+  'tags.id',
+  'tags.name',
+  'tags.aliases',
+  'tags.description',
+  'tags.category',
+  'title',
+  'titles.lang',
+  'titles.latin',
+  'titles.main',
+  'titles.official',
+  'titles.title',
+  'votecount',
+];
+
+const SEARCH_VN_FIELDS = [
+  'id',
+  'title',
+  'image.dims',
+  'image.id',
+  'image.sexual',
+  'image.url',
+  'image.violence',
+  'image.votecount',
+];
 
 export namespace VnService {
 
   /**
    * Creates vn query body.
    * @param options Query options.
+   * @param fields List of fields to fetch.
    */
-  export function createVnQueryBody(options: VnQueryOptions): QueryBody<VnSortField, VnFilter> {
+  export function createVnQueryBody(
+    options: VnQueryOptions, fields = SEARCH_VN_FIELDS,
+  ): QueryBody<VnSortField, VnFilter> {
     const filters: VnFilter[] = [];
 
     if (isNotEmpty(options.id)) {
@@ -85,60 +145,18 @@ export namespace VnService {
 
       // we don't want to receive count without passing a page.
       count: options.page !== undefined,
-      fields: [
-        'aliases',
-        'alttitle',
-        'description',
-        'devstatus',
-        'id',
-        'image.dims',
-        'image.id',
-        'image.sexual',
-        'image.url',
-        'image.violence',
-        'image.votecount',
-        'languages',
-        'length_minutes',
-        'length_votes',
-        'length',
-        'olang',
-        'platforms',
-        'popularity',
-        'rating',
-        'released',
-        'screenshots.dims',
-        'screenshots.id',
-        'screenshots.sexual',
-        'screenshots.thumbnail_dims',
-        'screenshots.thumbnail',
-        'screenshots.url',
-        'screenshots.violence',
-        'screenshots.votecount',
-        'tags.aliases',
-        'tags.category',
-        'tags.description',
-        'tags.id',
-        'tags.name',
-        'title',
-        'title',
-        'titles.lang',
-        'titles.latin',
-        'titles.main',
-        'titles.official',
-        'titles.title',
-        'votecount',
-      ].join(', '),
+      fields: fields.join(', '),
       filters: filters.length > 0 ? ['and', ...filters] : undefined,
     };
   }
 
   /**
-   * Gets vns.
+   * Gets vns with fields for search feature.
    * @param options Query options.
    */
-  export async function getVns(options: VnQueryOptions): Promise<Pagination<Vn>> {
-    const response = await api.post(createVnQueryBody(options), 'vn').json();
-    const dto = createPaginationDtoSchema(VnDtoSchema).parse(response);
-    return PaginationMapper.fromDto(dto, VnMapper.fromDto);
+  export async function getSearchVns(options: VnQueryOptions): Promise<Pagination<SearchVn>> {
+    const response = await api.post(createVnQueryBody(options, SEARCH_VN_FIELDS), 'vn').json();
+    const dto = createPaginationDtoSchema(SearchVnDtoSchema).parse(response);
+    return PaginationMapper.fromDto(dto, SearchVnMapper.fromDto);
   }
 }

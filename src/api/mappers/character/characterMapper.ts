@@ -16,10 +16,10 @@ export namespace CharacterMapper {
     return {
       id: dto.id,
       name: dto.name,
+      image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,
       originalName: dto.original,
       aliases: dto.aliases,
       description: dto.description,
-      image: dto.image !== null ? ImageMapper.fromDto(dto.image) : null,
       bloodType: dto.blood_type !== null ? BloodTypeMapper.fromDto(dto.blood_type) : null,
       height: dto.height,
       weight: dto.weight,

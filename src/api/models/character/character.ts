@@ -14,6 +14,9 @@ export interface Character {
   /** Name. */
   readonly name: string;
 
+  /** Image. */
+  readonly image: Image | null;
+
   /** Name in the original script. */
   readonly originalName: string | null;
 
@@ -22,9 +25,6 @@ export interface Character {
 
   /** Description. */
   readonly description: string | null;
-
-  /** Image. */
-  readonly image: Image | null;
 
   /** Blood type. */
   readonly bloodType: BloodType | null;
