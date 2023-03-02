@@ -118,10 +118,12 @@ export const Settings: FC = () => {
                 control={control}
                 name="hideSexualTags"
                 render={({ field: { value, ...rest } }) => (
-                  <Checkbox {...rest} checked={value} />
+                  <Checkbox {...rest} checked={value} id="hideSexualTags" />
                 )}
               />
-              <span className="text-caption-20 font-medium">Hide sexual tags/traits</span>
+              <label htmlFor="hideSexualTags" className="text-caption-20 font-medium">
+                Hide sexual tags/traits
+              </label>
             </div>
 
             <Field Component={RadioGroup.Root} control={control} name="spoilerLevel">
