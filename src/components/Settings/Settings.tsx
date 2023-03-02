@@ -69,11 +69,13 @@ export const Settings: FC = () => {
                     </span>
                   </label>
                 </div>
+
               </div>
             </Field>
 
             <Field Component={RadioGroup.Root} control={control} name="imageDisplaySettings.violenceLevel">
               <div className="flex flex-col gap-4">
+
                 <span className="text-caption-20 font-medium text-gray-500">
                   Violent and brutal
                 </span>
@@ -128,6 +130,7 @@ export const Settings: FC = () => {
 
             <Field Component={RadioGroup.Root} control={control} name="spoilerLevel">
               <div className="flex flex-col gap-4">
+
                 <span className="text-caption-20 font-medium text-gray-500">
                   Spoilers
                 </span>
@@ -137,7 +140,6 @@ export const Settings: FC = () => {
                   <label className="text-caption-20 font-medium" htmlFor="noneSpoilerLevel">
                     Hide spoilers
                   </label>
-
                 </div>
 
                 <div className="flex items-center gap-3">
