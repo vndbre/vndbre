@@ -45,7 +45,6 @@ const PosterComponent: FC<Props> = ({ className, height, width, ...props }) => {
       })}
       style={style}
     >
-      {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         className={clsx(
           'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300', {

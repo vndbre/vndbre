@@ -561,7 +561,8 @@
         "allowArrowFunctions": true
       }
     ],
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "jsx-a11y/alt-text": "off"
   },
   "overrides": [
     {

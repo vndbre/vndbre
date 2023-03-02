@@ -35,3 +35,15 @@ input::-webkit-inner-spin-button {
 html {
   scrollbar-gutter: stable;
 }
+
+ol {
+  counter-reset: section
+}
+
+ol > li {
+  counter-increment: section
+}
+
+ol > li::marker {
+  content: counters(section, ".")"." " ";
+}
