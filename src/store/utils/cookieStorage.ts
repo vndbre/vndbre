@@ -1,0 +1,51 @@
+import type { createJSONStorage } from 'jotai/utils';
+import Cookies from 'js-cookie';
+import cookie from 'cookie';
+import type { IncomingMessage } from 'http';
+
+export type Storage<T> = ReturnType<typeof createJSONStorage<T>>;
+
+export namespace CookieStorage {
+
+  /** Creates cookie storage. */
+  export function createStorage<T>(): Storage<T> {
+    return {
+      getItem(key: string) {
+        const data = Cookies.get(key);
+        if (data !== undefined) {
+          return JSON.parse(data);
+        }
+        return null;
+      },
+      setItem(key: string, newValue: T) {
+        Cookies.set(key, JSON.stringify(newValue));
+      },
+      removeItem(key: string) {
+        Cookies.remove(key);
+      },
+    };
+  }
+
+  /**
+   * Gets value from cookies by key.
+   * @param key Key.
+   * @param initialValue Initial value, in case if there is no corresponding cookie.
+   * @param req Request(for retrieving server-side cookies).
+   */
+  export function getCookieValue<T>(key: string, initialValue: T, req?: IncomingMessage): T {
+    let data: string | undefined;
+
+    if (req === undefined) {
+      data = Cookies.get(key);
+    } else {
+      const cookies = cookie.parse(req.headers.cookie ?? '');
+      data = cookies[key];
+    }
+
+    if (data !== undefined) {
+      return JSON.parse(data);
+    }
+
+    return initialValue;
+  }
+}

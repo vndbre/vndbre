@@ -16,7 +16,9 @@ import { Select } from 'src/components/Select';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
 import { CensorService } from 'src/api/services/censorService';
-import { useSettings } from 'src/hooks/useSettings';
+
+// import { useSettings } from 'src/hooks/useSettings';
+import { useSettings } from 'src/store/settingsAtom';
 import { useTraitsQuery } from '../../queries/traits';
 import { useVnsQuery } from '../../queries/vns';
 import { SearchPopover } from '../SearchPopover/SearchPopover';

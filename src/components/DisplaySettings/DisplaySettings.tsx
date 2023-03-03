@@ -3,7 +3,9 @@ import type { FC } from 'react';
 import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import type { Settings as SettingsFormValues } from 'src/api/models/settings/settings';
-import { useSettings } from 'src/hooks/useSettings';
+import { useSettings } from 'src/store/settingsAtom';
+
+// import { useSettings } from 'src/hooks/useSettings';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Field } from '../Field/Field';
 import { Form } from '../Form/Form';
