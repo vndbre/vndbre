@@ -7,7 +7,7 @@ import { AppHeader } from '../AppHeader/AppHeader';
 export const Layout: FC<PropsWithChildrenAndClass> = ({ className, children }) => (
   <div className={clsx('flex flex-col items-center gap-6', className)}>
     <AppHeader />
-    <div className="w-full max-w-screen-xl px-6">
+    <div className="w-full max-w-screen-xl px-3">
       {children}
     </div>
   </div>

@@ -38,7 +38,7 @@ const LoginFormComponent: FC<Props> = ({ onSubmit, isSubmitting }) => {
 
   return (
     <Form {...form} onSubmit={onSubmit}>
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 md:flex-row">
         <div className="flex-1">
           <Field
             Component={TextInput}
