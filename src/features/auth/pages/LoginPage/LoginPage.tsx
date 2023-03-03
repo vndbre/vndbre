@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import { signIn } from 'next-auth/react';
 import { Layout } from 'src/components/Layout/Layout';
@@ -36,6 +36,30 @@ export const LoginPage: NextPage = () => {
   const [loginSubmit, setLoginSubmit] = useState(false);
   const [tab, setTab] = useState<TabValue>('text');
   const carouselRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    /** Handles the scroll event of the carousel. */
+    function handleScroll(): void {
+      if (carouselRef.current == null) {
+        return;
+      }
+
+      const carouselWidth = carouselRef.current.offsetWidth;
+      const { scrollLeft } = carouselRef.current;
+
+      if (scrollLeft > carouselWidth / 2) {
+        setTab('visual');
+      } else {
+        setTab('text');
+      }
+    }
+
+    carouselRef.current?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      carouselRef.current?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleFormSubmit = useCallback(async(data: LoginFormData) => {
     setLoginError(null);
