@@ -11,8 +11,8 @@ import { IconButton } from '../IconButton/IconButton';
 import { Popover, PopoverContent, PopoverTrigger } from '../Popover/Popover';
 import { RadioGroup } from '../RadioGroup';
 
-/** Settings popover component. */
-export const Settings: FC = () => {
+/** Display settings component. */
+export const DisplaySettings: FC = () => {
   const [settings, setSettings] = useSettings();
 
   const methods = useForm({
