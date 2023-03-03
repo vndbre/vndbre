@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { useState, useCallback, useRef } from 'react';
 import Head from 'next/head';
 import { signIn } from 'next-auth/react';
@@ -5,8 +6,9 @@ import { Layout } from 'src/components/Layout/Layout';
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import loginGuideDesktopImage from 'public/assets/login-guide-desktop.png';
-import loginGuideTabletImage from 'public/assets/login-guide-tabletop.png';
+
+// import loginGuideDesktopImage from 'public/assets/login-guide-desktop.png';
+// import loginGuideTabletImage from 'public/assets/login-guide-tabletop.png';
 import loginGuideMobileImage from 'public/assets/login-guide-mobile.png';
 import { Tabs } from 'src/components/Tabs';
 import type { TypeOf } from 'zod';
@@ -129,6 +131,11 @@ export const LoginPage: NextPage = () => {
           </div>
         </div>
         <LoginForm onSubmit={handleFormSubmit} isSubmitting={loginSubmit} />
+        {loginError && (
+          <div role="alert" className="text-caption-18 grid min-h-[48px] place-items-center rounded-md bg-red-50 p-3 text-center font-medium text-red-500">
+            {loginError}
+          </div>
+        )}
       </Layout>
     </>
   );
