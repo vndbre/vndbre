@@ -14,7 +14,7 @@ export const INITIAL_SETTINGS: Settings = {
   },
 };
 
-const cookieStorage = { ...CookieStorage.createStorage(), delayInit: true };
+const cookieStorage = { ...CookieStorage.createStorage<Settings>(), delayInit: true };
 
 export const settingsAtom = atomWithStorage(
   SETTINGS_KEY,
