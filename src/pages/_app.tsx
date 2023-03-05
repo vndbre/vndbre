@@ -9,10 +9,11 @@ import type { Session } from 'next-auth';
 import 'src/styles/globals.css';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
-import { useHydrateAtoms } from 'jotai/utils';
 import { INITIAL_SETTINGS, settingsAtom, SETTINGS_KEY } from 'src/store/settingsAtom';
 import type { Settings } from 'src/api/models/settings/settings';
 import { CookieStorage } from 'src/store/utils/cookieStorage';
+import { Provider } from 'jotai';
+import { HydrateAtoms } from 'src/store/HydrateAtoms';
 import { queryClient } from '../api/queryClient';
 
 /**
@@ -41,24 +42,24 @@ const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
   settings,
-}: Props) => {
-  useHydrateAtoms([[settingsAtom, settings]]);
-
-  return (
-    <SessionProvider session={session}>
+}: Props) => (
+  <SessionProvider session={session}>
+    <Provider>
       <QueryClientProvider client={queryClient}>
         <CacheProvider value={cache}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <div className={`${inter.variable} font-sans`}>
-              <Component {...pageProps} />
-            </div>
-            <ReactQueryDevtools initialIsOpen={false} />
-          </Hydrate>
+          <HydrateAtoms values={[[settingsAtom, settings]]}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <div className={`${inter.variable} font-sans`}>
+                <Component {...pageProps} />
+              </div>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </Hydrate>
+          </HydrateAtoms>
         </CacheProvider>
       </QueryClientProvider>
-    </SessionProvider>
-  );
-};
+    </Provider>
+  </SessionProvider>
+);
 
 /**
  * Gets initial props for app.

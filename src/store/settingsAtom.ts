@@ -14,10 +14,12 @@ export const INITIAL_SETTINGS: Settings = {
   },
 };
 
+const cookieStorage = { ...CookieStorage.createStorage(), delayInit: true };
+
 export const settingsAtom = atomWithStorage(
   SETTINGS_KEY,
   CookieStorage.getCookieValue(SETTINGS_KEY, INITIAL_SETTINGS),
-  CookieStorage.createStorage(),
+  cookieStorage,
 );
 
 /** Hook for interaction with settings. */
