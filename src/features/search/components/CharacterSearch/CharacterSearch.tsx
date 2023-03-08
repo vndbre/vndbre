@@ -9,8 +9,6 @@ import { useForm, useWatch } from 'react-hook-form';
 import { Form } from 'src/components/Form/Form';
 import { useDebounce } from 'usehooks-ts';
 import { CensorService } from 'src/api/services/censorService';
-
-// import { useSettings } from 'src/hooks/useSettings';
 import { useSettings } from 'src/store/settingsAtom';
 import { DEFAULT_PAGE_SIZE, useCharactersQuery } from '../../queries/characters';
 import { CharacterSearchFormValues, CHARACTER_SEARCH_INITIAL_VALUES } from '../CharacterSearchForm/characterSearchFormValues';

@@ -19,8 +19,6 @@ import { Slider } from 'src/components/Slider/Slider';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
 import { CensorService } from 'src/api/services/censorService';
-
-// import { useSettings } from 'src/hooks/useSettings';
 import { useSettings } from 'src/store/settingsAtom';
 import { useTagsQuery } from '../../queries/tags';
 import { SearchPopover } from '../SearchPopover/SearchPopover';

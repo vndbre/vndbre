@@ -9,8 +9,6 @@ import { Form } from 'src/components/Form/Form';
 import { ChildrenMultiplier } from 'src/components/ChildrenMultiplier/ChildrenMultiplier';
 import { Pagination } from 'src/api/models/pagination';
 import { CensorService } from 'src/api/services/censorService';
-
-// import { useSettings } from 'src/hooks/useSettings';
 import { useSettings } from 'src/store/settingsAtom';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
