@@ -15,8 +15,7 @@ import { IconButton } from 'src/components/IconButton/IconButton';
 import { Select } from 'src/components/Select';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
-import { CensorService } from 'src/api/services/censorService';
-import { useSettings } from 'src/store/settingsAtom';
+import { useCensor } from 'src/hooks/useCensor';
 import { useTraitsQuery } from '../../queries/traits';
 import { useVnsQuery } from '../../queries/vns';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
@@ -33,7 +32,7 @@ const sortFieldOptions = CHARACTER_SORT_FIELDS
 
 /** Character search form. */
 const CharacterSearchFormComponent: FC = () => {
-  const [settings] = useSettings();
+  const { shouldHideSexualTrait } = useCensor();
   const { control } = useFormContext<CharacterSearchFormValues>();
 
   const [traitsSearchInput, setTraitsSearchInput] = useState('');
@@ -83,7 +82,7 @@ const CharacterSearchFormComponent: FC = () => {
     const traitResults = traits?.pages.flatMap(page => page.results) ?? [];
 
     const groupedTraitsByName = traitResults
-      .filter(trait => !CensorService.shouldRemoveSexualTrait(trait, settings.hideSexualTags))
+      .filter(trait => !shouldHideSexualTrait(trait))
       .reduce((prev, cur) => {
         if (cur.parent === null) {
           return { ...prev, [cur.name]: [] };
@@ -98,7 +97,7 @@ const CharacterSearchFormComponent: FC = () => {
 
     return Object.entries(groupedTraitsByName)
       .map(([key, ts]) => ({ label: key, options: ts.map(t => ({ label: t.name, value: t.id })) }));
-  }, [traits, settings.hideSexualTags]);
+  }, [traits]);
 
   return (
     <div className="flex flex-col gap-4">
