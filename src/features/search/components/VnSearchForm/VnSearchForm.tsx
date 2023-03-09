@@ -60,7 +60,7 @@ const VnSearchFormComponent: FC = () => {
     tags?.pages
       .flatMap(page => page.results)
       .filter(tag => !shouldHideSexualTag(tag))
-      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags]);
+      .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags, shouldHideSexualTag]);
 
   return (
     <div className="flex flex-col gap-4">

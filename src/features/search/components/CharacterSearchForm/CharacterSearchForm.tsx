@@ -97,7 +97,7 @@ const CharacterSearchFormComponent: FC = () => {
 
     return Object.entries(groupedTraitsByName)
       .map(([key, ts]) => ({ label: key, options: ts.map(t => ({ label: t.name, value: t.id })) }));
-  }, [traits]);
+  }, [traits, shouldHideSexualTrait]);
 
   return (
     <div className="flex flex-col gap-4">
