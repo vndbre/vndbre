@@ -15,6 +15,7 @@ import { IconButton } from 'src/components/IconButton/IconButton';
 import { Select } from 'src/components/Select';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
+import { useCensor } from 'src/hooks/useCensor';
 import { useTraitsQuery } from '../../queries/traits';
 import { useVnsQuery } from '../../queries/vns';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
@@ -31,6 +32,7 @@ const sortFieldOptions = CHARACTER_SORT_FIELDS
 
 /** Character search form. */
 const CharacterSearchFormComponent: FC = () => {
+  const { shouldHideSexualTrait } = useCensor();
   const { control } = useFormContext<CharacterSearchFormValues>();
 
   const [traitsSearchInput, setTraitsSearchInput] = useState('');
@@ -76,21 +78,22 @@ const CharacterSearchFormComponent: FC = () => {
   const vnOptions = useMemo(() => vns?.pages
     .flatMap(page => page.results)
     .map(vn => ({ value: vn.id, label: vn.title })) ?? [], [vns]);
-
   const traitOptions = useMemo(() => {
     const traitResults = traits?.pages.flatMap(page => page.results) ?? [];
 
-    const groupedTraitsByName = traitResults.reduce((prev, cur) => {
-      if (cur.parent === null) {
-        return { ...prev, [cur.name]: [] };
-      }
+    const groupedTraitsByName = traitResults
+      .filter(trait => !shouldHideSexualTrait(trait))
+      .reduce((prev, cur) => {
+        if (cur.parent === null) {
+          return { ...prev, [cur.name]: [] };
+        }
 
-      // This excludes subparent traits(hair color, etc.)
-      if (!cur.isApplicable || !cur.isSearchable) {
-        return prev;
-      }
-      return { ...prev, [cur.parent.name]: [...prev[cur.parent.name] ?? [], cur] };
-    }, {} as Record<string, Trait[]>);
+        // This excludes subparent traits(hair color, etc.)
+        if (!cur.isApplicable || !cur.isSearchable) {
+          return prev;
+        }
+        return { ...prev, [cur.parent.name]: [...prev[cur.parent.name] ?? [], cur] };
+      }, {} as Record<string, Trait[]>);
 
     return Object.entries(groupedTraitsByName)
       .map(([key, ts]) => ({ label: key, options: ts.map(t => ({ label: t.name, value: t.id })) }));

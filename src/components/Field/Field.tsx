@@ -1,4 +1,4 @@
-import type { ComponentProps, ElementType } from 'react';
+import type { ComponentProps, ElementType, PropsWithChildren } from 'react';
 import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
@@ -18,7 +18,7 @@ const FieldComponent = <T extends ElementType, Values extends FieldValues>({
   control,
   name,
   ...componentProps
-}: Props<T, Values>): JSX.Element => {
+}: PropsWithChildren<Props<T, Values>>): JSX.Element => {
   const { field, fieldState: { error } } = useController({
     name,
     control,

@@ -8,6 +8,7 @@ import { CardSkeleton } from 'src/components/Card/CardSkeleton';
 import { Form } from 'src/components/Form/Form';
 import { ChildrenMultiplier } from 'src/components/ChildrenMultiplier/ChildrenMultiplier';
 import { Pagination } from 'src/api/models/pagination';
+import { useCensor } from 'src/hooks/useCensor';
 import { DEFAULT_PAGE_SIZE, useVnsQuery } from '../../queries/vns';
 import { VnSearchFormValues, VN_SEARCH_INITIAL_VALUES } from '../VnSearchForm/vnSearchFormValues';
 import { VnSearchForm } from '../VnSearchForm/VnSearchForm';
@@ -16,6 +17,7 @@ import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 /** Visual novel overview tab. */
 const VnSearchComponent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { shouldBlurImage } = useCensor();
 
   const methods = useForm({ defaultValues: VN_SEARCH_INITIAL_VALUES });
   const { control } = methods;
@@ -44,6 +46,7 @@ const VnSearchComponent: FC = () => {
       key={vn.id}
       title={vn.title}
       imageUrl={vn.image?.url}
+      isBlurred={shouldBlurImage(vn.image)}
 
       // TODO: Fix link once page will be implemented
       path={`/vn/${vn.id}/overview`}

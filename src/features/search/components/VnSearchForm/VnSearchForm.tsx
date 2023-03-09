@@ -18,6 +18,7 @@ import { Select } from 'src/components/Select';
 import { Slider } from 'src/components/Slider/Slider';
 import { TextInput } from 'src/components/TextInput/TextInput';
 import { useDebounce } from 'usehooks-ts';
+import { useCensor } from 'src/hooks/useCensor';
 import { useTagsQuery } from '../../queries/tags';
 import { SearchPopover } from '../SearchPopover/SearchPopover';
 import type { VnSearchFormValues } from './vnSearchFormValues';
@@ -33,6 +34,7 @@ const lengthOptions = VN_LENGTHS
 
 /** Search form component for vns. */
 const VnSearchFormComponent: FC = () => {
+  const { shouldHideSexualTag } = useCensor();
   const [tagsInputValue, setTagsInputValue] = useState('');
   const debouncedTagInputValue = useDebounce(tagsInputValue);
 
@@ -57,6 +59,7 @@ const VnSearchFormComponent: FC = () => {
   const tagOptions = useMemo(() =>
     tags?.pages
       .flatMap(page => page.results)
+      .filter(tag => !shouldHideSexualTag(tag))
       .map(tag => ({ label: tag.name, value: tag.id })) ?? [], [tags]);
 
   return (

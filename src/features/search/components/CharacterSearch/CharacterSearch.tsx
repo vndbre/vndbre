@@ -8,6 +8,7 @@ import { Pagination } from 'src/api/models/pagination';
 import { useForm, useWatch } from 'react-hook-form';
 import { Form } from 'src/components/Form/Form';
 import { useDebounce } from 'usehooks-ts';
+import { useCensor } from 'src/hooks/useCensor';
 import { DEFAULT_PAGE_SIZE, useCharactersQuery } from '../../queries/characters';
 import { CharacterSearchFormValues, CHARACTER_SEARCH_INITIAL_VALUES } from '../CharacterSearchForm/characterSearchFormValues';
 import { CharacterSearchForm } from '../CharacterSearchForm/CharacterSearchForm';
@@ -16,6 +17,7 @@ import { EmptyPlaceholder } from '../EmptyPlaceholder/EmptyPlaceholder';
 /** Visual novel overview tab. */
 const CharacterSearchComponent: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { shouldBlurImage } = useCensor();
 
   const methods = useForm({ defaultValues: CHARACTER_SEARCH_INITIAL_VALUES });
   const { control } = methods;
@@ -45,6 +47,7 @@ const CharacterSearchComponent: FC = () => {
         key={character.id}
         title={character.name}
         imageUrl={character.image?.url}
+        isBlurred={shouldBlurImage(character.image)}
 
         // TODO: Fix links once page will be implemented
         path={`/character/${character.id}/overview`}

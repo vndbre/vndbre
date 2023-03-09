@@ -1,11 +1,25 @@
-import type { FC } from 'react';
-import React, { memo } from 'react';
+import type { FC, ForwardedRef } from 'react';
+import React, { forwardRef, memo } from 'react';
+
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import clsx from 'clsx';
+import type { StrictOmit } from 'src/api/utils/strictOmit';
 
-/** Checkbox. */
-const CheckboxComponent: FC<RadixCheckbox.CheckboxProps> = ({ className, ...props }) => (
+type Props = StrictOmit<RadixCheckbox.CheckboxProps, 'onChange' | 'onCheckedChange'> & {
+  readonly onChange?: RadixCheckbox.CheckboxProps['onCheckedChange'];
+};
+
+/**
+ * Checkbox.
+ * @param ref Forwarded ref.
+ */
+const CheckboxComponent: FC<Props> = (
+  { className, onChange, ...props },
+  ref: ForwardedRef<HTMLButtonElement>,
+) => (
   <RadixCheckbox.Root
+    ref={ref}
+    onCheckedChange={onChange}
     {...props}
     className={clsx('rounded-xs relative h-4 w-4 border-2 border-gray-300 align-middle', className)}
   >
@@ -15,4 +29,4 @@ const CheckboxComponent: FC<RadixCheckbox.CheckboxProps> = ({ className, ...prop
   </RadixCheckbox.Root>
 );
 
-export const Checkbox = memo(CheckboxComponent);
+export const Checkbox = memo(forwardRef(CheckboxComponent));
