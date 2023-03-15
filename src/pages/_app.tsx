@@ -14,6 +14,8 @@ import type { Settings } from 'src/api/models/settings/settings';
 import { CookieStorage } from 'src/store/utils/cookieStorage';
 import { Provider } from 'jotai';
 import { HydrateAtoms } from 'src/store/HydrateAtoms';
+import { UAParser } from 'ua-parser-js';
+import { isMobileAtom } from 'src/store/isMobileAtom';
 import { queryClient } from '../api/queryClient';
 
 /**
@@ -34,7 +36,7 @@ export const inter = Inter({
 
 type Props =
 & AppProps<{ dehydratedState: unknown; session: Session | null; }>
-& { settings: Settings; };
+& { settings: Settings; isMobile: boolean; };
 
 /** App. */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -42,12 +44,13 @@ const MyApp = ({
   Component,
   pageProps: { session, ...pageProps },
   settings,
+  isMobile,
 }: Props) => (
   <SessionProvider session={session}>
     <Provider>
       <QueryClientProvider client={queryClient}>
         <CacheProvider value={cache}>
-          <HydrateAtoms values={[[settingsAtom, settings]]}>
+          <HydrateAtoms values={[[settingsAtom, settings], [isMobileAtom, isMobile]]}>
             <Hydrate state={pageProps.dehydratedState}>
               <div className={`${inter.variable} font-sans`}>
                 <Component {...pageProps} />
@@ -70,7 +73,12 @@ MyApp.getInitialProps = async(context: AppContext) => {
   const displaySettings = CookieStorage.getCookieValue(
     SETTINGS_KEY, INITIAL_SETTINGS, context.ctx.req,
   );
-  return { ...props, settings: displaySettings };
+  const { device: { type } } = UAParser(context.ctx.req?.headers['user-agent']);
+  return {
+    ...props,
+    settings: displaySettings,
+    isMobile: type === 'mobile' || type === 'tablet',
+  };
 };
 
 export default MyApp;
