@@ -97,6 +97,7 @@ const VnSearchFormComponent: FC = () => {
             />
           </ControlWrapper>
         </div>
+
         {tags && (
           <div className="w-full">
             <ControlWrapper label="Tags">
