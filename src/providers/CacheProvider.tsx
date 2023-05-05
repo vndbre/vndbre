@@ -2,7 +2,7 @@
 
 import createCache from '@emotion/cache';
 import { CacheProvider as EmotionCacheProvider } from '@emotion/react';
-import type { PropsWithChildren, ProviderProps } from 'react';
+import type { PropsWithChildren } from 'react';
 
 const cache = createCache({
   key: 'react-select-cache',

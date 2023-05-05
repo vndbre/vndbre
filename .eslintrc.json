@@ -18,6 +18,9 @@
     "plugin:tailwindcss/recommended"
   ],
   "rules": {
+    "jsdoc/require-jsdoc": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "require-await": "off",
     "react/button-has-type": "off",
     "react/jsx-props-no-multi-spaces": "off",
     "tailwindcss/no-custom-classname": ["warn", {
@@ -154,12 +157,6 @@
     ],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error",
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
     "@typescript-eslint/comma-dangle": [
       "error",
       {
@@ -221,26 +218,6 @@
       "never"
     ],
     "jsdoc/no-bad-blocks": "error",
-    "jsdoc/require-jsdoc": [
-      "error",
-      {
-        "contexts": [
-          "MethodDefinition:not([accessibility='private'])",
-          "ClassDeclaration",
-          "ClassProperty:not([accessibility='private'])",
-          "TSEnumDeclaration",
-          "ExportNamedDeclaration[declaration.type=\"TSInterfaceDeclaration\"]",
-          "TSInterfaceDeclaration :matches(TSCallSignatureDeclaration, TSMethodSignature, TSPropertySignature)"
-        ],
-        "checkConstructors": false,
-        "checkGetters": true,
-        "checkSetters": true,
-        "enableFixer": false,
-        "require": {
-          "ArrowFunctionExpression": true
-        }
-      }
-    ],
     "jsdoc/require-description-complete-sentence": [
       "error",
       {
@@ -367,7 +344,6 @@
     "prefer-named-capture-group": "off",
     "prefer-promise-reject-errors": "error",
     "radix": "error",
-    "require-await": "error",
     "require-unicode-regexp": "off",
     "no-delete-var": "error",
     "no-shadow-restricted-names": "error",
