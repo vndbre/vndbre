@@ -1,3 +1,5 @@
+'use client';
+
 import * as RadixPopover from '@radix-ui/react-popover';
 import clsx from 'clsx';
 import type { FC, ForwardedRef } from 'react';

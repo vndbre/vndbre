@@ -1,3 +1,5 @@
+'use client';
+
 import { clsx } from 'clsx';
 import type { FieldValues } from 'react-hook-form';
 import { Controller } from 'react-hook-form';

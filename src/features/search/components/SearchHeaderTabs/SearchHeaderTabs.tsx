@@ -5,7 +5,8 @@ import NextLink from 'next/link';
 
 const tabs = {
   vn: 'Visual novels',
-  release: 'Releases',
+
+  // release: 'Releases',
   character: 'Characters',
 };
 
@@ -13,7 +14,7 @@ export type TabValue = keyof typeof tabs;
 
 const tabValues = Object.keys(tabs) as readonly TabValue[];
 
-const disabledTabs: readonly TabValue[] = ['release'];
+const disabledTabs: readonly TabValue[] = [];
 
 interface Props {
 

@@ -1,6 +1,8 @@
+'use client';
+
 import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
-import { useId, forwardRef, ReactElement, Ref } from 'react';
+import { useId, forwardRef } from 'react';
 import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';

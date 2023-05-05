@@ -11,6 +11,8 @@ export const getBaseTraitsQueryOptions = ({ search = '' }: TraitQueryOptions): U
 
   /** Query fn. */
   queryFn: ({ pageParam = 1 }) => TraitService.getTraits({ results: 20, page: pageParam, search }),
+  refetchOnReconnect: false,
+  refetchOnWindowFocus: false,
 
   /**
    * Gets next page params.

@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC, ForwardedRef } from 'react';
 import React, { forwardRef, memo } from 'react';
 

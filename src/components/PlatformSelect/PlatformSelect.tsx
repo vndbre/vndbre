@@ -1,3 +1,5 @@
+'use client';
+
 import type { ForwardedRef } from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { SelectInstance } from 'react-select';

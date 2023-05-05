@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import { memo, useCallback } from 'react';
 import { Button } from '../Button/Button';

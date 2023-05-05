@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useRouter, usePathname } from 'next/navigation';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import type { TabValue } from '../SearchHeaderTabs/SearchHeaderTabs';
@@ -7,12 +9,12 @@ import { SearchHeaderTabs } from '../SearchHeaderTabs/SearchHeaderTabs';
 /** Header for search pages. */
 export const SearchHeader: FC = () => {
   const router = useRouter();
-  const activeTabValue = router.route.split('/').at(-1) as TabValue;
+  const pathname = usePathname() ?? '';
+  const activeTabValue = pathname.split('/').at(-1) as TabValue;
 
   const handleTabChange = useCallback((tabName: TabValue) => {
-    router.push({
-      pathname: `./${tabName}`,
-    });
+    const path = `/searc/${tabName}` as const;
+    router.push(path);
   }, []);
 
   return (

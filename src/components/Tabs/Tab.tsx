@@ -1,3 +1,5 @@
+'use client';
+
 import type { ElementType } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
 import React, { memo } from 'react';

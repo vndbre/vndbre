@@ -9,6 +9,10 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    appDir: true,
+    typedRoutes: true,
+  },
   images: {
     domains: ['userapi.com', 'sun9-32.userapi.com', 's2.vndb.org'],
   },

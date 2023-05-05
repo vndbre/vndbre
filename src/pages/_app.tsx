@@ -9,13 +9,14 @@ import type { Session } from 'next-auth';
 import 'src/styles/globals.css';
 import type { AppContext, AppProps } from 'next/app';
 import App from 'next/app';
-import { INITIAL_SETTINGS, settingsAtom, SETTINGS_KEY } from 'src/store/settingsAtom';
+import { settingsAtom } from 'src/store/settingsAtom';
 import type { Settings } from 'src/api/models/settings/settings';
 import { CookieStorage } from 'src/store/utils/cookieStorage';
 import { Provider } from 'jotai';
 import { HydrateAtoms } from 'src/store/HydrateAtoms';
 import { UAParser } from 'ua-parser-js';
 import { isMobileAtom } from 'src/store/isMobileAtom';
+import { SETTINGS_KEY, INITIAL_SETTINGS } from 'src/store/settingsAtomConfig';
 import { queryClient } from '../api/queryClient';
 
 /**
@@ -71,7 +72,9 @@ const MyApp = ({
 MyApp.getInitialProps = async(context: AppContext) => {
   const props = await App.getInitialProps(context);
   const displaySettings = CookieStorage.getCookieValue(
-    SETTINGS_KEY, INITIAL_SETTINGS, context.ctx.req,
+    SETTINGS_KEY,
+    INITIAL_SETTINGS,
+    context.ctx.req,
   );
   const { device: { type } } = UAParser(context.ctx.req?.headers['user-agent']);
   return {

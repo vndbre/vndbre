@@ -1,6 +1,9 @@
+'use client';
+
 import React, { memo, useCallback } from 'react';
 import type { FC } from 'react';
-import { useAuth } from 'src/hooks/useAuth';
+
+// import { useAuth } from 'src/hooks/useAuth';
 import { signOut } from 'next-auth/react';
 import NextLink from 'next/link';
 import { Button } from '../Button/Button';
@@ -11,7 +14,9 @@ import { DisplaySettings } from '../DisplaySettings/DisplaySettings';
 
 /** App header. */
 const AppHeaderComponent: FC = () => {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = false;
+
+  // const { isAuthenticated } = useAuth();
 
   const handleLogoutButtonClick = useCallback(() => {
     signOut();

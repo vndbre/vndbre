@@ -77,6 +77,7 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
 
   return (
     <NextLink
+      prefetch={false}
       {...linkProps}
     >
       {children}

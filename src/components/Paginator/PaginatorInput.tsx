@@ -1,3 +1,5 @@
+'use client';
+
 import type { FocusEvent, KeyboardEvent, FC } from 'react';
 import { memo, useState, useCallback } from 'react';
 import { IconButton } from '../IconButton/IconButton';

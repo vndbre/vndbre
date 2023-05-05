@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import React, { useState, memo } from 'react';
 import { Icon } from 'src/components/Icon/Icon';

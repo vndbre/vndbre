@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import React, { useEffect, useState, useCallback, memo } from 'react';
 import { Paginator } from 'src/components/Paginator/Paginator';

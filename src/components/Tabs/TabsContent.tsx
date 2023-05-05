@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC } from 'react';
 import React, { memo } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';

@@ -1,3 +1,5 @@
+'use client';
+
 import type { ComponentProps, ElementType, PropsWithChildren } from 'react';
 import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';

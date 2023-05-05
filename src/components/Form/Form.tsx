@@ -1,3 +1,5 @@
+'use client';
+
 import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
 import { FormProvider } from 'react-hook-form';
 import type { FormProviderProps, FieldValues, SubmitHandler } from 'react-hook-form';

@@ -3,5 +3,6 @@
     "clsx",
     "Iconify",
     "Romaji"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
