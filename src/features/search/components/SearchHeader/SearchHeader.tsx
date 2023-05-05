@@ -13,7 +13,7 @@ export const SearchHeader: FC = () => {
   const activeTabValue = pathname.split('/').at(-1) as TabValue;
 
   const handleTabChange = useCallback((tabName: TabValue) => {
-    const path = `/searc/${tabName}` as const;
+    const path = `/search/${tabName}` as const;
     router.push(path);
   }, []);
 

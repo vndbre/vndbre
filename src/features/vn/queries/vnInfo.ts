@@ -18,8 +18,7 @@ export const getVnInfo = async(id: string): Promise<VnInfo> => {
     body: JSON.stringify(VnService.createVnQueryBody({ id })),
   });
   const data = await response.json();
-  const dto = VnInfoDtoSchema.parse(data.results?.[0]);
-  return VnInfoMapper.fromDto(dto);
+  return VnInfoMapper.fromDto(data.results[0]);
 };
 
 /**

@@ -1,6 +1,6 @@
 import { SelectExample } from 'src/features/dev/components/SelectExample';
 
-const DevPage = async() => (
+const DevPage = () => (
   <SelectExample />
 );
 
