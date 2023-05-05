@@ -30,9 +30,12 @@ const VnSearchComponent: FC = () => {
   const {
     fetchNextPage: fetchVns,
     data: vns,
-    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
     isLoading,
   } = useVnsQuery(VnSearchFormValues.toQueryOptions(debouncedFormData));
+
+  const isFetching = isFetchingNextPage || isFetchingPreviousPage;
 
   useEffect(() => {
     setCurrentPage(1);
