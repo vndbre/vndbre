@@ -1,7 +1,7 @@
 'use client';
 
 import type { MouseEventHandler, FC, ForwardedRef } from 'react';
-import React, { useState, forwardRef, memo } from 'react';
+import { useState, forwardRef, memo } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
 import clsx from 'clsx';
 

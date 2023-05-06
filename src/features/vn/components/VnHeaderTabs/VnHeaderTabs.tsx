@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Tabs } from 'src/components/Tabs';
 
 const tabs = {

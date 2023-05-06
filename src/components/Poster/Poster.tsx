@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import type { ComponentProps, FC } from 'react';
-import React, { useState, useMemo, memo } from 'react';
+import { useState, useMemo, memo } from 'react';
 
 export const POSTER_RATIO = 2 / 3;
 

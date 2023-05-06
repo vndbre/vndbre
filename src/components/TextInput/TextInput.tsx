@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC, ForwardedRef } from 'react';
-import React, { memo, forwardRef, useMemo, useCallback } from 'react';
+import { memo, forwardRef, useMemo, useCallback } from 'react';
 
 import { IconButton } from '../IconButton/IconButton';
 import type { InputProps } from '../Input/Input';

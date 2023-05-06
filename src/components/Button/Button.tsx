@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import { forwardRef, memo } from 'react';
 import type { ButtonHTMLAttributes, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes, ElementType } from 'react';
 import { cva, cx } from 'class-variance-authority';
 import type { PropsWithChildrenAndClass } from 'src/types/propsWithClass';

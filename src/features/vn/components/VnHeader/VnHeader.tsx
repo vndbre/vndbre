@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import React, { useRef, useCallback, memo } from 'react';
+import { useRef, useCallback, memo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from 'src/components/Button/Button';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';

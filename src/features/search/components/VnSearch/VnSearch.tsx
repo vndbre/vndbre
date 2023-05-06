@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import React, { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDebounce } from 'usehooks-ts';
 import { Paginator } from 'src/components/Paginator/Paginator';

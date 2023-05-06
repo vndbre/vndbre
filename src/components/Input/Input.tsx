@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC, FormEventHandler } from 'react';
-import React, { useRef, forwardRef, memo } from 'react';
+import { useRef, forwardRef, memo } from 'react';
 
 import clsx from 'clsx';
 

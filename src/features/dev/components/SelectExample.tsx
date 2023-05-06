@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import React, { useState, memo } from 'react';
+import { useState, memo } from 'react';
 import { Icon } from 'src/components/Icon/Icon';
 import { LanguageSelect } from 'src/components/LanguageSelect/LanguageSelect';
 import type { SelectOption } from 'src/components/Select';

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { memo, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import type { FC } from 'react';
-
-// import { useAuth } from 'src/hooks/useAuth';
 import { signOut } from 'next-auth/react';
 import NextLink from 'next/link';
+
 import { useAuth } from 'src/hooks/useAuth';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';

@@ -1,5 +1,5 @@
 import type { AriaAttributes, FC, ForwardedRef } from 'react';
-import React, { forwardRef, memo } from 'react';
+import { forwardRef, memo } from 'react';
 
 import type { PropsWithClass } from 'src/types/propsWithClass';
 import type { ButtonProps } from '../Button/Button';
