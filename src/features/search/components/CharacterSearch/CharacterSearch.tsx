@@ -30,9 +30,12 @@ const CharacterSearchComponent: FC = () => {
   const {
     fetchNextPage: fetchCharacters,
     data: characters,
-    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
     isLoading,
   } = useCharactersQuery(CharacterSearchFormValues.toQueryOptions(debouncedFormData));
+
+  const isFetching = isFetchingNextPage || isFetchingPreviousPage;
 
   useEffect(() => {
     setCurrentPage(1);
