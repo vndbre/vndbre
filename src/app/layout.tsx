@@ -1,4 +1,4 @@
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 import { AppHeader } from 'src/components/AppHeader/AppHeader';
 import { QueryProvider } from 'src/providers/QueryProvider';

@@ -23,6 +23,11 @@ const config = {
         destination: '/search/vn',
         permanent: true,
       },
+      {
+        source: '/vn/:id',
+        destination: '/vn/:id/overview',
+        permanent: true,
+      },
     ];
   },
 };
