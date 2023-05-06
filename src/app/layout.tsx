@@ -2,7 +2,7 @@ import { Inter } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
 import { AppHeader } from 'src/components/AppHeader/AppHeader';
 import { QueryProvider } from 'src/providers/QueryProvider';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 
 import 'src/styles/globals.css';
 import { CacheProvider } from 'src/providers/CacheProvider';
@@ -14,6 +14,7 @@ import { JotaiProvider } from 'src/providers/JotaiProvider';
 import { getServerSession } from 'next-auth';
 import { authOptions } from 'src/api/authOptions';
 import { AuthProvider } from 'src/providers/AuthProvider';
+import { UAParser } from 'ua-parser-js';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,12 +30,20 @@ const RootLayout = async({ children }: PropsWithChildren) => {
     cookieStore.get(SETTINGS_KEY),
   );
 
-  const session = await getServerSession(authOptions);
+  const headerStore = headers();
+  const userAgent = headerStore.get('user-agent');
+  const { device: { type } } = UAParser(userAgent ?? undefined);
+  const isMobile = type === 'mobile' || type === 'tablet';
 
-  const atomValues = { settings, isMobile: false };
+  const atomValues = { settings, isMobile };
+
+  const session = await getServerSession(authOptions);
 
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body className={`${inter.variable} font-sans`}>
         <AuthProvider session={session}>
           <QueryProvider>
