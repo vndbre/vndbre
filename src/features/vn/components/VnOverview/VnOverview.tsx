@@ -6,12 +6,14 @@ import { Poster } from 'src/components/Poster/Poster';
 import { useVnOverviewQuery } from '../../queries/vnOverview';
 
 interface Props {
-  vnId: string;
+
+  /** Vn id. */
+  readonly id: string;
 }
 
 /** Visual novel overview tab. */
-const VnOverviewComponent: FC<Props> = ({ vnId }) => {
-  const { data, isLoading } = useVnOverviewQuery(vnId);
+const VnOverviewComponent: FC<Props> = ({ id }) => {
+  const { data, isLoading } = useVnOverviewQuery(id);
 
   if (isLoading || data == null) {
     return <div>loading overview</div>;

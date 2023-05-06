@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
-import type { PropsWithStyle } from 'src/utils/PropsWithStyle';
+import type { PropsWithClass } from 'src/types/propsWithClass';
+import type { PropsWithStyle } from 'src/types/propsWithStyle';
 
 type Props =
 & PropsWithStyle

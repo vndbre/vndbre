@@ -1,7 +1,7 @@
 import type { AriaAttributes, FC, ForwardedRef } from 'react';
 import React, { forwardRef, memo } from 'react';
 
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 import type { ButtonProps } from '../Button/Button';
 import { Button } from '../Button/Button';
 import type { IconProps } from '../Icon/Icon';

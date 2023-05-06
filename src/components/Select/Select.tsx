@@ -6,7 +6,7 @@ import { useId, forwardRef } from 'react';
 import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 
 import { typedMemo } from 'src/api/utils/typedMemo';
 import type { Group, Option } from './Option';

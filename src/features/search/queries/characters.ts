@@ -22,8 +22,6 @@ export const getBaseCharactersQueryOptions = (
     results: DEFAULT_PAGE_SIZE,
     page: pageParam,
   }),
-  refetchOnReconnect: false,
-  refetchOnWindowFocus: false,
 
   /**
    * Gets next page params.

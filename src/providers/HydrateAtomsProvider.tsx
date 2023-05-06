@@ -10,7 +10,11 @@ interface Props {
 
   /** Tuple of [atom, value].  */
   readonly values: {
+
+    /** Settings. */
     readonly settings: Settings;
+
+    /** Whether app is launched on mobile device. */
     readonly isMobile: boolean;
   };
 }

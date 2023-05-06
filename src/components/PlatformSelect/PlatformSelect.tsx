@@ -8,7 +8,7 @@ import { Platform, PLATFORMS } from 'src/api/models/platform';
 
 import type { StrictOmit } from 'src/api/utils/strictOmit';
 import { typedMemo } from 'src/api/utils/typedMemo';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 import { Icon } from '../Icon/Icon';
 import type { SelectGroup, SelectOption, SelectProps } from '../Select';
 import { Select } from '../Select';

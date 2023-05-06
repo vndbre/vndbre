@@ -10,9 +10,9 @@ export const serverSchema = z.object({
   // eslint-disable-next-line @typescript-eslint/naming-convention
   NODE_ENV: z.enum(['development', 'test', 'production']),
   NEXTAUTH_SECRET:
-  process.env.NODE_ENV === 'production' ?
-    z.string().min(1) :
-    z.string().min(1)
+  process.env.NODE_ENV === 'production'
+    ? z.string().min(1)
+    : z.string().min(1)
       .optional(),
 });
 

@@ -15,5 +15,4 @@ export const settingsAtom = atomWithStorage(
 );
 
 /** Hook for interaction with settings. */
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useSettings = () => useAtom(settingsAtom);

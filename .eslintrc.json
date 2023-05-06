@@ -18,7 +18,6 @@
     "plugin:tailwindcss/recommended"
   ],
   "rules": {
-    "jsdoc/require-jsdoc": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "require-await": "off",
     "react/button-has-type": "off",
@@ -213,6 +212,26 @@
     "jsdoc/empty-tags": "off",
     "jsdoc/check-tag-names": "off",
     "jsdoc/check-alignment": "error",
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        "contexts": [
+          "MethodDefinition:not([accessibility='private'])",
+          "ClassDeclaration",
+          "ClassProperty:not([accessibility='private'])",
+          "TSEnumDeclaration",
+          "ExportNamedDeclaration[declaration.type=\"TSInterfaceDeclaration\"]",
+          "TSInterfaceDeclaration :matches(TSCallSignatureDeclaration, TSMethodSignature, TSPropertySignature)"
+        ],
+        "checkConstructors": false,
+        "checkGetters": true,
+        "checkSetters": true,
+        "enableFixer": false,
+        "require": {
+          "ArrowFunctionExpression": false
+        }
+      }
+    ],
     "jsdoc/newline-after-description": [
       "error",
       "never"

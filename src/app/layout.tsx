@@ -26,7 +26,6 @@ const RootLayout = async({ children }: PropsWithChildren) => {
   const settings = CookieStorage.getCookieValue<Settings>(
     SETTINGS_KEY,
     INITIAL_SETTINGS,
-    undefined,
     cookieStore.get(SETTINGS_KEY),
   );
 

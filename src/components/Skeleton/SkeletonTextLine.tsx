@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 import { SkeletonRect } from './SkeletonRect';
 
 /** Text-line skeleton props. */

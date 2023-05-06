@@ -20,20 +20,22 @@ interface Props {
 
   /** Whether to disable appearance animations. */
   readonly disableAppearanceAnimation?: boolean;
-  readonly vnId: string;
+
+  /** Vn id. */
+  readonly id: string;
 }
 
 /** Vn header. */
 const VnHeaderComponent: FC<Props> = ({
   disableAppearanceAnimation,
-  vnId,
+  id,
 }) => {
   const router = useRouter();
   const pathname = usePathname() ?? '';
 
   const handleTabChange = useCallback((tabName: TabValue) => {
-    router.push(`/vn/${vnId}/${tabName}`);
-  }, [vnId]);
+    router.push(`/vn/${id}/${tabName}`);
+  }, [id]);
 
   const desktopParentRef = useRef<HTMLDivElement | null>(null);
   const mobileParentRef = useRef<HTMLDivElement | null>(null);
@@ -43,7 +45,7 @@ const VnHeaderComponent: FC<Props> = ({
   const isMobileLayout = !useBreakpoint('md');
   const parentHeight = isMobileLayout ? mobileParentHeight : desktopParentHeight;
 
-  const { data: vnInfo, isLoading } = useVnInfoQuery(vnId);
+  const { data: vnInfo, isLoading } = useVnInfoQuery(id);
   if (vnInfo == null || isLoading) {
     return <div>loading header</div>;
   }

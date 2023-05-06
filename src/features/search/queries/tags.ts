@@ -11,8 +11,6 @@ export const getBaseTagsQueryOptions = ({ search = '' }: TagQueryOptions): UseIn
 
   /** Query fn. */
   queryFn: ({ pageParam = 1 }) => TagService.getTags({ results: 20, page: pageParam, search }),
-  refetchOnReconnect: false,
-  refetchOnWindowFocus: false,
 
   /**
    * Gets next page params.
