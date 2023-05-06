@@ -8,7 +8,7 @@ import { settingsAtom } from 'src/store/settingsAtom';
 
 interface Props {
 
-  /** Tuple of [atom, value].  */
+  /** Values to hydrate.  */
   readonly values: {
 
     /** Settings. */
