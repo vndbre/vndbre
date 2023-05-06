@@ -79,6 +79,7 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <NextLink
+      prefetch={false}
       {...linkProps}
     >
       {children}
