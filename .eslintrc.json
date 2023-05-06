@@ -4,6 +4,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": [".next", "node_modules", ".github"],
   "plugins": [
     "jsdoc",
     "@typescript-eslint",
