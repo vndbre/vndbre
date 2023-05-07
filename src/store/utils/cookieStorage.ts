@@ -1,6 +1,5 @@
 import type { createJSONStorage } from 'jotai/utils';
 import Cookies from 'js-cookie';
-import type { CookieListItem } from 'next/dist/compiled/@edge-runtime/cookies';
 
 export type Storage<T> = ReturnType<typeof createJSONStorage<T>>;
 
@@ -26,22 +25,17 @@ export namespace CookieStorage {
   }
 
   /**
-   * Gets value from cookies by key.
+   * Gets value from cookies by key or from server-side value.
    * @param key Key.
    * @param initialValue Initial value, in case if there is no corresponding cookie.
-   * @param cookieItem Server side cookies.
+   * @param serverSideCookieValue Value of server side cookie.
    */
   export function getCookieValue<T>(
     key: string,
     initialValue: T,
-    cookieItem?: CookieListItem,
+    serverSideCookieValue?: string,
   ): T {
-    let data: string | undefined;
-    if (cookieItem === undefined) {
-      data = Cookies.get(key);
-    } else {
-      data = cookieItem?.value;
-    }
+    const data = serverSideCookieValue === undefined ? Cookies.get(key) : serverSideCookieValue;
 
     try {
       const value = JSON.parse(data ?? '');
