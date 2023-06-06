@@ -43,7 +43,6 @@ const SearchHeaderTabsComponent: FC<Props> = ({
       {tabValues.map(tabValue => (
         <Tabs.Tab
           as={NextLink}
-          prefetch={false}
           href={`/search/${tabValue}`}
           key={tabValue}
           value={tabValue}

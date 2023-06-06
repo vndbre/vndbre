@@ -26,7 +26,6 @@ const AppHeaderComponent: FC = () => {
         <Logo />
         <Button
           as={NextLink}
-          prefetch={false}
           href="/search/vn"
           className="text-caption-18 max-w-[400px]"
           intent="tertiary"
