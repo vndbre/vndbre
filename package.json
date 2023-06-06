@@ -21,9 +21,6 @@
     "@tanstack/react-query": "^4.29.5",
     "@tanstack/react-query-devtools": "^4.29.6",
     "class-variance-authority": "^0.6.0",
-    "@tanstack/react-query": "^4.29.5",
-    "@tanstack/react-query-devtools": "^4.29.6",
-    "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "cookie": "^0.5.0",
     "framer-motion": "^8.0.2",
@@ -56,12 +53,10 @@
     "eslint-config-airbnb": "^19.0.2",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-next": "^13.4.0",
-    "eslint-config-next": "^13.4.0",
     "eslint-plugin-jsdoc": "^39.6.4",
     "eslint-plugin-tailwindcss": "^3.7.1",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4",
-    "typescript": "^5.0.4"
     "typescript": "^5.0.4"
   },
   "ct3aMetadata": {
