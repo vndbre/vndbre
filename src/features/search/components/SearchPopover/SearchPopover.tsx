@@ -1,3 +1,5 @@
+'use client';
+
 import type { FC, PropsWithChildren } from 'react';
 import { memo } from 'react';
 import { IconButton } from 'src/components/IconButton/IconButton';

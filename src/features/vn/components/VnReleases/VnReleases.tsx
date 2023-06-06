@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { useReleasesQuery } from '../../queries/releases';
 
 /** Visual novel releases tab. */

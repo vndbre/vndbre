@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC } from 'react';
-import React, { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useDebounce } from 'usehooks-ts';
 import { Paginator } from 'src/components/Paginator/Paginator';
@@ -28,9 +30,12 @@ const VnSearchComponent: FC = () => {
   const {
     fetchNextPage: fetchVns,
     data: vns,
-    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
     isLoading,
   } = useVnsQuery(VnSearchFormValues.toQueryOptions(debouncedFormData));
+
+  const isFetching = isFetchingNextPage || isFetchingPreviousPage;
 
   useEffect(() => {
     setCurrentPage(1);

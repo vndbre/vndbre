@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC, ForwardedRef } from 'react';
-import React, { forwardRef, memo } from 'react';
+import { forwardRef, memo } from 'react';
 
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import type { StrictOmit } from 'src/api/utils/strictOmit';

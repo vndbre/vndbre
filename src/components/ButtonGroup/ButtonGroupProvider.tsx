@@ -1,5 +1,7 @@
+'use client';
+
 import type { PropsWithChildren, FC } from 'react';
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import type { ButtonIntent, ButtonSize } from '../Button/Button';
 
 interface ButtonGroupContext {

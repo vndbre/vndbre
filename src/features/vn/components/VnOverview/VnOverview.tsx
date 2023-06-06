@@ -1,13 +1,19 @@
-import { useRouter } from 'next/router';
+'use client';
+
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Poster } from 'src/components/Poster/Poster';
 import { useVnOverviewQuery } from '../../queries/vnOverview';
 
+interface Props {
+
+  /** Vn id. */
+  readonly id: string;
+}
+
 /** Visual novel overview tab. */
-const VnOverviewComponent: FC = () => {
-  const { query: { id } } = useRouter();
-  const { data, isLoading } = useVnOverviewQuery(String(id));
+const VnOverviewComponent: FC<Props> = ({ id }) => {
+  const { data, isLoading } = useVnOverviewQuery(id);
 
   if (isLoading || data == null) {
     return <div>loading overview</div>;

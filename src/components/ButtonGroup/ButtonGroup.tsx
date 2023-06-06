@@ -1,3 +1,5 @@
+'use client';
+
 import clsx from 'clsx';
 import type { FC, PropsWithChildren, ReactElement } from 'react';
 import { cloneElement, memo, Children } from 'react';

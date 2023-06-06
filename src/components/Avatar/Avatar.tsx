@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React, { memo } from 'react';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import { memo } from 'react';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 
 /**
  * Avatar placeholder.

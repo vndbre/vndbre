@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type { FC } from 'react';
-import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import type { PropsWithChildrenAndClass } from 'src/types/propsWithClass';
 import { AppHeader } from '../AppHeader/AppHeader';
 
 /** Default layout. */

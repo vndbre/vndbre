@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC } from 'react';
-import React, { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, useCallback, memo } from 'react';
 import { Paginator } from 'src/components/Paginator/Paginator';
 import { Card } from 'src/components/Card/Card';
 import { CardSkeleton } from 'src/components/Card/CardSkeleton';
@@ -28,9 +30,12 @@ const CharacterSearchComponent: FC = () => {
   const {
     fetchNextPage: fetchCharacters,
     data: characters,
-    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
     isLoading,
   } = useCharactersQuery(CharacterSearchFormValues.toQueryOptions(debouncedFormData));
+
+  const isFetching = isFetchingNextPage || isFetchingPreviousPage;
 
   useEffect(() => {
     setCurrentPage(1);

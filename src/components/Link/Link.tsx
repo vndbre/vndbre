@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
-import type { PropsWithChildrenAndClass } from 'src/utils/PropsWithClass';
+import { memo } from 'react';
+import type { PropsWithChildrenAndClass } from 'src/types/propsWithClass';
 import NextLink from 'next/link';
 import { cva, cx } from 'class-variance-authority';
 
@@ -76,6 +76,8 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
   }
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <NextLink
       {...linkProps}
     >

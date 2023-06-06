@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC, ForwardedRef } from 'react';
-import React, { forwardRef, memo } from 'react';
+import { forwardRef, memo } from 'react';
 
 import * as RadixCheckbox from '@radix-ui/react-checkbox';
 import clsx from 'clsx';

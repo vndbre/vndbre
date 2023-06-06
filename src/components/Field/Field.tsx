@@ -1,8 +1,10 @@
+'use client';
+
 import type { ComponentProps, ElementType, PropsWithChildren } from 'react';
 import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
-import type { FormControlProps } from 'src/utils/FormControlProps';
+import type { FormControlProps } from 'src/types/formControlProps';
 import { typedMemo } from 'src/api/utils/typedMemo';
 
 type Props<C extends ElementType, T extends FieldValues> = {

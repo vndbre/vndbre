@@ -4,6 +4,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": [".next", "node_modules", ".github"],
   "plugins": [
     "jsdoc",
     "@typescript-eslint",
@@ -18,6 +19,7 @@
     "plugin:tailwindcss/recommended"
   ],
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
     "react/button-has-type": "off",
     "react/jsx-props-no-multi-spaces": "off",
     "tailwindcss/no-custom-classname": ["warn", {
@@ -25,6 +27,7 @@
     }],
     "react/require-default-props": "off",
     "no-duplicate-imports": "off",
+    "require-await": "error",
     "import/no-duplicates": ["error", {"considerQueryString": true}],
     "@typescript-eslint/consistent-type-imports": "warn",
     "react/jsx-filename-extension": [
@@ -154,12 +157,6 @@
     ],
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/unified-signatures": "error",
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
-    ],
     "@typescript-eslint/comma-dangle": [
       "error",
       {
@@ -216,11 +213,6 @@
     "jsdoc/empty-tags": "off",
     "jsdoc/check-tag-names": "off",
     "jsdoc/check-alignment": "error",
-    "jsdoc/newline-after-description": [
-      "error",
-      "never"
-    ],
-    "jsdoc/no-bad-blocks": "error",
     "jsdoc/require-jsdoc": [
       "error",
       {
@@ -237,10 +229,15 @@
         "checkSetters": true,
         "enableFixer": false,
         "require": {
-          "ArrowFunctionExpression": true
+          "ArrowFunctionExpression": false
         }
       }
     ],
+    "jsdoc/newline-after-description": [
+      "error",
+      "never"
+    ],
+    "jsdoc/no-bad-blocks": "error",
     "jsdoc/require-description-complete-sentence": [
       "error",
       {
@@ -367,7 +364,6 @@
     "prefer-named-capture-group": "off",
     "prefer-promise-reject-errors": "error",
     "radix": "error",
-    "require-await": "error",
     "require-unicode-regexp": "off",
     "no-delete-var": "error",
     "no-shadow-restricted-names": "error",

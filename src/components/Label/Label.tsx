@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 interface Props {
 

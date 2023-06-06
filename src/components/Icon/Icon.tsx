@@ -1,7 +1,7 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Icon as IconifyIcon } from '@iconify/react';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 import { cva, cx } from 'class-variance-authority';
 
 export const flagIconNames = {

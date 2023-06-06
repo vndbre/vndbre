@@ -1,6 +1,8 @@
+'use client';
+
 import type { FC } from 'react';
-import React, { useRef, useCallback, memo } from 'react';
-import { useRouter } from 'next/router';
+import { useRef, useCallback, memo } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { Button } from 'src/components/Button/Button';
 import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
 import { Poster, POSTER_RATIO } from 'src/components/Poster/Poster';
@@ -18,20 +20,22 @@ interface Props {
 
   /** Whether to disable appearance animations. */
   readonly disableAppearanceAnimation?: boolean;
+
+  /** Vn id. */
+  readonly id: string;
 }
 
 /** Vn header. */
 const VnHeaderComponent: FC<Props> = ({
   disableAppearanceAnimation,
+  id,
 }) => {
   const router = useRouter();
+  const pathname = usePathname() ?? '';
 
   const handleTabChange = useCallback((tabName: TabValue) => {
-    router.push({
-      pathname: `./${tabName}`,
-      query: { id: router.query.id },
-    }, undefined, { shallow: true });
-  }, [router.query.id]);
+    router.push(`/vn/${id}/${tabName}`);
+  }, [id]);
 
   const desktopParentRef = useRef<HTMLDivElement | null>(null);
   const mobileParentRef = useRef<HTMLDivElement | null>(null);
@@ -41,7 +45,7 @@ const VnHeaderComponent: FC<Props> = ({
   const isMobileLayout = !useBreakpoint('md');
   const parentHeight = isMobileLayout ? mobileParentHeight : desktopParentHeight;
 
-  const { data: vnInfo, isLoading } = useVnInfoQuery(String(router.query.id));
+  const { data: vnInfo, isLoading } = useVnInfoQuery(id);
   if (vnInfo == null || isLoading) {
     return <div>loading header</div>;
   }
@@ -49,7 +53,7 @@ const VnHeaderComponent: FC<Props> = ({
   const minHeight = vnInfo.titleAlt == null ? 112 : 128;
   const posterHeight = parentHeight || minHeight;
 
-  const activeTabValue = router.route.split('/').at(-1) as TabValue;
+  const activeTabValue = pathname.split('/').at(-1) as TabValue;
   const isPosterVisible = (activeTabValue !== 'overview' && vnInfo.imageUrl && parentHeight !== 0);
 
   /**

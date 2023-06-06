@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
-import React, { memo } from 'react';
-import type { PropsWithChildrenAndClass } from '../../utils/PropsWithClass';
+import { memo } from 'react';
+import type { PropsWithChildrenAndClass } from '../../types/propsWithClass';
 
 interface Props extends PropsWithChildrenAndClass {
 

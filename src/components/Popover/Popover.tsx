@@ -1,8 +1,9 @@
+'use client';
+
 import * as RadixPopover from '@radix-ui/react-popover';
 import clsx from 'clsx';
 import type { FC, ForwardedRef } from 'react';
 import { forwardRef, memo } from 'react';
-import { inter } from 'src/pages/_app';
 
 export const Popover = RadixPopover.Root;
 export const PopoverTrigger = RadixPopover.Trigger;
@@ -20,7 +21,7 @@ export const PopoverContentComponent: FC<PopoverContentProps> =
         sideOffset={16}
         {...props}
         ref={ref}
-        className={clsx('rounded-md border border-gray-100 bg-white font-sans shadow-lg', inter.variable, className)}
+        className={clsx('rounded-md border border-gray-100 bg-white font-sans shadow-lg', className)}
       >
         {children}
       </RadixPopover.Content>

@@ -1,10 +1,12 @@
+'use client';
+
 import { clsx } from 'clsx';
 import type { FieldValues } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import type { SortOrder } from 'src/api/models/sortOptions';
 import { typedMemo } from 'src/api/utils/typedMemo';
-import type { FormControlProps } from 'src/utils/FormControlProps';
-import type { PropsWithClass } from 'src/utils/PropsWithClass';
+import type { FormControlProps } from 'src/types/formControlProps';
+import type { PropsWithClass } from 'src/types/propsWithClass';
 import { IconButton } from '../IconButton/IconButton';
 
 type Props<T extends FieldValues> = PropsWithClass<FormControlProps<T>>;

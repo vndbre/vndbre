@@ -1,5 +1,7 @@
+'use client';
+
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import * as RadixRadioGroup from '@radix-ui/react-radio-group';
 import clsx from 'clsx';
 

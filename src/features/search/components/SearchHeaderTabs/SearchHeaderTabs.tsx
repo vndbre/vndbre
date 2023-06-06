@@ -1,10 +1,11 @@
 import type { FC } from 'react';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { Tabs } from 'src/components/Tabs';
 import NextLink from 'next/link';
 
 const tabs = {
   vn: 'Visual novels',
+
   release: 'Releases',
   character: 'Characters',
 };
