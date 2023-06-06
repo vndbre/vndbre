@@ -106,9 +106,9 @@ const SelectComponent = <
   /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
   const inputClassNames = 'bg-transparent text-caption-18 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
-    container: () => clsx('rounded-md bg-gray-100 ', className),
+    container: () => clsx('bg-surface-2 rounded-md ', className),
     control: ({ menuIsOpen, isFocused }) => clsx(
-      'outline-focus relative flex w-full cursor-pointer items-center gap-1 !rounded-md bg-gray-100 text-start transition-none', {
+      'outline-focus bg-surface-2 relative flex w-full cursor-pointer items-center gap-1 !rounded-md text-start transition-none', {
         '!rounded-b-none': menuIsOpen,
         'h-12 p-2': size === 'md',
         'h-10 px-2 py-1': size === 'sm',
@@ -126,14 +126,14 @@ const SelectComponent = <
         'gap-2': optionSize === 'lg',
       },
     ),
-    placeholder: () => clsx(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-gray-500'),
+    placeholder: () => clsx(inputClassNames, 'text-on-surface-dim overflow-hidden text-ellipsis whitespace-nowrap'),
     dropdownIndicator: () => 'hidden',
     menuList: () => 'py-2',
-    menu: () => clsx('flex flex-col rounded-b-md bg-gray-100 px-2 shadow-lg', {
+    menu: () => clsx('bg-surface-2 flex flex-col rounded-b-md px-2 shadow-lg', {
     }),
     option: ({ isFocused }) => clsx(
-      'text-caption-18 flex cursor-pointer items-center rounded bg-gray-100 hover:bg-gray-200 focus:bg-gray-200', {
-        'bg-gray-200': isFocused,
+      'text-caption-18 hover:bg-surface-overlay focus:bg-surface-overlay flex cursor-pointer items-center rounded', {
+        'bg-surface-overlay': isFocused,
         'gap-1 px-2 py-1': optionSize === 'md',
         'gap-2 p-2': optionSize === 'lg',
       },
@@ -141,9 +141,9 @@ const SelectComponent = <
     valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
       'flex flex-nowrap': hasValue && isMulti,
     }),
-    multiValue: () => 'bg-gray-200',
-    groupHeading: () => 'font-semibold text-xs text-gray-600 px-2',
-    group: () => 'border-b border-gray-300 py-2',
+    multiValue: () => 'bg-surface-overlay',
+    groupHeading: () => 'font-semibold text-xs text-on-surface-dim px-2',
+    group: () => 'border-b border-red-500 py-2',
   };
 
   const components = {

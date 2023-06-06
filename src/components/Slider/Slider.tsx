@@ -31,7 +31,7 @@ const SliderComponent: FC<SliderProps> = ({
     <div className="flex w-full items-center">
       {label !== undefined && <span className="text-caption-18 font-medium">{label}</span>}
       {showValues && value !== undefined && (
-        <span className="text-caption-16 ml-auto text-gray-500">
+        <span className="text-caption-16 text-on-surface-dim ml-auto">
           {value[0]}
           {value[1] !== undefined && `-${value[1]}`}
         </span>
@@ -45,11 +45,11 @@ const SliderComponent: FC<SliderProps> = ({
       onValueChange={onChange}
       className={clsx('relative flex h-4 items-center', className)}
     >
-      <RadixSlider.Track className="relative h-2 w-full flex-1 cursor-pointer rounded-full bg-gray-200">
-        <RadixSlider.Range className="bg-primary-400 absolute h-2 rounded-full" />
+      <RadixSlider.Track className="bg-border relative h-2 w-full flex-1 cursor-pointer rounded-full">
+        <RadixSlider.Range className="bg-primary absolute h-2 rounded-full" />
       </RadixSlider.Track>
       <ChildrenMultiplier amount={2}>
-        <RadixSlider.Thumb className="bg-primary-400 block h-4 w-8 cursor-grab rounded-full outline-none active:cursor-grabbing" />
+        <RadixSlider.Thumb className="bg-primary block h-4 w-8 cursor-grab rounded-full outline-none active:cursor-grabbing" />
       </ChildrenMultiplier>
     </RadixSlider.Root>
   </div>

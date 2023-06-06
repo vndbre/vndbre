@@ -7,7 +7,7 @@ import type { Option } from './Option';
 /** Menu. */
 export const SelectMenu: ComponentType<MenuProps<Option>> = ({ children, ...props }) => (
   <c.Menu {...props}>
-    <div className="h-px w-full bg-gray-300 px-2" />
+    <div className="bg-border h-px w-full px-2" />
     {children}
   </c.Menu>
 );

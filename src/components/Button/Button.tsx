@@ -72,15 +72,15 @@ const ButtonComponent = <C extends ElementType>({
   const buttonGroup = useButtonGroupContext();
 
   const button = cva([
-    'whitespace-nowrap text-caption-20 transition-colors flex gap-2 justify-center items-center focus:z-10',
+    'whitespace-nowrap text-caption-20 transition-colors flex gap-2 justify-center items-center focus:z-10 relative overflow-hidden group disabled:bg-transparent disabled:text-on-surface-dim',
     className,
   ], {
     variants: {
       intent: {
-        primary: 'bg-primary-400 text-white hover:bg-primary-500 disabled:bg-gray-50 disabled:text-gray-500',
-        secondary: 'bg-primary-100 text-primary-600 hover:bg-primary-200 disabled:bg-gray-50 disabled:text-gray-500',
-        tertiary: 'bg-gray-100 text-black hover:bg-gray-200 disabled:bg-gray-50 disabled:text-gray-500',
-        quaternary: 'bg-transparent text-black hover:bg-black/10 disabled:bg-transparent disabled:text-gray-500',
+        primary: 'bg-primary text-white',
+        secondary: 'bg-secondary text-on-secondary',
+        tertiary: 'bg-surface-overlay text-on-surface',
+        quaternary: 'bg-transparent text-on-surface',
       },
       isSquare: {
         true: 'grid place-content-center',
@@ -147,21 +147,40 @@ const ButtonComponent = <C extends ElementType>({
     },
   });
 
+  const buttonOverlay = cva([
+    'absolute inset-0',
+    className,
+  ], {
+    variants: {
+      intent: {
+        primary: 'group-hover:bg-primary-overlay',
+        secondary: 'group-hover:bg-secondary-overlay',
+        tertiary: 'group-hover:bg-surface-overlay',
+        quaternary: 'group-hover:bg-surface-overlay',
+      },
+    },
+    defaultVariants: {
+      intent: buttonGroup.intent ?? 'primary',
+    },
+  });
+
   const { intent, isSquare, hasSmallPaddings, size, ...componentProps } = props;
 
-  const componentClassName = cx(button({ intent, isSquare, hasSmallPaddings, size }));
+  const buttonClassName = cx(button({ intent, isSquare, hasSmallPaddings, size }));
+  const buttonOverlayClassName = cx(buttonOverlay({ intent }));
 
   return (
     <Component
       ref={ref}
       type={type}
-      className={componentClassName}
+      className={buttonClassName}
       disabled={isDisabled ?? buttonGroup.isDisabled}
       onClick={onClick}
       {...componentProps}
     >
       {leftElement}
-      {children}
+      {isDisabled ?? buttonGroup.isDisabled ?? <div className={buttonOverlayClassName} />}
+      <span className="z-10">{children}</span>
     </Component>
   );
 };

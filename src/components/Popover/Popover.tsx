@@ -8,20 +8,36 @@ import { forwardRef, memo } from 'react';
 export const Popover = RadixPopover.Root;
 export const PopoverTrigger = RadixPopover.Trigger;
 
-type PopoverContentProps = RadixPopover.PopperContentProps;
+const offsets: Record<OffsetSize, number> = {
+  xs: 8,
+  sm: 16,
+  md: 24,
+};
+
+/** Offset size. */
+export type OffsetSize = 'xs' | 'sm' | 'md';
+
+type PopoverContentProps =
+& Omit<
+  RadixPopover.PopperContentProps,
+  'sideOffset'
+>
+& {
+  readonly offset?: OffsetSize;
+};
 
 /**
  * Popover content component.
  * @param ref Forwarded ref.
  */
 export const PopoverContentComponent: FC<PopoverContentProps> =
-  ({ children, className, ...props }, ref: ForwardedRef<HTMLDivElement>) => (
+  ({ children, className, offset = 'md', ...props }, ref: ForwardedRef<HTMLDivElement>) => (
     <RadixPopover.Portal>
       <RadixPopover.Content
-        sideOffset={16}
+        sideOffset={offsets[offset]}
         {...props}
         ref={ref}
-        className={clsx('rounded-md border border-gray-100 bg-white font-sans shadow-lg', className)}
+        className={clsx('bg-surface-1 border-border z-20 rounded-2xl border p-6 font-sans shadow-lg max-md:w-[calc(var(--radix-popper-available-width)-24px)]', className)}
       >
         {children}
       </RadixPopover.Content>

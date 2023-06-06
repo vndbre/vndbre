@@ -14,13 +14,13 @@ export const SelectMultiValue: ComponentType<MultiValueProps<Option>> = ({
     <>
       <Tag
         {...props}
-        className="bg-gray-200 [&:nth-of-type(n+2)]:hidden"
+        className="bg-surface-overlay [&:nth-of-type(n+2)]:hidden"
         iconLeft={props.data.icon}
       >
         {children}
       </Tag>
       {isCountVisible && (
-        <Tag className="shrink-0 bg-gray-200">
+        <Tag className="bg-surface-overlay shrink-0">
           +
           {count}
         </Tag>

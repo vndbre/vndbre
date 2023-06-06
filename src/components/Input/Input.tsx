@@ -90,7 +90,7 @@ const InputComponent: FC<InputProps> = ({
         onFocus={onFocus}
         onBlur={onBlur}
         className={clsx(
-          'outline-primary-300 grow rounded-md bg-gray-100 py-3 outline-2 outline-offset-0',
+          'outline-primary bg-surface-overlay grow rounded-md py-3 outline-2 outline-offset-0',
           inputPaddingClass,
           {
             'outline-red-400': isInvalid,
