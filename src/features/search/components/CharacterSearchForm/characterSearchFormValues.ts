@@ -1,10 +1,10 @@
 import type { MultiValue, SingleValue } from 'react-select';
-import type { CharacterRole } from 'src/api/models/character/characterRole';
-import type { Gender } from 'src/api/models/character/gender';
-import type { CharacterQueryOptions } from 'src/api/models/queryOptions/character/characterQueryOptions';
-import { CharacterSortField } from 'src/api/models/queryOptions/character/characterSortField';
-import type { SortOrder } from 'src/api/models/sortOptions';
-import type { SelectOption } from 'src/components/Select';
+import type { CharacterRole } from '@/api/models/character/characterRole';
+import type { Gender } from '@/api/models/character/gender';
+import type { CharacterQueryOptions } from '@/api/models/queryOptions/character/characterQueryOptions';
+import { CharacterSortField } from '@/api/models/queryOptions/character/characterSortField';
+import type { SortOrder } from '@/api/models/sortOptions';
+import type { SelectOption } from '@/components/Select';
 
 export interface CharacterSearchFormValues {
   readonly search: string;

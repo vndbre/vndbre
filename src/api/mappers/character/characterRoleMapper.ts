@@ -1,5 +1,5 @@
-import type { CharacterRoleDto } from 'src/api/dtos/characterDto/characterRoleDto';
-import type { CharacterRole } from 'src/api/models/character/characterRole';
+import type { CharacterRoleDto } from '@/api/dtos/characterDto/characterRoleDto';
+import type { CharacterRole } from '@/api/models/character/characterRole';
 
 const CHARACTER_ROLE_FROM_DTO_MAP: Readonly<Record<CharacterRoleDto, CharacterRole>> = {
   main: 'protagonist',

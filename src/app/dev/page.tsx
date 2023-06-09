@@ -1,4 +1,4 @@
-import { SelectExample } from 'src/features/dev/components/SelectExample';
+import { SelectExample } from '@/features/dev/components/SelectExample';
 
 const DevPage = () => (
   <SelectExample />

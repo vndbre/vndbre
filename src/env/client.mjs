@@ -3,7 +3,7 @@ import { clientEnv, clientSchema } from './schema.mjs';
 
 const _clientEnv = clientSchema.safeParse(clientEnv);
 
-// eslint-disable-next-line jsdoc/require-jsdoc, @typescript-eslint/explicit-function-return-type
+// @typescript-eslint/explicit-function-return-type
 export const formatErrors = (
 
   /** @type {import('zod').ZodFormattedError<Map<string,string>,string>} */

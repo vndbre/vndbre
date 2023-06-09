@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
-import type { Image } from 'src/api/models/image';
-import { ImageDisplayLevel } from 'src/api/models/imageDisplayLevel';
-import type { Tag } from 'src/api/models/tag/tag';
-import type { Trait } from 'src/api/models/trait';
-import { useSettings } from 'src/store/settingsAtom';
+import type { Image } from '@/api/models/image';
+import { ImageDisplayLevel } from '@/api/models/imageDisplayLevel';
+import type { Tag } from '@/api/models/tag/tag';
+import type { Trait } from '@/api/models/trait';
+import { useSettings } from '@/store/settingsAtom';
 
 type ShouldBlurImageFn = (image: Image | null) => boolean;
 type ShouldHideSexualTagFn = (tag: Tag) => boolean;

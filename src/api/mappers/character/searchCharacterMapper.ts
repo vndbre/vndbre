@@ -1,5 +1,5 @@
-import type { SearchCharacterDto } from 'src/api/dtos/characterDto/searchCharacterDto';
-import type { SearchCharacter } from 'src/api/models/character/searchCharacter';
+import type { SearchCharacterDto } from '@/api/dtos/characterDto/searchCharacterDto';
+import type { SearchCharacter } from '@/api/models/character/searchCharacter';
 import { ImageMapper } from '../imageMapper';
 
 export namespace SearchCharacterMapper {

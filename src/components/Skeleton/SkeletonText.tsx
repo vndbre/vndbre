@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithClass } from 'src/types/propsWithClass';
-import { randomBetween } from 'src/utils/randomBetween';
+import type { PropsWithClass } from '@/types/propsWithClass';
+import { randomBetween } from '@/utils/randomBetween';
 import type { SkeletonTextLineProps } from './SkeletonTextLine';
 import { SkeletonTextLine } from './SkeletonTextLine';
 

@@ -1,9 +1,9 @@
-import type { AriaAttributes, FC, ForwardedRef } from 'react';
+import type { AriaAttributes, ForwardedRef } from 'react';
 import { forwardRef, memo } from 'react';
 
-import type { PropsWithClass } from 'src/types/propsWithClass';
-import type { ButtonProps } from '../Button/Button';
+import type { PropsWithClass } from '@/types/propsWithClass';
 import { Button } from '../Button/Button';
+import type { ButtonProps } from '../Button/Button';
 import type { IconProps } from '../Icon/Icon';
 import { Icon } from '../Icon/Icon';
 
@@ -24,7 +24,7 @@ type Props =
  * Icon button.
  * @param ref Forwarded ref.
  */
-const IconButtonComponent: FC<PropsWithClass<Props>> = ({
+const IconButtonComponent = ({
   intent,
   name,
   className,
@@ -32,7 +32,7 @@ const IconButtonComponent: FC<PropsWithClass<Props>> = ({
   onClick,
   iconSize,
   ...props
-}, ref: ForwardedRef<HTMLButtonElement>) => (
+}: PropsWithClass<Props>, ref: ForwardedRef<HTMLButtonElement>) => (
   <Button
     ref={ref}
     className={className}

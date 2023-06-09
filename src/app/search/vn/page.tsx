@@ -1,10 +1,10 @@
 import { dehydrate } from '@tanstack/react-query';
-import getQueryClient from 'src/api/getQueryClient';
-import { VnSearch } from 'src/features/search/components/VnSearch/VnSearch';
-import { VnSearchFormValues } from 'src/features/search/components/VnSearchForm/vnSearchFormValues';
-import { getBaseTagsQueryOptions } from 'src/features/search/queries/tags';
-import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
-import { HydrateQueryProvider } from 'src/providers/HydrateQuery';
+import getQueryClient from '@/api/getQueryClient';
+import { VnSearch } from '@/features/search/components/VnSearch/VnSearch';
+import { VnSearchFormValues } from '@/features/search/components/VnSearchForm/vnSearchFormValues';
+import { getBaseTagsQueryOptions } from '@/features/search/queries/tags';
+import { getBaseVnsQueryOptions } from '@/features/search/queries/vns';
+import { HydrateQueryProvider } from '@/providers/HydrateQuery';
 
 const VnSearchPage = async() => {
   const queryClient = getQueryClient();

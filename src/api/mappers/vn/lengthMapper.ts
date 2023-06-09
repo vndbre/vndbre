@@ -1,5 +1,5 @@
-import type { VnLengthDto } from 'src/api/dtos/vnDto/lengthDto';
-import type { VnLength } from 'src/api/models/vn/length';
+import type { VnLengthDto } from '@/api/dtos/vnDto/lengthDto';
+import type { VnLength } from '@/api/models/vn/length';
 
 const LENGTH_FROM_DTO_MAP: Readonly<Record<VnLengthDto, VnLength>> = {
   1: 'veryshort',

@@ -2,9 +2,9 @@
 
 import { useHydrateAtoms } from 'jotai/utils';
 import type { FC, PropsWithChildren } from 'react';
-import type { Settings } from 'src/api/models/settings/settings';
-import { isMobileAtom } from 'src/store/isMobileAtom';
-import { settingsAtom } from 'src/store/settingsAtom';
+import type { Settings } from '@/api/models/settings/settings';
+import { isMobileAtom } from '@/store/isMobileAtom';
+import { settingsAtom } from '@/store/settingsAtom';
 
 interface Props {
 

@@ -1,5 +1,5 @@
-import type { CharacterDto } from 'src/api/dtos/characterDto/characterDto';
-import type { Character } from 'src/api/models/character/character';
+import type { CharacterDto } from '@/api/dtos/characterDto/characterDto';
+import type { Character } from '@/api/models/character/character';
 import { ImageMapper } from '../imageMapper';
 import { BloodTypeMapper } from './bloodTypeMapper';
 import { CharacterTraitMapper } from './characterTraitMapper';

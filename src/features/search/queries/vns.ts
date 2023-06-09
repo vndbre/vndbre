@@ -1,9 +1,9 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { Pagination } from 'src/api/models/pagination';
-import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptions';
-import type { SearchVn } from 'src/api/models/vn/searchVn';
-import { VnService } from 'src/api/services/vnService';
+import type { Pagination } from '@/api/models/pagination';
+import type { VnQueryOptions } from '@/api/models/queryOptions/vn/vnQueryOptions';
+import type { SearchVn } from '@/api/models/vn/searchVn';
+import { VnService } from '@/api/services/vnService';
 
 export const DEFAULT_PAGE_SIZE = 18;
 

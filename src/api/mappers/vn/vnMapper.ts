@@ -1,7 +1,7 @@
-import type { VnDto } from 'src/api/dtos/vnDto/vnDto';
-import type { LanguageCode } from 'src/api/models/language';
-import type { Platform } from 'src/api/models/platform';
-import type { Vn } from 'src/api/models/vn/vn';
+import type { VnDto } from '@/api/dtos/vnDto/vnDto';
+import type { LanguageCode } from '@/api/models/language';
+import type { Platform } from '@/api/models/platform';
+import type { Vn } from '@/api/models/vn/vn';
 import { VnDevelopmentStatusMapper } from './developmentStatusMapper';
 import { VnLengthMapper } from './lengthMapper';
 import { VnScreenshotMapper } from './screenshotMapper';

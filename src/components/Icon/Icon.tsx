@@ -1,8 +1,10 @@
 import type { FC } from 'react';
 import { memo } from 'react';
 import { Icon as IconifyIcon } from '@iconify/react';
-import type { PropsWithClass } from 'src/types/propsWithClass';
-import { cva, cx } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
+
+import { cn } from '@/utils/cn';
+import type { PropsWithClass } from '@/types/propsWithClass';
 
 export const flagIconNames = {
   'flag-india': 'twemoji:flag-india',
@@ -128,28 +130,26 @@ export interface IconProps extends PropsWithClass {
   readonly size?: IconSize;
 }
 
-/** Icon. */
-const IconComponent: FC<IconProps> = ({ name, className, ...props }) => {
-  const icon = cva([className], {
-    variants: {
-      size: {
-        xs: 'w-4 h-4',
-        sm: 'w-5 h-5',
-        md: 'w-6 h-6',
-        lg: 'w-8 h-8',
-      },
+const icon = cva('', {
+  variants: {
+    size: {
+      xs: 'h-4 w-4',
+      sm: 'h-5 w-5',
+      md: 'h-6 w-6',
+      lg: 'h-8 w-8',
     },
-    defaultVariants: {
-      size: 'md',
-    },
-  });
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+});
 
-  return (
-    <IconifyIcon
-      icon={iconNames[name]}
-      className={cx(icon(props))}
-    />
-  );
-};
+/** Icon. */
+const IconComponent: FC<IconProps> = ({ name, className, ...props }) => (
+  <IconifyIcon
+    icon={iconNames[name]}
+    className={cn(icon(props), className)}
+  />
+);
 
 export const Icon = memo(IconComponent);

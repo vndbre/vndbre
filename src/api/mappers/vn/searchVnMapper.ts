@@ -1,5 +1,5 @@
-import type { SearchVnDto } from 'src/api/dtos/vnDto/searchVnDto';
-import type { SearchVn } from 'src/api/models/vn/searchVn';
+import type { SearchVnDto } from '@/api/dtos/vnDto/searchVnDto';
+import type { SearchVn } from '@/api/models/vn/searchVn';
 import { ImageMapper } from '../imageMapper';
 
 export namespace SearchVnMapper {

@@ -1,9 +1,9 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { Pagination } from 'src/api/models/pagination';
-import type { TagQueryOptions } from 'src/api/models/queryOptions/tag/tagQueryOptions';
-import type { Tag } from 'src/api/models/tag/tag';
-import { TagService } from 'src/api/services/tagService';
+import type { Pagination } from '@/api/models/pagination';
+import type { TagQueryOptions } from '@/api/models/queryOptions/tag/tagQueryOptions';
+import type { Tag } from '@/api/models/tag/tag';
+import { TagService } from '@/api/services/tagService';
 
 /** Gets base options. */
 export const getBaseTagsQueryOptions = ({ search = '' }: TagQueryOptions): UseInfiniteQueryOptions<Pagination<Tag>, Error> => ({
