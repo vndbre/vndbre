@@ -5,6 +5,7 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": [".next", "node_modules", ".github"],
+  "ignorePatterns": [".next", "node_modules", ".github"],
   "plugins": [
     "jsdoc",
     "@typescript-eslint",
@@ -19,7 +20,6 @@
     "plugin:tailwindcss/recommended"
   ],
   "rules": {
-    "@typescript-eslint/explicit-function-return-type": "off",
     "react/button-has-type": "off",
     "react/jsx-props-no-multi-spaces": "off",
     "tailwindcss/no-custom-classname": ["warn", {

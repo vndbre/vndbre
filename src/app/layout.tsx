@@ -15,11 +15,12 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from 'src/api/authOptions';
 import { AuthProvider } from 'src/providers/AuthProvider';
 import { UAParser } from 'ua-parser-js';
+import { ThemeProvider } from 'src/providers/ThemeProvider';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
-  display: 'block',
+  display: 'swap',
 });
 
 const RootLayout = async({ children }: PropsWithChildren) => {
@@ -42,23 +43,25 @@ const RootLayout = async({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <head />
-      <body className={`${inter.variable} font-sans`}>
-        <AuthProvider session={session}>
-          <QueryProvider>
-            <JotaiProvider>
-              <HydrateAtomsProvider values={atomValues}>
-                <CacheProvider>
-                  <div className="flex flex-col items-center gap-6">
-                    <AppHeader />
-                    <div className="w-full max-w-screen-xl px-6">
-                      {children}
+      <body className={`${inter.variable} bg-surface-1 text-on-surface font-sans`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider session={session}>
+            <QueryProvider>
+              <JotaiProvider>
+                <HydrateAtomsProvider values={atomValues}>
+                  <CacheProvider>
+                    <div className="flex flex-col items-center gap-6">
+                      <AppHeader />
+                      <div className="w-full max-w-screen-xl px-6">
+                        {children}
+                      </div>
                     </div>
-                  </div>
-                </CacheProvider>
-              </HydrateAtomsProvider>
-            </JotaiProvider>
-          </QueryProvider>
-        </AuthProvider>
+                  </CacheProvider>
+                </HydrateAtomsProvider>
+              </JotaiProvider>
+            </QueryProvider>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

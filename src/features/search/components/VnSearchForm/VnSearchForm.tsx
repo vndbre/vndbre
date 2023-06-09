@@ -118,8 +118,8 @@ const VnSearchFormComponent: FC = () => {
         )}
 
         <SearchPopover>
-          <div className="flex flex-col gap-8 pb-1">
-            <div className="grid grid-cols-1 gap-4">
+          <div className="flex w-full flex-row gap-8 pb-1">
+            <div className="grid w-full grid-cols-1 gap-4">
               <ControlWrapper label="Original Language">
                 <Field
                   Component={LanguageSelect}
@@ -155,7 +155,7 @@ const VnSearchFormComponent: FC = () => {
                 />
               </ControlWrapper>
             </div>
-            <div className="grid grid-cols-1 gap-4">
+            <div className="grid w-full grid-cols-1 gap-4">
               <Field
                 Component={Slider}
                 control={control}

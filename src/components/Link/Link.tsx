@@ -43,8 +43,8 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     variants: {
       color: {
         'never': '',
-        'on-hover': 'hover:text-primary-500',
-        'always': 'text-primary-500',
+        'on-hover': 'hover:text-primary',
+        'always': 'text-primary',
       },
       underline: {
         'never': '',

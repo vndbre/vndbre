@@ -1,0 +1,86 @@
+:root {
+  --rgb-palette-black: 0, 0, 0;
+  --rgb-palette-white: 255, 255, 255;
+
+  --rgb-palette-gray-50: 250, 250, 249;
+  --rgb-palette-gray-100: 245, 245, 244;
+  --rgb-palette-gray-200: 231, 229, 228;
+  --rgb-palette-gray-300: 214, 211, 209;
+  --rgb-palette-gray-400: 168, 162, 158;
+  --rgb-palette-gray-500: 120, 113, 108;
+  --rgb-palette-gray-600: 87, 83, 78;
+  --rgb-palette-gray-700: 68, 64, 60;
+  --rgb-palette-gray-800: 41, 37, 36;
+  --rgb-palette-gray-900: 28, 25, 23;
+  --rgb-palette-gray-950: 12, 10, 9;
+
+  --rgb-palette-orange-50: 255, 247, 237;
+  --rgb-palette-orange-100: 255, 237, 213;
+  --rgb-palette-orange-200: 254, 215, 170;
+  --rgb-palette-orange-300: 253, 186, 116;
+  --rgb-palette-orange-400: 251, 146, 60;
+  --rgb-palette-orange-500: 249, 115, 22;
+  --rgb-palette-orange-600: 234, 88, 12;
+  --rgb-palette-orange-700: 194, 65, 12;
+  --rgb-palette-orange-800: 154, 52, 18;
+  --rgb-palette-orange-900: 124, 45, 18;
+  --rgb-palette-orange-950: 67, 20, 7;
+
+  --rgb-palette-red-50: 254, 242, 242;
+  --rgb-palette-red-100: 254, 226, 226;
+  --rgb-palette-red-200: 254, 202, 202;
+  --rgb-palette-red-300: 252, 165, 165;
+  --rgb-palette-red-400: 248, 113, 113;
+  --rgb-palette-red-500: 239, 68, 68;
+  --rgb-palette-red-600: 220, 38, 38;
+  --rgb-palette-red-700: 185, 28, 28;
+  --rgb-palette-red-800: 153, 27, 27;
+  --rgb-palette-red-900: 127, 29, 29;
+
+  --rgb-palette-purple-50: 22, 0, 60;
+  --rgb-palette-purple-100: 33, 0, 93;
+  --rgb-palette-purple-200: 56, 30, 114;
+  --rgb-palette-purple-300: 79, 55, 139;
+  --rgb-palette-purple-400: 103, 80, 164;
+  --rgb-palette-purple-500: 127, 103, 190;
+  --rgb-palette-purple-600: 154, 130, 219;
+  --rgb-palette-purple-700: 182, 157, 248;
+  --rgb-palette-purple-800: 208, 188, 255;
+  --rgb-palette-purple-900: 234, 221, 255;
+  --rgb-palette-purple-950: 246, 237, 255;
+  --rgb-palette-purple-990: 255, 251, 254;
+}
+
+.light {
+  --surface-1: rgb(var(--rgb-palette-white));
+  --surface-2: rgb(var(--rgb-palette-gray-100));
+  --surface-3: rgb(var(--rgb-palette-gray-200));
+  --surface-overlay: rgba(var(--rgb-palette-black), 0.04);
+  --on-surface: rgb(var(--rgb-palette-black));
+  --on-surface-dim: rgb(var(--rgb-palette-gray-500));
+  --on-surface-dimest: rgb(var(--rgb-palette-gray-400));
+  --border: rgb(var(--rgb-palette-gray-200));
+  --primary: rgb(var(--rgb-palette-orange-400));
+  --primary-overlay: rgba(var(--rgb-palette-orange-700), 0.16);
+  --on-primary: rgb(var(--rgb-palette-white));
+  --secondary: rgba(var(--rgb-palette-orange-400), 0.04);
+  --secondary-overlay: rgba(var(--rgb-palette-orange-400), 0.08);
+  --on-secondary: rgb(var(--rgb-palette-orange-600));
+}
+
+.dark {
+  --surface-1: rgb(var(--rgb-palette-gray-900));
+  --surface-2: rgb(var(--rgb-palette-gray-800));
+  --surface-3: rgb(var(--rgb-palette-gray-600));
+  --surface-overlay: rgba(var(--rgb-palette-gray-300), 0.07);
+  --on-surface: rgb(var(--rgb-palette-white));
+  --on-surface-dim: rgb(var(--rgb-palette-gray-400));
+  --on-surface-dimest: rgb(var(--rgb-palette-gray-500));
+  --border: rgba(var(--rgb-palette-white), 0.12);
+  --primary: rgb(var(--rgb-palette-purple-400));
+  --primary-overlay: rgba(var(--rgb-palette-purple-800), 0.12);
+  --on-primary: rgb(var(--rgb-palette-white));
+  --secondary: rgba(var(--rgb-palette-purple-400), 0.04);
+  --secondary-overlay: rgba(var(--rgb-palette-purple-400), 0.08);
+  --on-secondary: rgb(var(--rgb-palette-purple-600));
+}

@@ -89,6 +89,8 @@ export type PlatformIconName = keyof typeof platformIconNames;
 
 const iconNames = {
   'burger': 'carbon:menu',
+  'sun': 'heroicons:sun',
+  'moon': 'heroicons:moon',
   'chevron-down': 'heroicons:chevron-down',
   'chevron-down-bold': 'heroicons:chevron-down-20-solid',
   'close': 'heroicons:x-mark',

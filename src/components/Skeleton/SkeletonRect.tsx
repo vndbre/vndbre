@@ -12,7 +12,7 @@ type Props =
 const SkeletonRectComponent: FC<Props> = ({
   className, ...props
 }) => (
-  <div {...props} className={clsx('animate-pulse bg-gray-200', className)} />
+  <div {...props} className={clsx('bg-surface-3 animate-pulse', className)} />
 );
 
 export const SkeletonRect = memo(SkeletonRectComponent);

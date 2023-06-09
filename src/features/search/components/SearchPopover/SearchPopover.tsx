@@ -11,7 +11,7 @@ const SearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (
     <PopoverTrigger asChild>
       <IconButton intent="tertiary" name="options" className="shrink-0" />
     </PopoverTrigger>
-    <PopoverContent align="end" className="w-[calc(var(--radix-popper-available-width)-24px)] p-4 md:w-[320px]">
+    <PopoverContent align="end" className="md:w-[620px]" offset="sm">
       {children}
     </PopoverContent>
   </Popover>

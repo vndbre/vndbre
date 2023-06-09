@@ -45,16 +45,13 @@ const PosterComponent: FC<Props> = ({ className, height, width, isBlurred = fals
 
   return (
     <div
-      className={clsx('relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className, {
-        'bg-gray-200': !isLoadingComplete,
-        'bg-gray-100': isLoadingComplete,
-      })}
+      className={clsx('bg-surface-3 relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className)}
       style={style}
     >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
         className={clsx(
-          'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300', {
+          'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300 dark:mix-blend-normal', {
             'opacity-100': isLoadingComplete,
             'blur': isBlurred,
           },

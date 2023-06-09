@@ -60,10 +60,10 @@ const TabsListComponent: FC<TabsListProps> = ({
       onPointerLeave={handleTabsPointerLeave}
     >
       {children}
-      <div className="absolute bottom-0 left-0 -z-10 w-full border-b border-gray-200" />
+      <div className="border-border absolute bottom-0 left-0 -z-10 w-full border-b" />
       <div
         className={clsx(
-          'absolute top-0 left-0 -z-10 h-10 rounded-sm bg-black/10 opacity-0 group-hover:opacity-100', {
+          'bg-surface-overlay absolute top-0 left-0 -z-10 h-10 rounded-sm opacity-0 group-hover:opacity-100', {
             'transition-opacity': hoverCount === 1,
             'transition-all': hoverCount > 1,
           },
