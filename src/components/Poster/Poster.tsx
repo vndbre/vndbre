@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 import Image from 'next/image';
 import type { ComponentProps, FC } from 'react';
 import { useState, useMemo, memo } from 'react';
@@ -45,12 +45,12 @@ const PosterComponent: FC<Props> = ({ className, height, width, isBlurred = fals
 
   return (
     <div
-      className={clsx('bg-surface-3 relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className)}
+      className={cn('bg-surface-3 relative aspect-[2/3] overflow-hidden rounded transition-colors duration-300', className)}
       style={style}
     >
       {/* eslint-disable-next-line jsx-a11y/alt-text */}
       <Image
-        className={clsx(
+        className={cn(
           'rounded object-cover opacity-0 mix-blend-multiply transition-all duration-300 dark:mix-blend-normal', {
             'opacity-100': isLoadingComplete,
             'blur': isBlurred,

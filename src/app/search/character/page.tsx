@@ -1,11 +1,11 @@
 import { dehydrate } from '@tanstack/react-query';
-import getQueryClient from 'src/api/getQueryClient';
-import { CharacterSearch } from 'src/features/search/components/CharacterSearch/CharacterSearch';
-import { CharacterSearchFormValues } from 'src/features/search/components/CharacterSearchForm/characterSearchFormValues';
-import { getBaseCharactersQueryOptions } from 'src/features/search/queries/characters';
-import { getBaseTraitsQueryOptions } from 'src/features/search/queries/traits';
-import { getBaseVnsQueryOptions } from 'src/features/search/queries/vns';
-import { HydrateQueryProvider } from 'src/providers/HydrateQuery';
+import getQueryClient from '@/api/getQueryClient';
+import { CharacterSearch } from '@/features/search/components/CharacterSearch/CharacterSearch';
+import { CharacterSearchFormValues } from '@/features/search/components/CharacterSearchForm/characterSearchFormValues';
+import { getBaseCharactersQueryOptions } from '@/features/search/queries/characters';
+import { getBaseTraitsQueryOptions } from '@/features/search/queries/traits';
+import { getBaseVnsQueryOptions } from '@/features/search/queries/vns';
+import { HydrateQueryProvider } from '@/providers/HydrateQuery';
 
 const CharacterSearchPage = async() => {
   const queryClient = getQueryClient();

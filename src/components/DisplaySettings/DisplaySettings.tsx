@@ -4,8 +4,8 @@
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import type { Settings as SettingsFormValues } from 'src/api/models/settings/settings';
-import { useSettings } from 'src/store/settingsAtom';
+import type { Settings as SettingsFormValues } from '@/api/models/settings/settings';
+import { useSettings } from '@/store/settingsAtom';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { Field } from '../Field/Field';
 import { Form } from '../Form/Form';
@@ -38,15 +38,15 @@ export const DisplaySettings: FC = () => {
             <Field Component={RadioGroup.Root} control={control} name="imageDisplaySettings.sexualLevel">
               <div className="flex flex-col gap-4">
 
-                <span className="text-caption-20 text-on-surface-dim font-medium">
+                <span className="text-caption-20 font-medium text-on-surface-dim">
                   Sexual and suggestive
                 </span>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="none" id="safeSexLevel" className="shrink-0" />
-                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="safeSexLevel">
+                  <label className="flex flex-col text-caption-20 font-medium" htmlFor="safeSexLevel">
                     Safe images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Hide sexually suggestive or explicit images
                     </span>
                   </label>
@@ -54,9 +54,9 @@ export const DisplaySettings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="suggestive" id="suggestiveSexLevel" className="shrink-0" />
-                  <label htmlFor="suggestiveSexLevel" className="text-caption-20 flex flex-col font-medium">
+                  <label htmlFor="suggestiveSexLevel" className="flex flex-col text-caption-20 font-medium">
                     Suggestive images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Hide only sexually explicit images
                     </span>
                   </label>
@@ -64,9 +64,9 @@ export const DisplaySettings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="all" id="fullSexLevel" className="shrink-0" />
-                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="fullSexLevel">
+                  <label className="flex flex-col text-caption-20 font-medium" htmlFor="fullSexLevel">
                     All images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Don&apos;t hide suggestive or explicit images
                     </span>
                   </label>
@@ -77,15 +77,15 @@ export const DisplaySettings: FC = () => {
             <Field Component={RadioGroup.Root} control={control} name="imageDisplaySettings.violenceLevel">
               <div className="flex flex-col gap-4">
 
-                <span className="text-caption-20 text-on-surface-dim font-medium">
+                <span className="text-caption-20 font-medium text-on-surface-dim">
                   Violent and brutal
                 </span>
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="none" id="safeViolenceLevel" className="shrink-0" />
-                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="safeViolenceLevel">
+                  <label className="flex flex-col text-caption-20 font-medium" htmlFor="safeViolenceLevel">
                     Safe images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Hide violent or brutal images
                     </span>
                   </label>
@@ -93,9 +93,9 @@ export const DisplaySettings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="suggestive" id="brutalViolenceLevel" className="shrink-0" />
-                  <label htmlFor="brutalViolenceLevel" className="text-caption-20 flex flex-col font-medium">
+                  <label htmlFor="brutalViolenceLevel" className="flex flex-col text-caption-20 font-medium">
                     Brutal images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Hide only brutal images
                     </span>
                   </label>
@@ -103,9 +103,9 @@ export const DisplaySettings: FC = () => {
 
                 <div className="flex items-center gap-3">
                   <RadioGroup.Item value="all" id="fullViolenceLevel" className="shrink-0" />
-                  <label className="text-caption-20 flex flex-col font-medium" htmlFor="fullViolenceLevel">
+                  <label className="flex flex-col text-caption-20 font-medium" htmlFor="fullViolenceLevel">
                     All images
-                    <span className="text-caption-18 text-on-surface-dim font-medium">
+                    <span className="text-caption-18 font-medium text-on-surface-dim">
                       Don&apos;t hide violent or brutal images
                     </span>
                   </label>
@@ -130,7 +130,7 @@ export const DisplaySettings: FC = () => {
             <Field Component={RadioGroup.Root} control={control} name="spoilerLevel">
               <div className="flex flex-col gap-4">
 
-                <span className="text-caption-20 text-on-surface-dim font-medium">
+                <span className="text-caption-20 font-medium text-on-surface-dim">
                   Spoilers
                 </span>
 

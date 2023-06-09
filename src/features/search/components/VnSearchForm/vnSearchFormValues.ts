@@ -1,10 +1,10 @@
 import type { MultiValue, SingleValue } from 'react-select';
-import type { VnQueryOptions } from 'src/api/models/queryOptions/vn/vnQueryOptions';
-import { VnSortField } from 'src/api/models/queryOptions/vn/vnSortField';
-import type { SortOrder } from 'src/api/models/sortOptions';
-import type { VnDevelopmentStatus } from 'src/api/models/vn/developmentStatus';
-import type { VnLength } from 'src/api/models/vn/length';
-import type { SelectOption } from 'src/components/Select';
+import type { VnQueryOptions } from '@/api/models/queryOptions/vn/vnQueryOptions';
+import { VnSortField } from '@/api/models/queryOptions/vn/vnSortField';
+import type { SortOrder } from '@/api/models/sortOptions';
+import type { VnDevelopmentStatus } from '@/api/models/vn/developmentStatus';
+import type { VnLength } from '@/api/models/vn/length';
+import type { SelectOption } from '@/components/Select';
 
 export interface VnSearchFormValues {
   readonly search: string;

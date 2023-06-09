@@ -1,9 +1,9 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { SearchCharacter } from 'src/api/models/character/searchCharacter';
-import type { Pagination } from 'src/api/models/pagination';
-import type { CharacterQueryOptions } from 'src/api/models/queryOptions/character/characterQueryOptions';
-import { CharacterService } from 'src/api/services/characterService';
+import type { SearchCharacter } from '@/api/models/character/searchCharacter';
+import type { Pagination } from '@/api/models/pagination';
+import type { CharacterQueryOptions } from '@/api/models/queryOptions/character/characterQueryOptions';
+import { CharacterService } from '@/api/services/characterService';
 
 export const DEFAULT_PAGE_SIZE = 18;
 

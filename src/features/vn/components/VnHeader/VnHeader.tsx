@@ -3,15 +3,15 @@
 import type { FC } from 'react';
 import { useRef, useCallback, memo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Button } from 'src/components/Button/Button';
-import { ButtonGroup } from 'src/components/ButtonGroup/ButtonGroup';
-import { Poster, POSTER_RATIO } from 'src/components/Poster/Poster';
-import { IconButton } from 'src/components/IconButton/IconButton';
+import { Button } from '@/components/Button/Button';
+import { ButtonGroup } from '@/components/ButtonGroup/ButtonGroup';
+import { Poster, POSTER_RATIO } from '@/components/Poster/Poster';
+import { IconButton } from '@/components/IconButton/IconButton';
 
-import { useElementSize } from 'src/hooks/useElementSize';
-import clsx from 'clsx';
-import { useBreakpoint } from 'src/hooks/useBreakpoint';
+import { useElementSize } from '@/hooks/useElementSize';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { motion } from 'framer-motion';
+import { cn } from '@/utils/cn';
 import type { TabValue } from '../VnHeaderTabs/VnHeaderTabs';
 import { VnHeaderTabs } from '../VnHeaderTabs/VnHeaderTabs';
 import { useVnInfoQuery } from '../../queries/vnInfo';
@@ -81,10 +81,10 @@ const VnHeaderComponent: FC<Props> = ({
         className="flex w-full flex-col gap-8 md:gap-4"
       >
         <div className="flex items-start gap-6">
-          <div ref={mobileParentRef} className={clsx('flex w-full flex-col items-start justify-between gap-4 md:flex-row')}>
+          <div ref={mobileParentRef} className={cn('flex w-full flex-col items-start justify-between gap-4 md:flex-row')}>
             <hgroup className="flex flex-col items-start gap-2">
-              <h1 className="line-clamp-2 text-title-24">{vnInfo.titleEnglish}</h1>
-              <h2 className="line-clamp-1 text-caption-20">
+              <h1 className="text-title-24 line-clamp-2">{vnInfo.titleEnglish}</h1>
+              <h2 className="text-caption-20 line-clamp-1">
                 {vnInfo.titleAlt}
               </h2>
             </hgroup>

@@ -1,4 +1,4 @@
-import type { FlagIconName } from 'src/components/Icon/Icon';
+import type { FlagIconName } from '@/components/Icon/Icon';
 
 /** List of languages codes. */
 export const LANGUAGES_CODES = [

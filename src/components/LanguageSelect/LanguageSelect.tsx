@@ -4,11 +4,11 @@ import type { ForwardedRef } from 'react';
 import { forwardRef, useMemo } from 'react';
 import type { SelectInstance } from 'react-select';
 
-import { LanguageCode, LANGUAGES_CODES } from 'src/api/models/language';
+import { LanguageCode, LANGUAGES_CODES } from '@/api/models/language';
+import type { StrictOmit } from '@/api/utils/strictOmit';
+import { typedMemo } from '@/api/utils/typedMemo';
+import type { PropsWithClass } from '@/types/propsWithClass';
 
-import type { StrictOmit } from 'src/api/utils/strictOmit';
-import { typedMemo } from 'src/api/utils/typedMemo';
-import type { PropsWithClass } from 'src/types/propsWithClass';
 import { Icon } from '../Icon/Icon';
 import type { SelectGroup, SelectOption, SelectProps } from '../Select';
 import { Select } from '../Select';

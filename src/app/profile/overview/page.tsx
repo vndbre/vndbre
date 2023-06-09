@@ -1,4 +1,4 @@
-import ProfileOverview from 'src/features/profile/pages/ProfileOverviewPage';
+import ProfileOverview from '@/features/profile/pages/ProfileOverviewPage';
 
 const ProfileOverviewPage = () => (
   <ProfileOverview />

@@ -2,7 +2,7 @@
 
 import type { FC } from 'react';
 import { memo } from 'react';
-import { Poster } from 'src/components/Poster/Poster';
+import { Poster } from '@/components/Poster/Poster';
 import { useVnOverviewQuery } from '../../queries/vnOverview';
 
 interface Props {

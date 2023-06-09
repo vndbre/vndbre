@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithClass } from 'src/types/propsWithClass';
+import type { PropsWithClass } from '@/types/propsWithClass';
+import { cn } from '@/utils/cn';
 import { SkeletonRect } from './SkeletonRect';
 
 /** Text-line skeleton props. */
@@ -25,13 +25,13 @@ const SkeletonTextLineComponent: FC<Props> = ({
   width = 100,
 }) => (
   <div
-    className={clsx('relative flex items-stretch', textClassName, className)}
+    className={cn('relative flex items-stretch', textClassName, className)}
     style={{ width: `${width}%` }}
   >
     {/* Required for element to take `height` from the `line-height`. */}
     <span className="text-transparent">a</span>
     <SkeletonRect
-      className="rounded-xs absolute inset-0 top-[23%] h-[55%] w-full"
+      className="absolute inset-0 top-[23%] h-[55%] w-full rounded-xs"
     />
   </div>
 );

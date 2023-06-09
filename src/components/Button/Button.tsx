@@ -1,8 +1,10 @@
 import { forwardRef, memo } from 'react';
 import type { ButtonHTMLAttributes, MouseEventHandler, ForwardedRef, ReactNode, AriaAttributes, ElementType } from 'react';
-import { cva, cx } from 'class-variance-authority';
-import type { PropsWithChildrenAndClass } from 'src/types/propsWithClass';
-import type { PolymorphicProps } from 'src/types/polymorphicProps';
+import { cva } from 'class-variance-authority';
+
+import type { PropsWithChildrenAndClass } from '@/types/propsWithClass';
+import type { PolymorphicProps } from '@/types/polymorphicProps';
+import { cn } from '@/utils/cn';
 import { useButtonGroupContext } from '../ButtonGroup/ButtonGroupProvider';
 
 /** Button intent. */
@@ -62,7 +64,7 @@ const ButtonComponent = <C extends ElementType>({
   type = 'button',
   className,
   onClick,
-  isDisabled,
+  isDisabled = false,
   leftElement,
   as,
   ...props
@@ -71,13 +73,10 @@ const ButtonComponent = <C extends ElementType>({
 
   const buttonGroup = useButtonGroupContext();
 
-  const button = cva([
-    'whitespace-nowrap text-caption-20 transition-colors flex gap-2 justify-center items-center focus:z-10 relative overflow-hidden group disabled:bg-transparent disabled:text-on-surface-dim',
-    className,
-  ], {
+  const button = cva(['group relative flex items-center justify-center gap-2 overflow-hidden whitespace-nowrap text-caption-20 transition-colors focus:z-10 disabled:bg-transparent disabled:text-on-surface-dim'], {
     variants: {
       intent: {
-        primary: 'bg-primary text-white',
+        primary: 'bg-primary text-on-primary',
         secondary: 'bg-secondary text-on-secondary',
         tertiary: 'bg-surface-overlay text-on-surface',
         quaternary: 'bg-transparent text-on-surface',
@@ -99,12 +98,12 @@ const ButtonComponent = <C extends ElementType>({
       {
         size: '2xs',
         isSquare: true,
-        class: 'w-6 h-6',
+        class: 'h-6 w-6',
       },
       {
         size: 'xs',
         isSquare: true,
-        class: 'w-8 h-8',
+        class: 'h-8 w-8',
       },
       {
         size: 'sm',
@@ -120,7 +119,7 @@ const ButtonComponent = <C extends ElementType>({
       {
         size: 'sm',
         isSquare: true,
-        class: 'w-10 h-10',
+        class: 'h-10 w-10',
       },
       {
         size: 'md',
@@ -136,7 +135,7 @@ const ButtonComponent = <C extends ElementType>({
       {
         size: 'md',
         isSquare: true,
-        class: 'w-12 h-12',
+        class: 'h-12 w-12',
       },
     ],
     defaultVariants: {
@@ -147,10 +146,7 @@ const ButtonComponent = <C extends ElementType>({
     },
   });
 
-  const buttonOverlay = cva([
-    'absolute inset-0',
-    className,
-  ], {
+  const buttonOverlay = cva(['absolute inset-0'], {
     variants: {
       intent: {
         primary: 'group-hover:bg-primary-overlay',
@@ -166,8 +162,8 @@ const ButtonComponent = <C extends ElementType>({
 
   const { intent, isSquare, hasSmallPaddings, size, ...componentProps } = props;
 
-  const buttonClassName = cx(button({ intent, isSquare, hasSmallPaddings, size }));
-  const buttonOverlayClassName = cx(buttonOverlay({ intent }));
+  const buttonClassName = cn(button({ intent, isSquare, hasSmallPaddings, size }), className);
+  const buttonOverlayClassName = cn(buttonOverlay({ intent }), className);
 
   return (
     <Component
@@ -179,7 +175,7 @@ const ButtonComponent = <C extends ElementType>({
       {...componentProps}
     >
       {leftElement}
-      {isDisabled ?? buttonGroup.isDisabled ?? <div className={buttonOverlayClassName} />}
+      {!isDisabled && !buttonGroup.isDisabled && <div className={buttonOverlayClassName} />}
       <span className="z-10">{children}</span>
     </Component>
   );

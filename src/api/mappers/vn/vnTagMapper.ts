@@ -1,5 +1,5 @@
-import type { VnTagDto } from 'src/api/dtos/vnDto/vnTagDto';
-import type { VnTag } from 'src/api/models/vn/vnTag';
+import type { VnTagDto } from '@/api/dtos/vnDto/vnTagDto';
+import type { VnTag } from '@/api/models/vn/vnTag';
 import { SpoilerLevelMapper } from '../spoilerLevelMapper';
 import { TagMapper } from '../tag/tagMapper';
 

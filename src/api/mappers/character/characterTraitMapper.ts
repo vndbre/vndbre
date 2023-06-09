@@ -1,5 +1,5 @@
-import type { CharacterTraitDto } from 'src/api/dtos/characterDto/characterTraitDto';
-import type { CharacterTrait } from 'src/api/models/character/characterTrait';
+import type { CharacterTraitDto } from '@/api/dtos/characterDto/characterTraitDto';
+import type { CharacterTrait } from '@/api/models/character/characterTrait';
 import { SpoilerLevelMapper } from '../spoilerLevelMapper';
 import { TraitMapper } from '../traitMapper';
 

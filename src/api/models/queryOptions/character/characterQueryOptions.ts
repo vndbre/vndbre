@@ -1,4 +1,4 @@
-import type { ExtractStrict } from 'src/api/utils/strictExtract';
+import type { ExtractStrict } from '@/api/utils/strictExtract';
 import type { BaseQueryOptions } from '../../baseQueryOptions';
 import type { CharacterRole } from '../../character/characterRole';
 import type { Gender } from '../../character/gender';

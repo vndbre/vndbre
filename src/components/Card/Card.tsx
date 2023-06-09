@@ -27,7 +27,7 @@ const CardComponent: FC<Props> = ({ title, imageUrl = 'https://s2.vndb.org/cv/55
         src={imageUrl}
         isBlurred={isBlurred}
       />
-      <div className="line-clamp-2 text-caption-18 whitespace-normal">{title}</div>
+      <div className="whitespace-normal text-caption-18 line-clamp-2">{title}</div>
     </div>
   </Link>
 );
