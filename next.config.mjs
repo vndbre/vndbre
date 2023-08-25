@@ -14,7 +14,7 @@ const config = {
     appDir: true,
   },
   images: {
-    domains: ['userapi.com', 'sun9-32.userapi.com', 's2.vndb.org'],
+    domains: ['userapi.com', 'sun9-32.userapi.com', 's2.vndb.org', 't.vndb.org'],
   },
   // eslint-disable-next-line require-await
   async redirects() {
