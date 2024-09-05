@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, ForwardedRef } from 'react';
+import type { ForwardedRef } from 'react';
 import { memo, forwardRef, useMemo, useCallback } from 'react';
 
 import { IconButton } from '../IconButton/IconButton';
@@ -16,7 +16,7 @@ type Props = InputProps & {
  * Text input.
  * @param ref Forwarded ref.
  */
-const TextInputComponent: FC<Props> = ({
+const TextInputComponent = ({
   id,
   name,
   placeholder,
@@ -25,7 +25,7 @@ const TextInputComponent: FC<Props> = ({
   onChange,
   value,
   ...rest
-}, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
+}: Props, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
   const clearInput = useCallback(() => {
     if (onChange) {
       onChange('');

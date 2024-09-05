@@ -1,21 +1,21 @@
 import { Inter } from 'next/font/google';
 import type { PropsWithChildren } from 'react';
-import { AppHeader } from 'src/components/AppHeader/AppHeader';
-import { QueryProvider } from 'src/providers/QueryProvider';
+import { AppHeader } from '@/components/AppHeader/AppHeader';
+import { QueryProvider } from '@/providers/QueryProvider';
 import { cookies, headers } from 'next/headers';
 
-import 'src/styles/globals.css';
-import { CacheProvider } from 'src/providers/CacheProvider';
-import { CookieStorage } from 'src/store/utils/cookieStorage';
-import { INITIAL_SETTINGS, SETTINGS_KEY } from 'src/store/settingsAtomConfig';
-import { HydrateAtomsProvider } from 'src/providers/HydrateAtomsProvider';
-import type { Settings } from 'src/api/models/settings/settings';
-import { JotaiProvider } from 'src/providers/JotaiProvider';
+import '@/styles/globals.css';
+import { CacheProvider } from '@/providers/CacheProvider';
+import { CookieStorage } from '@/store/utils/cookieStorage';
+import { INITIAL_SETTINGS, SETTINGS_KEY } from '@/store/settingsAtomConfig';
+import { HydrateAtomsProvider } from '@/providers/HydrateAtomsProvider';
+import type { Settings } from '@/api/models/settings/settings';
+import { JotaiProvider } from '@/providers/JotaiProvider';
 import { getServerSession } from 'next-auth';
-import { authOptions } from 'src/api/authOptions';
-import { AuthProvider } from 'src/providers/AuthProvider';
+import { authOptions } from '@/api/authOptions';
+import { AuthProvider } from '@/providers/AuthProvider';
 import { UAParser } from 'ua-parser-js';
-import { ThemeProvider } from 'src/providers/ThemeProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -43,7 +43,7 @@ const RootLayout = async({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <head />
-      <body className={`${inter.variable} bg-surface-1 text-on-surface font-sans`}>
+      <body className={`${inter.variable} bg-surface-1 font-sans text-on-surface`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <AuthProvider session={session}>
             <QueryProvider>

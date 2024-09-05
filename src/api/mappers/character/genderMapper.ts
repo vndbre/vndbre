@@ -1,5 +1,5 @@
-import type { GenderDto } from 'src/api/dtos/characterDto/genderDto';
-import type { Gender } from 'src/api/models/character/gender';
+import type { GenderDto } from '@/api/dtos/characterDto/genderDto';
+import type { Gender } from '@/api/models/character/gender';
 
 const GENDER_FROM_DTO_MAP: Readonly<Record<GenderDto, Gender>> = {
   m: 'male',

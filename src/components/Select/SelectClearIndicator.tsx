@@ -1,4 +1,3 @@
-import React from 'react';
 import type { ComponentType } from 'react';
 import { components as c } from 'react-select';
 import type { ClearIndicatorProps } from 'react-select';

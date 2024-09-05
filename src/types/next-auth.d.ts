@@ -1,4 +1,4 @@
-import type { AuthInfo } from 'src/api/models/authInfo';
+import type { AuthInfo } from '@/api/models/authInfo';
 
 declare module 'next-auth' {
 

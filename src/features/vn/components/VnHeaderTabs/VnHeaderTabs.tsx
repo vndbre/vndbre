@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import { Tabs } from 'src/components/Tabs';
+import { Tabs } from '@/components/Tabs';
 
 const tabs = {
   overview: 'Overview',

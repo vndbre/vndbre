@@ -1,8 +1,9 @@
 'use client';
 
-import clsx from 'clsx';
 import type { FC, PropsWithChildren, ReactElement } from 'react';
 import { cloneElement, memo, Children } from 'react';
+
+import { cn } from '@/utils/cn';
 import type { ButtonProps } from '../Button/Button';
 import { ButtonGroupProvider } from './ButtonGroupProvider';
 
@@ -32,7 +33,7 @@ const ButtonGroupComponent: FC<Props> = ({ children, ...props }) => {
   }
 
   const childrenWithProps = Children.map(children, (child, index) => {
-    const className = clsx({
+    const className = cn({
       /* eslint-disable @typescript-eslint/naming-convention */
       'rounded-r-none': index === 0,
       'rounded-none': index > 0 && index < (childrenCount - 1),

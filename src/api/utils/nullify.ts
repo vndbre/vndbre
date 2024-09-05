@@ -1,5 +1,3 @@
-/* eslint-disable jsdoc/require-description-complete-sentence */
-
 /**
  * Nullifies `undefined`.
  * @param data Data to nullify.

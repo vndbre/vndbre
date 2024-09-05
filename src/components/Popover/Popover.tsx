@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from '@/utils/cn';
 import * as RadixPopover from '@radix-ui/react-popover';
-import clsx from 'clsx';
-import type { FC, ForwardedRef } from 'react';
+import type { ForwardedRef } from 'react';
 import { forwardRef, memo } from 'react';
 
 export const Popover = RadixPopover.Root;
@@ -30,14 +30,14 @@ type PopoverContentProps =
  * Popover content component.
  * @param ref Forwarded ref.
  */
-export const PopoverContentComponent: FC<PopoverContentProps> =
-  ({ children, className, offset = 'md', ...props }, ref: ForwardedRef<HTMLDivElement>) => (
+export const PopoverContentComponent =
+  ({ children, className, offset = 'md', ...props }: PopoverContentProps, ref: ForwardedRef<HTMLDivElement>) => (
     <RadixPopover.Portal>
       <RadixPopover.Content
         sideOffset={offsets[offset]}
         {...props}
         ref={ref}
-        className={clsx('bg-surface-1 border-border z-20 rounded-2xl border p-6 font-sans shadow-lg max-md:w-[calc(var(--radix-popper-available-width)-24px)]', className)}
+        className={cn('z-20 rounded-2xl border border-border bg-surface-1 p-6 font-sans shadow-lg max-md:w-[calc(var(--radix-popper-available-width)-24px)]', className)}
       >
         {children}
       </RadixPopover.Content>

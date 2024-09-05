@@ -1,4 +1,4 @@
-import type { ExtractStrict } from 'src/api/utils/strictExtract';
+import type { ExtractStrict } from '@/api/utils/strictExtract';
 import type { BaseFilter, Operator } from '../../search/baseFilter';
 import type { BaseQueryOptions } from '../../baseQueryOptions';
 import type { TagSearchField } from './tagSearchField';

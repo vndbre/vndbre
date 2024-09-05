@@ -1,5 +1,5 @@
-import type { TagCategoryDto } from 'src/api/dtos/tagDto/tagCatergoryDto';
-import type { TagCategory } from 'src/api/models/tag/tagCategory';
+import type { TagCategoryDto } from '@/api/dtos/tagDto/tagCatergoryDto';
+import type { TagCategory } from '@/api/models/tag/tagCategory';
 
 const TAG_CATEGORY_FROM_DTO_MAP: Readonly<Record<TagCategoryDto, TagCategory>> = {
   cont: 'content',

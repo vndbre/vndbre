@@ -2,8 +2,8 @@
 
 import type { FC, PropsWithChildren } from 'react';
 import { memo } from 'react';
-import { IconButton } from 'src/components/IconButton/IconButton';
-import { Popover, PopoverContent, PopoverTrigger } from 'src/components/Popover/Popover';
+import { IconButton } from '@/components/IconButton/IconButton';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/Popover/Popover';
 
 /** Popover for vn search. */
 const SearchPopoverComponent: FC<PropsWithChildren> = ({ children }) => (

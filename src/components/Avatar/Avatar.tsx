@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithClass } from 'src/types/propsWithClass';
+import type { PropsWithClass } from '@/types/propsWithClass';
+import { cn } from '@/utils/cn';
 
 /**
  * Avatar placeholder.
@@ -9,7 +9,7 @@ import type { PropsWithClass } from 'src/types/propsWithClass';
  */
 const AvatarComponent: FC<PropsWithClass> = ({ className }) => (
   <div
-    className={clsx(
+    className={cn(
       'flex h-8 w-8 rounded-full bg-gradient-to-br from-[#FF9900] to-[#AD00FF]',
       className,
     )}

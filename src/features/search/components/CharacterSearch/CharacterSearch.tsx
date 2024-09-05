@@ -2,15 +2,15 @@
 
 import type { FC } from 'react';
 import { useEffect, useState, useCallback, memo } from 'react';
-import { Paginator } from 'src/components/Paginator/Paginator';
-import { Card } from 'src/components/Card/Card';
-import { CardSkeleton } from 'src/components/Card/CardSkeleton';
-import { ChildrenMultiplier } from 'src/components/ChildrenMultiplier/ChildrenMultiplier';
-import { Pagination } from 'src/api/models/pagination';
+import { Paginator } from '@/components/Paginator/Paginator';
+import { Card } from '@/components/Card/Card';
+import { CardSkeleton } from '@/components/Card/CardSkeleton';
+import { ChildrenMultiplier } from '@/components/ChildrenMultiplier/ChildrenMultiplier';
+import { Pagination } from '@/api/models/pagination';
 import { useForm, useWatch } from 'react-hook-form';
-import { Form } from 'src/components/Form/Form';
+import { Form } from '@/components/Form/Form';
 import { useDebounce } from 'usehooks-ts';
-import { useCensor } from 'src/hooks/useCensor';
+import { useCensor } from '@/hooks/useCensor';
 import { DEFAULT_PAGE_SIZE, useCharactersQuery } from '../../queries/characters';
 import { CharacterSearchFormValues, CHARACTER_SEARCH_INITIAL_VALUES } from '../CharacterSearchForm/characterSearchFormValues';
 import { CharacterSearchForm } from '../CharacterSearchForm/CharacterSearchForm';

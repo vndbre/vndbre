@@ -3,16 +3,16 @@
 import { useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
-import { Button } from 'src/components/Button/Button';
-import { ControlWrapper } from 'src/components/ControlWrapper/ControlWrapper';
+import { Button } from '@/components/Button/Button';
+import { ControlWrapper } from '@/components/ControlWrapper/ControlWrapper';
 import type { TypeOf } from 'zod';
-import { Validators } from 'src/api/utils/validators';
+import { Validators } from '@/api/utils/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
 import type { NextPage } from 'next';
-import { TextInput } from 'src/components/TextInput/TextInput';
-import { Field } from 'src/components/Field/Field';
+import { TextInput } from '@/components/TextInput/TextInput';
+import { Field } from '@/components/Field/Field';
 
 const loginFormInitialValues = {
   token: '',
@@ -65,8 +65,9 @@ export const LoginPage: NextPage = () => {
             />
           </ControlWrapper>
 
+          {/* TODO: Replace primary with error color. */}
           {loginError && (
-            <div role="alert" className="text-caption-18 grid min-h-[64px] place-items-center rounded-md bg-red-50 p-3 text-center font-medium text-red-500">
+            <div role="alert" className="grid min-h-[64px] place-items-center rounded-md bg-primary p-3 text-center text-caption-18 font-medium text-on-primary">
               {loginError}
             </div>
           )}

@@ -1,6 +1,6 @@
-import type { VnTitleDto } from 'src/api/dtos/vnDto/titleDto';
-import type { LanguageCode } from 'src/api/models/language';
-import type { VnTitle } from 'src/api/models/vn/title';
+import type { VnTitleDto } from '@/api/dtos/vnDto/titleDto';
+import type { LanguageCode } from '@/api/models/language';
+import type { VnTitle } from '@/api/models/vn/title';
 
 export namespace VnTitleMapper {
 

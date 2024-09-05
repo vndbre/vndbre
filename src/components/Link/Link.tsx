@@ -1,8 +1,10 @@
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { PropsWithChildrenAndClass } from 'src/types/propsWithClass';
 import NextLink from 'next/link';
-import { cva, cx } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
+
+import { cn } from '@/utils/cn';
+import type { PropsWithChildrenAndClass } from '@/types/propsWithClass';
 
 /** Link props. */
 export interface LinkProps {
@@ -28,6 +30,25 @@ interface Props extends LinkProps {
   readonly isUnstyled?: boolean;
 }
 
+const link = cva('', {
+  variants: {
+    color: {
+      'never': '',
+      'on-hover': 'hover:text-primary',
+      'always': 'text-primary',
+    },
+    underline: {
+      'never': '',
+      'on-hover': 'hover:underline',
+      'always': 'underline',
+    },
+  },
+  defaultVariants: {
+    color: 'always',
+    underline: 'on-hover',
+  },
+});
+
 /** Link. */
 const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
   {
@@ -39,28 +60,9 @@ const LinkComponent: FC<PropsWithChildrenAndClass<Props>> = (
     ...props
   },
 ) => {
-  const link = cva([className, ''], {
-    variants: {
-      color: {
-        'never': '',
-        'on-hover': 'hover:text-primary',
-        'always': 'text-primary',
-      },
-      underline: {
-        'never': '',
-        'on-hover': 'hover:underline',
-        'always': 'underline',
-      },
-    },
-    defaultVariants: {
-      color: 'always',
-      underline: 'on-hover',
-    },
-  });
-
   const linkProps = {
     href,
-    className: isUnstyled ? className : cx(link(props)),
+    className: isUnstyled ? className : cn(link(props), className),
   };
 
   if (external) {

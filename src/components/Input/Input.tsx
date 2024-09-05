@@ -1,9 +1,8 @@
 'use client';
 
-import type { ReactNode, InputHTMLAttributes, ForwardedRef, FC, FormEventHandler } from 'react';
+import { cn } from '@/utils/cn';
+import type { ReactNode, InputHTMLAttributes, ForwardedRef, FormEventHandler } from 'react';
 import { useRef, forwardRef, memo } from 'react';
-
-import clsx from 'clsx';
 
 /** Props for the input component. */
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -34,7 +33,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
  * Input.
  * @param ref Forwarded ref.
  */
-const InputComponent: FC<InputProps> = ({
+const InputComponent = ({
   id,
   name,
   value,
@@ -50,7 +49,7 @@ const InputComponent: FC<InputProps> = ({
   className,
   hasAutoWidth,
   ...props
-}, ref: ForwardedRef<HTMLInputElement>) => {
+}: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
   const textMirrorRef = useRef<HTMLSpanElement>(null);
 
   /**
@@ -71,11 +70,11 @@ const InputComponent: FC<InputProps> = ({
   };
 
   return (
-    <div className={clsx(
-      'text-caption-18 relative flex items-center',
+    <div className={cn(
+      'relative flex items-center text-caption-18',
     )}
     >
-      {hasAutoWidth && <span className={clsx('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
+      {hasAutoWidth && <span className={cn('pointer-events-none absolute py-3 opacity-0', inputPaddingClass)} ref={textMirrorRef} />}
       {leftElement && <div className="pointer-events-none absolute left-3 grid place-items-center">{ leftElement }</div>}
       <input
         id={id}
@@ -89,8 +88,8 @@ const InputComponent: FC<InputProps> = ({
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
-        className={clsx(
-          'outline-primary bg-surface-overlay grow rounded-md py-3 outline-2 outline-offset-0',
+        className={cn(
+          'grow rounded-md bg-surface-overlay py-3 outline-2 outline-offset-0 outline-primary',
           inputPaddingClass,
           {
             'outline-red-400': isInvalid,

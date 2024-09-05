@@ -2,6 +2,7 @@
 
 import type { PropsWithChildren, FC } from 'react';
 import { createContext, useContext } from 'react';
+
 import type { ButtonIntent, ButtonSize } from '../Button/Button';
 
 interface ButtonGroupContext {

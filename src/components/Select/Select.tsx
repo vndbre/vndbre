@@ -1,14 +1,13 @@
 'use client';
 
-import clsx from 'clsx';
 import type { ForwardedRef } from 'react';
 import { useId, forwardRef } from 'react';
 import type { ActionMeta, ClassNamesConfig, MultiValue, Props as ReactSelectProps, SelectInstance, SingleValue } from 'react-select';
 import ReactSelect from 'react-select';
 import type { SelectComponents } from 'react-select/dist/declarations/src/components';
-import type { PropsWithClass } from 'src/types/propsWithClass';
-
-import { typedMemo } from 'src/api/utils/typedMemo';
+import type { PropsWithClass } from '@/types/propsWithClass';
+import { typedMemo } from '@/api/utils/typedMemo';
+import { cn } from '@/utils/cn';
 import type { Group, Option } from './Option';
 import { SelectOption } from './SelectOption';
 import { SelectMenu } from './SelectMenu';
@@ -103,42 +102,41 @@ const SelectComponent = <
 }: SelectProps<TOption, IsMulti, IsClearable, TGroup>,
   ref: ForwardedRef<SelectInstance<TOption, IsMulti, TGroup>>,
 ): JSX.Element => {
-  /* eslint-disable jsdoc/require-jsdoc, @typescript-eslint/naming-convention */
   const inputClassNames = 'bg-transparent text-caption-18 focus:outline-none pl-2';
   const classNames: ClassNamesConfig<TOption, IsMulti, TGroup> = {
-    container: () => clsx('bg-surface-2 rounded-md ', className),
-    control: ({ menuIsOpen, isFocused }) => clsx(
-      'outline-focus bg-surface-2 relative flex w-full cursor-pointer items-center gap-1 !rounded-md text-start transition-none', {
+    container: () => cn('rounded-md bg-surface-2 ', className),
+    control: ({ menuIsOpen, isFocused }) => cn(
+      'outline-focus relative flex w-full cursor-pointer items-center gap-1 !rounded-md bg-surface-2 text-start transition-none', {
         '!rounded-b-none': menuIsOpen,
         'h-12 p-2': size === 'md',
         'h-10 px-2 py-1': size === 'sm',
         '!outline': isFocused && !menuIsOpen,
       },
     ),
-    input: ({ hasValue, isMulti }) => clsx(
+    input: ({ hasValue, isMulti }) => cn(
       'cursor-text', inputClassNames, {
         'pl-0': hasValue && isMulti,
       },
     ),
-    singleValue: () => clsx(
+    singleValue: () => cn(
       inputClassNames, 'flex', {
         'gap-1': optionSize === 'md',
         'gap-2': optionSize === 'lg',
       },
     ),
-    placeholder: () => clsx(inputClassNames, 'text-on-surface-dim overflow-hidden text-ellipsis whitespace-nowrap'),
+    placeholder: () => cn(inputClassNames, 'overflow-hidden text-ellipsis whitespace-nowrap text-on-surface-dim'),
     dropdownIndicator: () => 'hidden',
     menuList: () => 'py-2',
-    menu: () => clsx('bg-surface-2 flex flex-col rounded-b-md px-2 shadow-lg', {
+    menu: () => cn('flex flex-col rounded-b-md bg-surface-2 px-2 shadow-lg', {
     }),
-    option: ({ isFocused }) => clsx(
-      'text-caption-18 hover:bg-surface-overlay focus:bg-surface-overlay flex cursor-pointer items-center rounded', {
+    option: ({ isFocused }) => cn(
+      'flex cursor-pointer items-center rounded text-caption-18 hover:bg-surface-overlay focus:bg-surface-overlay', {
         'bg-surface-overlay': isFocused,
         'gap-1 px-2 py-1': optionSize === 'md',
         'gap-2 p-2': optionSize === 'lg',
       },
     ),
-    valueContainer: ({ hasValue, isMulti }) => clsx('gap-2', {
+    valueContainer: ({ hasValue, isMulti }) => cn('gap-2', {
       'flex flex-nowrap': hasValue && isMulti,
     }),
     multiValue: () => 'bg-surface-overlay',
@@ -179,8 +177,8 @@ const SelectComponent = <
 declare module 'react' {
   // eslint-disable-next-line @typescript-eslint/no-shadow, @typescript-eslint/ban-types
   function forwardRef<T, P = {}>(
-    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
-  ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
+    render: (props: P, ref: Ref<T>) => ReactElement | null
+  ): (props: P & RefAttributes<T>) => ReactElement | null;
 }
 
 export const Select = typedMemo(forwardRef(SelectComponent));

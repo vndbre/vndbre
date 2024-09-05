@@ -1,5 +1,5 @@
-import type { VnScreenshotDto } from 'src/api/dtos/vnDto/screenshotDto';
-import type { VnScreenshot } from 'src/api/models/vn/screenshot';
+import type { VnScreenshotDto } from '@/api/dtos/vnDto/screenshotDto';
+import type { VnScreenshot } from '@/api/models/vn/screenshot';
 import { ImageMapper } from '../imageMapper';
 
 export namespace VnScreenshotMapper {

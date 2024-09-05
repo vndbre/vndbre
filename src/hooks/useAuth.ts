@@ -1,7 +1,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { authInfoSchema } from 'src/api/models/authInfo';
+import { authInfoSchema } from '@/api/models/authInfo';
 
 /** Hook that gives access to the authentication info of the current user. */
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

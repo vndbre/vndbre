@@ -3,13 +3,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const colors = require('tailwindcss/colors');
 const { fontFamily } = require('tailwindcss/defaultTheme');
-const lineClamp = require('@tailwindcss/line-clamp');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
-  plugins: [lineClamp],
+  plugins: [],
   theme: {
     extend: {
       fontFamily: {

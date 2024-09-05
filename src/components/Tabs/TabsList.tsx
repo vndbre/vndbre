@@ -1,9 +1,9 @@
 'use client';
 
-import type { MouseEventHandler, FC, ForwardedRef } from 'react';
+import type { MouseEventHandler, ForwardedRef } from 'react';
 import { useState, forwardRef, memo } from 'react';
 import * as RadixTabs from '@radix-ui/react-tabs';
-import clsx from 'clsx';
+import { cn } from '@/utils/cn';
 
 export type TabsListProps = RadixTabs.TabsListProps;
 
@@ -11,11 +11,11 @@ export type TabsListProps = RadixTabs.TabsListProps;
  * Contains tabs.
  * @param ref Forwarded ref.
  */
-const TabsListComponent: FC<TabsListProps> = ({
+const TabsListComponent = ({
   className,
   children,
   ...props
-}, ref: ForwardedRef<HTMLDivElement>) => {
+}: TabsListProps, ref: ForwardedRef<HTMLDivElement>) => {
   const [overlayX, setOverlayX] = useState<null | number>(0);
   const [overlayWidth, setOverlayWidth] = useState(0);
 
@@ -55,15 +55,15 @@ const TabsListComponent: FC<TabsListProps> = ({
     <RadixTabs.List
       ref={ref}
       {...props}
-      className={clsx('group relative flex w-full overflow-x-auto', className)}
+      className={cn('group relative flex w-full overflow-x-auto', className)}
       onPointerOver={handleTabsPointerOver}
       onPointerLeave={handleTabsPointerLeave}
     >
       {children}
-      <div className="border-border absolute bottom-0 left-0 -z-10 w-full border-b" />
+      <div className="absolute bottom-0 left-0 -z-10 w-full border-b border-border" />
       <div
-        className={clsx(
-          'bg-surface-overlay absolute top-0 left-0 -z-10 h-10 rounded-sm opacity-0 group-hover:opacity-100', {
+        className={cn(
+          'absolute left-0 top-0 -z-10 h-10 rounded-sm bg-surface-overlay opacity-0 group-hover:opacity-100', {
             'transition-opacity': hoverCount === 1,
             'transition-all': hoverCount > 1,
           },

@@ -4,8 +4,8 @@ import type { ComponentProps, ElementType, PropsWithChildren } from 'react';
 import { useController } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
-import type { FormControlProps } from 'src/types/formControlProps';
-import { typedMemo } from 'src/api/utils/typedMemo';
+import type { FormControlProps } from '@/types/formControlProps';
+import { typedMemo } from '@/api/utils/typedMemo';
 
 type Props<C extends ElementType, T extends FieldValues> = {
   readonly Component: C;
@@ -29,7 +29,7 @@ const FieldComponent = <T extends ElementType, Values extends FieldValues>({
   return (
     <div className="flex flex-col gap-2">
       <Component {...field} {...componentProps} />
-      {error && <span className="text-caption-18 text-red-500">{error.message}</span>}
+      {error && <span className="text-caption-18 text-on-surface">{error.message}</span>}
     </div>
   );
 };

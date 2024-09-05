@@ -1,4 +1,4 @@
-import type { PlatformIconName } from 'src/components/Icon/Icon';
+import type { PlatformIconName } from '@/components/Icon/Icon';
 
 /** List of available platforms. */
 export const PLATFORMS = [

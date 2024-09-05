@@ -1,9 +1,9 @@
 import type { UseInfiniteQueryOptions, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { Pagination } from 'src/api/models/pagination';
-import type { TraitQueryOptions } from 'src/api/models/queryOptions/trait/traitQueryOptions';
-import type { Trait } from 'src/api/models/trait';
-import { TraitService } from 'src/api/services/traitService';
+import type { Pagination } from '@/api/models/pagination';
+import type { TraitQueryOptions } from '@/api/models/queryOptions/trait/traitQueryOptions';
+import type { Trait } from '@/api/models/trait';
+import { TraitService } from '@/api/services/traitService';
 
 /** Gets base options. */
 export const getBaseTraitsQueryOptions = ({ search = '' }: TraitQueryOptions): UseInfiniteQueryOptions<Pagination<Trait>, Error> => ({

@@ -20,7 +20,6 @@ export const useElementSize = (elementRef: RefObject<HTMLElement>): Size => {
     height: 0,
   });
 
-  // eslint-disable-next-line jsdoc/require-jsdoc
   const handleSize = (): void => {
     setSize({
       width: elementRef.current?.offsetWidth ?? 0,

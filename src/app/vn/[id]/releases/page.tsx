@@ -1,8 +1,8 @@
 import { dehydrate } from '@tanstack/react-query';
-import getQueryClient from 'src/api/getQueryClient';
-import { VnReleases } from 'src/features/vn/components/VnReleases/VnReleases';
-import { releasesQueryOptions } from 'src/features/vn/queries/releases';
-import { HydrateQueryProvider } from 'src/providers/HydrateQuery';
+import getQueryClient from '@/api/getQueryClient';
+import { VnReleases } from '@/features/vn/components/VnReleases/VnReleases';
+import { releasesQueryOptions } from '@/features/vn/queries/releases';
+import { HydrateQueryProvider } from '@/providers/HydrateQuery';
 
 const VnReleasesPage = async() => {
   const queryClient = getQueryClient();

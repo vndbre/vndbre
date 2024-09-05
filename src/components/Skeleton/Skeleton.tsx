@@ -1,6 +1,5 @@
 import type { ComponentProps } from 'react';
-import React from 'react';
-import { typedMemo } from 'src/api/utils/typedMemo';
+import { typedMemo } from '@/api/utils/typedMemo';
 import { SkeletonRect } from './SkeletonRect';
 import { SkeletonText } from './SkeletonText';
 import { SkeletonTextLine } from './SkeletonTextLine';

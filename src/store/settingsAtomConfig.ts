@@ -1,4 +1,4 @@
-import type { Settings } from 'src/api/models/settings/settings';
+import type { Settings } from '@/api/models/settings/settings';
 
 export const SETTINGS_KEY = 'vndbre.display-settings';
 

@@ -1,4 +1,4 @@
-import type { RouteParams } from 'src/types/routeParams';
+import type { RouteParams } from '@/types/routeParams';
 
 interface Params {
 

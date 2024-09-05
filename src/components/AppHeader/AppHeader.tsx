@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { signOut } from 'next-auth/react';
 import NextLink from 'next/link';
 
-import { useAuth } from 'src/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '../Button/Button';
 import { Logo } from '../Logo/Logo';
 import { Avatar } from '../Avatar/Avatar';
@@ -24,12 +24,12 @@ const AppHeaderComponent: FC = () => {
   return (
     <header className="flex h-16 w-full justify-center">
       <div className="flex w-full justify-center px-6">
-        <div className="border-border relative grid w-full max-w-screen-xl grid-cols-3 items-center justify-between gap-2 border-b">
+        <div className="relative grid w-full max-w-screen-xl grid-cols-3 items-center justify-between gap-2 border-b border-border">
           <Logo />
           <Button
             as={NextLink}
             href="/search/vn"
-            className="text-caption-18 max-w-[400px]"
+            className="max-w-[400px] text-caption-18"
             intent="tertiary"
             size="sm"
             leftElement={<Icon size="sm" name="search" />}

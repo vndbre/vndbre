@@ -1,9 +1,9 @@
 import type { UseBaseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
-import { VnOverviewDtoSchema } from 'src/api/dtos/VnOverviewDto';
-import { VnOverviewMapper } from 'src/api/mappers/VnOverviewMapper';
-import type { VnOverview } from 'src/api/models/VnOverview';
-import { VnService } from 'src/api/services/vnService';
+import { VnOverviewDtoSchema } from '@/api/dtos/VnOverviewDto';
+import { VnOverviewMapper } from '@/api/mappers/VnOverviewMapper';
+import type { VnOverview } from '@/api/models/VnOverview';
+import { VnService } from '@/api/services/vnService';
 
 /**
  * Get vn overview.
@@ -28,7 +28,6 @@ export const getVnOverview = async(id: string): Promise<VnOverview> => {
  */
 export const vnOverviewQueryOptions = (id: string): UseBaseQueryOptions<VnOverview, Error> => ({
   queryKey: ['getVnOverview', id],
-  // eslint-disable-next-line jsdoc/require-jsdoc
   queryFn: () => getVnOverview(id),
 });
 

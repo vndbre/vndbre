@@ -1,4 +1,3 @@
-import React from 'react';
 import type { ComponentType } from 'react';
 import type { MultiValueProps } from 'react-select';
 import { Tag } from '../Tag/Tag';
@@ -20,7 +19,7 @@ export const SelectMultiValue: ComponentType<MultiValueProps<Option>> = ({
         {children}
       </Tag>
       {isCountVisible && (
-        <Tag className="bg-surface-overlay shrink-0">
+        <Tag className="shrink-0 bg-surface-overlay">
           +
           {count}
         </Tag>

@@ -1,5 +1,5 @@
-import type { CharacterVnInfoDto } from 'src/api/dtos/characterDto/characterVnInfoDto';
-import type { CharacterVnInfo } from 'src/api/models/character/characterVnInfo';
+import type { CharacterVnInfoDto } from '@/api/dtos/characterDto/characterVnInfoDto';
+import type { CharacterVnInfo } from '@/api/models/character/characterVnInfo';
 import { CharacterRoleMapper } from './characterRoleMapper';
 
 export namespace CharacterVnInfoMapper {

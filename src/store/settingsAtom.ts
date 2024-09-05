@@ -2,7 +2,7 @@
 
 import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
-import type { Settings } from 'src/api/models/settings/settings';
+import type { Settings } from '@/api/models/settings/settings';
 import { SETTINGS_KEY, INITIAL_SETTINGS } from './settingsAtomConfig';
 import { CookieStorage } from './utils/cookieStorage';
 

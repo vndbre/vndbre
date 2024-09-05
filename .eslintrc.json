@@ -2,12 +2,11 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "warnOnUnsupportedTypeScriptVersion": false
   },
   "ignorePatterns": [".next", "node_modules", ".github"],
-  "ignorePatterns": [".next", "node_modules", ".github"],
   "plugins": [
-    "jsdoc",
     "@typescript-eslint",
     "tailwindcss"
   ],
@@ -17,13 +16,15 @@
     "airbnb/hooks",
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "rules": {
     "react/button-has-type": "off",
     "react/jsx-props-no-multi-spaces": "off",
     "tailwindcss/no-custom-classname": ["warn", {
-      "config": "tailwind.config.cjs"
+      "config": "tailwind.config.cjs",
+      "callees": ["cn"]
     }],
     "react/require-default-props": "off",
     "no-duplicate-imports": "off",
@@ -200,62 +201,6 @@
       }
     ],
     "@typescript-eslint/no-redeclare": "off",
-    "jsdoc/require-example": "off",
-    "jsdoc/require-file-overview": "off",
-    "jsdoc/require-hyphen-before-param-description": "off",
-    "jsdoc/require-param-type": "off",
-    "jsdoc/require-returns": "off",
-    "jsdoc/require-property": "error",
-    "jsdoc/require-property-description": "error",
-    "jsdoc/require-returns-check": "off",
-    "jsdoc/require-returns-type": "off",
-    "jsdoc/check-access": "off",
-    "jsdoc/empty-tags": "off",
-    "jsdoc/check-tag-names": "off",
-    "jsdoc/check-alignment": "error",
-    "jsdoc/require-jsdoc": [
-      "error",
-      {
-        "contexts": [
-          "MethodDefinition:not([accessibility='private'])",
-          "ClassDeclaration",
-          "ClassProperty:not([accessibility='private'])",
-          "TSEnumDeclaration",
-          "ExportNamedDeclaration[declaration.type=\"TSInterfaceDeclaration\"]",
-          "TSInterfaceDeclaration :matches(TSCallSignatureDeclaration, TSMethodSignature, TSPropertySignature)"
-        ],
-        "checkConstructors": false,
-        "checkGetters": true,
-        "checkSetters": true,
-        "enableFixer": false,
-        "require": {
-          "ArrowFunctionExpression": false
-        }
-      }
-    ],
-    "jsdoc/newline-after-description": [
-      "error",
-      "never"
-    ],
-    "jsdoc/no-bad-blocks": "error",
-    "jsdoc/require-description-complete-sentence": [
-      "error",
-      {
-        "tags": [
-          "see",
-          "copyright"
-        ]
-      }
-    ],
-    "jsdoc/require-param": [
-      "error",
-      {
-        "checkDestructuredRoots": false
-      }
-    ],
-    "jsdoc/require-param-name": "error",
-    "jsdoc/require-param-description": "error",
-    "jsdoc/no-types": "error",
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
@@ -566,8 +511,7 @@
         "*FormValues.ts"
       ],
       "rules": {
-        "@typescript-eslint/naming-convention": "off",
-        "jsdoc/require-jsdoc": "off"
+        "@typescript-eslint/naming-convention": "off"
       }
     },
     {

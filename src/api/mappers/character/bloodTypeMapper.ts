@@ -1,5 +1,5 @@
-import type { BloodTypeDto } from 'src/api/dtos/characterDto/bloodTypeDto';
-import type { BloodType } from 'src/api/models/character/bloodType';
+import type { BloodTypeDto } from '@/api/dtos/characterDto/bloodTypeDto';
+import type { BloodType } from '@/api/models/character/bloodType';
 
 export namespace BloodTypeMapper {
 

@@ -1,8 +1,8 @@
 import type { UseBaseQueryOptions, UseQueryResult } from '@tanstack/react-query';
 import { useQuery } from '@tanstack/react-query';
-import { VnInfoMapper } from 'src/api/mappers/VnInfoMapper';
-import type { VnInfo } from 'src/api/models/VnInfo';
-import { VnService } from 'src/api/services/vnService';
+import { VnInfoMapper } from '@/api/mappers/VnInfoMapper';
+import type { VnInfo } from '@/api/models/VnInfo';
+import { VnService } from '@/api/services/vnService';
 
 /**
  * Get vn info.
@@ -26,7 +26,6 @@ export const getVnInfo = async(id: string): Promise<VnInfo> => {
  */
 export const vnInfoQueryOptions = (id: string): UseBaseQueryOptions<VnInfo, Error> => ({
   queryKey: ['getVnInfo', id],
-  // eslint-disable-next-line jsdoc/require-jsdoc
   queryFn: () => getVnInfo(id),
 });
 
