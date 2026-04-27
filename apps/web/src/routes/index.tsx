@@ -22,6 +22,7 @@ function HomePage() {
         </p>
       </section>
       <div className="flex flex-wrap gap-3">
+        <Button render={<Link to="/vn" />}>Browse visual novels</Button>
         <Button render={<Link to="/vn/$id" params={{ id: "v17" }} />}>Open sample VN</Button>
         <Button
           variant="outline"

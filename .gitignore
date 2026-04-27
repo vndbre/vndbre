@@ -12,6 +12,7 @@ dist
 # generated
 apps/web/src/routeTree.gen.ts
 *.tsbuildinfo
+.superpowers/
 
 # environment
 .env

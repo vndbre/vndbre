@@ -1,9 +1,17 @@
-export type VndbQueryFilter =
-  | readonly [field: string, operator: string, value: unknown]
-  | readonly ["and" | "or", ...VndbQueryFilter[]];
+export type VndbOperator = "=" | "!=" | ">" | "<" | ">=" | "<=";
+
+export type VndbFilterCondition<Field extends string = string, Value = unknown> = readonly [
+  field: Field,
+  operator: VndbOperator,
+  value: Value,
+];
+
+export type VndbFilterExpression<Condition = VndbFilterCondition> =
+  | Condition
+  | readonly ["and" | "or", ...VndbFilterExpression<Condition>[]];
 
 export type VndbQueryRequest = {
-  filters: VndbQueryFilter | string;
+  filters?: VndbFilterExpression | string;
   fields: string;
   sort?: string;
   reverse?: boolean;
