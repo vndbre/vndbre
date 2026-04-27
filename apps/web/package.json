@@ -1,0 +1,36 @@
+{
+  "name": "@vndbre/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite dev --host 0.0.0.0",
+    "lint": "tsc --noEmit",
+    "start": "vite start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "latest",
+    "@tanstack/react-query-devtools": "latest",
+    "@tanstack/react-router": "latest",
+    "@tanstack/react-router-devtools": "latest",
+    "@tanstack/react-router-ssr-query": "latest",
+    "@tanstack/react-start": "latest",
+    "@vndbre/core": "workspace:*",
+    "react": "latest",
+    "react-dom": "latest",
+    "vinxi": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "@rolldown/plugin-babel": "latest",
+    "@tanstack/router-plugin": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "babel-plugin-react-compiler": "latest",
+    "typescript": "latest"
+  }
+}
