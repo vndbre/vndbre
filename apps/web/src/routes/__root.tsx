@@ -1,22 +1,17 @@
 /// <reference types="vite/client" />
 
-import { QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import {
-  HeadContent,
-  Outlet,
-  Scripts,
-  createRootRouteWithContext,
-} from "@tanstack/react-router"
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools"
-import type { QueryClient } from "@tanstack/react-query"
-import type { ReactNode } from "react"
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { HeadContent, Outlet, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import type { QueryClient } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
-import appCss from "../styles/app.css?url"
+import appCss from "../styles/app.css?url";
 
 type RouterContext = {
-  queryClient: QueryClient
-}
+  queryClient: QueryClient;
+};
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
@@ -37,10 +32,10 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   component: RootComponent,
-})
+});
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext()
+  const { queryClient } = Route.useRouteContext();
 
   return (
     <RootDocument>
@@ -49,7 +44,7 @@ function RootComponent() {
         <ReactQueryDevtools buttonPosition="bottom-left" />
       </QueryClientProvider>
     </RootDocument>
-  )
+  );
 }
 
 function RootDocument({ children }: { children: ReactNode }) {
@@ -64,5 +59,5 @@ function RootDocument({ children }: { children: ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }

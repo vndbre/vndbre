@@ -1,7 +1,7 @@
-import { tanstackStart } from "@tanstack/react-start/plugin/vite"
-import babel from "@rolldown/plugin-babel"
-import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import babel from "@rolldown/plugin-babel";
+import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   server: {
@@ -10,9 +10,5 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  plugins: [
-    tanstackStart(),
-    viteReact(),
-    babel({ presets: [reactCompilerPreset()] }),
-  ],
-})
+  plugins: [tanstackStart(), viteReact(), babel({ presets: [reactCompilerPreset()] })],
+});

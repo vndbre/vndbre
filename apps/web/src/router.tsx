@@ -1,11 +1,11 @@
-import { createDefaultQueryClient } from "@vndbre/core"
-import { createRouter as createTanStackRouter } from "@tanstack/react-router"
-import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query"
+import { createDefaultQueryClient } from "@vndbre/core";
+import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import { setupRouterSsrQueryIntegration } from "@tanstack/react-router-ssr-query";
 
-import { routeTree } from "./routeTree.gen"
+import { routeTree } from "./routeTree.gen";
 
 export function getRouter() {
-  const queryClient = createDefaultQueryClient()
+  const queryClient = createDefaultQueryClient();
 
   const router = createTanStackRouter({
     routeTree,
@@ -13,15 +13,15 @@ export function getRouter() {
       queryClient,
     },
     scrollRestoration: true,
-  })
+  });
 
-  setupRouterSsrQueryIntegration({ router, queryClient })
+  setupRouterSsrQueryIntegration({ router, queryClient });
 
-  return router
+  return router;
 }
 
 declare module "@tanstack/react-router" {
   interface Register {
-    router: ReturnType<typeof getRouter>
+    router: ReturnType<typeof getRouter>;
   }
 }

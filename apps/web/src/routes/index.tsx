@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
-})
+});
 
 function HomePage() {
   return (
@@ -11,8 +11,8 @@ function HomePage() {
         <p className="eyebrow">VNDBRE</p>
         <h1>Fresh workspace initialized.</h1>
         <p className="lede">
-          The web app now starts from TanStack Start, with shared API and hook
-          foundations living in the core package.
+          The web app now starts from TanStack Start, with shared API and hook foundations living in
+          the core package.
         </p>
       </section>
 
@@ -34,5 +34,5 @@ function HomePage() {
         </article>
       </section>
     </main>
-  )
+  );
 }

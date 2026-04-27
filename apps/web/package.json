@@ -8,7 +8,8 @@
     "dev": "vite dev --host 0.0.0.0",
     "lint": "tsc --noEmit",
     "start": "vite start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typecheck:tsgo": "tsgo --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "latest",
