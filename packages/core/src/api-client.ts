@@ -40,7 +40,7 @@ export function createApiClient({ baseUrl, headers, fetcher = fetch }: ApiClient
     });
 
     const text = await response.text();
-    const data = text.length > 0 ? JSON.parse(text) : null;
+    const data = parseResponseBody(text);
 
     if (!response.ok) {
       throw new ApiError(response, data);
@@ -56,4 +56,16 @@ export function createApiClient({ baseUrl, headers, fetcher = fetch }: ApiClient
       request<T>(path, { ...options, method: "POST", body }),
     request,
   };
+}
+
+function parseResponseBody(text: string) {
+  if (text.length === 0) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text) as unknown;
+  } catch {
+    return text;
+  }
 }

@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -6,33 +8,29 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <main className="shell">
-      <section className="intro">
-        <p className="eyebrow">VNDBRE</p>
-        <h1>Fresh workspace initialized.</h1>
-        <p className="lede">
-          The web app now starts from TanStack Start, with shared API and hook foundations living in
-          the core package.
+    <main className="mx-auto flex min-h-svh w-full max-w-5xl flex-col justify-center gap-8 px-6 py-16">
+      <section className="flex max-w-3xl flex-col gap-4">
+        <p className="text-sm font-medium tracking-normal text-muted-foreground uppercase">
+          VNDBRE
+        </p>
+        <h1 className="text-4xl leading-tight font-semibold tracking-normal md:text-6xl">
+          Visual novel discovery with a dense, modern reader.
+        </h1>
+        <p className="max-w-2xl text-lg text-muted-foreground">
+          The first API-backed page is a reusable visual novel detail view powered by TanStack Query
+          and shadcn/Base UI.
         </p>
       </section>
-
-      <section className="workspace-grid" aria-label="Workspace structure">
-        <article>
-          <span>Core</span>
-          <h2>Shared runtime</h2>
-          <p>API client primitives, query setup, domain helpers, and reusable hooks.</p>
-        </article>
-        <article>
-          <span>Web</span>
-          <h2>TanStack Start</h2>
-          <p>Fresh React app with Router, Query, SSR integration, and React Compiler.</p>
-        </article>
-        <article>
-          <span>Mobile</span>
-          <h2>Planned later</h2>
-          <p>The monorepo leaves room for a future mobile workspace.</p>
-        </article>
-      </section>
+      <div className="flex flex-wrap gap-3">
+        <Button render={<Link to="/vn/$id" params={{ id: "v17" }} />}>Open sample VN</Button>
+        <Button
+          variant="outline"
+          render={<a href="https://vndb.org" target="_blank" rel="noreferrer" />}
+          nativeButton={false}
+        >
+          Visit VNDB
+        </Button>
+      </div>
     </main>
   );
 }

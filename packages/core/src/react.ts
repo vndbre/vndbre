@@ -7,3 +7,4 @@ export function useApiClient(options: ApiClientOptions) {
 
   return useMemo(() => createApiClient({ baseUrl, fetcher, headers }), [baseUrl, fetcher, headers]);
 }
+export { useVisualNovel } from "./vndb/hooks";
